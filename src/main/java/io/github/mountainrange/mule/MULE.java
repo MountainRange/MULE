@@ -14,7 +14,7 @@ public class MULE extends Application {
         Parent root = FXMLLoader.load(
 			getClass().getResource("/fxml/layout.fxml"));
         primaryStage.setTitle("Hello World");
-        primaryStage.setScene(new Scene(root, 300, 275));
+        primaryStage.setScene(new Scene(root, 640, 360));
         primaryStage.show();
     }
 
