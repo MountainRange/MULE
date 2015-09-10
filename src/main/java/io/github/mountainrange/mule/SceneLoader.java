@@ -1,5 +1,6 @@
 package io.github.mountainrange.mule;
 
+import io.github.mountainrange.mule.controllers.Config;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
@@ -45,9 +46,20 @@ public class SceneLoader extends AnchorPane {
 			final DoubleProperty opacity = opacityProperty();
 
 			if (!getChildren().isEmpty()) {
-				fade(name, opacity);
+				if (Config.fadeEnabled) {
+					fade(name, opacity);
+				} else {
+					getChildren().remove(0);
+					getChildren().add(0, scenes.get(name));
+					setAnchors(scenes.get(name));
+				}
 			} else {
-				fadeIn(name, opacity);
+				if (Config.fadeEnabled) {
+					fadeIn(name, opacity);
+				} else {
+					getChildren().add(scenes.get(name));
+					setAnchors(scenes.get(name));
+				}
 			}
 			return true;
 		} else {

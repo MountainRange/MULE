@@ -15,7 +15,7 @@ import java.util.ResourceBundle;
  */
 public class PlayerConfigController implements Initializable, SceneAgent {
 
-	SceneLoader sceneLoader;
+	private SceneLoader sceneLoader;
 
 	@Override
 	public void initialize(URL url, ResourceBundle rb) {

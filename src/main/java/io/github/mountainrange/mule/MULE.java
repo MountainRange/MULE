@@ -2,18 +2,9 @@
 package io.github.mountainrange.mule;
 
 import javafx.application.Application;
-import javafx.fxml.FXMLLoader;
-import javafx.geometry.Pos;
-import javafx.scene.Group;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.paint.*;
-import javafx.scene.paint.Color;
 import javafx.stage.Stage;
-
-import javax.swing.border.Border;
-import java.awt.*;
 
 public class MULE extends Application {
 
@@ -33,8 +24,16 @@ public class MULE extends Application {
 	public static final String MENU_BAR_SCENE = "menuBar";
 	public static final String MENU_BAR_SCENE_FXML = "/fxml/menuBar.fxml";
 
+	public static final String ABOUT_SCENE = "about";
+	public static final String ABOUT_SCENE_FXML = "/fxml/about.fxml";
+
+	public static Stage primaryStage;
+
     @Override
-    public void start(Stage primaryStage) throws Exception{
+    public void start(Stage pStage) throws Exception{
+
+		primaryStage = pStage;
+
 		SceneLoader sceneLoader = new SceneLoader();
 		sceneLoader.loadScene(MAIN_SCENE, MAIN_SCENE_FXML);
 		sceneLoader.loadScene(PLAY_SCENE, PLAY_SCENE_FXML);
@@ -54,7 +53,7 @@ public class MULE extends Application {
 
 		Scene mainScene = new Scene(overlay, 640, 360);
 
-        primaryStage.setTitle("Hello World");
+        primaryStage.setTitle("MULE");
         primaryStage.setScene(mainScene);
 		primaryStage.setMinHeight(480);
 		primaryStage.setMinWidth(800);
