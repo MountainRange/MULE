@@ -9,6 +9,7 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
@@ -19,7 +20,7 @@ import java.util.HashMap;
 /**
  * Created by Matthew Keezer on 9/9/2015.
  */
-public class SceneLoader extends StackPane {
+public class SceneLoader extends AnchorPane {
 
 	private HashMap<String, Node> scenes = new HashMap<>();
 
@@ -55,6 +56,7 @@ public class SceneLoader extends StackPane {
 							public void handle(ActionEvent event) {
 								getChildren().remove(0);
 								getChildren().add(0, scenes.get(name));
+								setAnchors(scenes.get(name));
 								Timeline fadeIn = new Timeline(
 									new KeyFrame(Duration.ZERO, new KeyValue(opacity, 0.0)),
 									new KeyFrame(new Duration(200), new KeyValue(opacity, 1.0)));
@@ -65,6 +67,7 @@ public class SceneLoader extends StackPane {
 			} else {
 				setOpacity(0.0);
 				getChildren().add(scenes.get(name));
+				setAnchors(scenes.get(name));
 				Timeline fadeIn = new Timeline(
 					new KeyFrame(Duration.ZERO,
 						new KeyValue(opacity, 0.0)),
@@ -86,5 +89,12 @@ public class SceneLoader extends StackPane {
 		} else {
 			return true;
 		}
+	}
+
+	private void setAnchors(Node node) {
+		setTopAnchor(node, 0.0);
+		setBottomAnchor(node, 0.0);
+		setRightAnchor(node, 0.0);
+		setLeftAnchor(node, 0.0);
 	}
 }

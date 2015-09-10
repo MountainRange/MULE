@@ -33,10 +33,10 @@ public class MULE extends Application {
 
 		Scene mainScene = new Scene(sceneLoader, 640, 360);
 
-//        Parent root = FXMLLoader.load(
-//				getClass().getResource("/fxml/Main.fxml"));
         primaryStage.setTitle("Hello World");
         primaryStage.setScene(mainScene);
+		primaryStage.setMinHeight(480);
+		primaryStage.setMinWidth(800);
         primaryStage.show();
     }
 
