@@ -12,9 +12,9 @@
    <center>
       <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="30.0" BorderPane.alignment="CENTER">
          <children>
-            <ScrollPane hbarPolicy="NEVER" VBox.vgrow="ALWAYS">
+            <ScrollPane fx:id="scrollPane" hvalue="0.5" VBox.vgrow="ALWAYS">
                <content>
-                  <TextFlow fx:id="textFlow" prefWidth="760.0" />
+                  <TextFlow fx:id="textFlow" prefWidth="760.0" textAlignment="CENTER" />
                </content>
             </ScrollPane>
          </children>

@@ -8,11 +8,10 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.text.*;
 import javafx.scene.text.Font;
-import javafx.scene.text.FontWeight;
-import javafx.scene.text.Text;
-import javafx.scene.text.TextFlow;
 import javafx.stage.Stage;
 
 import java.net.URL;
@@ -27,6 +26,9 @@ public class AboutController implements Initializable, SceneAgent {
 
 	@FXML
 	private TextFlow textFlow;
+
+	@FXML
+	private ScrollPane scrollPane;
 
 	@Override
 	public void initialize(URL url, ResourceBundle rb) {
@@ -44,6 +46,7 @@ public class AboutController implements Initializable, SceneAgent {
 				"Players must also deal with periodic random events such as run-away M.U.L.E.s, sunspot activity, theft by space pirates and a meteorite,[6] with potentially destructive and beneficial effects. The game features a balancing system for random events that impact only a single player, such that favorable events never happen to the player currently in first place, while unfavorable events never happen to the player in last place.[7] This same \"leveling of the playfield\" is applied whenever a tie happens in the game (e.g. when two players want to buy a resource at the same price); the player in the losing position automatically wins the tie. The players also can hunt the mountain wampus for a cash reward.");
 		p1.setFont(Font.font("Verdana", 18));
 		textFlow.getChildren().add(p1);
+		textFlow.translateXProperty().bind(scrollPane.widthProperty().subtract(textFlow.widthProperty()).divide(2));
 	}
 
 	public void setSceneParent(SceneLoader sceneLoader){
