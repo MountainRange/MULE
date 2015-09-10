@@ -1,13 +1,14 @@
 package io.github.mountainrange.mule.controllers;
 
+import io.github.mountainrange.mule.Config;
 import io.github.mountainrange.mule.MULE;
-import io.github.mountainrange.mule.SceneAgent;
 import io.github.mountainrange.mule.SceneLoader;
+import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
+import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ComboBox;
 
 import java.net.URL;
@@ -19,6 +20,7 @@ import java.util.ResourceBundle;
 public class OptionsController implements Initializable, SceneAgent {
 
 	private SceneLoader sceneLoader;
+	private MULE mule;
 
 	@FXML
 	private ComboBox<String> comboBox;
@@ -29,16 +31,21 @@ public class OptionsController implements Initializable, SceneAgent {
 		comboBox.setItems(FXCollections.observableArrayList());
 		comboBox.getItems().add("TRUE");
 		comboBox.getItems().add("FALSE");
-		comboBox.getSelectionModel().select(String.valueOf(Config.fadeEnabled).toUpperCase());
 	}
 
-	public void setSceneParent(SceneLoader sceneLoader){
+	public void setSceneParent(SceneLoader sceneLoader, MULE mule){
 		this.sceneLoader = sceneLoader;
+		this.mule = mule;
 	}
 
 	@FXML
 	private void handleBackAction(ActionEvent e) {
-		sceneLoader.setScene(MULE.MAIN_SCENE);
+		sceneLoader.goBack();
+	}
+
+	@FXML
+	private void handleEnterAction(Event e) {
+		comboBox.getSelectionModel().select(String.valueOf(Config.fadeEnabled).toUpperCase());
 	}
 
 	@FXML

@@ -27,23 +27,26 @@ public class MULE extends Application {
 	public static final String ABOUT_SCENE = "about";
 	public static final String ABOUT_SCENE_FXML = "/fxml/about.fxml";
 
-	public static Stage primaryStage;
+	private Stage primaryStage;
+	private SceneLoader sceneLoader;
+	private SceneLoader menuBar;
 
     @Override
     public void start(Stage pStage) throws Exception{
 
 		primaryStage = pStage;
 
-		SceneLoader sceneLoader = new SceneLoader();
+		sceneLoader = new SceneLoader(this);
 		sceneLoader.loadScene(MAIN_SCENE, MAIN_SCENE_FXML);
 		sceneLoader.loadScene(PLAY_SCENE, PLAY_SCENE_FXML);
 		sceneLoader.loadScene(OPTIONS_SCENE, OPTIONS_SCENE_FXML);
 		sceneLoader.loadScene(CREDITS_SCENE, CREDITS_SCENE_FXML);
 		sceneLoader.loadScene(GAME_CONFIG_SCENE, GAME_CONFIG_SCENE_FXML);
 		sceneLoader.loadScene(PLAYER_CONFIG_SCENE, PLAYER_CONFIG_SCENE_FXML);
+		sceneLoader.loadScene(ABOUT_SCENE, ABOUT_SCENE_FXML);
 		sceneLoader.setScene(MAIN_SCENE);
 
-		SceneLoader menuBar = new SceneLoader();
+		menuBar = new SceneLoader(this);
 		menuBar.loadScene(MENU_BAR_SCENE, MENU_BAR_SCENE_FXML);
 		menuBar.setScene(MENU_BAR_SCENE);
 
@@ -59,6 +62,22 @@ public class MULE extends Application {
 		primaryStage.setMinWidth(800);
 		primaryStage.show();
     }
+
+	public void setCenterScene(String name) {
+		sceneLoader.setScene(name);
+	}
+
+	public void setMenuScene(String name) {
+		menuBar.setScene(name);
+	}
+
+	public void setFullscreen(Boolean b) {
+		primaryStage.setFullScreen(b);
+	}
+
+	public void close() {
+		primaryStage.close();
+	}
 
 
     public static void main(String[] args) {

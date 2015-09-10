@@ -1,18 +1,14 @@
 package io.github.mountainrange.mule.controllers;
 
 import io.github.mountainrange.mule.MULE;
-import io.github.mountainrange.mule.SceneAgent;
 import io.github.mountainrange.mule.SceneLoader;
+import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
-import javafx.scene.Scene;
 import javafx.scene.control.ScrollPane;
-import javafx.scene.layout.BorderPane;
 import javafx.scene.text.*;
 import javafx.scene.text.Font;
-import javafx.stage.Stage;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -23,6 +19,7 @@ import java.util.ResourceBundle;
 public class AboutController implements Initializable, SceneAgent {
 
 	private SceneLoader sceneLoader;
+	private MULE mule;
 
 	@FXML
 	private TextFlow textFlow;
@@ -49,8 +46,14 @@ public class AboutController implements Initializable, SceneAgent {
 		textFlow.translateXProperty().bind(scrollPane.widthProperty().subtract(textFlow.widthProperty()).divide(2));
 	}
 
-	public void setSceneParent(SceneLoader sceneLoader){
+	public void setSceneParent(SceneLoader sceneLoader, MULE mule){
 		this.sceneLoader = sceneLoader;
+		this.mule = mule;
+	}
+
+	@FXML
+	private void handleBackAction(ActionEvent e) {
+		sceneLoader.goBack();
 	}
 
 }

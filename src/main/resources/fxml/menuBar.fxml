@@ -13,9 +13,10 @@
             <MenuItem mnemonicParsing="false" onAction="#handleCloseAction" text="Close" />
          </items>
       </Menu>
-      <Menu mnemonicParsing="false" text="Edit">
+      <Menu mnemonicParsing="false" onShown="#handleOptionsAction" text="Options">
          <items>
-            <RadioMenuItem mnemonicParsing="false" onAction="#handleFadeAction" text="Toggle Fade" />
+            <RadioMenuItem fx:id="fadeRadio" mnemonicParsing="false" onAction="#handleFadeAction" text="Toggle Fade" />
+            <MenuItem mnemonicParsing="false" onAction="#handleFullscreenAction" text="Fullscreen Mode" />
          </items>
       </Menu>
       <Menu mnemonicParsing="false" text="Help">

@@ -1,13 +1,12 @@
 package io.github.mountainrange.mule.controllers;
 
 import io.github.mountainrange.mule.MULE;
-import io.github.mountainrange.mule.SceneAgent;
 import io.github.mountainrange.mule.SceneLoader;
+import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 
-import javax.swing.*;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -17,14 +16,16 @@ import java.util.ResourceBundle;
 public class MainController implements Initializable, SceneAgent {
 
 	private SceneLoader sceneLoader;
+	private MULE mule;
 
 	@Override
 	public void initialize(URL url, ResourceBundle rb) {
 		// TODO
 	}
 
-	public void setSceneParent(SceneLoader sceneLoader){
+	public void setSceneParent(SceneLoader sceneLoader, MULE mule){
 		this.sceneLoader = sceneLoader;
+		this.mule = mule;
 	}
 
 	@FXML

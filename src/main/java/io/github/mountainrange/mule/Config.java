@@ -1,4 +1,4 @@
-package io.github.mountainrange.mule.controllers;
+package io.github.mountainrange.mule;
 
 /**
  * Created by white on 9/10/2015.

@@ -1,16 +1,14 @@
 package io.github.mountainrange.mule.controllers;
 
+import io.github.mountainrange.mule.Config;
 import io.github.mountainrange.mule.MULE;
-import io.github.mountainrange.mule.SceneAgent;
 import io.github.mountainrange.mule.SceneLoader;
+import javafx.application.Application;
 import javafx.event.ActionEvent;
+import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.scene.layout.BorderPane;
-import javafx.stage.Stage;
+import javafx.scene.control.RadioMenuItem;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -21,49 +19,44 @@ import java.util.ResourceBundle;
 public class MenuBarController implements Initializable, SceneAgent {
 
 	private SceneLoader sceneLoader;
+	private MULE mule;
+
+	@FXML
+	private RadioMenuItem fadeRadio;
 
 	@Override
 	public void initialize(URL url, ResourceBundle rb) {
 		// TODO
 	}
 
-	public void setSceneParent(SceneLoader sceneLoader){
+	public void setSceneParent(SceneLoader sceneLoader, MULE mule){
 		this.sceneLoader = sceneLoader;
+		this.mule = mule;
 	}
 
 	@FXML
 	private void handleFadeAction(ActionEvent e) {
-		Config.fadeEnabled = !Config.fadeEnabled;
+		Config.fadeEnabled = fadeRadio.isSelected();
+	}
+
+	@FXML
+	private void handleOptionsAction(Event e) {
+		fadeRadio.selectedProperty().setValue(Config.fadeEnabled);
 	}
 
 	@FXML
 	private void handleCloseAction(ActionEvent e) {
-		MULE.primaryStage.close();
+		mule.close();
+	}
+
+	@FXML
+	private void handleFullscreenAction(ActionEvent e) {
+		mule.setFullscreen(true);
 	}
 
 	@FXML
 	private void handleAboutAction(ActionEvent e) {
-
-		SceneLoader sceneLoader = new SceneLoader();
-		sceneLoader.loadScene(MULE.ABOUT_SCENE, MULE.ABOUT_SCENE_FXML);
-		sceneLoader.setScene(MULE.ABOUT_SCENE);
-
-		SceneLoader menuBar = new SceneLoader();
-		menuBar.loadScene(MULE.MENU_BAR_SCENE, MULE.MENU_BAR_SCENE_FXML);
-		menuBar.setScene(MULE.MENU_BAR_SCENE);
-
-		BorderPane overlay = new BorderPane();
-		overlay.setCenter(sceneLoader);
-		overlay.setTop(menuBar);
-
-		Scene mainScene = new Scene(overlay, 640, 360);
-
-		Stage secondaryStage = new Stage();
-		secondaryStage.setTitle("About");
-		secondaryStage.setScene(mainScene);
-		secondaryStage.setMinHeight(480);
-		secondaryStage.setMinWidth(800);
-		secondaryStage.show();
+		mule.setCenterScene(MULE.ABOUT_SCENE);
 	}
 
 }
