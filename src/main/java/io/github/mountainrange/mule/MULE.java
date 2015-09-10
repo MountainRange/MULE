@@ -30,6 +30,9 @@ public class MULE extends Application {
 	public static final String PLAYER_CONFIG_SCENE = "playerConfiguration";
 	public static final String PLAYER_CONFIG_SCENE_FXML = "/fxml/playerConfiguration.fxml";
 
+	public static final String MENU_BAR_SCENE = "menuBar";
+	public static final String MENU_BAR_SCENE_FXML = "/fxml/menuBar.fxml";
+
     @Override
     public void start(Stage primaryStage) throws Exception{
 		SceneLoader sceneLoader = new SceneLoader();
@@ -41,7 +44,15 @@ public class MULE extends Application {
 		sceneLoader.loadScene(PLAYER_CONFIG_SCENE, PLAYER_CONFIG_SCENE_FXML);
 		sceneLoader.setScene(MAIN_SCENE);
 
-		Scene mainScene = new Scene(sceneLoader, 640, 360);
+		SceneLoader menuBar = new SceneLoader();
+		menuBar.loadScene(MENU_BAR_SCENE, MENU_BAR_SCENE_FXML);
+		menuBar.setScene(MENU_BAR_SCENE);
+
+		BorderPane overlay = new BorderPane();
+		overlay.setCenter(sceneLoader);
+		overlay.setTop(menuBar);
+
+		Scene mainScene = new Scene(overlay, 640, 360);
 
         primaryStage.setTitle("Hello World");
         primaryStage.setScene(mainScene);
