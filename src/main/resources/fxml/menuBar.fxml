@@ -6,7 +6,7 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-<MenuBar prefHeight="10.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="io.github.mountainrange.mule.MenuBarController">
+<MenuBar prefHeight="10.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="io.github.mountainrange.mule.controllers.MenuBarController">
    <menus>
       <Menu mnemonicParsing="false" text="File">
          <items>

@@ -1,5 +1,8 @@
-package io.github.mountainrange.mule;
+package io.github.mountainrange.mule.controllers;
 
+import io.github.mountainrange.mule.MULE;
+import io.github.mountainrange.mule.SceneAgent;
+import io.github.mountainrange.mule.SceneLoader;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -10,7 +13,7 @@ import java.util.ResourceBundle;
 /**
  * Created by Matthew Keezer on 9/9/2015.
  */
-public class GameConfigController implements Initializable, SceneAgent {
+public class CreditsController implements Initializable, SceneAgent {
 
 	SceneLoader sceneLoader;
 

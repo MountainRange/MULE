@@ -1,5 +1,7 @@
-package io.github.mountainrange.mule;
+package io.github.mountainrange.mule.controllers;
 
+import io.github.mountainrange.mule.SceneAgent;
+import io.github.mountainrange.mule.SceneLoader;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
