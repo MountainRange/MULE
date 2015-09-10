@@ -29,4 +29,24 @@ public class MainController implements Initializable, SceneAgent {
 		sceneLoader.setScene(MULE.PLAY_SCENE);
 	}
 
+	@FXML
+	private void handleOptionsAction(ActionEvent e) {
+		sceneLoader.setScene(MULE.OPTIONS_SCENE);
+	}
+
+	@FXML
+	private void handleCreditsAction(ActionEvent e) {
+		sceneLoader.setScene(MULE.CREDITS_SCENE);
+	}
+
+	@FXML
+	private void handleGameConfigAction(ActionEvent e) {
+		sceneLoader.setScene(MULE.GAME_CONFIG_SCENE);
+	}
+
+	@FXML
+	private void handlePlayerConfigAction(ActionEvent e) {
+		sceneLoader.setScene(MULE.PLAYER_CONFIG_SCENE);
+	}
+
 }

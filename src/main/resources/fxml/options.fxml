@@ -6,7 +6,7 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="io.github.mountainrange.mule.MainController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="io.github.mountainrange.mule.PlayController">
    <top>
       <MenuBar prefHeight="10.0" prefWidth="600.0" BorderPane.alignment="CENTER">
         <menus>
@@ -31,11 +31,8 @@
    <center>
       <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="30.0" BorderPane.alignment="CENTER">
          <children>
-            <Button mnemonicParsing="false" onAction="#handlePlayAction" prefWidth="200.0" text="Play" />
-            <Button mnemonicParsing="false" onAction="#handleGameConfigAction" prefWidth="200.0" text="Game Configuration" />
-            <Button mnemonicParsing="false" onAction="#handlePlayerConfigAction" prefWidth="200.0" text="Player Configuration" />
-            <Button mnemonicParsing="false" onAction="#handleOptionsAction" prefWidth="200.0" text="Options" />
-            <Button mnemonicParsing="false" onAction="#handleCreditsAction" prefWidth="200.0" text="Credits" />
+            <Button mnemonicParsing="false" prefWidth="200.0" text="Modify Spine Reticulator" />
+            <Button mnemonicParsing="false" onAction="#handleBackAction" prefWidth="200.0" text="Back" />
          </children>
       </VBox>
    </center>
