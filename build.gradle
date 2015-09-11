@@ -1,17 +1,12 @@
-
 apply plugin: 'java';
 apply plugin: 'eclipse';
-apply plugin:'application';
+apply plugin: 'application';
 
 sourceCompatibility = 1.8;
 mainClassName = "io.github.mountainrange.mule.MULE";
 
 repositories {
 	mavenCentral();
-
-   // flatDir {
-   // 		dirs 'lib'
-   // }
 }
 
 // dependencies {
@@ -20,10 +15,10 @@ repositories {
 
 jar {
 	// Add a reasonable manifest
-	manifest {					//
+	manifest {
 		attributes 'Main-Class': 'io.github.mountainrange.mule.MULE';
 	}
 
-	// Add dependency jar!
+	// Include any required libraries in the resulting jar
 	from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
 }
