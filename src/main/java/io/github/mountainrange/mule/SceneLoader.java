@@ -1,6 +1,7 @@
 package io.github.mountainrange.mule;
 
 import io.github.mountainrange.mule.controllers.SceneAgent;
+
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
@@ -9,9 +10,9 @@ import javafx.beans.property.DoubleProperty;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.Node;
 import javafx.scene.Parent;
-import javafx.scene.layout.AnchorPane;
 import javafx.util.Duration;
 
 import java.util.HashMap;
@@ -52,7 +53,6 @@ public class SceneLoader extends AnchorPane {
 	}
 
 	public boolean setScene(final String name) {
-
 		if (scenes.get(name) != null) {
 			final DoubleProperty opacity = opacityProperty();
 
@@ -81,7 +81,7 @@ public class SceneLoader extends AnchorPane {
 	}
 
 	public boolean unloadScene(String name) {
-		if(scenes.remove(name) == null) {
+		if (scenes.remove(name) == null) {
 			System.out.println("Scene doesn't exist");
 			return false;
 		} else {

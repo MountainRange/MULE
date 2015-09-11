@@ -1,9 +1,8 @@
-
 package io.github.mountainrange.mule;
 
 import javafx.application.Application;
-import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 public class MULE extends Application {
@@ -33,7 +32,6 @@ public class MULE extends Application {
 
     @Override
     public void start(Stage pStage) throws Exception{
-
 		primaryStage = pStage;
 
 		sceneLoader = new SceneLoader(this);
