@@ -1,16 +1,58 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.text.*?>
 <?import javafx.scene.effect.*?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="io.github.mountainrange.mule.controllers.PlayerConfigController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseEntered="#handleEnterAction" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="io.github.mountainrange.mule.controllers.PlayerConfigController">
    <center>
       <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="30.0" BorderPane.alignment="CENTER">
          <children>
-            <Button mnemonicParsing="false" prefWidth="200.0" text="Remove Kabob" />
+            <VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="50.0" prefWidth="250.0">
+               <children>
+                  <Label text="Enter Name">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="nameField" alignment="CENTER" maxWidth="-Infinity" onKeyReleased="#handleNameAction" prefWidth="300.0" promptText="Player 1">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </TextField>
+               </children>
+            </VBox>
+            <VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="50.0" prefWidth="300.0">
+               <children>
+                  <Label text="Number of Players">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Label>
+                  <Slider fx:id="numSlider" blockIncrement="1.0" majorTickUnit="1.0" max="4.0" min="1.0" minorTickCount="0" onMouseReleased="#handleNumAction" showTickLabels="true" showTickMarks="true" snapToTicks="true" />
+               </children>
+            </VBox>
+            <GridPane maxWidth="-Infinity" prefWidth="250.0">
+              <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+              </columnConstraints>
+              <rowConstraints>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+              </rowConstraints>
+               <children>
+                  <Label text="Player Race">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Label>
+                  <ComboBox fx:id="comboBox" onAction="#handleRaceAction" prefWidth="150.0" GridPane.columnIndex="1" />
+               </children>
+            </GridPane>
+            <Button mnemonicParsing="false" onAction="#handleStartAction" prefWidth="200.0" text="Start Game" />
             <Button mnemonicParsing="false" onAction="#handleBackAction" prefWidth="200.0" text="Back" />
          </children>
       </VBox>

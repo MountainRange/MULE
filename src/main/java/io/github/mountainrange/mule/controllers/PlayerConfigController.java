@@ -1,11 +1,18 @@
 package io.github.mountainrange.mule.controllers;
 
+import io.github.mountainrange.mule.Config;
 import io.github.mountainrange.mule.MULE;
 import io.github.mountainrange.mule.SceneLoader;
 import javafx.application.Application;
+import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
+import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.Slider;
+import javafx.scene.control.TextField;
+import javafx.util.StringConverter;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -18,9 +25,24 @@ public class PlayerConfigController implements Initializable, SceneAgent {
 	private SceneLoader sceneLoader;
 	private MULE mule;
 
+	@FXML
+	private Slider numSlider;
+
+	@FXML
+	private ComboBox<String> comboBox;
+
+	@FXML
+	private TextField nameField;
+
 	@Override
 	public void initialize(URL url, ResourceBundle rb) {
-		// TODO
+		assert comboBox != null : "fx:id=\"myChoices\" was not injected: check your FXML file 'foo.fxml'.";
+		comboBox.setItems(FXCollections.observableArrayList());
+		comboBox.getItems().add("HUMAN");
+		comboBox.getItems().add("FLAPPER");
+		comboBox.getItems().add("BONZOID");
+		comboBox.getItems().add("UGAITE");
+		comboBox.getItems().add("BUZZITE");
 	}
 
 	public void setSceneParent(SceneLoader sceneLoader, MULE mule){
@@ -31,6 +53,33 @@ public class PlayerConfigController implements Initializable, SceneAgent {
 	@FXML
 	private void handleBackAction(ActionEvent e) {
 		sceneLoader.goBack();
+	}
+
+	@FXML
+	private void handleEnterAction(Event e) {
+		numSlider.setValue(Config.numOfPlayers);
+		comboBox.getSelectionModel().select(Config.race.ordinal());
+		nameField.setText(Config.playerName);
+	}
+
+	@FXML
+	private void handleNameAction(Event e) {
+		Config.playerName = nameField.getText();
+	}
+
+	@FXML
+	private void handleNumAction(Event e) {
+		Config.numOfPlayers = (int)numSlider.getValue();
+	}
+
+	@FXML
+	private void handleRaceAction(ActionEvent e) {
+		Config.race = Config.Race.values()[comboBox.getSelectionModel().getSelectedIndex()];
+	}
+
+	@FXML
+	private void handleStartAction(ActionEvent e) {
+		sceneLoader.setScene(MULE.PLAY_SCENE);
 	}
 
 }

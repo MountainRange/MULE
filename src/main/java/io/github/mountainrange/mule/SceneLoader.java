@@ -26,6 +26,7 @@ public class SceneLoader extends AnchorPane {
 	private MULE mule;
 	private HashMap<String, Node> scenes = new HashMap<>();
 	private Stack<String> sceneHistory;
+	private boolean settingScene = false;
 
 	public SceneLoader(MULE mule) {
 		this.mule = mule;
@@ -51,29 +52,38 @@ public class SceneLoader extends AnchorPane {
 	}
 
 	public boolean setScene(final String name) {
-		if (scenes.get(name) != null) {
-			final DoubleProperty opacity = opacityProperty();
+		if (!settingScene) {
+			settingScene = true;
+			if (scenes.get(name) != null) {
+				final DoubleProperty opacity = opacityProperty();
 
-			if (!getChildren().isEmpty()) {
-				if (Config.fadeEnabled) {
-					fade(name, opacity);
+				if (!getChildren().isEmpty()) {
+					if (Config.fadeEnabled) {
+						fade(name, opacity);
+					} else {
+						getChildren().remove(0);
+						getChildren().add(0, scenes.get(name));
+						setAnchors(scenes.get(name));
+						settingScene = false;
+					}
 				} else {
-					getChildren().remove(0);
-					getChildren().add(0, scenes.get(name));
-					setAnchors(scenes.get(name));
+					if (Config.fadeEnabled) {
+						fadeIn(name, opacity);
+					} else {
+						getChildren().add(scenes.get(name));
+						setAnchors(scenes.get(name));
+						settingScene = false;
+					}
 				}
+				sceneHistory.push(name);
+				return true;
 			} else {
-				if (Config.fadeEnabled) {
-					fadeIn(name, opacity);
-				} else {
-					getChildren().add(scenes.get(name));
-					setAnchors(scenes.get(name));
-				}
+				System.out.println("Scene hasn't been loaded!\n");
+				settingScene = false;
+				return false;
 			}
-			sceneHistory.push(name);
-			return true;
 		} else {
-			System.out.println("Scene hasn't been loaded!\n");
+			System.out.println("Cannot load scene while already loading another!\n");
 			return false;
 		}
 	}
@@ -108,6 +118,7 @@ public class SceneLoader extends AnchorPane {
 										new KeyFrame(Duration.ZERO, new KeyValue(opacity, 0.0)),
 										new KeyFrame(new Duration(200), new KeyValue(opacity, 1.0)));
 								fadeIn.play();
+								settingScene = false;
 							}
 						}, new KeyValue(opacity, 0.0)));
 		fade.play();
@@ -123,10 +134,13 @@ public class SceneLoader extends AnchorPane {
 				new KeyFrame(new Duration(200),
 						new KeyValue(opacity, 1.0)));
 		fadeIn.play();
+		settingScene = false;
 	}
 
 	public void goBack() {
-		sceneHistory.pop();
-		setScene(sceneHistory.pop());
+		if (!settingScene) {
+			sceneHistory.pop();
+			setScene(sceneHistory.pop());
+		}
 	}
 }
