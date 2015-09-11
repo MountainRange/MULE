@@ -11,8 +11,6 @@
       <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="30.0" BorderPane.alignment="CENTER">
          <children>
             <Button mnemonicParsing="false" onAction="#handlePlayAction" prefWidth="200.0" text="Play" />
-            <Button mnemonicParsing="false" onAction="#handleGameConfigAction" prefWidth="200.0" text="Game Configuration" />
-            <Button mnemonicParsing="false" onAction="#handlePlayerConfigAction" prefWidth="200.0" text="Player Configuration" />
             <Button mnemonicParsing="false" onAction="#handleOptionsAction" prefWidth="200.0" text="Options" />
             <Button mnemonicParsing="false" onAction="#handleCreditsAction" prefWidth="200.0" text="Credits" />
          </children>
