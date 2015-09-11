@@ -1,7 +1,7 @@
 package io.github.mountainrange.mule;
 
 /**
- * Created by white on 9/10/2015.
+ * Created by Matthew Keezer on 9/10/2015.
  */
 public class Config {
 

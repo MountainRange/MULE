@@ -25,7 +25,7 @@
                         <Font size="18.0" />
                      </font>
                   </Label>
-                  <ComboBox fx:id="comboBox" onAction="#handleFadeAction" prefWidth="150.0" GridPane.columnIndex="1" />
+                  <ComboBox fx:id="fadeCombo" onAction="#handleFadeAction" prefWidth="150.0" GridPane.columnIndex="1" />
                </children>
             </GridPane>
             <Button mnemonicParsing="false" onAction="#handleBackAction" prefWidth="200.0" text="Back" />

@@ -29,14 +29,16 @@ public class SceneLoader extends AnchorPane {
 	private boolean settingScene = false;
 
 	public SceneLoader(MULE mule) {
-		this.mule = mule;
+		this.mule = mule; // application reference for frame, other sceneloaders, etc.
 		sceneHistory = new Stack<String>();
 	}
 
+	// adds scene to hashmap
 	private void addScene(String name, Node scene) {
 		scenes.put(name, scene);
 	}
 
+	// Loads the scene once so it never has to reload
 	public boolean loadScene(String name, String resource) {
 		try {
 			FXMLLoader loader = new FXMLLoader(getClass().getResource(resource));
@@ -51,6 +53,7 @@ public class SceneLoader extends AnchorPane {
 		}
 	}
 
+	// swaps the current scene to another loaded scene
 	public boolean setScene(final String name) {
 		if (!settingScene) {
 			settingScene = true;
@@ -97,6 +100,7 @@ public class SceneLoader extends AnchorPane {
 		}
 	}
 
+	// fills the anchorpane
 	private void setAnchors(Node node) {
 		setTopAnchor(node, 0.0);
 		setBottomAnchor(node, 0.0);
@@ -104,6 +108,7 @@ public class SceneLoader extends AnchorPane {
 		setLeftAnchor(node, 0.0);
 	}
 
+	// fade animation
 	private void fade(String name, DoubleProperty opacity) {
 		Timeline fade = new Timeline(
 				new KeyFrame(Duration.ZERO, new KeyValue(opacity, 1.0)),
@@ -124,6 +129,7 @@ public class SceneLoader extends AnchorPane {
 		fade.play();
 	}
 
+	// fade for first menu (Only fires if fade is enabled before the program starts, currently never)
 	private void fadeIn(String name, DoubleProperty opacity) {
 		setOpacity(0.0);
 		getChildren().add(scenes.get(name));
@@ -137,6 +143,7 @@ public class SceneLoader extends AnchorPane {
 		settingScene = false;
 	}
 
+	// Go to previous scene
 	public void goBack() {
 		if (!settingScene) {
 			sceneHistory.pop();

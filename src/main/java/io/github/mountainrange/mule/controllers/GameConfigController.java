@@ -31,7 +31,7 @@ public class GameConfigController implements Initializable, SceneAgent {
 	private Slider mapSlider;
 
 	@FXML
-	private ComboBox<String> comboBox;
+	private ComboBox<String> mapTypeCombo;
 
 	@Override
 	public void initialize(URL url, ResourceBundle rb) {
@@ -86,11 +86,11 @@ public class GameConfigController implements Initializable, SceneAgent {
 				}
 			}
 		});
-		assert comboBox != null : "fx:id=\"myChoices\" was not injected: check your FXML file 'foo.fxml'.";
-		comboBox.setItems(FXCollections.observableArrayList());
-		comboBox.getItems().add("CLASSIC");
-		comboBox.getItems().add("RANDOM");
-		comboBox.getItems().add("EXPERIMENTAL");
+		assert mapTypeCombo != null : "fx:id=\"myChoices\" was not injected: check your FXML file 'foo.fxml'.";
+		mapTypeCombo.setItems(FXCollections.observableArrayList());
+		mapTypeCombo.getItems().add("CLASSIC");
+		mapTypeCombo.getItems().add("RANDOM");
+		mapTypeCombo.getItems().add("EXPERIMENTAL");
 	}
 
 	public void setSceneParent(SceneLoader sceneLoader, MULE mule){
@@ -107,7 +107,7 @@ public class GameConfigController implements Initializable, SceneAgent {
 	private void handleEnterAction(Event e) {
 		diffSlider.setValue(Config.difficulty.ordinal());
 		mapSlider.setValue(Config.mapSize.ordinal());
-		comboBox.getSelectionModel().select(Config.mapType.ordinal());
+		mapTypeCombo.getSelectionModel().select(Config.mapType.ordinal());
 	}
 
 	@FXML
@@ -122,7 +122,7 @@ public class GameConfigController implements Initializable, SceneAgent {
 
 	@FXML
 	private void handleMapTypeAction(ActionEvent e) {
-		Config.mapType = Config.MapType.values()[comboBox.getSelectionModel().getSelectedIndex()];
+		Config.mapType = Config.MapType.values()[mapTypeCombo.getSelectionModel().getSelectedIndex()];
 	}
 
 	@FXML

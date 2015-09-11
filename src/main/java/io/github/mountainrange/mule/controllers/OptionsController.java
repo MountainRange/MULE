@@ -23,14 +23,14 @@ public class OptionsController implements Initializable, SceneAgent {
 	private MULE mule;
 
 	@FXML
-	private ComboBox<String> comboBox;
+	private ComboBox<String> fadeCombo;
 
 	@Override
 	public void initialize(URL url, ResourceBundle rb) {
-		assert comboBox != null : "fx:id=\"myChoices\" was not injected: check your FXML file 'foo.fxml'.";
-		comboBox.setItems(FXCollections.observableArrayList());
-		comboBox.getItems().add("TRUE");
-		comboBox.getItems().add("FALSE");
+		assert fadeCombo != null : "fx:id=\"myChoices\" was not injected: check your FXML file 'foo.fxml'.";
+		fadeCombo.setItems(FXCollections.observableArrayList());
+		fadeCombo.getItems().add("TRUE");
+		fadeCombo.getItems().add("FALSE");
 	}
 
 	public void setSceneParent(SceneLoader sceneLoader, MULE mule){
@@ -45,12 +45,12 @@ public class OptionsController implements Initializable, SceneAgent {
 
 	@FXML
 	private void handleEnterAction(Event e) {
-		comboBox.getSelectionModel().select(String.valueOf(Config.fadeEnabled).toUpperCase());
+		fadeCombo.getSelectionModel().select(String.valueOf(Config.fadeEnabled).toUpperCase());
 	}
 
 	@FXML
 	private void handleFadeAction(ActionEvent e) {
-		Config.fadeEnabled = Boolean.parseBoolean(comboBox.getSelectionModel().getSelectedItem().toLowerCase());
+		Config.fadeEnabled = Boolean.parseBoolean(fadeCombo.getSelectionModel().getSelectedItem().toLowerCase());
 	}
 
 }

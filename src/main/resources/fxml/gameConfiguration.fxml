@@ -40,7 +40,7 @@
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                  <ComboBox fx:id="comboBox" onAction="#handleMapTypeAction" prefWidth="150.0" GridPane.columnIndex="1" />
+                  <ComboBox fx:id="mapTypeCombo" onAction="#handleMapTypeAction" prefWidth="150.0" GridPane.columnIndex="1" />
                   <Label text="Map Type">
                      <font>
                         <Font size="18.0" />

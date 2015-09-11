@@ -49,7 +49,7 @@
                         <Font size="18.0" />
                      </font>
                   </Label>
-                  <ComboBox fx:id="comboBox" onAction="#handleRaceAction" prefWidth="150.0" GridPane.columnIndex="1" />
+                  <ComboBox fx:id="raceCombo" onAction="#handleRaceAction" prefWidth="150.0" GridPane.columnIndex="1" />
                </children>
             </GridPane>
             <Button mnemonicParsing="false" onAction="#handleStartAction" prefWidth="200.0" text="Start Game" />

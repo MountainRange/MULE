@@ -29,20 +29,20 @@ public class PlayerConfigController implements Initializable, SceneAgent {
 	private Slider numSlider;
 
 	@FXML
-	private ComboBox<String> comboBox;
+	private ComboBox<String> raceCombo;
 
 	@FXML
 	private TextField nameField;
 
 	@Override
 	public void initialize(URL url, ResourceBundle rb) {
-		assert comboBox != null : "fx:id=\"myChoices\" was not injected: check your FXML file 'foo.fxml'.";
-		comboBox.setItems(FXCollections.observableArrayList());
-		comboBox.getItems().add("HUMAN");
-		comboBox.getItems().add("FLAPPER");
-		comboBox.getItems().add("BONZOID");
-		comboBox.getItems().add("UGAITE");
-		comboBox.getItems().add("BUZZITE");
+		assert raceCombo != null : "fx:id=\"myChoices\" was not injected: check your FXML file 'foo.fxml'.";
+		raceCombo.setItems(FXCollections.observableArrayList());
+		raceCombo.getItems().add("HUMAN");
+		raceCombo.getItems().add("FLAPPER");
+		raceCombo.getItems().add("BONZOID");
+		raceCombo.getItems().add("UGAITE");
+		raceCombo.getItems().add("BUZZITE");
 	}
 
 	public void setSceneParent(SceneLoader sceneLoader, MULE mule){
@@ -58,7 +58,7 @@ public class PlayerConfigController implements Initializable, SceneAgent {
 	@FXML
 	private void handleEnterAction(Event e) {
 		numSlider.setValue(Config.numOfPlayers);
-		comboBox.getSelectionModel().select(Config.race.ordinal());
+		raceCombo.getSelectionModel().select(Config.race.ordinal());
 		nameField.setText(Config.playerName);
 	}
 
@@ -74,7 +74,7 @@ public class PlayerConfigController implements Initializable, SceneAgent {
 
 	@FXML
 	private void handleRaceAction(ActionEvent e) {
-		Config.race = Config.Race.values()[comboBox.getSelectionModel().getSelectedIndex()];
+		Config.race = Config.Race.values()[raceCombo.getSelectionModel().getSelectedIndex()];
 	}
 
 	@FXML

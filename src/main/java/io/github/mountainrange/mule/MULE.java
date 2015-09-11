@@ -20,11 +20,11 @@ public class MULE extends Application {
 	public static final String PLAYER_CONFIG_SCENE = "playerConfiguration";
 	public static final String PLAYER_CONFIG_SCENE_FXML = "/fxml/playerConfiguration.fxml";
 
-	public static final String MENU_BAR_SCENE = "menuBar";
-	public static final String MENU_BAR_SCENE_FXML = "/fxml/menuBar.fxml";
-
 	public static final String ABOUT_SCENE = "about";
 	public static final String ABOUT_SCENE_FXML = "/fxml/about.fxml";
+
+	public static final String MENU_BAR_SCENE = "menuBar";
+	public static final String MENU_BAR_SCENE_FXML = "/fxml/menuBar.fxml";
 
 	private Stage primaryStage;
 	private SceneLoader sceneLoader;
