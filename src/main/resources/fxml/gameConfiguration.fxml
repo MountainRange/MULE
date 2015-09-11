@@ -21,6 +21,16 @@
                   <Slider fx:id="diffSlider" blockIncrement="1.0" majorTickUnit="1.0" max="3.0" maxWidth="-Infinity" minorTickCount="0" prefWidth="300.0" showTickLabels="true" showTickMarks="true" snapToTicks="true" />
                </children>
             </VBox>
+            <VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="50.0" prefWidth="350.0">
+               <children>
+                  <Label text="Map Size">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Label>
+                  <Slider fx:id="mapSlider" blockIncrement="1.0" majorTickUnit="1.0" max="2.0" maxWidth="-Infinity" minorTickCount="0" prefWidth="300.0" showTickLabels="true" showTickMarks="true" snapToTicks="true" />
+               </children>
+            </VBox>
             <Button mnemonicParsing="false" prefWidth="200.0" text="Poland Can Into Space" />
             <Button mnemonicParsing="false" onAction="#handleBackAction" prefWidth="200.0" text="Back" />
          </children>

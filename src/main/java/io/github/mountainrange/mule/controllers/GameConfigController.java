@@ -23,6 +23,9 @@ public class GameConfigController implements Initializable, SceneAgent {
 	@FXML
 	private Slider diffSlider;
 
+	@FXML
+	private Slider mapSlider;
+
 	@Override
 	public void initialize(URL url, ResourceBundle rb) {
 		diffSlider.setLabelFormatter(new StringConverter<Double>() {
@@ -43,6 +46,32 @@ public class GameConfigController implements Initializable, SceneAgent {
 					case "Mesa":
 						return 1.0;
 					case "Plateau":
+						return 2.0;
+					case "Mountain":
+						return 3.0;
+
+					default:
+						return 4.0;
+				}
+			}
+		});
+		mapSlider.setLabelFormatter(new StringConverter<Double>() {
+			@Override
+			public String toString(Double n) {
+				if (n == 0) return "Pyrenees";
+				if (n == 1) return "Alps";
+
+				return "Himalayas";
+			}
+
+			@Override
+			public Double fromString(String s) {
+				switch (s) {
+					case "Pyrenees":
+						return 0.0;
+					case "Alps":
+						return 1.0;
+					case "Himalayas":
 						return 2.0;
 
 					default:

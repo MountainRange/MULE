@@ -26,8 +26,6 @@ public class SceneLoader extends AnchorPane {
 	private MULE mule;
 	private HashMap<String, Node> scenes = new HashMap<>();
 	private Stack<String> sceneHistory;
-	private String currentScene;
-	private String previousScene;
 
 	public SceneLoader(MULE mule) {
 		this.mule = mule;
