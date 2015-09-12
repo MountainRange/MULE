@@ -42,4 +42,9 @@ public class PlayController implements Initializable, SceneAgent {
 		sceneLoader.goBack();
 	}
 
+	@FXML
+	private void handleStoreAction(ActionEvent e) {
+		sceneLoader.setScene(MULE.STORE_SCENE);
+	}
+
 }
