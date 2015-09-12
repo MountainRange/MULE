@@ -9,6 +9,8 @@ public class MULE extends Application {
 
 	public static final String MAIN_SCENE = "main";
 	public static final String MAIN_SCENE_FXML = "/fxml/main.fxml";
+	public static final String STORE_SCENE = "storeMenu";
+	public static final String STORE_SCENE_FXML = "/fxml/storeMenu.fxml";
 	public static final String PLAY_SCENE = "play";
 	public static final String PLAY_SCENE_FXML = "/fxml/play.fxml";
 	public static final String OPTIONS_SCENE = "options";
@@ -36,6 +38,7 @@ public class MULE extends Application {
 
 		sceneLoader = new SceneLoader(this);
 		sceneLoader.loadScene(MAIN_SCENE, MAIN_SCENE_FXML);
+		sceneLoader.loadScene(STORE_SCENE, STORE_SCENE_FXML);
 		sceneLoader.loadScene(PLAY_SCENE, PLAY_SCENE_FXML);
 		sceneLoader.loadScene(OPTIONS_SCENE, OPTIONS_SCENE_FXML);
 		sceneLoader.loadScene(CREDITS_SCENE, CREDITS_SCENE_FXML);
