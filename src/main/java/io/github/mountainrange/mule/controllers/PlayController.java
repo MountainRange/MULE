@@ -2,10 +2,13 @@ package io.github.mountainrange.mule.controllers;
 
 import io.github.mountainrange.mule.MULE;
 import io.github.mountainrange.mule.SceneLoader;
+import io.github.mountainrange.mule.Tile;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.layout.Pane;
+import javafx.scene.shape.Rectangle;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -18,9 +21,15 @@ public class PlayController implements Initializable, SceneAgent {
 	private SceneLoader sceneLoader;
 	private MULE mule;
 
+	@FXML
+	private Pane mapPane;
+
 	@Override
 	public void initialize(URL url, ResourceBundle rb) {
-		// TODO
+		Rectangle test1 = Tile.PLAIN.getRect();
+		test1.widthProperty().bind(mapPane.widthProperty().divide(2));
+		test1.heightProperty().bind(mapPane.heightProperty().divide(2));
+		mapPane.getChildren().addAll(test1);
 	}
 
 	public void setSceneParent(SceneLoader sceneLoader, MULE mule){

@@ -8,11 +8,13 @@
 
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="io.github.mountainrange.mule.controllers.PlayController">
    <center>
-      <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="30.0" BorderPane.alignment="CENTER">
-         <children>
-            <Button mnemonicParsing="false" prefWidth="200.0" text="rm -rf /" />
-            <Button mnemonicParsing="false" onAction="#handleBackAction" prefWidth="200.0" text="Back" />
-         </children>
-      </VBox>
+      <Pane fx:id="mapPane" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
    </center>
+   <bottom>
+      <ToolBar prefHeight="40.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+        <items>
+          <Button mnemonicParsing="false" onAction="#handleBackAction" text="Go Back" />
+        </items>
+      </ToolBar>
+   </bottom>
 </BorderPane>

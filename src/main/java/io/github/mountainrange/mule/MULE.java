@@ -7,6 +7,9 @@ import javafx.stage.Stage;
 
 public class MULE extends Application {
 
+	public static final double HSIZE = 800;
+	public static final double VSIZE = 480;
+
 	public static final String MAIN_SCENE = "main";
 	public static final String MAIN_SCENE_FXML = "/fxml/main.fxml";
 	public static final String STORE_SCENE = "storeMenu";
