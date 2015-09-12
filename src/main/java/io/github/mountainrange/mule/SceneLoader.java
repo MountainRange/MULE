@@ -5,10 +5,8 @@ import io.github.mountainrange.mule.controllers.SceneAgent;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
-import javafx.application.Application;
 import javafx.beans.property.DoubleProperty;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.Node;
@@ -19,7 +17,7 @@ import java.util.HashMap;
 import java.util.Stack;
 
 /**
- * Created by Matthew Keezer on 9/9/2015.
+ * This class handles setting the displayed scene a given FXML layout.
  */
 public class SceneLoader extends AnchorPane {
 
@@ -30,7 +28,7 @@ public class SceneLoader extends AnchorPane {
 
 	public SceneLoader(MULE mule) {
 		this.mule = mule; // application reference for frame, other sceneloaders, etc.
-		sceneHistory = new Stack<String>();
+		sceneHistory = new Stack<>();
 	}
 
 	// adds scene to hashmap
@@ -42,8 +40,8 @@ public class SceneLoader extends AnchorPane {
 	public boolean loadScene(String name, String resource) {
 		try {
 			FXMLLoader loader = new FXMLLoader(getClass().getResource(resource));
-			Parent loadScreen = (Parent) loader.load();
-			SceneAgent sceneControl = ((SceneAgent) loader.getController());
+			Parent loadScreen = loader.load();
+			SceneAgent sceneControl = loader.getController();
 			sceneControl.setSceneParent(this, mule);
 			addScene(name, loadScreen);
 			return true;
@@ -112,20 +110,16 @@ public class SceneLoader extends AnchorPane {
 	private void fade(String name, DoubleProperty opacity) {
 		Timeline fade = new Timeline(
 				new KeyFrame(Duration.ZERO, new KeyValue(opacity, 1.0)),
-				new KeyFrame(new Duration(200),
-						new EventHandler<ActionEvent>() {
-							@Override
-							public void handle(ActionEvent event) {
-								getChildren().remove(0);
-								getChildren().add(0, scenes.get(name));
-								setAnchors(scenes.get(name));
-								Timeline fadeIn = new Timeline(
-										new KeyFrame(Duration.ZERO, new KeyValue(opacity, 0.0)),
-										new KeyFrame(new Duration(200), new KeyValue(opacity, 1.0)));
-								fadeIn.play();
-								settingScene = false;
-							}
-						}, new KeyValue(opacity, 0.0)));
+				new KeyFrame(new Duration(200), (ActionEvent e) -> {
+					getChildren().remove(0);
+					getChildren().add(0, scenes.get(name));
+					setAnchors(scenes.get(name));
+					Timeline fadeIn = new Timeline(
+							new KeyFrame(Duration.ZERO, new KeyValue(opacity, 0.0)),
+							new KeyFrame(new Duration(200), new KeyValue(opacity, 1.0)));
+					fadeIn.play();
+					settingScene = false;
+				}, new KeyValue(opacity, 0.0)));
 		fade.play();
 	}
 
