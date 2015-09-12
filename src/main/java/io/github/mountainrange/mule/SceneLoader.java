@@ -48,7 +48,7 @@ public class SceneLoader extends AnchorPane {
 			addScene(name, loadScreen);
 			return true;
 		} catch(Exception e) {
-			System.out.println(e.getMessage());
+			System.err.println(e.getMessage());
 			return false;
 		}
 	}
@@ -81,19 +81,19 @@ public class SceneLoader extends AnchorPane {
 				sceneHistory.push(name);
 				return true;
 			} else {
-				System.out.println("Scene hasn't been loaded!\n");
+				System.err.println("Scene hasn't been loaded!\n");
 				settingScene = false;
 				return false;
 			}
 		} else {
-			System.out.println("Cannot load scene while already loading another!\n");
+			System.err.println("Cannot load scene while already loading another!\n");
 			return false;
 		}
 	}
 
 	public boolean unloadScene(String name) {
 		if (scenes.remove(name) == null) {
-			System.out.println("Scene doesn't exist");
+			System.err.println("Scene doesn't exist");
 			return false;
 		} else {
 			return true;
