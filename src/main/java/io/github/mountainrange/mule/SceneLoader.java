@@ -53,40 +53,41 @@ public class SceneLoader extends AnchorPane {
 
 	// swaps the current scene to another loaded scene
 	public boolean setScene(final String name) {
-		if (!settingScene) {
-			settingScene = true;
-			if (scenes.get(name) != null) {
-				final DoubleProperty opacity = opacityProperty();
-
-				if (!getChildren().isEmpty()) {
-					if (Config.fadeEnabled) {
-						fade(name, opacity);
-					} else {
-						getChildren().remove(0);
-						getChildren().add(0, scenes.get(name));
-						setAnchors(scenes.get(name));
-						settingScene = false;
-					}
-				} else {
-					if (Config.fadeEnabled) {
-						fadeIn(name, opacity);
-					} else {
-						getChildren().add(scenes.get(name));
-						setAnchors(scenes.get(name));
-						settingScene = false;
-					}
-				}
-				sceneHistory.push(name);
-				return true;
-			} else {
-				System.err.println("Scene hasn't been loaded!\n");
-				settingScene = false;
-				return false;
-			}
-		} else {
+		if (settingScene) {
 			System.err.println("Cannot load scene while already loading another!\n");
 			return false;
 		}
+
+		Node sceneNode = scenes.get(name);
+		if (scenes.get(name) == null) {
+			System.err.println("Scene hasn't been loaded!\n");
+			return false;
+		}
+
+		settingScene = true;
+		final DoubleProperty opacity = opacityProperty();
+
+		if (!getChildren().isEmpty()) {
+			if (Config.fadeEnabled) {
+				fade(name, opacity);
+			} else {
+				getChildren().remove(0);
+				getChildren().add(0, sceneNode);
+				setAnchors(sceneNode);
+				settingScene = false;
+			}
+		} else {
+			if (Config.fadeEnabled) {
+				fadeIn(name, opacity);
+			} else {
+				getChildren().add(sceneNode);
+				setAnchors(sceneNode);
+				settingScene = false;
+			}
+		}
+
+		sceneHistory.push(name);
+		return true;
 	}
 
 	public boolean unloadScene(String name) {
