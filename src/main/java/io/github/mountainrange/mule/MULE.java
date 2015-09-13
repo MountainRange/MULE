@@ -62,8 +62,8 @@ public class MULE extends Application {
 
         primaryStage.setTitle("MULE");
         primaryStage.setScene(mainScene);
-		primaryStage.setMinHeight(480);
-		primaryStage.setMinWidth(800);
+		primaryStage.setMinHeight(600);
+		primaryStage.setMinWidth(600);
 		primaryStage.show();
     }
 

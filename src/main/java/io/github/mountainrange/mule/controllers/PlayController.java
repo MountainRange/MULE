@@ -24,13 +24,14 @@ public class PlayController implements Initializable, SceneAgent {
 
 	private SceneLoader sceneLoader;
 	private MULE mule;
+	private Grid g;
 
 	@FXML
 	private Pane mapPane;
 
 	@Override
 	public void initialize(URL url, ResourceBundle rb) {
-		Grid g = new Grid(10, 10, mapPane);
+		g = new Grid(10, 10, mapPane);
 		g.add(new Rectangle(0, 0, 1, 1), 2, 3);
 
 		Circle c = new Circle(0, 0, 0.5);
@@ -42,6 +43,8 @@ public class PlayController implements Initializable, SceneAgent {
 		image.setFitWidth(1);
 		image.setFitHeight(1);
 	    g.add(image, 4, 4);
+
+		g.select(7, 3);
 	}
 
 	public void setSceneParent(SceneLoader sceneLoader, MULE mule){
