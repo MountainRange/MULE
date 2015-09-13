@@ -20,7 +20,6 @@ import java.util.HashSet;
 public class Grid {
 	public int rows, cols;
 	public Pane upperPane;
-	public HashSet<Rectangle> dividers;
 
 	public static final double THICKNESS=5;
 	public static final Color COLOR=Color.BLACK;
@@ -39,14 +38,13 @@ public class Grid {
 	}
 
 	private void generateGrid() {
-		dividers = new HashSet<Rectangle>();
-
 		for (int i = 1; i < this.cols; i++) {
 			Rectangle toAdd = new Rectangle();
 			toAdd.setFill(this.COLOR);
 			toAdd.setWidth(this.THICKNESS);
-			toAdd.xProperty().bind(upperPane.widthProperty().divide(cols).multiply(i));
-			toAdd.heightProperty().bind(upperPane.heightProperty());
+			toAdd.setHeight(1);
+			toAdd.layoutXProperty().bind(upperPane.widthProperty().divide(cols).multiply(i));
+			toAdd.scaleYProperty().bind(upperPane.heightProperty().multiply(2));
 			upperPane.getChildren().add(toAdd);
 		}
 
@@ -54,8 +52,9 @@ public class Grid {
 			Rectangle toAdd = new Rectangle();
 			toAdd.setFill(this.COLOR);
 			toAdd.setHeight(this.THICKNESS);
-			toAdd.yProperty().bind(upperPane.heightProperty().divide(rows).multiply(i));
-			toAdd.widthProperty().bind(upperPane.widthProperty());
+			toAdd.setWidth(1);
+			toAdd.layoutYProperty().bind(upperPane.heightProperty().divide(rows).multiply(i));
+			toAdd.scaleXProperty().bind(upperPane.widthProperty().multiply(2));
 			upperPane.getChildren().add(toAdd);
 		}
 
