@@ -32,7 +32,7 @@ public class PlayController implements Initializable, SceneAgent {
 	@Override
 	public void initialize(URL url, ResourceBundle rb) {
 		g = new Grid(10, 10, mapPane);
-		g.add(new Rectangle(0, 0, 1, 1), 2, 3);
+		g.add(new Rectangle(0, 0, 1, 1), 1, 1);
 
 		Circle c = new Circle(0, 0, 0.5);
 		c.setFill(Color.GREEN);
@@ -45,6 +45,7 @@ public class PlayController implements Initializable, SceneAgent {
 	    g.add(image, 4, 4);
 
 		g.select(7, 3);
+
 	}
 
 	public void setSceneParent(SceneLoader sceneLoader, MULE mule){
@@ -54,6 +55,7 @@ public class PlayController implements Initializable, SceneAgent {
 
 	@FXML
 	private void handleBackAction(ActionEvent e) {
+		// g.animate(1, 1, 2, 2);
 		sceneLoader.goBack();
 	}
 

@@ -6,6 +6,14 @@ import javafx.scene.layout.Pane;
 import javafx.scene.Node;
 import javafx.beans.property.DoubleProperty;
 import javafx.scene.paint.Color;
+import javafx.animation.PathTransition;
+import javafx.animation.Interpolator;
+import javafx.scene.shape.Path;
+import javafx.scene.shape.MoveTo;
+import javafx.scene.shape.ArcTo;
+import javafx.scene.shape.LineTo;
+import javafx.util.Duration;
+import javafx.animation.Timeline;
 
 import java.lang.IllegalArgumentException;
 import java.util.HashSet;
@@ -24,7 +32,7 @@ public class Grid {
 	private Node[][] tiles;
 	private Rectangle selection;
 
-	public static final double THICKNESS=0;
+	public static final double THICKNESS=1;
 	public static final Color COLOR=Color.BLACK;
 	public static final Rectangle SELECTION_TEMPLATE;
 
@@ -85,7 +93,7 @@ public class Grid {
 	}
 
 	public Node get(int column, int row) {
-		if (column < 0 || row < 0 || column >= tiles.length || column >= tiles[0].length) {
+		if (column < 0 || row < 0 || column >= tiles.length || row >= tiles[0].length) {
 			throw new IllegalArgumentException("Invalid row or column!");
 		}
 		return tiles[column][row];
@@ -97,7 +105,7 @@ public class Grid {
 	 * Will overwrite any exising element in the grid.
 	 */
 	public void add(Node toAdd, int column, int row) {
-		if (column < 0 || row < 0 || column >= tiles.length || column >= tiles[0].length) {
+		if (column < 0 || row < 0 || column >= tiles.length || row >= tiles[0].length) {
 			throw new IllegalArgumentException("Invalid row or column!");
 		}
 
@@ -142,7 +150,7 @@ public class Grid {
 	 * Will overwrite previous calls to select.
 	 */
 	public void select(int column, int row) {
-		if (column < 0 || row < 0 || column >= tiles.length || column >= tiles[0].length) {
+		if (column < 0 || row < 0 || column >= tiles.length || row >= tiles[0].length) {
 			throw new IllegalArgumentException("Invalid row or column!");
 		}
 
@@ -151,12 +159,54 @@ public class Grid {
 		}
 
 		selection = this.SELECTION_TEMPLATE;
-		selection.xProperty().bind(upperPane.widthProperty().divide(cols).divide(2.0).multiply(1 + column * 2.0));
-		selection.yProperty().bind(upperPane.heightProperty().divide(rows).divide(2.0).multiply(1 + row * 2.0));
+		selection.xProperty().bind(upperPane.widthProperty().divide(cols).multiply(column));
+		selection.yProperty().bind(upperPane.heightProperty().divide(rows).multiply(row));
 
 		selection.widthProperty().bind(upperPane.widthProperty().divide(this.cols));
 		selection.heightProperty().bind(upperPane.heightProperty().divide(this.rows));
 
 		upperPane.getChildren().add(selection);
+	}
+
+	public void animate(int columnFrom, int rowFrom, int columnTo, int rowTo) {
+		if (columnFrom < 0 || rowFrom < 0 || columnFrom >= tiles.length || rowFrom >= tiles[0].length) {
+			throw new IllegalArgumentException("Invalid row or column!");
+		}
+
+		if (columnTo < 0 || rowTo < 0 || columnTo >= tiles.length || rowTo >= tiles[0].length) {
+			throw new IllegalArgumentException("Invalid row or column!");
+		}
+
+		// Create the animation object to move the item to the destination and keeep it there.
+		Node toAnimate = tiles[columnFrom][rowFrom];
+
+		toAnimate.layoutXProperty().unbind();
+		toAnimate.layoutYProperty().unbind();
+
+		Path path = new Path();
+
+		MoveTo start = new MoveTo(100, 100);
+		LineTo end = new LineTo(1, 1);
+		start.xProperty().bind(upperPane.widthProperty().divide(cols).divide(2.0).multiply(1 + columnFrom * 2.0));
+		start.yProperty().bind(upperPane.heightProperty().divide(rows).divide(2.0).multiply(1 + rowFrom * 2.0));
+		end.xProperty().bind(upperPane.widthProperty().divide(cols).divide(2.0).multiply(1 + columnTo * 2.0));
+		end.yProperty().bind(upperPane.heightProperty().divide(rows).divide(2.0).multiply(1 + rowTo * 2.0));
+
+		path.getElements().add(start);
+		path.getElements().add(end);
+		path.setStroke(Color.BLACK);
+		path.setStrokeWidth(2);
+
+
+		upperPane.getChildren().add(path);
+
+		PathTransition animation = new PathTransition();
+		animation.setDuration(Duration.seconds(1.0));
+		animation.setPath(path);
+		animation.setNode(toAnimate);
+        animation.setAutoReverse(false);
+		// animation.setCycleCount(Timeline.INDEFINITE);
+        animation.setInterpolator(Interpolator.LINEAR);
+		animation.play();
 	}
 }
