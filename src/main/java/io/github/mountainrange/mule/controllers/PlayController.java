@@ -10,6 +10,9 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.layout.Pane;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.shape.Circle;
+import javafx.scene.paint.Color;
+import javafx.scene.image.ImageView;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -28,6 +31,17 @@ public class PlayController implements Initializable, SceneAgent {
 	@Override
 	public void initialize(URL url, ResourceBundle rb) {
 		Grid g = new Grid(10, 10, mapPane);
+		g.add(new Rectangle(0, 0, 1, 1), 2, 3);
+
+		Circle c = new Circle(0, 0, 0.5);
+		c.setFill(Color.GREEN);
+		g.add(c, 3, 5);
+		// g.remove(2, 5);
+
+		ImageView image = new ImageView("pictures/ViPaint.png");
+		image.setFitWidth(1);
+		image.setFitHeight(1);
+	    g.add(image, 4, 4);
 	}
 
 	public void setSceneParent(SceneLoader sceneLoader, MULE mule){

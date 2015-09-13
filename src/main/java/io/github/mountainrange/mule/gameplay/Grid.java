@@ -3,6 +3,7 @@ package io.github.mountainrange.mule.gameplay;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.layout.Pane;
+import javafx.scene.Node;
 import javafx.beans.property.DoubleProperty;
 import javafx.scene.paint.Color;
 
@@ -20,8 +21,9 @@ import java.util.HashSet;
 public class Grid {
 	public int rows, cols;
 	public Pane upperPane;
+	public Node[][] tiles;
 
-	public static final double THICKNESS=5;
+	public static final double THICKNESS=2;
 	public static final Color COLOR=Color.BLACK;
 
 	public Grid(int cols, int rows, Pane upperPane) {
@@ -34,7 +36,10 @@ public class Grid {
 			throw new IllegalArgumentException("Grid can only be constructed with more than 2 rows and columns");
 		}
 
+		this.tiles = new Node[cols][rows];
+
 		generateGrid();
+
 	}
 
 	private void generateGrid() {
@@ -60,4 +65,49 @@ public class Grid {
 
 	}
 
+	public int getRows() {
+		return rows;
+	}
+
+	public int getCols() {
+		return cols;
+	}
+
+	public Node get(int column, int row) {
+		if (column < 0 || row < 0 || column >= tiles.length || column >= tiles[0].length) {
+			throw new IllegalArgumentException("Invalid row or column!");
+		}
+		return tiles[column][row];
+	}
+
+	/**
+	 * Adds a node to this grid.
+	 *
+	 * Will overwrite any exising element in the grid.
+	 */
+	public void add(Node toAdd, int column, int row) {
+		if (column < 0 || row < 0 || column >= tiles.length || column >= tiles[0].length) {
+			throw new IllegalArgumentException("Invalid row or column!");
+		}
+
+		tiles[column][row] = toAdd;
+		toAdd.layoutXProperty().bind(upperPane.widthProperty().divide(cols).divide(2.0).multiply(1 + column * 2.0));
+		toAdd.layoutYProperty().bind(upperPane.heightProperty().divide(rows).divide(2.0).multiply(1 + row * 2.0));
+
+		toAdd.scaleXProperty().bind(upperPane.widthProperty().divide(this.cols));
+		toAdd.scaleYProperty().bind(upperPane.heightProperty().divide(this.rows));
+
+		upperPane.getChildren().add(toAdd);
+	}
+
+	public Node remove(int column, int row) {
+		Node toReturn = tiles[column][row];
+
+		if (toReturn != null) {
+			upperPane.getChildren().remove(toReturn);
+		}
+
+		tiles[column][row] = null;
+		return toReturn;
+	}
 }
