@@ -48,7 +48,8 @@ public class Grid {
 			toAdd.setFill(this.COLOR);
 			toAdd.setWidth(this.THICKNESS);
 			toAdd.setHeight(1);
-			toAdd.layoutXProperty().bind(upperPane.widthProperty().divide(cols).multiply(i));
+			toAdd.layoutXProperty().bind(upperPane.widthProperty().divide(cols)
+										 .multiply(i).subtract(this.THICKNESS / 2.0));
 			toAdd.scaleYProperty().bind(upperPane.heightProperty().multiply(2));
 			upperPane.getChildren().add(toAdd);
 		}
@@ -58,7 +59,8 @@ public class Grid {
 			toAdd.setFill(this.COLOR);
 			toAdd.setHeight(this.THICKNESS);
 			toAdd.setWidth(1);
-			toAdd.layoutYProperty().bind(upperPane.heightProperty().divide(rows).multiply(i));
+			toAdd.layoutYProperty().bind(upperPane.heightProperty().divide(rows)
+										 .multiply(i).subtract(this.THICKNESS / 2.0));
 			toAdd.scaleXProperty().bind(upperPane.widthProperty().multiply(2));
 			upperPane.getChildren().add(toAdd);
 		}
