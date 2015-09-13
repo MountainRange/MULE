@@ -3,6 +3,7 @@ package io.github.mountainrange.mule.controllers;
 import io.github.mountainrange.mule.MULE;
 import io.github.mountainrange.mule.SceneLoader;
 import io.github.mountainrange.mule.Tile;
+import io.github.mountainrange.mule.gameplay.Grid;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -26,10 +27,7 @@ public class PlayController implements Initializable, SceneAgent {
 
 	@Override
 	public void initialize(URL url, ResourceBundle rb) {
-		Rectangle test1 = Tile.PLAIN.getRect();
-		test1.widthProperty().bind(mapPane.widthProperty().divide(2));
-		test1.heightProperty().bind(mapPane.heightProperty().divide(2));
-		mapPane.getChildren().addAll(test1);
+		Grid g = new Grid(10, 10, mapPane);
 	}
 
 	public void setSceneParent(SceneLoader sceneLoader, MULE mule){
