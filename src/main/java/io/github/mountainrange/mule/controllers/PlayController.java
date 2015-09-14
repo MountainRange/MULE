@@ -43,8 +43,8 @@ public class PlayController implements Initializable, SceneAgent {
 	}
 
 	@FXML
-	private void handleTownAction(ActionEvent e) {
-		sceneLoader.setScene(MULE.TOWN_SCENE);
+	private void handleStoreAction(ActionEvent e) {
+		sceneLoader.setScene(MULE.STORE_SCENE);
 	}
 
 }
