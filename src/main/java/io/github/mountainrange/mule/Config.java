@@ -15,7 +15,7 @@ public class Config {
 		CLASSIC, RANDOM, EXPERIMENTAL
 	}
 	public static enum Race {
-		FOLD, FAULT_BLOCK, DOME, PLATEAU
+		FOLD, FAULT_BLOCK, DOME, VOLCANIC, PLATEAU
 	}
 
 	public static Difficulty difficulty = Difficulty.MESA;
@@ -23,7 +23,7 @@ public class Config {
 	public static MapType mapType = MapType.CLASSIC;
 	public static String playerName = "Player 1";
 	public static int numOfPlayers = 2;
-	public static Race race = Race.BONZOID;
+	public static Race race = Race.FOLD;
 
 	public static boolean fadeEnabled = false;
 
