@@ -182,10 +182,13 @@ public class Grid {
 
 		toAnimate.layoutXProperty().unbind();
 		toAnimate.layoutYProperty().unbind();
+		toAnimate.layoutXProperty().bind(upperPane.widthProperty().multiply(0)); // effectively zero out the bind
+		toAnimate.layoutYProperty().bind(upperPane.widthProperty().multiply(0)); // effectively zero out the bind
+
 
 		Path path = new Path();
 
-		MoveTo start = new MoveTo(100, 100);
+		MoveTo start = new MoveTo(1, 1);
 		LineTo end = new LineTo(1, 1);
 		start.xProperty().bind(upperPane.widthProperty().divide(cols).divide(2.0).multiply(1 + columnFrom * 2.0));
 		start.yProperty().bind(upperPane.heightProperty().divide(rows).divide(2.0).multiply(1 + rowFrom * 2.0));
@@ -198,14 +201,13 @@ public class Grid {
 		path.setStrokeWidth(2);
 
 
-		upperPane.getChildren().add(path);
+		// upperPane.getChildren().add(path); // For debug purposes
 
 		PathTransition animation = new PathTransition();
 		animation.setDuration(Duration.seconds(1.0));
 		animation.setPath(path);
 		animation.setNode(toAnimate);
         animation.setAutoReverse(false);
-		// animation.setCycleCount(Timeline.INDEFINITE);
         animation.setInterpolator(Interpolator.LINEAR);
 		animation.play();
 	}

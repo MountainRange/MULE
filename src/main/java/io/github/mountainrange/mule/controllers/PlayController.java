@@ -55,7 +55,6 @@ public class PlayController implements Initializable, SceneAgent {
 
 	@FXML
 	private void handleBackAction(ActionEvent e) {
-		// g.animate(1, 1, 2, 2);
 		sceneLoader.goBack();
 	}
 
