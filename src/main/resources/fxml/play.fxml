@@ -14,7 +14,7 @@
       <ToolBar prefHeight="40.0" prefWidth="200.0" BorderPane.alignment="CENTER">
         <items>
           <Button mnemonicParsing="false" onAction="#handleBackAction" text="Go Back" />
-            <Button mnemonicParsing="false" onAction="#handleStoreAction" text="Store" />
+            <Button layoutX="84.0" layoutY="11.0" mnemonicParsing="false" onAction="#handleEnterTown" text="Town" />
         </items>
       </ToolBar>
    </bottom>
