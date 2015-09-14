@@ -15,7 +15,7 @@ public class Config {
 		CLASSIC, RANDOM, EXPERIMENTAL
 	}
 	public static enum Race {
-		FOLD, FAULT_BLOCK, DOME, PLATEAU
+		HUMAN, FLAPPER, BONZOID, UGAITE, BUZZAITE
 	}
 
 	public static Difficulty difficulty = Difficulty.MESA;
