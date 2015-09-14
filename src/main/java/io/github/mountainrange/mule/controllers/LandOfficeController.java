@@ -10,9 +10,9 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 /**
- * Created by Josh Ting on 9/12/2015.
+ * Created by Josh Ting on 9/14/2015.
  */
-public class StoreController implements Initializable, SceneAgent {
+public class LandOfficeController implements Initializable, SceneAgent {
 
 	private SceneLoader sceneLoader;
 	private MULE mule;
@@ -28,17 +28,17 @@ public class StoreController implements Initializable, SceneAgent {
 	}
 
 	@FXML
-	private void handleBuyMuleAction(ActionEvent e) {
-		sceneLoader.setScene(MULE.GAME_CONFIG_SCENE);
-	}
-
-	@FXML
-	private void handleLoiterAction(ActionEvent e) {
-		sceneLoader.setScene(MULE.STORE_SCENE);
-	}
-
-	@FXML
-	private void handleLeaveAction(ActionEvent e) {
+	private void handleBackAction(ActionEvent e) {
 		sceneLoader.setScene(MULE.TOWN_SCENE);
 	}
+//
+//	@FXML
+//	private void handleOptionsAction(ActionEvent e) {
+//		sceneLoader.setScene(MULE.OPTIONS_SCENE);
+//	}
+//
+//	@FXML
+//	private void handleCreditsAction(ActionEvent e) {
+//		sceneLoader.setScene(MULE.CREDITS_SCENE);
+//	}
 }

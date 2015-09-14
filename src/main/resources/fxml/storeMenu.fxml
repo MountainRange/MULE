@@ -10,9 +10,9 @@
    <center>
       <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="30.0" BorderPane.alignment="CENTER">
          <children>
-            <Button mnemonicParsing="false" onAction="#handlePlayAction" prefWidth="200.0" text="Buy Mule" />
-            <Button mnemonicParsing="false" onAction="#handleOptionsAction" prefWidth="200.0" text="Loiter" />
-            <Button mnemonicParsing="false" onAction="#handleCreditsAction" prefWidth="200.0" text="Leave" />
+            <Button mnemonicParsing="false" onAction="#handleBuyMuleAction" prefWidth="200.0" text="Buy Mule" />
+            <Button mnemonicParsing="false" onAction="#handleLoiterAction" prefWidth="200.0" text="Loiter" />
+            <Button mnemonicParsing="false" onAction="#handleLeaveAction" prefWidth="200.0" text="Leave" />
          </children>
       </VBox>
    </center>
