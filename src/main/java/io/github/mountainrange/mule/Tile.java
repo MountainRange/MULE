@@ -1,35 +1,28 @@
 package io.github.mountainrange.mule;
 
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
-import org.w3c.dom.css.Rect;
+import java.util.Objects;
 
 /**
- * Created by white on 9/12/2015.
+ * Self-contained class for information about a given tile.
  */
-public enum Tile {
-	RIVER(Color.BLUE),
-	PLAIN(Color.GREEN),
-	MOUNTAIN1(Color.ROSYBROWN),
-	MOUNTAIN2(Color.SILVER),
-	MOUNTAIN3(Color.BLANCHEDALMOND);
+public class Tile {
 
-	private final int tileSize = 40;
+	private TerrainType terrain;
+	private MuleType mule;
+	private Player owner;
 
-	private final Rectangle rect;
-
-	Tile(Color c) {
-		double vSize = MULE.VSIZE;
-		double hSize = MULE.HSIZE;
-
-		rect = new Rectangle(tileSize, tileSize);
-		rect.setFill(c);
-
-		rect.setX(0);
-		rect.setX(1);
+	/**
+	 * Construct a tile with the given terrain with no mule installed and no owner.
+	 * @param terrain type of terrain on the tile
+	 */
+	public Tile(TerrainType terrain) {
+		this(Objects.requireNonNull(terrain), MuleType.EMPTY, null);
 	}
 
-	public Rectangle getRect() {
-		return rect;
+	public Tile(TerrainType terrain, MuleType mule, Player owner) {
+		this.terrain = terrain;
+		this.mule = mule;
+		this.owner = owner;
 	}
+
 }
