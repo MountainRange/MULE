@@ -3,6 +3,8 @@ package io.github.mountainrange.mule;
 import java.util.EnumMap;
 import java.util.Objects;
 
+import io.github.mountainrange.mule.enums.Race;
+import io.github.mountainrange.mule.enums.ResourceType;
 import javafx.scene.paint.Color;
 
 /**
@@ -11,11 +13,11 @@ import javafx.scene.paint.Color;
 public class Player {
 
 	public static final String[] DEFAULT_NAME = {"Player 1", "Player 2", "Player 3", "Player 4"};
-	public static final Config.Race[] DEFAULT_RACE = { Config.Race.BONZOID, Config.Race.FLAPPER,
-			Config.Race.HUMAN, Config.Race.BUZZAITE };
+	public static final Race[] DEFAULT_RACE = { Race.FOLD, Race.FAULT_BLOCK,
+			Race.DOME, Race.VOLCANIC, Race.PLATEAU };
 	public static final Color[] DEFAULT_COLOR = { Color.RED, Color.BLUE, Color.GREEN, Color.ORANGE };
 
-	private Config.Race race;
+	private Race race;
 	private Color color = Color.BLACK;
 
 	private final int id;
@@ -25,7 +27,7 @@ public class Player {
 
 	private EnumMap<ResourceType, Integer> stocks;
 
-	public Player(String name, int id, Config.Race race, Color color) {
+	public Player(String name, int id, Race race, Color color) {
 		this.name = Objects.requireNonNull(name);
 		this.id = id;
 		this.race = race;
@@ -52,11 +54,11 @@ public class Player {
 		this.money = money;
 	}
 
-	public Config.Race getRace() {
+	public Race getRace() {
 		return race;
 	}
 
-	public void setRace(Config.Race race) {
+	public void setRace(Race race) {
 		this.race = race;
 	}
 

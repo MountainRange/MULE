@@ -1,5 +1,8 @@
 package io.github.mountainrange.mule;
 
+import io.github.mountainrange.mule.enums.Difficulty;
+import io.github.mountainrange.mule.enums.ResourceType;
+
 import java.util.EnumMap;
 
 /**
@@ -7,13 +10,13 @@ import java.util.EnumMap;
  */
 public class Shop {
 
-	private static final EnumMap<DifficultyType, EnumMap<ResourceType, Integer>> initialStocks;
-	private static final EnumMap<DifficultyType, EnumMap<ResourceType, Integer>> initialPrices;
+	private static final EnumMap<Difficulty, EnumMap<ResourceType, Integer>> initialStocks;
+	private static final EnumMap<Difficulty, EnumMap<ResourceType, Integer>> initialPrices;
 
 	private EnumMap<ResourceType, Integer> stocks;
 	private EnumMap<ResourceType, Integer> prices;
 
-	public Shop(DifficultyType difficulty) {
+	public Shop(Difficulty difficulty) {
 		// Initialize stocks and prices to their starting values
 		stocks = new EnumMap<>(initialStocks.get(difficulty));
 		prices = new EnumMap<>(initialPrices.get(difficulty));
@@ -39,7 +42,7 @@ public class Shop {
 
 	static {
 		// Hard-coded initial shop prices and stocks at the beginning of the game
-		initialStocks = new EnumMap<>(DifficultyType.class);
+		initialStocks = new EnumMap<>(Difficulty.class);
 
 		EnumMap<ResourceType, Integer> beginnerStocks = new EnumMap<>(ResourceType.class);
 		beginnerStocks.put(ResourceType.FOOD, 16);
@@ -55,12 +58,12 @@ public class Shop {
 		otherStocks.put(ResourceType.CRYSTITE, 0);
 		otherStocks.put(ResourceType.MULE, 14);
 
-		initialStocks.put(DifficultyType.HILL, beginnerStocks);
-		initialStocks.put(DifficultyType.MESA, otherStocks);
-		initialStocks.put(DifficultyType.PLATEAU, otherStocks);
-		initialStocks.put(DifficultyType.MOUNTAIN, otherStocks);
+		initialStocks.put(Difficulty.HILL, beginnerStocks);
+		initialStocks.put(Difficulty.MESA, otherStocks);
+		initialStocks.put(Difficulty.PLATEAU, otherStocks);
+		initialStocks.put(Difficulty.MOUNTAIN, otherStocks);
 
-		initialPrices = new EnumMap<>(DifficultyType.class);
+		initialPrices = new EnumMap<>(Difficulty.class);
 
 		EnumMap<ResourceType, Integer> beginnerPrices = new EnumMap<>(ResourceType.class);
 		beginnerPrices.put(ResourceType.FOOD, 30);
@@ -69,10 +72,10 @@ public class Shop {
 		beginnerPrices.put(ResourceType.CRYSTITE, 100);
 		beginnerPrices.put(ResourceType.MULE, 100);
 
-		initialPrices.put(DifficultyType.HILL, beginnerPrices);
-		initialPrices.put(DifficultyType.MESA, beginnerPrices);
-		initialPrices.put(DifficultyType.PLATEAU, beginnerPrices);
-		initialPrices.put(DifficultyType.MOUNTAIN, beginnerPrices);
+		initialPrices.put(Difficulty.HILL, beginnerPrices);
+		initialPrices.put(Difficulty.MESA, beginnerPrices);
+		initialPrices.put(Difficulty.PLATEAU, beginnerPrices);
+		initialPrices.put(Difficulty.MOUNTAIN, beginnerPrices);
 	}
 
 }

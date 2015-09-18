@@ -1,5 +1,8 @@
 package io.github.mountainrange.mule;
 
+import io.github.mountainrange.mule.enums.MuleType;
+import io.github.mountainrange.mule.enums.TerrainType;
+
 import java.util.Objects;
 
 /**

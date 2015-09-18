@@ -1,5 +1,6 @@
-package io.github.mountainrange.mule;
+package io.github.mountainrange.mule.enums;
 
+import io.github.mountainrange.mule.MULE;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import org.w3c.dom.css.Rect;

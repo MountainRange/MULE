@@ -1,4 +1,4 @@
-package io.github.mountainrange.mule;
+package io.github.mountainrange.mule.enums;
 
 /**
  * Describes the type of MULE installed on a given plot.
