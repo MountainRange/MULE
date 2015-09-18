@@ -5,9 +5,6 @@ package io.github.mountainrange.mule;
  */
 public class Config {
 
-	public static enum Difficulty {
-		HILL, MESA, PLATEAU, MOUNTAIN
-	}
 	public static enum MapSize {
 		PYRENEES, ALPS, HIMALAYAS
 	}
@@ -18,7 +15,7 @@ public class Config {
 		FOLD, FAULT_BLOCK, DOME, VOLCANIC, PLATEAU
 	}
 
-	public static Difficulty difficulty = Difficulty.MESA;
+	public static DifficultyType difficulty = DifficultyType.MESA;
 	public static MapSize mapSize = MapSize.ALPS;
 	public static MapType mapType = MapType.CLASSIC;
 	public static String playerName = "Player 1";
