@@ -14,6 +14,14 @@ public class MULE extends Application {
 	public static final String MAIN_SCENE_FXML = "/fxml/main.fxml";
 	public static final String STORE_SCENE = "storeMenu";
 	public static final String STORE_SCENE_FXML = "/fxml/storeMenu.fxml";
+	public static final String PUB_SCENE = "pubMenu";
+	public static final String PUB_SCENE_FXML = "/fxml/pubMenu.fxml";
+	public static final String LAND_OFFICE_SCENE = "landOfficeMenu";
+	public static final String LAND_OFFICE_SCENE_FXML = "/fxml/landOfficeMenu.fxml";
+	public static final String ASSAY_OFFICE_SCENE = "assayOfficeMenu";
+	public static final String ASSAY_OFFICE_SCENE_FXML = "/fxml/assayOfficeMenu.fxml";
+	public static final String TOWN_SCENE = "townMenu";
+	public static final String TOWN_SCENE_FXML = "/fxml/townMenu.fxml";
 	public static final String PLAY_SCENE = "play";
 	public static final String PLAY_SCENE_FXML = "/fxml/play.fxml";
 	public static final String OPTIONS_SCENE = "options";
@@ -42,6 +50,10 @@ public class MULE extends Application {
 		sceneLoader = new SceneLoader(this);
 		sceneLoader.loadScene(MAIN_SCENE, MAIN_SCENE_FXML);
 		sceneLoader.loadScene(STORE_SCENE, STORE_SCENE_FXML);
+		sceneLoader.loadScene(PUB_SCENE, PUB_SCENE_FXML);
+		sceneLoader.loadScene(LAND_OFFICE_SCENE, LAND_OFFICE_SCENE_FXML);
+		sceneLoader.loadScene(ASSAY_OFFICE_SCENE, ASSAY_OFFICE_SCENE_FXML);
+		sceneLoader.loadScene(TOWN_SCENE, TOWN_SCENE_FXML);
 		sceneLoader.loadScene(PLAY_SCENE, PLAY_SCENE_FXML);
 		sceneLoader.loadScene(OPTIONS_SCENE, OPTIONS_SCENE_FXML);
 		sceneLoader.loadScene(CREDITS_SCENE, CREDITS_SCENE_FXML);

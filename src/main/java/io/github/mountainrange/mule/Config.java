@@ -19,7 +19,7 @@ public class Config {
 		CLASSIC, RANDOM, EXPERIMENTAL
 	}
 	public static enum Race {
-		HUMAN, FLAPPER, BONZOID, UGAITE, BUZZAITE
+		FOLD, FAULT_BLOCK, DOME, VOLCANIC, PLATEAU
 	}
 
 	public static Difficulty difficulty = Difficulty.MESA;
@@ -29,9 +29,7 @@ public class Config {
 	public static int currentPlayer = 0;
 	public static int numOfPlayers = 2;
 	public static int maxPlayers = 4;
-	public static Race race = Race.BONZOID;
+	public static Race race = Race.FOLD;
 
 	public static boolean fadeEnabled = false;
-
-
 }

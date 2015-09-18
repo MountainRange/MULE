@@ -49,11 +49,11 @@ public class PlayerConfigController implements Initializable, SceneAgent {
 		adjustPlayerCount();
 		assert raceCombo != null : "fx:id=\"myChoices\" was not injected: check your FXML file 'foo.fxml'.";
 		raceCombo.setItems(FXCollections.observableArrayList());
-		raceCombo.getItems().add("HUMAN");
-		raceCombo.getItems().add("FLAPPER");
-		raceCombo.getItems().add("BONZOID");
-		raceCombo.getItems().add("UGAITE");
-		raceCombo.getItems().add("BUZZITE");
+		raceCombo.getItems().add("FOLD");
+		raceCombo.getItems().add("FAULT-BLOCK");
+		raceCombo.getItems().add("DOME");
+		raceCombo.getItems().add("VOLCANIC");
+		raceCombo.getItems().add("PLATEAU");
 		updateValues();
 	}
 

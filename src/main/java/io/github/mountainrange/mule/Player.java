@@ -8,8 +8,8 @@ import javafx.scene.paint.Color;
 public class Player {
 
 	public static final String[] DEFAULT_NAME = {"Player 1", "Player 2", "Player 3", "Player 4"};
-	public static final Config.Race[] DEFAULT_RACE = { Config.Race.BONZOID, Config.Race.FLAPPER,
-			Config.Race.HUMAN, Config.Race.BUZZAITE };
+	public static final Config.Race[] DEFAULT_RACE = { Config.Race.FOLD, Config.Race.FAULT_BLOCK,
+			Config.Race.DOME, Config.Race.VOLCANIC };
 	public static final Color[] DEFAULT_COLOR = { Color.RED, Color.BLUE, Color.GREEN, Color.ORANGE };
 
 	private final int id;
