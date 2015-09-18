@@ -17,9 +17,7 @@ public class Config {
 	public static int currentPlayer = 0;
 	public static int numOfPlayers = 2;
 	public static int maxPlayers = 4;
-	public static Race race = Race.DOME;
+	public static Race race = Race.FOLD;
 
 	public static boolean fadeEnabled = false;
-
-
 }
