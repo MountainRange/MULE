@@ -3,7 +3,7 @@ package io.github.mountainrange.mule;
 /**
  * Holds information about the entire map.
  */
-public class World {
+public class WorldMap {
 
 	Tile[][] tiles;
 
