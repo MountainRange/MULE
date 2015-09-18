@@ -11,6 +11,16 @@
    <center>
       <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="30.0" BorderPane.alignment="CENTER">
          <children>
+            <VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="50.0" prefWidth="300.0">
+               <children>
+                  <Label text="Number of Players">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Label>
+                  <Slider fx:id="numSlider" blockIncrement="1.0" majorTickUnit="1.0" max="4.0" min="1.0" minorTickCount="0" onMouseReleased="#handleNumAction" showTickLabels="true" showTickMarks="true" snapToTicks="true" />
+               </children>
+            </VBox>
             <VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="50.0" prefWidth="250.0">
                <children>
                   <Label text="Enter Name">
@@ -23,16 +33,7 @@
                         <Font size="14.0" />
                      </font>
                   </TextField>
-               </children>
-            </VBox>
-            <VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="50.0" prefWidth="300.0">
-               <children>
-                  <Label text="Number of Players">
-                     <font>
-                        <Font size="18.0" />
-                     </font>
-                  </Label>
-                  <Slider fx:id="numSlider" blockIncrement="1.0" majorTickUnit="1.0" max="4.0" min="1.0" minorTickCount="0" onMouseReleased="#handleNumAction" showTickLabels="true" showTickMarks="true" snapToTicks="true" />
+                  <Slider fx:id="playerSlider" blockIncrement="1.0" majorTickUnit="1.0" max="4.0" min="1.0" minorTickCount="0" onMouseReleased="#handlePlayerAction" showTickLabels="true" showTickMarks="true" snapToTicks="true" />
                </children>
             </VBox>
             <GridPane maxWidth="-Infinity" prefWidth="250.0">
@@ -51,6 +52,23 @@
                   </Label>
                   <ComboBox fx:id="raceCombo" onAction="#handleRaceAction" prefWidth="150.0" GridPane.columnIndex="1" />
                </children>
+            </GridPane>
+            <GridPane maxWidth="-Infinity" prefWidth="250.0">
+               <children>
+                  <Label text="Player Color">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Label>
+                  <ColorPicker fx:id="colorPicker" onAction="#handleColorAction" GridPane.columnIndex="1" />
+               </children>
+               <columnConstraints>
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+               </columnConstraints>
+               <rowConstraints>
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+               </rowConstraints>
             </GridPane>
             <Button mnemonicParsing="false" onAction="#handleStartAction" prefWidth="200.0" text="Start Game" />
             <Button mnemonicParsing="false" onAction="#handleBackAction" prefWidth="200.0" text="Back" />

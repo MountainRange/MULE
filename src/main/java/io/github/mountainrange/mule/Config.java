@@ -1,5 +1,9 @@
 package io.github.mountainrange.mule;
 
+import javafx.scene.paint.Color;
+
+import java.util.ArrayList;
+
 /**
  * Created by Matthew Keezer on 9/10/2015.
  */
@@ -18,9 +22,11 @@ public class Config {
 	public static DifficultyType difficulty = DifficultyType.MESA;
 	public static MapSize mapSize = MapSize.ALPS;
 	public static MapType mapType = MapType.CLASSIC;
-	public static String playerName = "Player 1";
+	public static Player[] playerList;
+	public static int currentPlayer = 0;
 	public static int numOfPlayers = 2;
-	public static Race race = Race.FOLD;
+	public static int maxPlayers = 4;
+	public static Race race = Race.BONZOID;
 
 	public static boolean fadeEnabled = false;
 
