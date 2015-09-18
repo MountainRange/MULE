@@ -12,48 +12,44 @@ public class Player {
 			Config.Race.HUMAN, Config.Race.BUZZAITE };
 	public static final Color[] DEFAULT_COLOR = { Color.RED, Color.BLUE, Color.GREEN, Color.ORANGE };
 
-	private int playerNum;
-	private String playerName;
-	private Config.Race playerRace;
-	private Color playerColor = Color.BLACK;
+	private final int id;
+	private String name;
+	private Config.Race race;
+	private Color color = Color.BLACK;
 
-	public Player(int num, String name, Config.Race race, Color color) {
-		playerNum = num;
-		playerName = name;
-		playerRace = race;
-		playerColor = color;
+	public Player(int id, String name, Config.Race race, Color color) {
+		this.id = id;
+		this.name = name;
+		this.race = race;
+		this.color = color;
 	}
 
-	public int getPlayerNum() {
-		return playerNum;
+	public int getId() {
+		return id;
 	}
 
-	public void setPlayerNum(int playerNum) {
-		this.playerNum = playerNum;
+	public String getName() {
+		return name;
 	}
 
-	public String getPlayerName() {
-		return playerName;
+	public void setName(String name) {
+		this.name = name;
 	}
 
-	public void setPlayerName(String playerName) {
-		this.playerName = playerName;
+	public Config.Race getRace() {
+		return race;
 	}
 
-	public Config.Race getPlayerRace() {
-		return playerRace;
+	public void setRace(Config.Race race) {
+		this.race = race;
 	}
 
-	public void setPlayerRace(Config.Race playerRace) {
-		this.playerRace = playerRace;
+	public Color getColor() {
+		return color;
 	}
 
-	public Color getPlayerColor() {
-		return playerColor;
-	}
-
-	public void setPlayerColor(Color playerColor) {
-		this.playerColor = playerColor;
+	public void setColor(Color color) {
+		this.color = color;
 	}
 
 }

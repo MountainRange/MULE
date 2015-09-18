@@ -75,7 +75,7 @@ public class PlayerConfigController implements Initializable, SceneAgent {
 
 	@FXML
 	private void handleNameAction(Event e) {
-		Config.playerList[Config.currentPlayer].setPlayerName(nameField.getText());
+		Config.playerList[Config.currentPlayer].setName(nameField.getText());
 	}
 
 	@FXML
@@ -91,7 +91,7 @@ public class PlayerConfigController implements Initializable, SceneAgent {
 
 	@FXML
 	private void handleRaceAction(ActionEvent e) {
-		Config.playerList[Config.currentPlayer].setPlayerRace(Config.Race.values()[raceCombo
+		Config.playerList[Config.currentPlayer].setRace(Config.Race.values()[raceCombo
 				.getSelectionModel().getSelectedIndex()]);
 	}
 
@@ -102,13 +102,13 @@ public class PlayerConfigController implements Initializable, SceneAgent {
 
 	@FXML
 	private void handleColorAction(ActionEvent e) {
-		Config.playerList[Config.currentPlayer].setPlayerColor(colorPicker.getValue());
+		Config.playerList[Config.currentPlayer].setColor(colorPicker.getValue());
 	}
 
 	private void updateValues() {
-		raceCombo.getSelectionModel().select(Config.playerList[Config.currentPlayer].getPlayerRace().ordinal());
-		colorPicker.setValue(Config.playerList[Config.currentPlayer].getPlayerColor());
-		nameField.setText(Config.playerList[Config.currentPlayer].getPlayerName());
+		raceCombo.getSelectionModel().select(Config.playerList[Config.currentPlayer].getRace().ordinal());
+		colorPicker.setValue(Config.playerList[Config.currentPlayer].getColor());
+		nameField.setText(Config.playerList[Config.currentPlayer].getName());
 		playerSlider.setValue(Config.currentPlayer + 1);
 	}
 
@@ -125,8 +125,8 @@ public class PlayerConfigController implements Initializable, SceneAgent {
 		}
 	}
 
-	private void changePlayer(int playerNum) {
-		Config.currentPlayer = playerNum;
+	private void changePlayer(int id) {
+		Config.currentPlayer = id;
 		updateValues();
 	}
 
