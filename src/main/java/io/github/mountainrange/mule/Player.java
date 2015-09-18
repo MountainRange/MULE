@@ -27,9 +27,16 @@ public class Player {
 
 	private EnumMap<ResourceType, Integer> stocks;
 
-	public Player(String name, int id, Race race, Color color) {
-		this.name = Objects.requireNonNull(name);
+	public Player(int id) {
 		this.id = id;
+		name = DEFAULT_NAME[id];
+		race = DEFAULT_RACE[id];
+		color = DEFAULT_COLOR[id];
+	}
+
+	public Player(int id, String name, Race race, Color color) {
+		this.id = id;
+		this.name = Objects.requireNonNull(name);
 		this.race = race;
 		this.color = color;
 	}

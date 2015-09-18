@@ -4,7 +4,8 @@ import io.github.mountainrange.mule.Config;
 import io.github.mountainrange.mule.MULE;
 import io.github.mountainrange.mule.Player;
 import io.github.mountainrange.mule.SceneLoader;
-import javafx.application.Application;
+import io.github.mountainrange.mule.enums.Race;
+
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
@@ -14,10 +15,8 @@ import javafx.scene.control.ColorPicker;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Slider;
 import javafx.scene.control.TextField;
-import javafx.util.StringConverter;
 
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 /**
@@ -91,7 +90,7 @@ public class PlayerConfigController implements Initializable, SceneAgent {
 
 	@FXML
 	private void handleRaceAction(ActionEvent e) {
-		Config.playerList[Config.currentPlayer].setRace(Config.Race.values()[raceCombo
+		Config.playerList[Config.currentPlayer].setRace(Race.values()[raceCombo
 				.getSelectionModel().getSelectedIndex()]);
 	}
 
@@ -115,8 +114,7 @@ public class PlayerConfigController implements Initializable, SceneAgent {
 	private void adjustPlayerCount() {
 		for (int i = 0; i < Config.maxPlayers; i++) {
 			if (Config.playerList[i] == null) {
-				Config.playerList[i] = new Player(i, Player.DEFAULT_NAME[i],
-						Player.DEFAULT_RACE[i], Player.DEFAULT_COLOR[i]);
+				Config.playerList[i] = new Player(i);
 			}
 		}
 		playerSlider.setMax(Config.numOfPlayers);
