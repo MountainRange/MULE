@@ -50,19 +50,14 @@ public class GameConfigController implements Initializable, SceneAgent {
 
 			@Override
 			public Double fromString(String s) {
-				switch (s) {
-					case "Hill":
-						return 0.0;
-					case "Mesa":
-						return 1.0;
-					case "Plateau":
-						return 2.0;
-					case "Mountain":
-						return 3.0;
-
-					default:
-						return 4.0;
+				if (s == "Hill") {
+					return 0.0;
+				} else if (s == "Mesa") {
+					return 1.0;
+				} else if (s == "Plateau") {
+					return 2.0;
 				}
+				return 3.0;
 			}
 		});
 		mapSlider.setLabelFormatter(new StringConverter<Double>() {
@@ -76,17 +71,12 @@ public class GameConfigController implements Initializable, SceneAgent {
 
 			@Override
 			public Double fromString(String s) {
-				switch (s) {
-					case "Pyrenees":
-						return 0.0;
-					case "Alps":
-						return 1.0;
-					case "Himalayas":
-						return 2.0;
-
-					default:
-						return 3.0;
+				if (s == "Pyrenees") {
+					return 0.0;
+				} else if (s == "Alps") {
+					return 1.0;
 				}
+				return 2.0;
 			}
 		});
 		assert mapTypeCombo != null : "fx:id=\"myChoices\" was not injected: check your FXML file 'foo.fxml'.";
