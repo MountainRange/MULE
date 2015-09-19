@@ -1,10 +1,11 @@
 package io.github.mountainrange.mule;
 
+import io.github.mountainrange.mule.enums.Race;
+import io.github.mountainrange.mule.enums.ResourceType;
+
 import java.util.EnumMap;
 import java.util.Objects;
 
-import io.github.mountainrange.mule.enums.Race;
-import io.github.mountainrange.mule.enums.ResourceType;
 import javafx.scene.paint.Color;
 
 /**
@@ -12,13 +13,10 @@ import javafx.scene.paint.Color;
  */
 public class Player {
 
-	public static final String[] DEFAULT_NAME = {"Player 1", "Player 2", "Player 3", "Player 4"};
-	public static final Race[] DEFAULT_RACE = { Race.FOLD, Race.FAULT_BLOCK,
-			Race.DOME, Race.VOLCANIC, Race.PLATEAU };
-	public static final Color[] DEFAULT_COLOR = { Color.RED, Color.BLUE, Color.GREEN, Color.ORANGE };
+	public static final Color[] DEFAULT_COLORS = { Color.RED, Color.BLUE, Color.GREEN, Color.ORANGE };
 
 	private Race race;
-	private Color color = Color.BLACK;
+	private Color color;
 
 	private final int id;
 	private String name;
@@ -27,13 +25,24 @@ public class Player {
 
 	private EnumMap<ResourceType, Integer> stocks;
 
+	/**
+	 * Create a new Player with the given id and set their name, race, and color to some default based on id.
+	 * @param id the id of the player to create
+	 */
 	public Player(int id) {
 		this.id = id;
-		name = DEFAULT_NAME[id];
-		race = DEFAULT_RACE[id];
-		color = DEFAULT_COLOR[id];
+		name = "Player " + id;
+		race = Race.values()[id % Race.values().length];
+		color = DEFAULT_COLORS[id % DEFAULT_COLORS.length];
 	}
 
+	/**
+	 * Create a player with the given properties.
+	 * @param id id of the player
+	 * @param name name of the player
+	 * @param race race of the player
+	 * @param color color of the player
+	 */
 	public Player(int id, String name, Race race, Color color) {
 		this.id = id;
 		this.name = Objects.requireNonNull(name);
