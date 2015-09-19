@@ -1,9 +1,9 @@
 package io.github.mountainrange.mule.enums;
 
 import io.github.mountainrange.mule.MULE;
+
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
-import org.w3c.dom.css.Rect;
 
 /**
  * Describes the kind of terrain found on a given tile. Terrain types affect resource production.

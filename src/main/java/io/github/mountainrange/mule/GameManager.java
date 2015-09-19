@@ -10,6 +10,8 @@ public class GameManager {
 
 	private List<Player> playerList;
 
+	private WorldMap map;
+
 	private int turnCount;
 	private int phaseCount;
 
