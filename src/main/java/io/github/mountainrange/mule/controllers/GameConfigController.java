@@ -3,7 +3,10 @@ package io.github.mountainrange.mule.controllers;
 import io.github.mountainrange.mule.Config;
 import io.github.mountainrange.mule.MULE;
 import io.github.mountainrange.mule.SceneLoader;
-import javafx.application.Application;
+import io.github.mountainrange.mule.enums.Difficulty;
+import io.github.mountainrange.mule.enums.MapSize;
+import io.github.mountainrange.mule.enums.MapType;
+
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
@@ -112,17 +115,17 @@ public class GameConfigController implements Initializable, SceneAgent {
 
 	@FXML
 	private void handleDiffAction(Event e) {
-		Config.difficulty = Config.Difficulty.values()[(int)diffSlider.getValue()];
+		Config.difficulty = Difficulty.values()[(int)diffSlider.getValue()];
 	}
 
 	@FXML
 	private void handleMapSizeAction(Event e) {
-		Config.mapSize = Config.MapSize.values()[(int)mapSlider.getValue()];
+		Config.mapSize = MapSize.values()[(int)mapSlider.getValue()];
 	}
 
 	@FXML
 	private void handleMapTypeAction(ActionEvent e) {
-		Config.mapType = Config.MapType.values()[mapTypeCombo.getSelectionModel().getSelectedIndex()];
+		Config.mapType = MapType.values()[mapTypeCombo.getSelectionModel().getSelectedIndex()];
 	}
 
 	@FXML

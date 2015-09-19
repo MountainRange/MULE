@@ -1,25 +1,42 @@
 package io.github.mountainrange.mule;
 
+import java.util.EnumMap;
+import java.util.Objects;
+
+import io.github.mountainrange.mule.enums.Race;
+import io.github.mountainrange.mule.enums.ResourceType;
 import javafx.scene.paint.Color;
 
 /**
- * Created by white on 9/16/2015.
+ * Container that holds information about a particular player.
  */
 public class Player {
 
 	public static final String[] DEFAULT_NAME = {"Player 1", "Player 2", "Player 3", "Player 4"};
-	public static final Config.Race[] DEFAULT_RACE = { Config.Race.FOLD, Config.Race.FAULT_BLOCK,
-			Config.Race.DOME, Config.Race.VOLCANIC };
+	public static final Race[] DEFAULT_RACE = { Race.FOLD, Race.FAULT_BLOCK,
+			Race.DOME, Race.VOLCANIC, Race.PLATEAU };
 	public static final Color[] DEFAULT_COLOR = { Color.RED, Color.BLUE, Color.GREEN, Color.ORANGE };
+
+	private Race race;
+	private Color color = Color.BLACK;
 
 	private final int id;
 	private String name;
-	private Config.Race race;
-	private Color color = Color.BLACK;
 
-	public Player(int id, String name, Config.Race race, Color color) {
+	private int money;
+
+	private EnumMap<ResourceType, Integer> stocks;
+
+	public Player(int id) {
 		this.id = id;
-		this.name = name;
+		name = DEFAULT_NAME[id];
+		race = DEFAULT_RACE[id];
+		color = DEFAULT_COLOR[id];
+	}
+
+	public Player(int id, String name, Race race, Color color) {
+		this.id = id;
+		this.name = Objects.requireNonNull(name);
 		this.race = race;
 		this.color = color;
 	}
@@ -36,11 +53,19 @@ public class Player {
 		this.name = name;
 	}
 
-	public Config.Race getRace() {
+	public int getMoney() {
+		return money;
+	}
+
+	public void setMoney(int money) {
+		this.money = money;
+	}
+
+	public Race getRace() {
 		return race;
 	}
 
-	public void setRace(Config.Race race) {
+	public void setRace(Race race) {
 		this.race = race;
 	}
 
@@ -50,6 +75,19 @@ public class Player {
 
 	public void setColor(Color color) {
 		this.color = color;
+	}
+
+	public boolean equals(Object other) {
+		if (other == null || !(other instanceof Player)) {
+			return false;
+		}
+
+		Player o = (Player) other;
+		return name.equals(o.name) && id == o.id;
+	}
+
+	public int hashCode() {
+		return id;
 	}
 
 }

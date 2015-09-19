@@ -1,26 +1,14 @@
 package io.github.mountainrange.mule;
 
-import javafx.scene.paint.Color;
-
-import java.util.ArrayList;
+import io.github.mountainrange.mule.enums.Difficulty;
+import io.github.mountainrange.mule.enums.MapSize;
+import io.github.mountainrange.mule.enums.MapType;
+import io.github.mountainrange.mule.enums.Race;
 
 /**
  * Created by Matthew Keezer on 9/10/2015.
  */
 public class Config {
-
-	public static enum Difficulty {
-		HILL, MESA, PLATEAU, MOUNTAIN
-	}
-	public static enum MapSize {
-		PYRENEES, ALPS, HIMALAYAS
-	}
-	public static enum MapType {
-		CLASSIC, RANDOM, EXPERIMENTAL
-	}
-	public static enum Race {
-		FOLD, FAULT_BLOCK, DOME, VOLCANIC, PLATEAU
-	}
 
 	public static Difficulty difficulty = Difficulty.MESA;
 	public static MapSize mapSize = MapSize.ALPS;
