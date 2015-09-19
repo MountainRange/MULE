@@ -29,7 +29,7 @@ public class StoreController implements Initializable, SceneAgent {
 
 	@FXML
 	private void handleBuyMuleAction(ActionEvent e) {
-		sceneLoader.setScene(MULE.GAME_CONFIG_SCENE);
+		System.out.println("You must construct additional pylons");
 	}
 
 	@FXML
