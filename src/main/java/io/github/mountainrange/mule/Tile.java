@@ -2,13 +2,15 @@ package io.github.mountainrange.mule;
 
 import io.github.mountainrange.mule.enums.MuleType;
 import io.github.mountainrange.mule.enums.TerrainType;
+import javafx.scene.image.ImageView;
+import javafx.scene.shape.Rectangle;
 
 import java.util.Objects;
 
 /**
  * Self-contained class for information about a given tile.
  */
-public class Tile {
+public class Tile extends ImageView {
 
 	private TerrainType terrain;
 	private MuleType mule;
@@ -23,7 +25,10 @@ public class Tile {
 	}
 
 	public Tile(TerrainType terrain, MuleType mule, Player owner) {
+		super(terrain.getPic());
 		this.terrain = terrain;
+		setFitWidth(1);
+		setFitHeight(1);
 		this.mule = mule;
 		this.owner = owner;
 	}

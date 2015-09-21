@@ -3,6 +3,9 @@ package io.github.mountainrange.mule.controllers;
 import io.github.mountainrange.mule.MULE;
 import io.github.mountainrange.mule.SceneLoader;
 import io.github.mountainrange.mule.Tile;
+import io.github.mountainrange.mule.WorldMap;
+import io.github.mountainrange.mule.enums.MapSize;
+import io.github.mountainrange.mule.enums.MapType;
 import io.github.mountainrange.mule.gameplay.Grid;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
@@ -25,26 +28,30 @@ public class PlayController implements Initializable, SceneAgent {
 	private SceneLoader sceneLoader;
 	private MULE mule;
 	private Grid g;
+	private WorldMap map;
+	private Tile[][] tiles;
 
 	@FXML
 	private Pane mapPane;
 
 	@Override
 	public void initialize(URL url, ResourceBundle rb) {
-		g = new Grid(10, 10, mapPane);
-		g.add(new Rectangle(0, 0, 1, 1), 1, 1);
+		g = new Grid(9, 5, mapPane);
+		map = new WorldMap(MapType.CLASSIC, MapSize.ALPS);
+		tiles = map.getTiles();
 
-		Circle c = new Circle(0, 0, 0.5);
-		c.setFill(Color.GREEN);
-		g.add(c, 3, 5);
-		// g.remove(2, 5);
+		for (int i = 0; i < 5; i++) {
+			for (int j = 0; j < 9; j++) {
+				g.add(tiles[i][j], j, i);
+			}
+		}
 
-		ImageView image = new ImageView("pictures/ViPaint.png");
-		image.setFitWidth(1);
-		image.setFitHeight(1);
-	    g.add(image, 4, 4);
+		//ImageView image = new ImageView("pictures/ViPaint.png");
+		//image.setFitWidth(1);
+		//image.setFitHeight(1);
+	    //g.add(image, 4, 4);
 
-		g.select(7, 3);
+		//g.select(7, 3);
 
 	}
 
