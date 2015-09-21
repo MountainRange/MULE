@@ -25,7 +25,7 @@ public class Tile extends ImageView {
 	}
 
 	public Tile(TerrainType terrain, MuleType mule, Player owner) {
-		super(terrain.getPic());
+		super(terrain.getPath());
 		this.terrain = terrain;
 		setFitWidth(1);
 		setFitHeight(1);

@@ -10,6 +10,8 @@ import io.github.mountainrange.mule.enums.Race;
  */
 public class Config {
 
+	public static final String DEFAULT_PACK = "mspaint";
+
 	public static Difficulty difficulty = Difficulty.MESA;
 	public static MapSize mapSize = MapSize.ALPS;
 	public static MapType mapType = MapType.CLASSIC;
