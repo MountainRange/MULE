@@ -29,7 +29,7 @@ public class AssayOfficeController implements Initializable, SceneAgent {
 
 	@FXML
 	private void handleBackAction(ActionEvent e) {
-		sceneLoader.setScene(MULE.TOWN_SCENE);
+		sceneLoader.goBack();
 	}
 //
 //	@FXML

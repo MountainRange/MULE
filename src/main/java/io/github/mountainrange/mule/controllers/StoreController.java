@@ -39,6 +39,6 @@ public class StoreController implements Initializable, SceneAgent {
 
 	@FXML
 	private void handleLeaveAction(ActionEvent e) {
-		sceneLoader.setScene(MULE.TOWN_SCENE);
+		sceneLoader.goBack();
 	}
 }

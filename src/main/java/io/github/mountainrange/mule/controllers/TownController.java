@@ -49,6 +49,6 @@ public class TownController implements Initializable, SceneAgent {
 
 	@FXML
 	private void handleLeaveAction(ActionEvent e) {
-		sceneLoader.setScene(MULE.PLAY_SCENE);
+		sceneLoader.goBack();
 	}
 }
