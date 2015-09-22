@@ -11,4 +11,6 @@ public interface SceneAgent {
 
 	public void setSceneParent(SceneLoader scenes, MULE mule);
 
+	public void onSetScene();
+
 }

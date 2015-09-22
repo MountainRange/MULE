@@ -31,6 +31,9 @@ public class LandOfficeController implements Initializable, SceneAgent {
 	private void handleBackAction(ActionEvent e) {
 		sceneLoader.goBack();
 	}
+
+	public void onSetScene() {
+	}
 //
 //	@FXML
 //	private void handleOptionsAction(ActionEvent e) {

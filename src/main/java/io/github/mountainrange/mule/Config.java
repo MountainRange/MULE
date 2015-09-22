@@ -1,9 +1,6 @@
 package io.github.mountainrange.mule;
 
-import io.github.mountainrange.mule.enums.Difficulty;
-import io.github.mountainrange.mule.enums.MapSize;
-import io.github.mountainrange.mule.enums.MapType;
-import io.github.mountainrange.mule.enums.Race;
+import io.github.mountainrange.mule.enums.*;
 import io.github.mountainrange.mule.gameplay.Player;
 
 /**
@@ -12,8 +9,10 @@ import io.github.mountainrange.mule.gameplay.Player;
 public class Config {
 
 	public static final String DEFAULT_PACK = "plain";
+	public static final int SELECTOR_SPEED = 1;
 
 	public static Difficulty difficulty = Difficulty.MESA;
+	public static GameType gameType = GameType.HOTSEAT;
 	public static MapSize mapSize = MapSize.ALPS;
 	public static MapType mapType = MapType.CLASSIC;
 	public static Player[] playerList;

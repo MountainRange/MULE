@@ -27,6 +27,9 @@ public class PubController implements Initializable, SceneAgent {
 		this.mule = mule;
 	}
 
+	public void onSetScene() {
+	}
+
 	@FXML
 	private void handleBackAction(ActionEvent e) {
 		sceneLoader.goBack();

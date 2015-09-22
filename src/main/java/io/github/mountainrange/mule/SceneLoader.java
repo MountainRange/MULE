@@ -23,6 +23,7 @@ public class SceneLoader extends AnchorPane {
 
 	private MULE mule;
 	private HashMap<String, Node> scenes = new HashMap<>();
+	private HashMap<String, SceneAgent> controllers = new HashMap<>();
 	private Stack<String> sceneHistory;
 	private boolean settingScene = false;
 
@@ -31,9 +32,12 @@ public class SceneLoader extends AnchorPane {
 		sceneHistory = new Stack<>();
 	}
 
-	// adds scene to hashmap
 	private void addScene(String name, Node scene) {
 		scenes.put(name, scene);
+	}
+
+	private void addController(String name, SceneAgent scene) {
+		controllers.put(name, scene);
 	}
 
 	// Loads the scene once so it never has to reload
@@ -44,6 +48,7 @@ public class SceneLoader extends AnchorPane {
 			SceneAgent sceneControl = loader.getController();
 			sceneControl.setSceneParent(this, mule);
 			addScene(name, loadScreen);
+			addController(name, sceneControl);
 			return true;
 		} catch(Exception e) {
 			System.err.println(e.getMessage());
@@ -85,6 +90,8 @@ public class SceneLoader extends AnchorPane {
 				settingScene = false;
 			}
 		}
+
+		controllers.get(name).onSetScene();
 
 		sceneHistory.push(name);
 		return true;

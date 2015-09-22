@@ -145,6 +145,14 @@ public class Grid {
 		selection = new Point2D(column, row);
 	}
 
+	public int getCursorX() {
+		return (int)selection.getX();
+	}
+
+	public int getCursorY() {
+		return (int)selection.getY();
+	}
+
 	/**
 	 * Moves an object from one area to another.
 	 *

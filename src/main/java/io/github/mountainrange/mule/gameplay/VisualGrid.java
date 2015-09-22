@@ -131,7 +131,7 @@ public class VisualGrid extends Grid {
 		super.select(column, row);
 
 		if (selectionRect != null) {
-			this.removeSelection();
+			this.upperPane.getChildren().remove(selectionRect);
 		}
 		selectionRect = VisualGrid.SELECTION_TEMPLATE;
 		selectionRect.xProperty().bind(upperPane.widthProperty().divide(cols).multiply(selection.getX()));

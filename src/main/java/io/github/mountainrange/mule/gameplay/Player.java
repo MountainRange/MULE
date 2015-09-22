@@ -31,7 +31,7 @@ public class Player {
 	 */
 	public Player(int id) {
 		this.id = id;
-		name = "Player " + id;
+		name = "Player " + (id + 1);
 		race = Race.values()[id % Race.values().length];
 		color = DEFAULT_COLORS[id % DEFAULT_COLORS.length];
 	}

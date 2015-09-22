@@ -1,5 +1,6 @@
 package io.github.mountainrange.mule.controllers;
 
+import io.github.mountainrange.mule.GameManager;
 import io.github.mountainrange.mule.MULE;
 import io.github.mountainrange.mule.SceneLoader;
 import io.github.mountainrange.mule.enums.TerrainType;
@@ -12,6 +13,8 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Pane;
 
 import java.net.URL;
@@ -26,7 +29,7 @@ public class PlayController implements Initializable, SceneAgent {
 	private MULE mule;
 	private VisualGrid g;
 	private WorldMap map;
-	private Tile[][] tiles;
+	private GameManager manager;
 
 	@FXML
 	private Pane mapPane;
@@ -36,13 +39,25 @@ public class PlayController implements Initializable, SceneAgent {
 		g = new VisualGrid(9, 5, MapType.CLASSIC, MapSize.ALPS, mapPane);
 		map = new WorldMap(g);
 
-		//g.select(7, 3);
-
 	}
 
 	public void setSceneParent(SceneLoader sceneLoader, MULE mule){
 		this.sceneLoader = sceneLoader;
 		this.mule = mule;
+	}
+
+	public void onSetScene() {
+		manager = new GameManager(map);
+	}
+
+	@FXML
+	private void handleKeyPress(KeyEvent e) {
+		manager.handleKey(e);
+	}
+
+	@FXML
+	private void handleKeyRelease(KeyEvent e) {
+
 	}
 
 	@FXML
