@@ -6,11 +6,11 @@ import io.github.mountainrange.mule.enums.MapType;
 import io.github.mountainrange.mule.enums.Race;
 
 /**
- * Created by Matthew Keezer on 9/10/2015.
+ * Simple config class
  */
 public class Config {
 
-	public static final String DEFAULT_PACK = "mspaint";
+	public static final String DEFAULT_PACK = "plain";
 
 	public static Difficulty difficulty = Difficulty.MESA;
 	public static MapSize mapSize = MapSize.ALPS;

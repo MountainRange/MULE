@@ -1,4 +1,4 @@
-package io.github.mountainrange.mule;
+package io.github.mountainrange.mule.gameplay;
 
 import io.github.mountainrange.mule.enums.Difficulty;
 import io.github.mountainrange.mule.enums.ResourceType;

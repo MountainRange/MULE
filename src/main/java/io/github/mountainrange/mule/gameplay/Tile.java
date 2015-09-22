@@ -1,5 +1,6 @@
-package io.github.mountainrange.mule;
+package io.github.mountainrange.mule.gameplay;
 
+import io.github.mountainrange.mule.Player;
 import io.github.mountainrange.mule.enums.MuleType;
 import io.github.mountainrange.mule.enums.TerrainType;
 import javafx.scene.image.ImageView;

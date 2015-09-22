@@ -2,32 +2,29 @@ package io.github.mountainrange.mule.controllers;
 
 import io.github.mountainrange.mule.MULE;
 import io.github.mountainrange.mule.SceneLoader;
-import io.github.mountainrange.mule.Tile;
-import io.github.mountainrange.mule.WorldMap;
+import io.github.mountainrange.mule.enums.TerrainType;
+import io.github.mountainrange.mule.gameplay.Tile;
+import io.github.mountainrange.mule.gameplay.WorldMap;
 import io.github.mountainrange.mule.enums.MapSize;
 import io.github.mountainrange.mule.enums.MapType;
-import io.github.mountainrange.mule.gameplay.Grid;
-import javafx.application.Application;
+import io.github.mountainrange.mule.gameplay.VisualGrid;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.layout.Pane;
-import javafx.scene.shape.Rectangle;
-import javafx.scene.shape.Circle;
-import javafx.scene.paint.Color;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.Pane;
 
 import java.net.URL;
 import java.util.ResourceBundle;
 
 /**
- * Created by Matthew Keezer on 9/9/2015.
+ * A class to manage the main Playing Map Screen
  */
 public class PlayController implements Initializable, SceneAgent {
 
 	private SceneLoader sceneLoader;
 	private MULE mule;
-	private Grid g;
+	private VisualGrid g;
 	private WorldMap map;
 	private Tile[][] tiles;
 
@@ -36,20 +33,8 @@ public class PlayController implements Initializable, SceneAgent {
 
 	@Override
 	public void initialize(URL url, ResourceBundle rb) {
-		g = new Grid(9, 5, mapPane);
-		map = new WorldMap(MapType.CLASSIC, MapSize.ALPS);
-		tiles = map.getTiles();
-
-		for (int i = 0; i < 5; i++) {
-			for (int j = 0; j < 9; j++) {
-				g.add(tiles[i][j], j, i);
-			}
-		}
-
-		//ImageView image = new ImageView("pictures/ViPaint.png");
-		//image.setFitWidth(1);
-		//image.setFitHeight(1);
-	    //g.add(image, 4, 4);
+		g = new VisualGrid(9, 5, MapType.CLASSIC, MapSize.ALPS, mapPane);
+		map = new WorldMap(g);
 
 		//g.select(7, 3);
 

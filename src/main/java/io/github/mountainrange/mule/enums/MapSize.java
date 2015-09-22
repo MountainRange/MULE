@@ -5,4 +5,6 @@ package io.github.mountainrange.mule.enums;
  */
 public enum MapSize {
 	PYRENEES, ALPS, HIMALAYAS
+
+
 }
