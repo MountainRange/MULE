@@ -13,8 +13,9 @@ import java.util.Objects;
  */
 public class Tile extends Group {
 
-	private Player owner;
 	private ImageView image;
+
+	private Player owner;
 	private TerrainType terrain;
 	private MuleType mule;
 	/**
@@ -36,6 +37,30 @@ public class Tile extends Group {
 		this.terrain = terrain;
 		this.mule = mule;
 		this.owner = owner;
+	}
+
+	public Player getOwner() {
+		return owner;
+	}
+
+	public void setOwner(Player owner) {
+		this.owner = owner;
+	}
+
+	public TerrainType getTerrain() {
+		return terrain;
+	}
+
+	public void setTerrain(TerrainType terrain) {
+		this.terrain = terrain;
+	}
+
+	public MuleType getMule() {
+		return mule;
+	}
+
+	public void setMule(MuleType mule) {
+		this.mule = mule;
 	}
 
 }

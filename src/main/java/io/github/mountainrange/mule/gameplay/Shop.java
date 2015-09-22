@@ -43,6 +43,15 @@ public class Shop {
 		return prices.get(resource);
 	}
 
+	/**
+	 * Gets the price of outfitting a MULE of the given type.
+	 * @param mule type of MULE to outfit
+	 * @return the price of outfitting the given MuleType
+	 */
+	public static int outfitPriceOf(MuleType mule) {
+		return outfitPrices.get(mule);
+	}
+
 	static {
 		// Hard-coded initial shop prices and stocks at the beginning of the game
 		initialStocks = new EnumMap<>(Difficulty.class);
