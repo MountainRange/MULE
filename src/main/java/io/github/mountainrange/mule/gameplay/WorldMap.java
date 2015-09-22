@@ -61,8 +61,8 @@ public class WorldMap {
 	public boolean selectRightWrap() {
 		int newposx = map.getCursorX() + 1;
 		int newposy = map.getCursorY() + 1;
-		if (newposx >= map.getCols() && newposy >= 0) {
-			return select(0, newposy);
+		if (newposx >= map.getCols()) {
+			return select(0, newposy % map.getRows());
 		}
 		return selectRel(1, 0);
 	}
@@ -77,6 +77,21 @@ public class WorldMap {
 
 	public int width() {
 		return map.getCols();
+	}
+
+	public void buyTile(Player player) {
+		int x = map.getCursorX();
+		int y = map.getCursorY();
+		Tile t = map.get(x, y);
+		if (!t.hasOwner()) {
+			t.setOwner(player);
+		}
+	}
+
+	public Player getOwner() {
+		int x = map.getCursorX();
+		int y = map.getCursorY();
+		return map.get(x, y).getOwner();
 	}
 
 }

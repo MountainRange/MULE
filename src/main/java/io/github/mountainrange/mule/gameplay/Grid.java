@@ -4,6 +4,7 @@ import io.github.mountainrange.mule.enums.MapSize;
 import io.github.mountainrange.mule.enums.MapType;
 import io.github.mountainrange.mule.enums.TerrainType;
 import javafx.geometry.Point2D;
+import javafx.scene.Node;
 
 import java.awt.*;
 
@@ -112,6 +113,15 @@ public class Grid {
 		}
 
 		tiles[column][row] = toAdd;
+	}
+
+	/**
+	 * Adds a node to this grid.
+	 *
+	 * Will overwrite any existing element in the grid.
+	 */
+	public void addToTile(Node toAdd, int column, int row) {
+		tiles[column][row].getChildren().add(toAdd);
 	}
 
 	/**

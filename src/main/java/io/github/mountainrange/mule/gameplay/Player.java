@@ -21,6 +21,7 @@ public class Player {
 	private final int id;
 	private String name;
 
+	private int landOwned;
 	private int money;
 
 	private EnumMap<ResourceType, Integer> stocks;
@@ -84,6 +85,14 @@ public class Player {
 
 	public void setColor(Color color) {
 		this.color = color;
+	}
+
+	public int getLandOwned() {
+		return landOwned;
+	}
+
+	public void addLand() {
+		landOwned++;
 	}
 
 	public boolean equals(Object other) {

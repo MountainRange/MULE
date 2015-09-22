@@ -48,7 +48,9 @@ public class PlayController implements Initializable, SceneAgent {
 	}
 
 	public void onSetScene() {
-		manager = new GameManager(map);
+		if (manager == null) {
+			manager = new GameManager(map);
+		}
 	}
 
 	@FXML
@@ -63,9 +65,9 @@ public class PlayController implements Initializable, SceneAgent {
 
 	@FXML
 	private void handleBackAction(ActionEvent e) {
-		// g.movePlayer(g.getPlayerPosition().getX() + 1, g.getPlayerPosition().getY() + 1);
-		// g.select(4,1);
-		// g.move(4,2,1,1);
+//		g.movePlayer(g.getPlayerPosition().getX() + 1, g.getPlayerPosition().getY() + 1);
+//		g.select(4,1);
+//		g.move(4,2,1,1);
 		sceneLoader.goBack();
 	}
 
