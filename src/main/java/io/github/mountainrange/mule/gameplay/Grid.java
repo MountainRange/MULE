@@ -74,9 +74,9 @@ public class Grid implements Iterable<Tile> {
 	}
 
 	/**
-	 * Gets the tiles in use
-	 * @return The tiles in this grid
-	 * @deprecated Use helper functions instead!
+	 * Gets the tiles in use.
+	 * @return the tiles in this grid
+	 * @deprecated use helper functions instead
 	 */
 	public Tile[][] getTiles() {
 		return tiles;
@@ -100,7 +100,7 @@ public class Grid implements Iterable<Tile> {
 	/**
 	 * Adds a node to this grid.
 	 *
-	 * Will overwrite any exising element in the grid.
+	 * Will overwrite any existing element in the grid.
 	 */
 	public void add(Tile toAdd, int column, int row) {
 		if (column < 0 || row < 0 || column >= tiles.length || row >= tiles[0].length) {
@@ -171,7 +171,7 @@ public class Grid implements Iterable<Tile> {
 	/**
 	 * Moves an object from one area to another.
 	 *
-	 * @param columnFrom Start col
+	 * @param columnFrom start col
 	 * @param rowFrom start row
 	 * @param columnTo end column
 	 * @param rowTo end row
@@ -185,7 +185,7 @@ public class Grid implements Iterable<Tile> {
 			throw new IllegalArgumentException("Invalid row or column!");
 		}
 
-		// Create the animation object to move the item to the destination and keeep it there.
+		// Create the animation object to move the item to the destination and keep it there.
 		Tile toMove = tiles[columnFrom][rowFrom];
 
 		if (toMove == null) {
@@ -213,13 +213,17 @@ public class Grid implements Iterable<Tile> {
 	}
 
 	/**
-	 * Returns the player position
+	 * Returns the player position.
 	 * @return The player position. Null if no player is on the field.
 	 */
 	public Point2D getPlayerPosition() {
 		return playerPosition;
 	}
 
+	/**
+	 * Return an iterator for all the Tile objects in the grid.
+	 * @return an iterator for Tiles
+	 */
 	@Override
 	public Iterator<Tile> iterator() {
 		return new GridIterator();
