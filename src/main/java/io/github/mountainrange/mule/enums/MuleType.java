@@ -5,4 +5,5 @@ package io.github.mountainrange.mule.enums;
  */
 public enum MuleType {
 	EMPTY, FOOD_MULE, ENERGY_MULE, CRYSTITE_MULE
+
 }
