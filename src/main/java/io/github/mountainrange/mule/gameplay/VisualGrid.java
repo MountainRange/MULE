@@ -5,6 +5,8 @@ import io.github.mountainrange.mule.enums.MapType;
 
 import javafx.animation.Interpolator;
 import javafx.animation.PathTransition;
+import javafx.geometry.Point2D;
+import javafx.scene.Node;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.LineTo;
@@ -12,6 +14,8 @@ import javafx.scene.shape.MoveTo;
 import javafx.scene.shape.Path;
 import javafx.scene.shape.Rectangle;
 import javafx.util.Duration;
+
+import javax.swing.*;
 
 /**
  * A class to represent a scalable Grid in javafx.
@@ -29,11 +33,20 @@ public class VisualGrid extends Grid {
 	public static final Color COLOR = Color.BLACK;
 	public static final Rectangle SELECTION_TEMPLATE;
 
+	// TODO make the player not a rectangle
+	public static final Rectangle PLAYER_TEMPLATE;
+	private Rectangle player;
+
 	static {
 		SELECTION_TEMPLATE = new Rectangle(1, 1, Color.TRANSPARENT);
 		SELECTION_TEMPLATE.setFill(Color.TRANSPARENT);
 		SELECTION_TEMPLATE.setStroke(Color.BLACK);
-		SELECTION_TEMPLATE.setStrokeWidth(3);
+		SELECTION_TEMPLATE.setStrokeWidth(0.05);
+
+		PLAYER_TEMPLATE = new Rectangle(0.125, 0.125, 0.5, 0.5);
+		PLAYER_TEMPLATE.setFill(Color.YELLOW);
+		PLAYER_TEMPLATE.setStroke(Color.ORANGE);
+		PLAYER_TEMPLATE.setStrokeWidth(0.05);
 	}
 
 	public VisualGrid(int cols, int rows, MapType mapType, MapSize mapSize, Pane upperPane) {
@@ -83,6 +96,20 @@ public class VisualGrid extends Grid {
 	}
 
 	/**
+	 * Binds the specified node to the coord
+	 * @param toBind Node to bind
+	 * @param column Column to bind
+	 * @param row Row to bind
+	 */
+	private void bindToGrid(Node toBind, double column, double row) {
+		toBind.layoutXProperty().bind(upperPane.widthProperty().divide(cols).divide(2.0).multiply(1 + column * 2.0));
+		toBind.layoutYProperty().bind(upperPane.heightProperty().divide(rows).divide(2.0).multiply(1 + row * 2.0));
+
+		toBind.scaleXProperty().bind(upperPane.widthProperty().divide(this.cols));
+		toBind.scaleYProperty().bind(upperPane.heightProperty().divide(this.rows));
+	}
+
+	/**
 	 * Adds a node to this grid.
 	 *
 	 * Will overwrite any existing element in the grid.
@@ -90,12 +117,7 @@ public class VisualGrid extends Grid {
 	public void add(Tile toAdd, int column, int row) {
 		super.add(toAdd, column, row);
 
-		toAdd.layoutXProperty().bind(upperPane.widthProperty().divide(cols).divide(2.0).multiply(1 + column * 2.0));
-		toAdd.layoutYProperty().bind(upperPane.heightProperty().divide(rows).divide(2.0).multiply(1 + row * 2.0));
-
-		toAdd.scaleXProperty().bind(upperPane.widthProperty().divide(this.cols));
-		toAdd.scaleYProperty().bind(upperPane.heightProperty().divide(this.rows));
-
+		this.bindToGrid(toAdd, column, row);
 		upperPane.getChildren().add(toAdd);
 	}
 
@@ -117,6 +139,7 @@ public class VisualGrid extends Grid {
 		super.removeSelection();
 		if (selectionRect != null) {
 			upperPane.getChildren().remove(selectionRect);
+			selectionRect = null;
 		}
 	}
 
@@ -129,14 +152,14 @@ public class VisualGrid extends Grid {
 		super.select(column, row);
 
 		if (selectionRect != null) {
-			this.removeSelection();
+			this.upperPane.getChildren().remove(selectionRect);
 		}
 		selectionRect = VisualGrid.SELECTION_TEMPLATE;
-		selectionRect.xProperty().bind(upperPane.widthProperty().divide(cols).multiply(selection.getX()));
-		selectionRect.yProperty().bind(upperPane.heightProperty().divide(rows).multiply(selection.getY()));
 
-		selectionRect.widthProperty().bind(upperPane.widthProperty().divide(this.cols));
-		selectionRect.heightProperty().bind(upperPane.heightProperty().divide(this.rows));
+		selectionRect.setHeight(1 - selectionRect.getStrokeWidth() * 2);
+		selectionRect.setWidth(1 - selectionRect.getStrokeWidth() * 2);
+
+		this.bindToGrid(selectionRect, selection.getX(), selection.getY());
 
 		upperPane.getChildren().add(selectionRect);
 	}
@@ -172,8 +195,41 @@ public class VisualGrid extends Grid {
 		animation.setDuration(Duration.seconds(1.0));
 		animation.setPath(path);
 		animation.setNode(toAnimate);
-        animation.setAutoReverse(false);
-        animation.setInterpolator(Interpolator.LINEAR);
+		animation.setAutoReverse(false);
+		animation.setInterpolator(Interpolator.LINEAR);
 		animation.play();
+	}
+
+	/**
+	 * Moves the player to a specified point.
+	 * Creates a player if not already present.
+	 *
+	 * @param newX New player x point
+	 * @param newY New player y point
+	 */
+	public void movePlayer(double newX, double newY) {
+		super.movePlayer(newX, newY);
+
+
+		if (player != null) {
+			this.upperPane.getChildren().remove(player);
+		}
+
+		player = VisualGrid.PLAYER_TEMPLATE;
+		this.bindToGrid(player, playerPosition.getX(), playerPosition.getY());
+
+		upperPane.getChildren().add(player);
+	}
+
+	/**
+	 * Removes the player from this grid.
+	 */
+	public void removePlayer() {
+		super.removePlayer();
+
+		if (this.player != null) {
+			this.upperPane.getChildren().remove(this.player);
+			this.player = null;
+		}
 	}
 }

@@ -38,10 +38,4 @@ public class Tile extends Group {
 		this.owner = owner;
 	}
 
-	public void setMule(MuleType mule) {
-		if (this.mule != null) {
-			this.getChildren().remove(this.mule);
-		}
-	}
-
 }
