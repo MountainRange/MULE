@@ -38,7 +38,7 @@ public class PlayController implements Initializable, SceneAgent {
 	public void initialize(URL url, ResourceBundle rb) {
 		g = new VisualGrid(9, 5, MapType.CLASSIC, MapSize.ALPS, mapPane);
 		map = new WorldMap(g);
-		
+
 		g.movePlayer(1, 1);
 	}
 
