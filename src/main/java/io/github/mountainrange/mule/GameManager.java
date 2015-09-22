@@ -1,5 +1,8 @@
 package io.github.mountainrange.mule;
 
+import io.github.mountainrange.mule.gameplay.Player;
+import io.github.mountainrange.mule.gameplay.WorldMap;
+
 import java.util.ArrayList;
 import java.util.List;
 

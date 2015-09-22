@@ -2,7 +2,7 @@ package io.github.mountainrange.mule.controllers;
 
 import io.github.mountainrange.mule.Config;
 import io.github.mountainrange.mule.MULE;
-import io.github.mountainrange.mule.Player;
+import io.github.mountainrange.mule.gameplay.Player;
 import io.github.mountainrange.mule.SceneLoader;
 import io.github.mountainrange.mule.enums.Race;
 
