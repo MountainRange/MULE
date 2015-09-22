@@ -1,5 +1,5 @@
 # You can change this to any version of ubuntu with little consequence
-FROM ubuntu:15.04
+FROM java:8
 MAINTAINER Jay Kamat github@jgkamat.33mail.com
 
 # This dockerimage will serve as a 'static' base for this DoCIF project
