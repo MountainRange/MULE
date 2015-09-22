@@ -42,10 +42,13 @@ public class Grid {
 		}
 
 		tiles = new Tile[this.cols][this.rows];
+
+		if (map.length <= 0 || tiles.length != map[0].length || tiles[0].length != map.length) {
+			throw new IllegalArgumentException("Mismatch detected betwen grid size and map size!");
+		}
+
 		for (int i = 0; i < tiles.length; i++) {
 			for (int j = 0; j < tiles[0].length; j++) {
-
-				System.out.println(i+ " " +j);
 				if (map[j][i] == 0) {
 					tiles[i][j] = new Tile(TerrainType.PLAIN);
 				} else if (map[j][i] == 1) {

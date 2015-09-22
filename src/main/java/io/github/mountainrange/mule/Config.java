@@ -4,6 +4,7 @@ import io.github.mountainrange.mule.enums.Difficulty;
 import io.github.mountainrange.mule.enums.MapSize;
 import io.github.mountainrange.mule.enums.MapType;
 import io.github.mountainrange.mule.enums.Race;
+import io.github.mountainrange.mule.gameplay.Player;
 
 /**
  * Simple config class
