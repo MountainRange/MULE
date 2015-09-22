@@ -38,7 +38,8 @@ public class PlayController implements Initializable, SceneAgent {
 	public void initialize(URL url, ResourceBundle rb) {
 		g = new VisualGrid(9, 5, MapType.CLASSIC, MapSize.ALPS, mapPane);
 		map = new WorldMap(g);
-
+		
+		g.movePlayer(1, 1);
 	}
 
 	public void setSceneParent(SceneLoader sceneLoader, MULE mule){
@@ -62,6 +63,9 @@ public class PlayController implements Initializable, SceneAgent {
 
 	@FXML
 	private void handleBackAction(ActionEvent e) {
+		// g.movePlayer(g.getPlayerPosition().getX() + 1, g.getPlayerPosition().getY() + 1);
+		// g.select(4,1);
+		// g.move(4,2,1,1);
 		sceneLoader.goBack();
 	}
 

@@ -5,6 +5,8 @@ import io.github.mountainrange.mule.enums.MapType;
 import io.github.mountainrange.mule.enums.TerrainType;
 import javafx.geometry.Point2D;
 
+import java.awt.*;
+
 /**
  * A class to represent location of things on the board.
  *
@@ -14,7 +16,9 @@ public class Grid {
 
 	protected Tile[][] tiles;
 	protected int rows, cols;
-	protected Point2D selection = null;
+	protected Point selection = null;
+
+	protected Point2D playerPosition = null;
 
 	public static final int[][] classicMap = {
 			{0,0,2,0,1,0,4,0,0},
@@ -74,7 +78,6 @@ public class Grid {
 	public Tile[][] getTiles() {
 		return tiles;
 	}
-
 
 	public int getRows() {
 		return rows;
@@ -142,7 +145,7 @@ public class Grid {
 			this.removeSelection();
 		}
 
-		selection = new Point2D(column, row);
+		selection = new Point(column, row);
 	}
 
 	public int getCursorX() {
@@ -172,7 +175,36 @@ public class Grid {
 
 		// Create the animation object to move the item to the destination and keeep it there.
 		Tile toMove = tiles[columnFrom][rowFrom];
+
+		if (toMove == null) {
+			throw new IllegalArgumentException("You tried to move a tile that was non existent");
+		}
+
 		tiles[columnFrom][rowFrom] = null;
 		tiles[columnTo][rowTo] = toMove;
+	}
+
+	/**
+	 * Moves the player to a specified point.
+	 * @param newX New player x point
+	 * @param newY New player y point
+	 */
+	public void movePlayer(double newX, double newY) {
+		playerPosition = new Point2D(newX, newY);
+	}
+
+	/**
+	 * Removes the player from this grid.
+	 */
+	public void removePlayer() {
+		playerPosition = null;
+	}
+
+	/**
+	 * Returns the player position
+	 * @return The player position. Null if no player is on the field.
+	 */
+	public Point2D getPlayerPosition() {
+		return playerPosition;
 	}
 }
