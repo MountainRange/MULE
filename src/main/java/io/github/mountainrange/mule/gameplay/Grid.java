@@ -6,13 +6,15 @@ import io.github.mountainrange.mule.enums.TerrainType;
 import javafx.geometry.Point2D;
 
 import java.awt.*;
+import java.util.Iterator;
+import java.util.NoSuchElementException;
 
 /**
  * A class to represent location of things on the board.
  *
  * Visualization classes can extend this to actually show things!
  */
-public class Grid {
+public class Grid implements Iterable<Tile> {
 
 	protected Tile[][] tiles;
 	protected int rows, cols;
@@ -206,5 +208,36 @@ public class Grid {
 	 */
 	public Point2D getPlayerPosition() {
 		return playerPosition;
+	}
+
+	@Override
+	public Iterator<Tile> iterator() {
+		return new GridIterator();
+	}
+
+	private class GridIterator implements Iterator<Tile> {
+		int nextCol;
+		int nextRow;
+
+		@Override
+		public boolean hasNext() {
+			return nextRow != rows - 1 && nextCol != cols;
+		}
+
+		@Override
+		public Tile next() {
+			if (!hasNext()) {
+				throw new NoSuchElementException("Can't get next: no more elements");
+			}
+
+			if (nextCol == cols) {
+				nextCol = 0;
+				nextRow++;
+			}
+
+			Tile next = tiles[nextCol][nextRow];
+			nextCol++;
+			return next;
+		}
 	}
 }
