@@ -56,12 +56,13 @@ public class PlayerConfigController implements Initializable, SceneAgent {
 		updateValues();
 	}
 
+	public void onSetScene() {
+
+	}
+
 	public void setSceneParent(SceneLoader sceneLoader, MULE mule){
 		this.sceneLoader = sceneLoader;
 		this.mule = mule;
-	}
-
-	public void onSetScene() {
 	}
 
 	@FXML
