@@ -13,10 +13,10 @@ import java.util.Objects;
  * Self-contained class for information about a given tile.
  */
 public class Tile extends Group {
+	private ImageView image;
 
 	private Player owner;
 	private Rectangle ownerRect;
-	private ImageView image;
 	private TerrainType terrain;
 	private MuleType mule;
 	/**
@@ -77,6 +77,22 @@ public class Tile extends Group {
 	}
 
 	public void setMuleType(MuleType mule) {
+		this.mule = mule;
+	}
+
+	public TerrainType getTerrain() {
+		return terrain;
+	}
+
+	public void setTerrain(TerrainType terrain) {
+		this.terrain = terrain;
+	}
+
+	public MuleType getMule() {
+		return mule;
+	}
+
+	public void setMule(MuleType mule) {
 		this.mule = mule;
 	}
 

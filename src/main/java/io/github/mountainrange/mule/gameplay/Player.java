@@ -35,6 +35,10 @@ public class Player {
 		name = "Player " + (id + 1);
 		race = Race.values()[id % Race.values().length];
 		color = DEFAULT_COLORS[id % DEFAULT_COLORS.length];
+
+		for (ResourceType resource : ResourceType.values()) {
+			stocks.put(resource, 0);
+		}
 	}
 
 	/**
@@ -49,6 +53,10 @@ public class Player {
 		this.name = Objects.requireNonNull(name);
 		this.race = race;
 		this.color = color;
+	}
+
+	public int stockOf(ResourceType resource) {
+		return stocks.get(resource);
 	}
 
 	public int getId() {
