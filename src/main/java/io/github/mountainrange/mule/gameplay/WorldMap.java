@@ -4,11 +4,13 @@ import io.github.mountainrange.mule.enums.MapSize;
 import io.github.mountainrange.mule.enums.MapType;
 import io.github.mountainrange.mule.enums.TerrainType;
 
+import java.util.Iterator;
+
 /**
  * A class to represent the map and facilitates interactions
  * between the actual data store and the rest of the program
  */
-public class WorldMap {
+public class WorldMap implements Iterable<Tile> {
 
 	private Grid map;
 
@@ -77,6 +79,11 @@ public class WorldMap {
 
 	public int width() {
 		return map.getCols();
+	}
+
+	@Override
+	public Iterator<Tile> iterator() {
+		return map.iterator();
 	}
 
 }
