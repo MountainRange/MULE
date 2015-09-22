@@ -2,17 +2,16 @@ package io.github.mountainrange.mule.gameplay;
 
 import io.github.mountainrange.mule.enums.MapSize;
 import io.github.mountainrange.mule.enums.MapType;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
-import javafx.scene.layout.Pane;
-import javafx.scene.Node;
-import javafx.animation.PathTransition;
-import javafx.animation.Interpolator;
-import javafx.scene.shape.Path;
-import javafx.scene.shape.MoveTo;
-import javafx.scene.shape.LineTo;
-import javafx.util.Duration;
 
+import javafx.animation.Interpolator;
+import javafx.animation.PathTransition;
+import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.LineTo;
+import javafx.scene.shape.MoveTo;
+import javafx.scene.shape.Path;
+import javafx.scene.shape.Rectangle;
+import javafx.util.Duration;
 
 /**
  * A class to represent a scalable Grid in javafx.
@@ -26,8 +25,8 @@ public class VisualGrid extends Grid {
 	private Pane upperPane;
 	private Rectangle selectionRect;
 
-	public static final double THICKNESS=1;
-	public static final Color COLOR=Color.BLACK;
+	public static final double THICKNESS = 1;
+	public static final Color COLOR = Color.BLACK;
 	public static final Rectangle SELECTION_TEMPLATE;
 
 	static {
@@ -86,7 +85,7 @@ public class VisualGrid extends Grid {
 	/**
 	 * Adds a node to this grid.
 	 *
-	 * Will overwrite any exising element in the grid.
+	 * Will overwrite any existing element in the grid.
 	 */
 	public void add(Tile toAdd, int column, int row) {
 		super.add(toAdd, column, row);
@@ -102,7 +101,6 @@ public class VisualGrid extends Grid {
 
 	/**
 	 * Removes a node from a selected row/column
-	 *
 	 */
 	public Tile remove(int column, int row) {
 		Tile toReturn = super.remove(column, row);
