@@ -93,7 +93,7 @@ public class GameManager {
 	 * <code>money + (plot * 500 + price of outfitting) + mules in store * 35 + (resource * price of resource)</code>.
 	 * @return map of players to their scores
 	 */
-	public Map<Player, Integer> scoreAll() {
+	public Map<Player, Integer> scoreGame() {
 		Map<Player, Integer> scores = new HashMap<>();
 
 		int muleScore = shop.stockOf(ResourceType.MULE) * 35;
