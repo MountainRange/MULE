@@ -49,31 +49,31 @@ public class GameManager {
 	public void handleKey(KeyEvent e) {
 		if (phaseCount == 0) {
 			if (Config.gameType == GameType.SIMULTANEOUS) {
-				if(e.getCode() == KeyCode.SPACE) {
+				if (e.getCode() == KeyCode.SPACE) {
 					if (Config.numOfPlayers > 0) {
 						buyTile(playerList.get(0));
 					}
-				} else if(e.getCode() == KeyCode.P) {
+				} else if (e.getCode() == KeyCode.P) {
 					if (Config.numOfPlayers > 1) {
 						buyTile(playerList.get(1));
 					}
-				} else if(e.getCode() == KeyCode.Q) {
+				} else if (e.getCode() == KeyCode.Q) {
 					if (Config.numOfPlayers > 2) {
 						buyTile(playerList.get(2));
 					}
-				} else if(e.getCode() == KeyCode.PERIOD) {
+				} else if (e.getCode() == KeyCode.PERIOD) {
 					if (Config.numOfPlayers > 3) {
 						buyTile(playerList.get(3));
 					}
 				}
 			} else if (Config.gameType == GameType.HOTSEAT) {
-				if(e.getCode() == KeyCode.UP) {
+				if (e.getCode() == KeyCode.UP) {
 					map.selectUp();
-				} else if(e.getCode() == KeyCode.DOWN) {
+				} else if (e.getCode() == KeyCode.DOWN) {
 					map.selectDown();
-				} else if(e.getCode() == KeyCode.LEFT) {
+				} else if (e.getCode() == KeyCode.LEFT) {
 					map.selectLeft();
-				} else if(e.getCode() == KeyCode.RIGHT) {
+				} else if (e.getCode() == KeyCode.RIGHT) {
 					map.selectRight();
 				}
 				if(e.getCode() == KeyCode.SPACE) {
@@ -103,6 +103,9 @@ public class GameManager {
 		}
 	}
 
+	/**
+	 * Advance the game to the next turn, and perform any associated actions.
+	 */
 	private void nextTurn() {
 		turnCount++;
 		if (turnCount == 3) {
@@ -131,7 +134,6 @@ public class GameManager {
 			);
 			timeline.setCycleCount(Timeline.INDEFINITE);
 			timeline.play();
-
 		}
 	}
 

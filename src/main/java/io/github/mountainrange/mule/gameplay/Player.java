@@ -36,7 +36,7 @@ public class Player {
 		race = Race.values()[id % Race.values().length];
 		color = DEFAULT_COLORS[id % DEFAULT_COLORS.length];
 
-		stocks = new EnumMap<ResourceType, Integer>(ResourceType.class);
+		stocks = new EnumMap<>(ResourceType.class);
 		for (ResourceType resource : ResourceType.values()) {
 			stocks.put(resource, 0);
 		}
