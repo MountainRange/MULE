@@ -43,6 +43,8 @@ public class GameManager {
 	private int phaseCount;
 	private boolean inAuction;
 	private int timeLeft;
+	private int passCounter;
+	private boolean freeLand;
 
 	public GameManager(WorldMap map, Label turnLabel, Label resourceLabel, SceneLoader sceneLoader) {
 		this.map = map;
@@ -57,6 +59,8 @@ public class GameManager {
 		phaseCount = 0;
 		this.mouseHandler = new MouseHandler();
 		timeLeft = 0;
+		passCounter = 0;
+		freeLand = true;
 		nextTurn();
 	}
 
@@ -64,6 +68,43 @@ public class GameManager {
 	public void handleKey(KeyEvent e) {
 		if (phaseCount == 0) {
 			if (Config.getInstance().gameType == GameType.SIMULTANEOUS) {
+				if (e.getCode() == KeyCode.X) {
+					if (currentPlayer == 0) {
+						passCounter++;
+						currentPlayer = (currentPlayer + 1) % Config.getInstance().numOfPlayers;
+						setLabels();
+						if (Config.getInstance().numOfPlayers == passCounter) {
+							nextTurn();
+						}
+					}
+				} else if (e.getCode() == KeyCode.O) {
+					if (currentPlayer == 1) {
+						passCounter++;
+						currentPlayer = (currentPlayer + 1) % Config.getInstance().numOfPlayers;
+						setLabels();
+						if (Config.getInstance().numOfPlayers == passCounter) {
+							nextTurn();
+						}
+					}
+				} else if (e.getCode() == KeyCode.W) {
+					if (currentPlayer == 2) {
+						passCounter++;
+						currentPlayer = (currentPlayer + 1) % Config.getInstance().numOfPlayers;
+						setLabels();
+						if (Config.getInstance().numOfPlayers == passCounter) {
+							nextTurn();
+						}
+					}
+				} else if (e.getCode() == KeyCode.COMMA) {
+					if (currentPlayer == 3) {
+						passCounter++;
+						currentPlayer = (currentPlayer + 1) % Config.getInstance().numOfPlayers;
+						setLabels();
+						if (Config.getInstance().numOfPlayers == passCounter) {
+							nextTurn();
+						}
+					}
+				}
 				if (e.getCode() == KeyCode.SPACE) {
 					if (Config.getInstance().numOfPlayers > 0) {
 						buyTile(playerList.get(0));
@@ -82,6 +123,14 @@ public class GameManager {
 					}
 				}
 			} else if (Config.getInstance().gameType == GameType.HOTSEAT) {
+				if (e.getCode() == KeyCode.X) {
+					passCounter++;
+					currentPlayer = (currentPlayer + 1) % Config.getInstance().numOfPlayers;
+					setLabels();
+					if (Config.getInstance().numOfPlayers == passCounter) {
+						nextTurn();
+					}
+				}
 				handleMovement(e);
 			}
 		} else if (phaseCount == 1) {
@@ -119,17 +168,23 @@ public class GameManager {
 	}
 
 	private void buyTile(Player player) {
-		if (phaseCount != 0 || player.getLandOwned() < turnCount) {
+		if (freeLand == false || player.getLandOwned() < turnCount) {
 			if (map.getOwner() == null) {
 				if (phaseCount == 0) {
 					if (Config.getInstance().gameType == GameType.HOTSEAT) {
 						player.addLand();
-						player.setMoney((int) (player.getMoney() - (300 + (turnCount * Math.random() * 100))));
 						map.buyTile(player);
 						currentPlayer = (currentPlayer + 1) % Config.getInstance().numOfPlayers;
 						setLabels();
-						if (currentPlayer == 0) {
-							nextTurn();
+						if (!freeLand) {
+							player.setMoney((int) (player.getMoney() - (300 + (turnCount * Math.random() * 100))));
+							if (Config.getInstance().numOfPlayers == passCounter) {
+								nextTurn();
+							}
+						} else if (freeLand) {
+							if (currentPlayer == 0) {
+								nextTurn();
+							}
 						}
 					} else if (Config.getInstance().gameType == GameType.SIMULTANEOUS) {
 						buyers.add(player);
@@ -145,7 +200,7 @@ public class GameManager {
 	}
 
 	private void delayedBuy() {
-		if (buyers.size() > 1) {
+		if (buyers.size() > 1 && !freeLand) {
 			enterAuction(buyers);
 		} else if (buyers.size() == 1) {
 			Player player = buyers.get(0);
@@ -177,8 +232,12 @@ public class GameManager {
 	 */
 	private void nextTurn() {
 		turnCount++;
+		passCounter = 0;
 		setLabels();
 		if (turnCount == 3) {
+			freeLand = false;
+		}
+		if (turnCount == 4) {
 			phaseCount = 1;
 		}
 		if (phaseCount == 0) {
