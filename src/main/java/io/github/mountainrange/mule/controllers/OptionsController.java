@@ -48,12 +48,12 @@ public class OptionsController implements Initializable, SceneAgent {
 
 	@FXML
 	private void handleEnterAction(Event e) {
-		fadeCombo.getSelectionModel().select(String.valueOf(Config.fadeEnabled).toUpperCase());
+		fadeCombo.getSelectionModel().select(String.valueOf(Config.getInstance().fadeEnabled).toUpperCase());
 	}
 
 	@FXML
 	private void handleFadeAction(ActionEvent e) {
-		Config.fadeEnabled = Boolean.parseBoolean(fadeCombo.getSelectionModel().getSelectedItem().toLowerCase());
+		Config.getInstance().fadeEnabled = Boolean.parseBoolean(fadeCombo.getSelectionModel().getSelectedItem().toLowerCase());
 	}
 
 }

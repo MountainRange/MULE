@@ -54,11 +54,11 @@ public class GameConfigController implements Initializable, SceneAgent {
 
 			@Override
 			public Double fromString(String s) {
-				if (s == "Hill") {
+				if (s.equals("Hill")) {
 					return 0.0;
-				} else if (s == "Mesa") {
+				} else if (s.equals("Mesa")) {
 					return 1.0;
-				} else if (s == "Plateau") {
+				} else if (s.equals("Plateau")) {
 					return 2.0;
 				}
 				return 3.0;
@@ -75,9 +75,9 @@ public class GameConfigController implements Initializable, SceneAgent {
 
 			@Override
 			public Double fromString(String s) {
-				if (s == "Pyrenees") {
+				if (s.equals("Pyrenees")) {
 					return 0.0;
-				} else if (s == "Alps") {
+				} else if (s.equals("Alps")) {
 					return 1.0;
 				}
 				return 2.0;
@@ -110,30 +110,30 @@ public class GameConfigController implements Initializable, SceneAgent {
 
 	@FXML
 	private void handleEnterAction(Event e) {
-		diffSlider.setValue(Config.difficulty.ordinal());
-		mapSlider.setValue(Config.mapSize.ordinal());
-		mapTypeCombo.getSelectionModel().select(Config.mapType.ordinal());
-		gameTypeCombo.getSelectionModel().select(Config.gameType.ordinal());
+		diffSlider.setValue(Config.getInstance().difficulty.ordinal());
+		mapSlider.setValue(Config.getInstance().mapSize.ordinal());
+		mapTypeCombo.getSelectionModel().select(Config.getInstance().mapType.ordinal());
+		gameTypeCombo.getSelectionModel().select(Config.getInstance().gameType.ordinal());
 	}
 
 	@FXML
 	private void handleDiffAction(Event e) {
-		Config.difficulty = Difficulty.values()[(int)diffSlider.getValue()];
+		Config.getInstance().difficulty = Difficulty.values()[(int)diffSlider.getValue()];
 	}
 
 	@FXML
 	private void handleGameTypeAction(Event e) {
-		Config.gameType = GameType.values()[gameTypeCombo.getSelectionModel().getSelectedIndex()];
+		Config.getInstance().gameType = GameType.values()[gameTypeCombo.getSelectionModel().getSelectedIndex()];
 	}
 
 	@FXML
 	private void handleMapSizeAction(Event e) {
-		Config.mapSize = MapSize.values()[(int)mapSlider.getValue()];
+		Config.getInstance().mapSize = MapSize.values()[(int)mapSlider.getValue()];
 	}
 
 	@FXML
 	private void handleMapTypeAction(ActionEvent e) {
-		Config.mapType = MapType.values()[mapTypeCombo.getSelectionModel().getSelectedIndex()];
+		Config.getInstance().mapType = MapType.values()[mapTypeCombo.getSelectionModel().getSelectedIndex()];
 	}
 
 	@FXML

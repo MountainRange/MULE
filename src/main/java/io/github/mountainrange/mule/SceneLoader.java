@@ -73,7 +73,7 @@ public class SceneLoader extends AnchorPane {
 		final DoubleProperty opacity = opacityProperty();
 
 		if (!getChildren().isEmpty()) {
-			if (Config.fadeEnabled) {
+			if (Config.getInstance().fadeEnabled) {
 				fade(name, opacity);
 			} else {
 				getChildren().remove(0);
@@ -82,7 +82,7 @@ public class SceneLoader extends AnchorPane {
 				settingScene = false;
 			}
 		} else {
-			if (Config.fadeEnabled) {
+			if (Config.getInstance().fadeEnabled) {
 				fadeIn(name, opacity);
 			} else {
 				getChildren().add(sceneNode);
