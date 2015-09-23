@@ -31,14 +31,9 @@ public class PubController implements Initializable, SceneAgent {
 	private void handleBackAction(ActionEvent e) {
 		sceneLoader.setScene(MULE.TOWN_SCENE);
 	}
-//
-//	@FXML
-//	private void handleOptionsAction(ActionEvent e) {
-//		sceneLoader.setScene(MULE.OPTIONS_SCENE);
-//	}
-//
-//	@FXML
-//	private void handleCreditsAction(ActionEvent e) {
-//		sceneLoader.setScene(MULE.CREDITS_SCENE);
-//	}
+
+	@FXML
+	private void handleGambleAction(ActionEvent e) {
+		// TODO
+	}
 }

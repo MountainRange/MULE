@@ -16,7 +16,7 @@
                   <Font size="25.0" />
                </font>
                <VBox.margin>
-                  <Insets bottom="50.0" />
+                  <Insets bottom="30.0" />
                </VBox.margin>
             </Label>
             <GridPane maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="30.0" prefWidth="302.0" vgap="20.0">
