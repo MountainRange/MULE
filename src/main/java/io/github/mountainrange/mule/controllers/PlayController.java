@@ -12,6 +12,7 @@ import io.github.mountainrange.mule.gameplay.VisualGrid;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
@@ -34,6 +35,12 @@ public class PlayController implements Initializable, SceneAgent {
 	@FXML
 	private Pane mapPane;
 
+	@FXML
+	private Label turnLabel;
+
+	@FXML
+	private Label resourceLabel;
+
 	@Override
 	public void initialize(URL url, ResourceBundle rb) {
 		g = new VisualGrid(9, 5, MapType.CLASSIC, MapSize.ALPS, mapPane);
@@ -49,7 +56,7 @@ public class PlayController implements Initializable, SceneAgent {
 
 	public void onSetScene() {
 		if (manager == null) {
-			manager = new GameManager(map);
+			manager = new GameManager(map, turnLabel, resourceLabel);
 		}
 	}
 

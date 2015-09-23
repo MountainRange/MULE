@@ -22,4 +22,5 @@ public class Config {
 	public static Race race = Race.FOLD;
 
 	public static boolean fadeEnabled = false;
+	public static boolean selectEnabled = false;
 }

@@ -11,6 +11,7 @@ import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.scene.control.Label;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.util.Duration;
@@ -29,13 +30,17 @@ public class GameManager {
 
 	private Shop shop;
 	private WorldMap map;
+	private Label turnLabel;
+	private Label resourceLabel;
 
 	private int turnCount;
 	private int currentPlayer;
 	private int phaseCount;
 
-	public GameManager(WorldMap map) {
+	public GameManager(WorldMap map, Label turnLabel, Label resourceLabel) {
 		this.map = map;
+		this.turnLabel = turnLabel;
+		this.resourceLabel = resourceLabel;
 		playerList = new ArrayList<>();
 		for (int i = 0; i < Config.numOfPlayers; i++) {
 			playerList.add(Config.playerList[i]);
@@ -67,14 +72,16 @@ public class GameManager {
 					}
 				}
 			} else if (Config.gameType == GameType.HOTSEAT) {
-				if (e.getCode() == KeyCode.UP) {
-					map.selectUp();
-				} else if (e.getCode() == KeyCode.DOWN) {
-					map.selectDown();
-				} else if (e.getCode() == KeyCode.LEFT) {
-					map.selectLeft();
-				} else if (e.getCode() == KeyCode.RIGHT) {
-					map.selectRight();
+				if (!Config.selectEnabled) {
+					if (e.getCode() == KeyCode.UP) {
+						map.selectUp();
+					} else if (e.getCode() == KeyCode.DOWN) {
+						map.selectDown();
+					} else if (e.getCode() == KeyCode.LEFT) {
+						map.selectLeft();
+					} else if (e.getCode() == KeyCode.RIGHT) {
+						map.selectRight();
+					}
 				}
 				if(e.getCode() == KeyCode.SPACE) {
 					if (currentPlayer == 0) {
@@ -95,12 +102,27 @@ public class GameManager {
 		if (phaseCount != 0 || player.getLandOwned() < turnCount) {
 			if (map.getOwner() == null) {
 				player.addLand();
+				player.setMoney((int)(player.getMoney() - (300 + (turnCount * Math.random()*100))));
 				map.buyTile(player);
 				if (Config.gameType == GameType.HOTSEAT) {
 					currentPlayer = (currentPlayer + 1) % Config.numOfPlayers;
+					setLabels();
+					if (currentPlayer == 0) {
+						nextTurn();
+					}
+				} else if (Config.gameType == GameType.SIMULTANEOUS) {
+					setLabels();
 				}
 			}
 		}
+	}
+
+	private void setLabels() {
+		if (Config.gameType == GameType.HOTSEAT) {
+			turnLabel.setText(playerList.get(currentPlayer).getName() + "'s Turn");
+		}
+		resourceLabel.setText(playerList.get(currentPlayer).getName() + "'s Money: "
+				+ playerList.get(currentPlayer).getMoney() + " Energy: ####");
 	}
 
 	/**
@@ -108,6 +130,7 @@ public class GameManager {
 	 */
 	private void nextTurn() {
 		turnCount++;
+		setLabels();
 		if (turnCount == 3) {
 			phaseCount = 1;
 		}
@@ -118,11 +141,20 @@ public class GameManager {
 
 	private void landGrabPhase() {
 		if (Config.gameType == GameType.HOTSEAT) {
-			map.select(4, 2);
-		} else if (Config.gameType == GameType.SIMULTANEOUS) {
 			map.select(0, 0);
-			Timeline timeline = new Timeline(
-					new KeyFrame(
+			if (Config.selectEnabled) {
+				runSelector();
+			}
+		} else if (Config.gameType == GameType.SIMULTANEOUS) {
+			turnLabel.setText("Landgrab Phase");
+			map.select(0, 0);
+			runSelector();
+		}
+	}
+
+	private void runSelector() {
+		Timeline timeline = new Timeline(
+				new KeyFrame(
 						Duration.seconds(Config.SELECTOR_SPEED),
 						new EventHandler<ActionEvent>() {
 							@Override
@@ -130,11 +162,10 @@ public class GameManager {
 								map.selectRightWrap();
 							}
 						}
-					)
-			);
-			timeline.setCycleCount(Timeline.INDEFINITE);
-			timeline.play();
-		}
+				)
+		);
+		timeline.setCycleCount(Timeline.INDEFINITE);
+		timeline.play();
 	}
 
 	/**

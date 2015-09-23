@@ -14,6 +14,7 @@ import javafx.scene.paint.Color;
 public class Player {
 
 	public static final Color[] DEFAULT_COLORS = { Color.RED, Color.BLUE, Color.GREEN, Color.ORANGE };
+	public static final int[] MONEY_ARRAY = { 1600, 600, 1000, 1000, 1000 };
 
 	private Race race;
 	private Color color;
@@ -35,6 +36,7 @@ public class Player {
 		name = "Player " + (id + 1);
 		race = Race.values()[id % Race.values().length];
 		color = DEFAULT_COLORS[id % DEFAULT_COLORS.length];
+		money = MONEY_ARRAY[race.ordinal()];
 
 		stocks = new EnumMap<>(ResourceType.class);
 		for (ResourceType resource : ResourceType.values()) {
@@ -86,6 +88,7 @@ public class Player {
 
 	public void setRace(Race race) {
 		this.race = race;
+		money = MONEY_ARRAY[race.ordinal()];
 	}
 
 	public Color getColor() {
