@@ -15,7 +15,7 @@ import java.util.NoSuchElementException;
  *
  * Visualization classes can extend this to actually show things!
  */
-public class Grid implements Iterable<Tile> {
+public abstract class Grid implements Iterable<Tile> {
 
 	protected Tile[][] tiles;
 	protected int rows, cols;
@@ -197,6 +197,15 @@ public class Grid implements Iterable<Tile> {
 	}
 
 	/**
+	 * Checks if toCheck is inside column or row
+	 * @param toCheck Point to check
+	 * @param column Column to check
+	 * @param row row to check
+	 * @return Whether point is inside the specified tile
+	 */
+	public abstract boolean isInside(Point2D toCheck, int column, int row);
+
+	/**
 	 * Moves the player to a specified point.
 	 * @param newX New player x point
 	 * @param newY New player y point
@@ -254,4 +263,5 @@ public class Grid implements Iterable<Tile> {
 			return next;
 		}
 	}
+
 }

@@ -11,15 +11,14 @@ import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.geometry.Point2D;
 import javafx.scene.control.Label;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
 import javafx.util.Duration;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Holds key information about the state of the game, and drives turns.
@@ -32,25 +31,28 @@ public class GameManager {
 	private WorldMap map;
 	private Label turnLabel;
 	private Label resourceLabel;
+	private MouseHandler mouseHandler;
+	private SceneLoader sceneLoader;
 
 	private int turnCount;
 	private int currentPlayer;
 	private int phaseCount;
 
-	public GameManager(WorldMap map, Label turnLabel, Label resourceLabel) {
+	public GameManager(WorldMap map, Label turnLabel, Label resourceLabel, SceneLoader sceneLoader) {
 		this.map = map;
 		this.turnLabel = turnLabel;
 		this.resourceLabel = resourceLabel;
+		this.sceneLoader = sceneLoader;
 		playerList = new ArrayList<>();
-		for (int i = 0; i < Config.numOfPlayers; i++) {
-			playerList.add(Config.playerList[i]);
-		}
+		playerList.addAll(Arrays.asList(Config.playerList).subList(0, Config.numOfPlayers));
 		turnCount = 0;
 		currentPlayer = 0;
 		phaseCount = 0;
+		this.mouseHandler = new MouseHandler();
 		nextTurn();
 	}
 
+	//TODO FIXME MOVE THIS TO ITS OWN CLASS
 	public void handleKey(KeyEvent e) {
 		if (phaseCount == 0) {
 			if (Config.gameType == GameType.SIMULTANEOUS) {
@@ -96,6 +98,10 @@ public class GameManager {
 				}
 			}
 		}
+	}
+
+	public void handleMouse(MouseEvent e) {
+		this.mouseHandler.handleEvent(e);
 	}
 
 	private void buyTile(Player player) {
@@ -200,4 +206,14 @@ public class GameManager {
 		return scores;
 	}
 
+	/**
+	 * A small class for handling mouse events
+	 */
+	private class MouseHandler {
+		public void handleEvent(MouseEvent e) {
+			if (map.isInside(new Point2D(e.getX(), e.getY()), (map.getColumns() / 2), (map.getRows() / 2))) {
+				sceneLoader.setScene(MULE.TOWN_SCENE);
+			}
+		}
+	}
 }

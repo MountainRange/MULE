@@ -200,6 +200,16 @@ public class VisualGrid extends Grid {
 		animation.play();
 	}
 
+	@Override
+	public boolean isInside(Point2D toCheck, int column, int row) {
+		Tile tile = tiles[column][row];
+		Rectangle r = new Rectangle(tile.getLayoutX() - tile.getScaleX() / 2,
+				tile.getLayoutY() - tile.getScaleY() / 2,
+				tile.getScaleX(), tile.getScaleY());
+		System.out.println(r);
+		return r.contains(toCheck);
+	}
+
 	/**
 	 * Moves the player to a specified point.
 	 * Creates a player if not already present.

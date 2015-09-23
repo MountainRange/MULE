@@ -3,6 +3,7 @@ package io.github.mountainrange.mule.gameplay;
 import io.github.mountainrange.mule.enums.MapSize;
 import io.github.mountainrange.mule.enums.MapType;
 import io.github.mountainrange.mule.enums.TerrainType;
+import javafx.geometry.Point2D;
 
 import java.util.Iterator;
 
@@ -99,6 +100,26 @@ public class WorldMap implements Iterable<Tile> {
 	@Override
 	public Iterator<Tile> iterator() {
 		return map.iterator();
+	}
+
+	/**
+	 * Gets the number of columns in this map
+	 * @return cols
+	 */
+	public int getColumns() {
+		return map.getCols();
+	}
+
+	/**
+	 * Gets the number of rows in this map
+	 * @return rows
+	 */
+	public int getRows() {
+		return map.getRows();
+	}
+
+	public boolean isInside(Point2D toCheck, int column, int row) {
+		return map.isInside(toCheck, column, row);
 	}
 
 }

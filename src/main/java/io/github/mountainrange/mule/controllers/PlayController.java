@@ -16,6 +16,7 @@ import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 
 import java.net.URL;
@@ -56,8 +57,22 @@ public class PlayController implements Initializable, SceneAgent {
 
 	public void onSetScene() {
 		if (manager == null) {
-			manager = new GameManager(map, turnLabel, resourceLabel);
+			manager = new GameManager(map, turnLabel, resourceLabel, sceneLoader);
 		}
+	}
+
+	@FXML
+	private void handleMouseMoved(MouseEvent e) {
+	}
+
+	@FXML
+	private void handleMousePressed(MouseEvent e) {
+		manager.handleMouse(e);
+	}
+
+	@FXML
+	private void handleMouseReleased(MouseEvent e) {
+		manager.handleMouse(e);
 	}
 
 	@FXML
