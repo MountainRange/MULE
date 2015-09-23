@@ -2,6 +2,7 @@ package io.github.mountainrange.mule;
 
 import io.github.mountainrange.mule.controllers.SceneAgent;
 
+import io.github.mountainrange.mule.gameplay.Player;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
@@ -14,6 +15,7 @@ import javafx.scene.Parent;
 import javafx.util.Duration;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Stack;
 
 /**

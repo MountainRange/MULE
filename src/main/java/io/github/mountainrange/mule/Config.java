@@ -3,6 +3,8 @@ package io.github.mountainrange.mule;
 import io.github.mountainrange.mule.enums.*;
 import io.github.mountainrange.mule.gameplay.Player;
 
+import java.util.List;
+
 /**
  * Simple config class
  */
@@ -16,6 +18,7 @@ public class Config {
 	public static MapSize mapSize = MapSize.ALPS;
 	public static MapType mapType = MapType.CLASSIC;
 	public static Player[] playerList;
+	public static List<Player> buyers;
 	public static int currentPlayer = 0;
 	public static int numOfPlayers = 2;
 	public static int maxPlayers = 4;
