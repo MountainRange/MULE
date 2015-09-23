@@ -4,6 +4,7 @@ import io.github.mountainrange.mule.Config;
 import io.github.mountainrange.mule.MULE;
 import io.github.mountainrange.mule.SceneLoader;
 import io.github.mountainrange.mule.enums.Difficulty;
+import io.github.mountainrange.mule.enums.GameType;
 import io.github.mountainrange.mule.enums.MapSize;
 import io.github.mountainrange.mule.enums.MapType;
 
@@ -32,6 +33,9 @@ public class GameConfigController implements Initializable, SceneAgent {
 
 	@FXML
 	private Slider mapSlider;
+
+	@FXML
+	private ComboBox<String> gameTypeCombo;
 
 	@FXML
 	private ComboBox<String> mapTypeCombo;
@@ -79,7 +83,12 @@ public class GameConfigController implements Initializable, SceneAgent {
 				return 2.0;
 			}
 		});
-		assert mapTypeCombo != null : "fx:id=\"myChoices\" was not injected: check your FXML file 'foo.fxml'.";
+		assert gameTypeCombo != null : "fx:id=\"gameTypeCombo\" was not injected: check your FXML file 'foo.fxml'.";
+		gameTypeCombo.setItems(FXCollections.observableArrayList());
+		gameTypeCombo.getItems().add("HOTSEAT");
+		gameTypeCombo.getItems().add("SIMULTANEOUS");
+		gameTypeCombo.getItems().add("ONLINE");
+		assert mapTypeCombo != null : "fx:id=\"mapTypeCombo\" was not injected: check your FXML file 'foo.fxml'.";
 		mapTypeCombo.setItems(FXCollections.observableArrayList());
 		mapTypeCombo.getItems().add("CLASSIC");
 		mapTypeCombo.getItems().add("RANDOM");
@@ -89,6 +98,9 @@ public class GameConfigController implements Initializable, SceneAgent {
 	public void setSceneParent(SceneLoader sceneLoader, MULE mule){
 		this.sceneLoader = sceneLoader;
 		this.mule = mule;
+	}
+
+	public void onSetScene() {
 	}
 
 	@FXML
@@ -101,11 +113,17 @@ public class GameConfigController implements Initializable, SceneAgent {
 		diffSlider.setValue(Config.difficulty.ordinal());
 		mapSlider.setValue(Config.mapSize.ordinal());
 		mapTypeCombo.getSelectionModel().select(Config.mapType.ordinal());
+		gameTypeCombo.getSelectionModel().select(Config.gameType.ordinal());
 	}
 
 	@FXML
 	private void handleDiffAction(Event e) {
 		Config.difficulty = Difficulty.values()[(int)diffSlider.getValue()];
+	}
+
+	@FXML
+	private void handleGameTypeAction(Event e) {
+		Config.gameType = GameType.values()[gameTypeCombo.getSelectionModel().getSelectedIndex()];
 	}
 
 	@FXML

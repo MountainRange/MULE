@@ -34,6 +34,9 @@ public class MenuBarController implements Initializable, SceneAgent {
 		this.mule = mule;
 	}
 
+	public void onSetScene() {
+	}
+
 	@FXML
 	private void handleFadeAction(ActionEvent e) {
 		Config.fadeEnabled = fadeRadio.isSelected();

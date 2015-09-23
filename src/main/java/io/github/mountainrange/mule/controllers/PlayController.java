@@ -1,51 +1,45 @@
 package io.github.mountainrange.mule.controllers;
 
+import io.github.mountainrange.mule.GameManager;
 import io.github.mountainrange.mule.MULE;
 import io.github.mountainrange.mule.SceneLoader;
-import io.github.mountainrange.mule.Tile;
-import io.github.mountainrange.mule.gameplay.Grid;
-import javafx.application.Application;
+import io.github.mountainrange.mule.enums.TerrainType;
+import io.github.mountainrange.mule.gameplay.Tile;
+import io.github.mountainrange.mule.gameplay.WorldMap;
+import io.github.mountainrange.mule.enums.MapSize;
+import io.github.mountainrange.mule.enums.MapType;
+import io.github.mountainrange.mule.gameplay.VisualGrid;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.layout.Pane;
-import javafx.scene.shape.Rectangle;
-import javafx.scene.shape.Circle;
-import javafx.scene.paint.Color;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.Pane;
 
 import java.net.URL;
 import java.util.ResourceBundle;
 
 /**
- * Created by Matthew Keezer on 9/9/2015.
+ * A class to manage the main Playing Map Screen
  */
 public class PlayController implements Initializable, SceneAgent {
 
 	private SceneLoader sceneLoader;
 	private MULE mule;
-	private Grid g;
+	private VisualGrid g;
+	private WorldMap map;
+	private GameManager manager;
 
 	@FXML
 	private Pane mapPane;
 
 	@Override
 	public void initialize(URL url, ResourceBundle rb) {
-		g = new Grid(10, 10, mapPane);
-		g.add(new Rectangle(0, 0, 1, 1), 1, 1);
+		g = new VisualGrid(9, 5, MapType.CLASSIC, MapSize.ALPS, mapPane);
+		map = new WorldMap(g);
 
-		Circle c = new Circle(0, 0, 0.5);
-		c.setFill(Color.GREEN);
-		g.add(c, 3, 5);
-		// g.remove(2, 5);
-
-		ImageView image = new ImageView("pictures/ViPaint.png");
-		image.setFitWidth(1);
-		image.setFitHeight(1);
-	    g.add(image, 4, 4);
-
-		g.select(7, 3);
-
+		g.movePlayer(1, 1);
 	}
 
 	public void setSceneParent(SceneLoader sceneLoader, MULE mule){
@@ -53,8 +47,27 @@ public class PlayController implements Initializable, SceneAgent {
 		this.mule = mule;
 	}
 
+	public void onSetScene() {
+		if (manager == null) {
+			manager = new GameManager(map);
+		}
+	}
+
+	@FXML
+	private void handleKeyPress(KeyEvent e) {
+		manager.handleKey(e);
+	}
+
+	@FXML
+	private void handleKeyRelease(KeyEvent e) {
+
+	}
+
 	@FXML
 	private void handleBackAction(ActionEvent e) {
+//		g.movePlayer(g.getPlayerPosition().getX() + 1, g.getPlayerPosition().getY() + 1);
+//		g.select(4,1);
+//		g.move(4,2,1,1);
 		sceneLoader.goBack();
 	}
 

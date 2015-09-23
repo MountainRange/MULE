@@ -1,87 +1,85 @@
 package io.github.mountainrange.mule.gameplay;
 
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
-import javafx.scene.layout.Pane;
+import io.github.mountainrange.mule.enums.MapSize;
+import io.github.mountainrange.mule.enums.MapType;
+import io.github.mountainrange.mule.enums.TerrainType;
+import javafx.geometry.Point2D;
 import javafx.scene.Node;
-import javafx.beans.property.DoubleProperty;
-import javafx.scene.paint.Color;
-import javafx.animation.PathTransition;
-import javafx.animation.Interpolator;
-import javafx.scene.shape.Path;
-import javafx.scene.shape.MoveTo;
-import javafx.scene.shape.ArcTo;
-import javafx.scene.shape.LineTo;
-import javafx.util.Duration;
-import javafx.animation.Timeline;
 
-import java.lang.IllegalArgumentException;
-import java.util.HashSet;
+import java.awt.*;
+import java.util.Iterator;
+import java.util.NoSuchElementException;
 
 /**
- * A class to represent a scalable Grid in javafx.
- * Needs a pane to draw the grid to.
+ * A class to represent location of things on the board.
  *
- * @author Jay Kamat
- * @version 1.0
- *
+ * Visualization classes can extend this to actually show things!
  */
-public class Grid {
-	private int rows, cols;
-	private Pane upperPane;
-	private Node[][] tiles;
-	private Rectangle selection;
+public class Grid implements Iterable<Tile> {
 
-	public static final double THICKNESS=1;
-	public static final Color COLOR=Color.BLACK;
-	public static final Rectangle SELECTION_TEMPLATE;
+	protected Tile[][] tiles;
+	protected int rows, cols;
+	protected Point selection = null;
 
-	static {
-		SELECTION_TEMPLATE = new Rectangle(1, 1, Color.TRANSPARENT);
-		SELECTION_TEMPLATE.setFill(Color.TRANSPARENT);
-		SELECTION_TEMPLATE.setStroke(Color.BLACK);
-		SELECTION_TEMPLATE.setStrokeWidth(3);
-	}
+	protected Point2D playerPosition = null;
 
-	public Grid(int cols, int rows, Pane upperPane) {
-		super();
+	public static final int[][] classicMap = {
+			{0,0,2,0,1,0,4,0,0},
+			{0,2,0,0,1,0,0,0,4},
+			{4,0,0,0,5,0,0,0,2},
+			{0,3,0,0,1,0,3,0,0},
+			{0,0,3,0,1,0,0,0,3}
+	};
+
+	public Grid (int columns, int rows, MapType m, MapSize s) {
+		int[][] map;
 
 		this.rows = rows;
-		this.cols = cols;
-		this.upperPane = upperPane;
+		this.cols = columns;
 
 		if (this.rows < 2 || this.cols < 2) {
 			throw new IllegalArgumentException("Grid can only be constructed with more than 2 rows and columns");
 		}
 
-		this.tiles = new Node[cols][rows];
+		if (m == MapType.CLASSIC) {
+			map = classicMap;
+		} else {
+			// TODO add other map options here!
+			map = classicMap;
+		}
 
-		generateGrid();
+		tiles = new Tile[this.cols][this.rows];
+
+		if (map.length <= 0 || tiles.length != map[0].length || tiles[0].length != map.length) {
+			throw new IllegalArgumentException("Mismatch detected betwen grid size and map size!");
+		}
+
+		for (int i = 0; i < tiles.length; i++) {
+			for (int j = 0; j < tiles[0].length; j++) {
+				if (map[j][i] == 0) {
+					tiles[i][j] = new Tile(TerrainType.PLAIN);
+				} else if (map[j][i] == 1) {
+					tiles[i][j] = new Tile(TerrainType.RIVER);
+				} else if (map[j][i] == 2) {
+					tiles[i][j] = new Tile(TerrainType.MOUNTAIN1);
+				} else if (map[j][i] == 3) {
+					tiles[i][j] = new Tile(TerrainType.MOUNTAIN2);
+				} else if (map[j][i] == 4) {
+					tiles[i][j] = new Tile(TerrainType.MOUNTAIN3);
+				} else if (map[j][i] == 5) {
+					tiles[i][j] = new Tile(TerrainType.TOWN);
+				}
+			}
+		}
 	}
 
-	private void generateGrid() {
-		for (int i = 1; i < this.cols; i++) {
-			Rectangle toAdd = new Rectangle();
-			toAdd.setFill(this.COLOR);
-			toAdd.setWidth(this.THICKNESS);
-			toAdd.setHeight(1);
-			toAdd.layoutXProperty().bind(upperPane.widthProperty().divide(cols)
-										 .multiply(i).subtract(this.THICKNESS / 2.0));
-			toAdd.scaleYProperty().bind(upperPane.heightProperty().multiply(2));
-			upperPane.getChildren().add(toAdd);
-		}
-
-		for (int i = 1; i < this.cols; i++) {
-			Rectangle toAdd = new Rectangle();
-			toAdd.setFill(this.COLOR);
-			toAdd.setHeight(this.THICKNESS);
-			toAdd.setWidth(1);
-			toAdd.layoutYProperty().bind(upperPane.heightProperty().divide(rows)
-										 .multiply(i).subtract(this.THICKNESS / 2.0));
-			toAdd.scaleXProperty().bind(upperPane.widthProperty().multiply(2));
-			upperPane.getChildren().add(toAdd);
-		}
-
+	/**
+	 * Gets the tiles in use.
+	 * @return the tiles in this grid
+	 * @deprecated use helper functions instead
+	 */
+	public Tile[][] getTiles() {
+		return tiles;
 	}
 
 	public int getRows() {
@@ -92,7 +90,7 @@ public class Grid {
 		return cols;
 	}
 
-	public Node get(int column, int row) {
+	public Tile get(int column, int row) {
 		if (column < 0 || row < 0 || column >= tiles.length || row >= tiles[0].length) {
 			throw new IllegalArgumentException("Invalid row or column!");
 		}
@@ -102,33 +100,37 @@ public class Grid {
 	/**
 	 * Adds a node to this grid.
 	 *
-	 * Will overwrite any exising element in the grid.
+	 * Will overwrite any existing element in the grid.
 	 */
-	public void add(Node toAdd, int column, int row) {
+	public void add(Tile toAdd, int column, int row) {
 		if (column < 0 || row < 0 || column >= tiles.length || row >= tiles[0].length) {
 			throw new IllegalArgumentException("Invalid row or column!");
 		}
 
+		toAdd.maxHeight(1);
+		toAdd.maxWidth(1);
+
+		if (this.get(column, row) != null) {
+			this.remove(column, row);
+		}
+
 		tiles[column][row] = toAdd;
-		toAdd.layoutXProperty().bind(upperPane.widthProperty().divide(cols).divide(2.0).multiply(1 + column * 2.0));
-		toAdd.layoutYProperty().bind(upperPane.heightProperty().divide(rows).divide(2.0).multiply(1 + row * 2.0));
+	}
 
-		toAdd.scaleXProperty().bind(upperPane.widthProperty().divide(this.cols));
-		toAdd.scaleYProperty().bind(upperPane.heightProperty().divide(this.rows));
-
-		upperPane.getChildren().add(toAdd);
+	/**
+	 * Adds a node to this grid.
+	 *
+	 * Will overwrite any existing element in the grid.
+	 */
+	public void addToTile(Node toAdd, int column, int row) {
+		tiles[column][row].getChildren().add(toAdd);
 	}
 
 	/**
 	 * Removes a node from a selected row/column
-	 *
 	 */
-	public Node remove(int column, int row) {
-		Node toReturn = tiles[column][row];
-
-		if (toReturn != null) {
-			upperPane.getChildren().remove(toReturn);
-		}
+	public Tile remove(int column, int row) {
+		Tile toReturn = tiles[column][row];
 
 		tiles[column][row] = null;
 		return toReturn;
@@ -138,9 +140,6 @@ public class Grid {
 	 * Removes the current selection
 	 */
 	public void removeSelection() {
-		if (selection != null) {
-			upperPane.getChildren().remove(selection);
-		}
 		selection = null;
 	}
 
@@ -158,17 +157,26 @@ public class Grid {
 			this.removeSelection();
 		}
 
-		selection = this.SELECTION_TEMPLATE;
-		selection.xProperty().bind(upperPane.widthProperty().divide(cols).multiply(column));
-		selection.yProperty().bind(upperPane.heightProperty().divide(rows).multiply(row));
-
-		selection.widthProperty().bind(upperPane.widthProperty().divide(this.cols));
-		selection.heightProperty().bind(upperPane.heightProperty().divide(this.rows));
-
-		upperPane.getChildren().add(selection);
+		selection = new Point(column, row);
 	}
 
-	public void animate(int columnFrom, int rowFrom, int columnTo, int rowTo) {
+	public int getCursorX() {
+		return (int)selection.getX();
+	}
+
+	public int getCursorY() {
+		return (int)selection.getY();
+	}
+
+	/**
+	 * Moves an object from one area to another.
+	 *
+	 * @param columnFrom start col
+	 * @param rowFrom start row
+	 * @param columnTo end column
+	 * @param rowTo end row
+	 */
+	public void move(int columnFrom, int rowFrom, int columnTo, int rowTo) {
 		if (columnFrom < 0 || rowFrom < 0 || columnFrom >= tiles.length || rowFrom >= tiles[0].length) {
 			throw new IllegalArgumentException("Invalid row or column!");
 		}
@@ -177,38 +185,73 @@ public class Grid {
 			throw new IllegalArgumentException("Invalid row or column!");
 		}
 
-		// Create the animation object to move the item to the destination and keeep it there.
-		Node toAnimate = tiles[columnFrom][rowFrom];
+		// Create the animation object to move the item to the destination and keep it there.
+		Tile toMove = tiles[columnFrom][rowFrom];
 
-		toAnimate.layoutXProperty().unbind();
-		toAnimate.layoutYProperty().unbind();
-		toAnimate.layoutXProperty().bind(upperPane.widthProperty().multiply(0)); // effectively zero out the bind
-		toAnimate.layoutYProperty().bind(upperPane.widthProperty().multiply(0)); // effectively zero out the bind
+		if (toMove == null) {
+			throw new IllegalArgumentException("You tried to move a tile that was non existent");
+		}
 
+		tiles[columnFrom][rowFrom] = null;
+		tiles[columnTo][rowTo] = toMove;
+	}
 
-		Path path = new Path();
+	/**
+	 * Moves the player to a specified point.
+	 * @param newX New player x point
+	 * @param newY New player y point
+	 */
+	public void movePlayer(double newX, double newY) {
+		playerPosition = new Point2D(newX, newY);
+	}
 
-		MoveTo start = new MoveTo(1, 1);
-		LineTo end = new LineTo(1, 1);
-		start.xProperty().bind(upperPane.widthProperty().divide(cols).divide(2.0).multiply(1 + columnFrom * 2.0));
-		start.yProperty().bind(upperPane.heightProperty().divide(rows).divide(2.0).multiply(1 + rowFrom * 2.0));
-		end.xProperty().bind(upperPane.widthProperty().divide(cols).divide(2.0).multiply(1 + columnTo * 2.0));
-		end.yProperty().bind(upperPane.heightProperty().divide(rows).divide(2.0).multiply(1 + rowTo * 2.0));
+	/**
+	 * Removes the player from this grid.
+	 */
+	public void removePlayer() {
+		playerPosition = null;
+	}
 
-		path.getElements().add(start);
-		path.getElements().add(end);
-		path.setStroke(Color.BLACK);
-		path.setStrokeWidth(2);
+	/**
+	 * Returns the player position.
+	 * @return The player position. Null if no player is on the field.
+	 */
+	public Point2D getPlayerPosition() {
+		return playerPosition;
+	}
 
+	/**
+	 * Return an iterator for all the Tile objects in the grid.
+	 * @return an iterator for Tiles
+	 */
+	@Override
+	public Iterator<Tile> iterator() {
+		return new GridIterator();
+	}
 
-		// upperPane.getChildren().add(path); // For debug purposes
+	private class GridIterator implements Iterator<Tile> {
+		int nextCol;
+		int nextRow;
 
-		PathTransition animation = new PathTransition();
-		animation.setDuration(Duration.seconds(1.0));
-		animation.setPath(path);
-		animation.setNode(toAnimate);
-        animation.setAutoReverse(false);
-        animation.setInterpolator(Interpolator.LINEAR);
-		animation.play();
+		@Override
+		public boolean hasNext() {
+			return nextRow != rows - 1 && nextCol != cols;
+		}
+
+		@Override
+		public Tile next() {
+			if (!hasNext()) {
+				throw new NoSuchElementException("Can't get next: no more elements");
+			}
+
+			if (nextCol == cols) {
+				nextCol = 0;
+				nextRow++;
+			}
+
+			Tile next = tiles[nextCol][nextRow];
+			nextCol++;
+			return next;
+		}
 	}
 }

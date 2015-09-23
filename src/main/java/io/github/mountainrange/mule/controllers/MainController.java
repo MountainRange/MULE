@@ -28,6 +28,9 @@ public class MainController implements Initializable, SceneAgent {
 		this.mule = mule;
 	}
 
+	public void onSetScene() {
+	}
+
 	@FXML
 	private void handlePlayAction(ActionEvent e) {
 		sceneLoader.setScene(MULE.GAME_CONFIG_SCENE);

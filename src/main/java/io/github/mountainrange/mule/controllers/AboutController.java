@@ -1,5 +1,6 @@
 package io.github.mountainrange.mule.controllers;
 
+import io.github.mountainrange.mule.GameManager;
 import io.github.mountainrange.mule.MULE;
 import io.github.mountainrange.mule.SceneLoader;
 import javafx.application.Application;
@@ -46,9 +47,12 @@ public class AboutController implements Initializable, SceneAgent {
 		textFlow.translateXProperty().bind(scrollPane.widthProperty().subtract(textFlow.widthProperty()).divide(2));
 	}
 
-	public void setSceneParent(SceneLoader sceneLoader, MULE mule){
+	public void setSceneParent(SceneLoader sceneLoader, MULE mule) {
 		this.sceneLoader = sceneLoader;
 		this.mule = mule;
+	}
+
+	public void onSetScene() {
 	}
 
 	@FXML

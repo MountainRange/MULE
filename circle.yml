@@ -1,3 +1,33 @@
 machine:
-    java:
-        version: oraclejdk8
+  services:
+    - docker
+  environment:
+    GITHUB_HAS_GREAT_SECURITY: 39afd411c62ff1d6ebb5
+    GH_STATUS: ${GITHUB_HAS_GREAT_SECURITY}f1342506638c87c9bef0
+    GH_EMAIL: github@jgkamat.33mail.com
+    GH_USER: jgkamat
+
+checkout:
+  post:
+    - git submodule update --init
+
+dependencies:
+  pre:
+      # set build status to pending on start
+    - ./DoCIF/util/maketest.sh --pending
+    - ./DoCIF/commands/buildbaseimage.sh
+      # Actually the test step, but we want to cache it so it can go here.
+    - ./DoCIF/commands/runtests.sh
+  cache_directories:
+    - ./build # See $CACHE_DIRECTORIES in sample_config.docif
+
+# The test phase dosen't actually run tests. We need the caching from the deploy step.
+test:
+  override:
+    - sh -c true
+
+deployment:
+  github:
+    branch: master
+    commands:
+      - ./DoCIF/commands/deploy.sh # This will run DEPLOY_COMMAND as well

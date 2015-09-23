@@ -27,6 +27,9 @@ public class TownController implements Initializable, SceneAgent {
 		this.mule = mule;
 	}
 
+	public void onSetScene() {
+	}
+
 	@FXML
 	private void handleStoreAction(ActionEvent e) {
 		sceneLoader.setScene(MULE.STORE_SCENE);
@@ -49,6 +52,6 @@ public class TownController implements Initializable, SceneAgent {
 
 	@FXML
 	private void handleLeaveAction(ActionEvent e) {
-		sceneLoader.setScene(MULE.PLAY_SCENE);
+		sceneLoader.goBack();
 	}
 }

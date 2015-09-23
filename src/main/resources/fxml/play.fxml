@@ -6,15 +6,15 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="io.github.mountainrange.mule.controllers.PlayController">
+<BorderPane focusTraversable="true" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onKeyPressed="#handleKeyPress" onKeyReleased="#handleKeyRelease" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="io.github.mountainrange.mule.controllers.PlayController">
    <center>
       <Pane fx:id="mapPane" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
    </center>
    <bottom>
-      <ToolBar prefHeight="40.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+      <ToolBar focusTraversable="false" prefHeight="40.0" prefWidth="200.0" BorderPane.alignment="CENTER">
         <items>
-          <Button mnemonicParsing="false" onAction="#handleBackAction" text="Go Back" />
-            <Button layoutX="84.0" layoutY="11.0" mnemonicParsing="false" onAction="#handleTownAction" text="Town" />
+          <Button focusTraversable="false" mnemonicParsing="false" onAction="#handleBackAction" text="Go Back" />
+            <Button focusTraversable="false" layoutX="84.0" layoutY="11.0" mnemonicParsing="false" onAction="#handleTownAction" text="Town" />
         </items>
       </ToolBar>
    </bottom>

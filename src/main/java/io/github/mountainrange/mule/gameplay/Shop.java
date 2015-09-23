@@ -1,6 +1,7 @@
-package io.github.mountainrange.mule;
+package io.github.mountainrange.mule.gameplay;
 
 import io.github.mountainrange.mule.enums.Difficulty;
+import io.github.mountainrange.mule.enums.MuleType;
 import io.github.mountainrange.mule.enums.ResourceType;
 
 import java.util.EnumMap;
@@ -12,6 +13,8 @@ public class Shop {
 
 	private static final EnumMap<Difficulty, EnumMap<ResourceType, Integer>> initialStocks;
 	private static final EnumMap<Difficulty, EnumMap<ResourceType, Integer>> initialPrices;
+
+	private static final EnumMap<MuleType, Integer> outfitPrices;
 
 	private EnumMap<ResourceType, Integer> stocks;
 	private EnumMap<ResourceType, Integer> prices;
@@ -38,6 +41,15 @@ public class Shop {
 	 */
 	public int priceOf(ResourceType resource) {
 		return prices.get(resource);
+	}
+
+	/**
+	 * Gets the price of outfitting a MULE of the given type.
+	 * @param mule type of MULE to outfit
+	 * @return the price of outfitting the given MuleType
+	 */
+	public static int outfitPriceOf(MuleType mule) {
+		return outfitPrices.get(mule);
 	}
 
 	static {
@@ -76,6 +88,14 @@ public class Shop {
 		initialPrices.put(Difficulty.MESA, beginnerPrices);
 		initialPrices.put(Difficulty.PLATEAU, beginnerPrices);
 		initialPrices.put(Difficulty.MOUNTAIN, beginnerPrices);
+
+		// Hard-coded MULE-outfitting prices
+		outfitPrices = new EnumMap<>(MuleType.class);
+
+		outfitPrices.put(MuleType.FOOD_MULE, 25);
+		outfitPrices.put(MuleType.ENERGY_MULE, 50);
+		outfitPrices.put(MuleType.SMITHORE_MULE, 75);
+		outfitPrices.put(MuleType.CRYSTITE_MULE, 100);
 	}
 
 }

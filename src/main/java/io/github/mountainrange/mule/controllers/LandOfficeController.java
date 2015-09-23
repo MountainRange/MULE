@@ -29,7 +29,10 @@ public class LandOfficeController implements Initializable, SceneAgent {
 
 	@FXML
 	private void handleBackAction(ActionEvent e) {
-		sceneLoader.setScene(MULE.TOWN_SCENE);
+		sceneLoader.goBack();
+	}
+
+	public void onSetScene() {
 	}
 //
 //	@FXML

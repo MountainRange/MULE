@@ -27,6 +27,9 @@ public class StoreController implements Initializable, SceneAgent {
 		this.mule = mule;
 	}
 
+	public void onSetScene() {
+	}
+
 	@FXML
 	private void handleBuyMuleAction(ActionEvent e) {
 		System.out.println("You must construct additional pylons");
@@ -39,6 +42,6 @@ public class StoreController implements Initializable, SceneAgent {
 
 	@FXML
 	private void handleLeaveAction(ActionEvent e) {
-		sceneLoader.setScene(MULE.TOWN_SCENE);
+		sceneLoader.goBack();
 	}
 }
