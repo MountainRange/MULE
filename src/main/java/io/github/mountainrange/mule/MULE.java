@@ -32,6 +32,8 @@ public class MULE extends Application {
 	public static final String GAME_CONFIG_SCENE_FXML = "/fxml/gameConfiguration.fxml";
 	public static final String PLAYER_CONFIG_SCENE = "playerConfiguration";
 	public static final String PLAYER_CONFIG_SCENE_FXML = "/fxml/playerConfiguration.fxml";
+	public static final String AUCTION_SCENE = "auction";
+	public static final String AUCTION_SCENE_FXML = "/fxml/auction.fxml";
 
 	public static final String ABOUT_SCENE = "about";
 	public static final String ABOUT_SCENE_FXML = "/fxml/about.fxml";
@@ -60,6 +62,7 @@ public class MULE extends Application {
 		sceneLoader.loadScene(GAME_CONFIG_SCENE, GAME_CONFIG_SCENE_FXML);
 		sceneLoader.loadScene(PLAYER_CONFIG_SCENE, PLAYER_CONFIG_SCENE_FXML);
 		sceneLoader.loadScene(ABOUT_SCENE, ABOUT_SCENE_FXML);
+		sceneLoader.loadScene(AUCTION_SCENE, AUCTION_SCENE_FXML);
 		sceneLoader.setScene(MAIN_SCENE);
 
 		menuBar = new SceneLoader(this);

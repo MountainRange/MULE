@@ -59,6 +59,7 @@ public class PlayController implements Initializable, SceneAgent {
 		if (manager == null) {
 			manager = new GameManager(map, turnLabel, resourceLabel, sceneLoader);
 		}
+		manager.setInAuction(false);
 	}
 
 	@FXML

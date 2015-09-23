@@ -44,7 +44,7 @@ public class PlayerConfigController implements Initializable, SceneAgent {
 
 	@Override
 	public void initialize(URL url, ResourceBundle rb) {
-		Config.playerList = new Player[Config.maxPlayers];
+		Config.getInstance().playerList = new Player[Config.getInstance().maxPlayers];
 		adjustPlayerCount();
 		assert raceCombo != null : "fx:id=\"myChoices\" was not injected: check your FXML file 'foo.fxml'.";
 		raceCombo.setItems(FXCollections.observableArrayList());
@@ -72,18 +72,18 @@ public class PlayerConfigController implements Initializable, SceneAgent {
 
 	@FXML
 	private void handleEnterAction(Event e) {
-		numSlider.setValue(Config.numOfPlayers);
+		numSlider.setValue(Config.getInstance().numOfPlayers);
 		adjustPlayerCount();
 	}
 
 	@FXML
 	private void handleNameAction(Event e) {
-		Config.playerList[Config.currentPlayer].setName(nameField.getText());
+		Config.getInstance().playerList[Config.getInstance().currentPlayer].setName(nameField.getText());
 	}
 
 	@FXML
 	private void handleNumAction(Event e) {
-		Config.numOfPlayers = (int)numSlider.getValue();
+		Config.getInstance().numOfPlayers = (int)numSlider.getValue();
 		adjustPlayerCount();
 	}
 
@@ -94,7 +94,7 @@ public class PlayerConfigController implements Initializable, SceneAgent {
 
 	@FXML
 	private void handleRaceAction(ActionEvent e) {
-		Config.playerList[Config.currentPlayer].setRace(Race.values()[raceCombo
+		Config.getInstance().playerList[Config.getInstance().currentPlayer].setRace(Race.values()[raceCombo
 				.getSelectionModel().getSelectedIndex()]);
 	}
 
@@ -105,30 +105,30 @@ public class PlayerConfigController implements Initializable, SceneAgent {
 
 	@FXML
 	private void handleColorAction(ActionEvent e) {
-		Config.playerList[Config.currentPlayer].setColor(colorPicker.getValue());
+		Config.getInstance().playerList[Config.getInstance().currentPlayer].setColor(colorPicker.getValue());
 	}
 
 	private void updateValues() {
-		raceCombo.getSelectionModel().select(Config.playerList[Config.currentPlayer].getRace().ordinal());
-		colorPicker.setValue(Config.playerList[Config.currentPlayer].getColor());
-		nameField.setText(Config.playerList[Config.currentPlayer].getName());
-		playerSlider.setValue(Config.currentPlayer + 1);
+		raceCombo.getSelectionModel().select(Config.getInstance().playerList[Config.getInstance().currentPlayer].getRace().ordinal());
+		colorPicker.setValue(Config.getInstance().playerList[Config.getInstance().currentPlayer].getColor());
+		nameField.setText(Config.getInstance().playerList[Config.getInstance().currentPlayer].getName());
+		playerSlider.setValue(Config.getInstance().currentPlayer + 1);
 	}
 
 	private void adjustPlayerCount() {
-		for (int i = 0; i < Config.maxPlayers; i++) {
-			if (Config.playerList[i] == null) {
-				Config.playerList[i] = new Player(i);
+		for (int i = 0; i < Config.getInstance().maxPlayers; i++) {
+			if (Config.getInstance().playerList[i] == null) {
+				Config.getInstance().playerList[i] = new Player(i);
 			}
 		}
-		playerSlider.setMax(Config.numOfPlayers);
-		if(Config.currentPlayer >= Config.numOfPlayers) {
+		playerSlider.setMax(Config.getInstance().numOfPlayers);
+		if(Config.getInstance().currentPlayer >= Config.getInstance().numOfPlayers) {
 			changePlayer(0);
 		}
 	}
 
 	private void changePlayer(int id) {
-		Config.currentPlayer = id;
+		Config.getInstance().currentPlayer = id;
 		updateValues();
 	}
 

@@ -26,6 +26,7 @@ import java.util.*;
 public class GameManager {
 
 	private List<Player> playerList;
+	private List<Player> buyers;
 
 	private Shop shop;
 	private WorldMap map;
@@ -34,9 +35,14 @@ public class GameManager {
 	private MouseHandler mouseHandler;
 	private SceneLoader sceneLoader;
 
+	private Timeline runner;
+	private Timeline timeCounter;
+
 	private int turnCount;
 	private int currentPlayer;
 	private int phaseCount;
+	private boolean inAuction;
+	private int timeLeft;
 
 	public GameManager(WorldMap map, Label turnLabel, Label resourceLabel, SceneLoader sceneLoader) {
 		this.map = map;
@@ -44,58 +50,66 @@ public class GameManager {
 		this.resourceLabel = resourceLabel;
 		this.sceneLoader = sceneLoader;
 		playerList = new ArrayList<>();
-		playerList.addAll(Arrays.asList(Config.playerList).subList(0, Config.numOfPlayers));
+		playerList.addAll(Arrays.asList(Config.getInstance().playerList).subList(0, Config.getInstance().numOfPlayers));
+		buyers = new ArrayList<>();
 		turnCount = 0;
 		currentPlayer = 0;
 		phaseCount = 0;
 		this.mouseHandler = new MouseHandler();
+		timeLeft = 0;
 		nextTurn();
 	}
 
 	//TODO FIXME MOVE THIS TO ITS OWN CLASS
 	public void handleKey(KeyEvent e) {
 		if (phaseCount == 0) {
-			if (Config.gameType == GameType.SIMULTANEOUS) {
+			if (Config.getInstance().gameType == GameType.SIMULTANEOUS) {
 				if (e.getCode() == KeyCode.SPACE) {
-					if (Config.numOfPlayers > 0) {
+					if (Config.getInstance().numOfPlayers > 0) {
 						buyTile(playerList.get(0));
 					}
 				} else if (e.getCode() == KeyCode.P) {
-					if (Config.numOfPlayers > 1) {
+					if (Config.getInstance().numOfPlayers > 1) {
 						buyTile(playerList.get(1));
 					}
 				} else if (e.getCode() == KeyCode.Q) {
-					if (Config.numOfPlayers > 2) {
+					if (Config.getInstance().numOfPlayers > 2) {
 						buyTile(playerList.get(2));
 					}
 				} else if (e.getCode() == KeyCode.PERIOD) {
-					if (Config.numOfPlayers > 3) {
+					if (Config.getInstance().numOfPlayers > 3) {
 						buyTile(playerList.get(3));
 					}
 				}
-			} else if (Config.gameType == GameType.HOTSEAT) {
-				if (!Config.selectEnabled) {
-					if (e.getCode() == KeyCode.UP) {
-						map.selectUp();
-					} else if (e.getCode() == KeyCode.DOWN) {
-						map.selectDown();
-					} else if (e.getCode() == KeyCode.LEFT) {
-						map.selectLeft();
-					} else if (e.getCode() == KeyCode.RIGHT) {
-						map.selectRight();
-					}
-				}
-				if(e.getCode() == KeyCode.SPACE) {
-					if (currentPlayer == 0) {
-						buyTile(playerList.get(0));
-					} else if (currentPlayer == 1) {
-						buyTile(playerList.get(1));
-					} else if (currentPlayer == 2) {
-						buyTile(playerList.get(2));
-					} else if (currentPlayer == 3) {
-						buyTile(playerList.get(3));
-					}
-				}
+			} else if (Config.getInstance().gameType == GameType.HOTSEAT) {
+				handleMovement(e);
+			}
+		} else if (phaseCount == 1) {
+			handleMovement(e);
+		}
+	}
+
+	private void handleMovement(KeyEvent e) {
+		if (!Config.getInstance().selectEnabled) {
+			if (e.getCode() == KeyCode.UP) {
+				map.selectUp();
+			} else if (e.getCode() == KeyCode.DOWN) {
+				map.selectDown();
+			} else if (e.getCode() == KeyCode.LEFT) {
+				map.selectLeft();
+			} else if (e.getCode() == KeyCode.RIGHT) {
+				map.selectRight();
+			}
+		}
+		if(e.getCode() == KeyCode.SPACE) {
+			if (currentPlayer == 0) {
+				buyTile(playerList.get(0));
+			} else if (currentPlayer == 1) {
+				buyTile(playerList.get(1));
+			} else if (currentPlayer == 2) {
+				buyTile(playerList.get(2));
+			} else if (currentPlayer == 3) {
+				buyTile(playerList.get(3));
 			}
 		}
 	}
@@ -107,26 +121,53 @@ public class GameManager {
 	private void buyTile(Player player) {
 		if (phaseCount != 0 || player.getLandOwned() < turnCount) {
 			if (map.getOwner() == null) {
-				player.addLand();
-				player.setMoney((int)(player.getMoney() - (300 + (turnCount * Math.random()*100))));
-				map.buyTile(player);
-				if (Config.gameType == GameType.HOTSEAT) {
-					currentPlayer = (currentPlayer + 1) % Config.numOfPlayers;
-					setLabels();
-					if (currentPlayer == 0) {
-						nextTurn();
+				if (phaseCount == 0) {
+					if (Config.getInstance().gameType == GameType.HOTSEAT) {
+						player.addLand();
+						player.setMoney((int) (player.getMoney() - (300 + (turnCount * Math.random() * 100))));
+						map.buyTile(player);
+						currentPlayer = (currentPlayer + 1) % Config.getInstance().numOfPlayers;
+						setLabels();
+						if (currentPlayer == 0) {
+							nextTurn();
+						}
+					} else if (Config.getInstance().gameType == GameType.SIMULTANEOUS) {
+						buyers.add(player);
 					}
-				} else if (Config.gameType == GameType.SIMULTANEOUS) {
+				} else if (phaseCount == 1) {
+					player.addLand();
+					player.setMoney((int)(player.getMoney() - (300 + (turnCount * Math.random()*100))));
+					map.buyTile(player);
 					setLabels();
 				}
 			}
 		}
 	}
 
-	private void setLabels() {
-		if (Config.gameType == GameType.HOTSEAT) {
-			turnLabel.setText(playerList.get(currentPlayer).getName() + "'s Turn");
+	private void delayedBuy() {
+		if (buyers.size() > 1) {
+			enterAuction(buyers);
+		} else if (buyers.size() == 1) {
+			Player player = buyers.get(0);
+			player.addLand();
+			player.setMoney((int) (player.getMoney() - (300 + (turnCount * Math.random() * 100))));
+			map.buyTile(player);
+			setLabels();
 		}
+		buyers.clear();
+	}
+
+	private boolean allBoughtLand() {
+		for (int i = 0; i < playerList.size(); i++) {
+			if (playerList.get(i).getLandOwned() < turnCount) {
+				return false;
+			}
+		}
+		return true;
+	}
+
+	private void setLabels() {
+		turnLabel.setText(playerList.get(currentPlayer).getName() + "'s Turn " + timeLeft);
 		resourceLabel.setText(playerList.get(currentPlayer).getName() + "'s Money: "
 				+ playerList.get(currentPlayer).getMoney() + " Energy: ####");
 	}
@@ -142,36 +183,88 @@ public class GameManager {
 		}
 		if (phaseCount == 0) {
 			landGrabPhase();
+		} else if (phaseCount == 1) {
+			normalPhase();
 		}
 	}
 
 	private void landGrabPhase() {
-		if (Config.gameType == GameType.HOTSEAT) {
+		if (Config.getInstance().gameType == GameType.HOTSEAT) {
 			map.select(0, 0);
-			if (Config.selectEnabled) {
+			if (Config.getInstance().selectEnabled) {
 				runSelector();
 			}
-		} else if (Config.gameType == GameType.SIMULTANEOUS) {
+		} else if (Config.getInstance().gameType == GameType.SIMULTANEOUS) {
 			turnLabel.setText("Landgrab Phase");
 			map.select(0, 0);
 			runSelector();
 		}
 	}
 
+	private void normalPhase() {
+		map.select(4, 2);
+		setLabels();
+		turnTimer();
+	}
+
+	private void enterAuction(List<Player> buyers) {
+		setInAuction(true);
+		Config.getInstance().buyers = new ArrayList<>(buyers);
+		sceneLoader.setScene(MULE.AUCTION_SCENE);
+	}
+
+	public void setInAuction(boolean inAuction) {
+		this.inAuction = inAuction;
+	}
+
 	private void runSelector() {
-		Timeline timeline = new Timeline(
+		runner = new Timeline(
 				new KeyFrame(
 						Duration.seconds(Config.SELECTOR_SPEED),
 						new EventHandler<ActionEvent>() {
 							@Override
 							public void handle(ActionEvent event) {
-								map.selectRightWrap();
+								if (!inAuction && phaseCount == 0) {
+									delayedBuy();
+									map.selectRightWrap();
+								}
+								if (allBoughtLand()) {
+									runner.stop();
+									nextTurn();
+								}
 							}
 						}
 				)
 		);
-		timeline.setCycleCount(Timeline.INDEFINITE);
-		timeline.play();
+		runner.setCycleCount(Timeline.INDEFINITE);
+		runner.play();
+	}
+
+	private void turnTimer() {
+		timeLeft = 90;
+		timeCounter = new Timeline(
+				new KeyFrame(
+						Duration.seconds(Config.SELECTOR_SPEED),
+						new EventHandler<ActionEvent>() {
+							@Override
+							public void handle(ActionEvent event) {
+								timeLeft--;
+								setLabels();
+								if (timeLeft <= 0) {
+									timeLeft = 90;
+									currentPlayer = (currentPlayer + 1) % Config.getInstance().numOfPlayers;
+									setLabels();
+									if (currentPlayer == 0) {
+										nextTurn();
+										timeCounter.stop();
+									}
+								}
+							}
+						}
+				)
+		);
+		timeCounter.setCycleCount(Timeline.INDEFINITE);
+		timeCounter.play();
 	}
 
 	/**
@@ -211,7 +304,7 @@ public class GameManager {
 	 */
 	private class MouseHandler {
 		public void handleEvent(MouseEvent e) {
-			if (e.getEventType().getName() == "MOUSE_PRESSED") {
+			if (e.getEventType().getName().equals("MOUSE_PRESSED")) {
 				if (map.isInside(new Point2D(e.getX(), e.getY()), (map.getColumns() / 2), (map.getRows() / 2))) {
 					sceneLoader.setScene(MULE.TOWN_SCENE);
 				}
