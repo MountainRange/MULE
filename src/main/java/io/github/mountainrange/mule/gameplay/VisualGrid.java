@@ -206,7 +206,6 @@ public class VisualGrid extends Grid {
 		Rectangle r = new Rectangle(tile.getLayoutX() - tile.getScaleX() / 2,
 				tile.getLayoutY() - tile.getScaleY() / 2,
 				tile.getScaleX(), tile.getScaleY());
-		System.out.println(r);
 		return r.contains(toCheck);
 	}
 

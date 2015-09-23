@@ -211,8 +211,10 @@ public class GameManager {
 	 */
 	private class MouseHandler {
 		public void handleEvent(MouseEvent e) {
-			if (map.isInside(new Point2D(e.getX(), e.getY()), (map.getColumns() / 2), (map.getRows() / 2))) {
-				sceneLoader.setScene(MULE.TOWN_SCENE);
+			if (e.getEventType().getName() == "MOUSE_PRESSED") {
+				if (map.isInside(new Point2D(e.getX(), e.getY()), (map.getColumns() / 2), (map.getRows() / 2))) {
+					sceneLoader.setScene(MULE.TOWN_SCENE);
+				}
 			}
 		}
 	}
