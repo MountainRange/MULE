@@ -35,6 +35,9 @@ public class GameManager {
 	private MouseHandler mouseHandler;
 	private SceneLoader sceneLoader;
 
+	private Timeline runner;
+	private Timeline timeCounter;
+
 	private int turnCount;
 	private int currentPlayer;
 	private int phaseCount;
@@ -79,28 +82,34 @@ public class GameManager {
 					}
 				}
 			} else if (Config.gameType == GameType.HOTSEAT) {
-				if (!Config.selectEnabled) {
-					if (e.getCode() == KeyCode.UP) {
-						map.selectUp();
-					} else if (e.getCode() == KeyCode.DOWN) {
-						map.selectDown();
-					} else if (e.getCode() == KeyCode.LEFT) {
-						map.selectLeft();
-					} else if (e.getCode() == KeyCode.RIGHT) {
-						map.selectRight();
-					}
-				}
-				if(e.getCode() == KeyCode.SPACE) {
-					if (currentPlayer == 0) {
-						buyTile(playerList.get(0));
-					} else if (currentPlayer == 1) {
-						buyTile(playerList.get(1));
-					} else if (currentPlayer == 2) {
-						buyTile(playerList.get(2));
-					} else if (currentPlayer == 3) {
-						buyTile(playerList.get(3));
-					}
-				}
+				handleMovement(e);
+			}
+		} else if (phaseCount == 1) {
+			handleMovement(e);
+		}
+	}
+
+	private void handleMovement(KeyEvent e) {
+		if (!Config.selectEnabled) {
+			if (e.getCode() == KeyCode.UP) {
+				map.selectUp();
+			} else if (e.getCode() == KeyCode.DOWN) {
+				map.selectDown();
+			} else if (e.getCode() == KeyCode.LEFT) {
+				map.selectLeft();
+			} else if (e.getCode() == KeyCode.RIGHT) {
+				map.selectRight();
+			}
+		}
+		if(e.getCode() == KeyCode.SPACE) {
+			if (currentPlayer == 0) {
+				buyTile(playerList.get(0));
+			} else if (currentPlayer == 1) {
+				buyTile(playerList.get(1));
+			} else if (currentPlayer == 2) {
+				buyTile(playerList.get(2));
+			} else if (currentPlayer == 3) {
+				buyTile(playerList.get(3));
 			}
 		}
 	}
@@ -112,17 +121,24 @@ public class GameManager {
 	private void buyTile(Player player) {
 		if (phaseCount != 0 || player.getLandOwned() < turnCount) {
 			if (map.getOwner() == null) {
-				if (Config.gameType == GameType.HOTSEAT) {
+				if (phaseCount == 0) {
+					if (Config.gameType == GameType.HOTSEAT) {
+						player.addLand();
+						player.setMoney((int) (player.getMoney() - (300 + (turnCount * Math.random() * 100))));
+						map.buyTile(player);
+						currentPlayer = (currentPlayer + 1) % Config.numOfPlayers;
+						setLabels();
+						if (currentPlayer == 0) {
+							nextTurn();
+						}
+					} else if (Config.gameType == GameType.SIMULTANEOUS) {
+						buyers.add(player);
+					}
+				} else if (phaseCount == 1) {
 					player.addLand();
 					player.setMoney((int)(player.getMoney() - (300 + (turnCount * Math.random()*100))));
 					map.buyTile(player);
-					currentPlayer = (currentPlayer + 1) % Config.numOfPlayers;
 					setLabels();
-					if (currentPlayer == 0) {
-						nextTurn();
-					}
-				} else if (Config.gameType == GameType.SIMULTANEOUS) {
-					buyers.add(player);
 				}
 			}
 		}
@@ -141,10 +157,18 @@ public class GameManager {
 		buyers.clear();
 	}
 
-	private void setLabels() {
-		if (Config.gameType == GameType.HOTSEAT) {
-			turnLabel.setText(playerList.get(currentPlayer).getName() + "'s Turn");
+	private boolean allBoughtLand() {
+		for (int i = 0; i < playerList.size(); i++) {
+			if (playerList.get(i).getLandOwned() < turnCount) {
+				return false;
+			}
 		}
+		return true;
+	}
+
+	private void setLabels() {
+		System.out.println(currentPlayer);
+		turnLabel.setText(playerList.get(currentPlayer).getName() + "'s Turn " + timeLeft);
 		resourceLabel.setText(playerList.get(currentPlayer).getName() + "'s Money: "
 				+ playerList.get(currentPlayer).getMoney() + " Energy: ####");
 	}
@@ -180,7 +204,7 @@ public class GameManager {
 
 	private void normalPhase() {
 		map.select(4, 2);
-		turnLabel.setText(playerList.get(currentPlayer).getName() + "'s Turn");
+		setLabels();
 		turnTimer();
 	}
 
@@ -195,39 +219,53 @@ public class GameManager {
 	}
 
 	private void runSelector() {
-		Timeline timeline = new Timeline(
+		runner = new Timeline(
 				new KeyFrame(
 						Duration.seconds(Config.SELECTOR_SPEED),
 						new EventHandler<ActionEvent>() {
 							@Override
 							public void handle(ActionEvent event) {
-								if (!inAuction) {
+								if (!inAuction && phaseCount == 0) {
 									delayedBuy();
 									map.selectRightWrap();
+								}
+								if (allBoughtLand()) {
+									runner.stop();
+									nextTurn();
 								}
 							}
 						}
 				)
 		);
-		timeline.setCycleCount(Timeline.INDEFINITE);
-		timeline.play();
+		runner.setCycleCount(Timeline.INDEFINITE);
+		runner.play();
 	}
 
 	private void turnTimer() {
 		timeLeft = 90;
-		Timeline timeline = new Timeline(
+		timeCounter = new Timeline(
 				new KeyFrame(
 						Duration.seconds(Config.SELECTOR_SPEED),
 						new EventHandler<ActionEvent>() {
 							@Override
 							public void handle(ActionEvent event) {
-
+								timeLeft--;
+								setLabels();
+								if (timeLeft <= 0) {
+									timeLeft = 90;
+									currentPlayer = (currentPlayer + 1) % Config.numOfPlayers;
+									setLabels();
+									if (currentPlayer == 0) {
+										nextTurn();
+										timeCounter.stop();
+									}
+								}
 							}
 						}
 				)
 		);
-		timeline.setCycleCount(Timeline.INDEFINITE);
-		timeline.play();
+		timeCounter.setCycleCount(Timeline.INDEFINITE);
+		timeCounter.play();
 	}
 
 	/**
