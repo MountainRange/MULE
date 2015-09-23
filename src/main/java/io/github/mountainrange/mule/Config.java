@@ -23,6 +23,7 @@ public class Config {
 	public int currentPlayer;
 	public int numOfPlayers;
 	public int maxPlayers;
+	public List<Player> buyers;
 	public Race race;
 	public boolean fadeEnabled;
 	public boolean selectEnabled;
