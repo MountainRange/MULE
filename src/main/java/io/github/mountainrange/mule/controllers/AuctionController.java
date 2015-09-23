@@ -77,7 +77,7 @@ public class AuctionController implements Initializable, SceneAgent {
 	}
 
 	public void onSetScene() {
-		buyers = Config.buyers;
+		buyers = Config.getInstance().buyers;
 		currentLeader = buyers.get(0);
 		highestPrice = 0;
 		offers.clear();
