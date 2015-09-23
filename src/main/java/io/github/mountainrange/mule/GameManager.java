@@ -38,7 +38,7 @@ public class GameManager {
 	private Timeline runner;
 	private Timeline timeCounter;
 
-	private int turnCount;
+	private int roundCount;
 	private int currentPlayer;
 	private int phaseCount;
 	private boolean inAuction;
@@ -52,12 +52,12 @@ public class GameManager {
 		playerList = new ArrayList<>();
 		playerList.addAll(Arrays.asList(Config.getInstance().playerList).subList(0, Config.getInstance().numOfPlayers));
 		buyers = new ArrayList<>();
-		turnCount = 0;
+		roundCount = 0;
 		currentPlayer = 0;
 		phaseCount = 0;
 		this.mouseHandler = new MouseHandler();
 		timeLeft = 0;
-		nextTurn();
+		nextRound();
 	}
 
 	//TODO FIXME MOVE THIS TO ITS OWN CLASS
@@ -119,24 +119,24 @@ public class GameManager {
 	}
 
 	private void buyTile(Player player) {
-		if (phaseCount != 0 || player.getLandOwned() < turnCount) {
+		if (phaseCount != 0 || player.getLandOwned() < roundCount) {
 			if (map.getOwner() == null) {
 				if (phaseCount == 0) {
 					if (Config.getInstance().gameType == GameType.HOTSEAT) {
 						player.addLand();
-						player.setMoney((int) (player.getMoney() - (300 + (turnCount * Math.random() * 100))));
+						player.setMoney((int) (player.getMoney() - (300 + (roundCount * Math.random() * 100))));
 						map.buyTile(player);
 						currentPlayer = (currentPlayer + 1) % Config.getInstance().numOfPlayers;
 						setLabels();
 						if (currentPlayer == 0) {
-							nextTurn();
+							nextRound();
 						}
 					} else if (Config.getInstance().gameType == GameType.SIMULTANEOUS) {
 						buyers.add(player);
 					}
 				} else if (phaseCount == 1) {
 					player.addLand();
-					player.setMoney((int)(player.getMoney() - (300 + (turnCount * Math.random()*100))));
+					player.setMoney((int)(player.getMoney() - (300 + (roundCount * Math.random()*100))));
 					map.buyTile(player);
 					setLabels();
 				}
@@ -150,7 +150,7 @@ public class GameManager {
 		} else if (buyers.size() == 1) {
 			Player player = buyers.get(0);
 			player.addLand();
-			player.setMoney((int) (player.getMoney() - (300 + (turnCount * Math.random() * 100))));
+			player.setMoney((int) (player.getMoney() - (300 + (roundCount * Math.random() * 100))));
 			map.buyTile(player);
 			setLabels();
 		}
@@ -159,7 +159,7 @@ public class GameManager {
 
 	private boolean allBoughtLand() {
 		for (int i = 0; i < playerList.size(); i++) {
-			if (playerList.get(i).getLandOwned() < turnCount) {
+			if (playerList.get(i).getLandOwned() < roundCount) {
 				return false;
 			}
 		}
@@ -173,18 +173,31 @@ public class GameManager {
 	}
 
 	/**
-	 * Advance the game to the next turn, and perform any associated actions.
+	 * Advance the game to the next round, and perform any associated actions.
 	 */
-	private void nextTurn() {
-		turnCount++;
+	private void nextRound() {
+		roundCount++;
 		setLabels();
-		if (turnCount == 3) {
+		if (roundCount == 3) {
 			phaseCount = 1;
 		}
 		if (phaseCount == 0) {
 			landGrabPhase();
 		} else if (phaseCount == 1) {
 			normalPhase();
+		}
+	}
+
+	/**
+	 * End the current player's turn, begin the next player's turn, and perform any other associated actions.
+	 */
+	public void endTurn() {
+		timeLeft = 90;
+		currentPlayer = (currentPlayer + 1) % Config.getInstance().numOfPlayers;
+		setLabels();
+		if (currentPlayer == 0) {
+			nextRound();
+			if (timeCounter != null) timeCounter.stop();
 		}
 	}
 
@@ -230,7 +243,7 @@ public class GameManager {
 								}
 								if (allBoughtLand()) {
 									runner.stop();
-									nextTurn();
+									nextRound();
 								}
 							}
 						}
@@ -251,13 +264,7 @@ public class GameManager {
 								timeLeft--;
 								setLabels();
 								if (timeLeft <= 0) {
-									timeLeft = 90;
-									currentPlayer = (currentPlayer + 1) % Config.getInstance().numOfPlayers;
-									setLabels();
-									if (currentPlayer == 0) {
-										nextTurn();
-										timeCounter.stop();
-									}
+									endTurn();
 								}
 							}
 						}
