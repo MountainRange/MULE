@@ -26,7 +26,7 @@
             <ToolBar focusTraversable="false" prefHeight="40.0" prefWidth="200.0" GridPane.rowIndex="1">
               <items>
                 <Button focusTraversable="false" mnemonicParsing="false" onAction="#handleBackAction" text="Go Back" />
-                  <Button focusTraversable="false" layoutX="84.0" layoutY="11.0" mnemonicParsing="false" onAction="#handleTownAction" text="Pass" />
+                  <Button focusTraversable="false" layoutX="84.0" layoutY="11.0" mnemonicParsing="false" onAction="#handlePassAction" text="End Turn" />
               </items>
             </ToolBar>
             <ToolBar prefHeight="40.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
