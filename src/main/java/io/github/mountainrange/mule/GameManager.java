@@ -50,7 +50,7 @@ public class GameManager {
 		this.resourceLabel = resourceLabel;
 		this.sceneLoader = sceneLoader;
 		playerList = new ArrayList<>();
-		playerList.addAll(Arrays.asList(Config.playerList).subList(0, Config.numOfPlayers));
+		playerList.addAll(Arrays.asList(Config.getInstance().playerList).subList(0, Config.getInstance().numOfPlayers));
 		buyers = new ArrayList<>();
 		turnCount = 0;
 		currentPlayer = 0;
@@ -63,25 +63,25 @@ public class GameManager {
 	//TODO FIXME MOVE THIS TO ITS OWN CLASS
 	public void handleKey(KeyEvent e) {
 		if (phaseCount == 0) {
-			if (Config.gameType == GameType.SIMULTANEOUS) {
+			if (Config.getInstance().gameType == GameType.SIMULTANEOUS) {
 				if (e.getCode() == KeyCode.SPACE) {
-					if (Config.numOfPlayers > 0) {
+					if (Config.getInstance().numOfPlayers > 0) {
 						buyTile(playerList.get(0));
 					}
 				} else if (e.getCode() == KeyCode.P) {
-					if (Config.numOfPlayers > 1) {
+					if (Config.getInstance().numOfPlayers > 1) {
 						buyTile(playerList.get(1));
 					}
 				} else if (e.getCode() == KeyCode.Q) {
-					if (Config.numOfPlayers > 2) {
+					if (Config.getInstance().numOfPlayers > 2) {
 						buyTile(playerList.get(2));
 					}
 				} else if (e.getCode() == KeyCode.PERIOD) {
-					if (Config.numOfPlayers > 3) {
+					if (Config.getInstance().numOfPlayers > 3) {
 						buyTile(playerList.get(3));
 					}
 				}
-			} else if (Config.gameType == GameType.HOTSEAT) {
+			} else if (Config.getInstance().gameType == GameType.HOTSEAT) {
 				handleMovement(e);
 			}
 		} else if (phaseCount == 1) {
@@ -90,7 +90,7 @@ public class GameManager {
 	}
 
 	private void handleMovement(KeyEvent e) {
-		if (!Config.selectEnabled) {
+		if (!Config.getInstance().selectEnabled) {
 			if (e.getCode() == KeyCode.UP) {
 				map.selectUp();
 			} else if (e.getCode() == KeyCode.DOWN) {
@@ -122,16 +122,16 @@ public class GameManager {
 		if (phaseCount != 0 || player.getLandOwned() < turnCount) {
 			if (map.getOwner() == null) {
 				if (phaseCount == 0) {
-					if (Config.gameType == GameType.HOTSEAT) {
+					if (Config.getInstance().gameType == GameType.HOTSEAT) {
 						player.addLand();
 						player.setMoney((int) (player.getMoney() - (300 + (turnCount * Math.random() * 100))));
 						map.buyTile(player);
-						currentPlayer = (currentPlayer + 1) % Config.numOfPlayers;
+						currentPlayer = (currentPlayer + 1) % Config.getInstance().numOfPlayers;
 						setLabels();
 						if (currentPlayer == 0) {
 							nextTurn();
 						}
-					} else if (Config.gameType == GameType.SIMULTANEOUS) {
+					} else if (Config.getInstance().gameType == GameType.SIMULTANEOUS) {
 						buyers.add(player);
 					}
 				} else if (phaseCount == 1) {
@@ -167,7 +167,6 @@ public class GameManager {
 	}
 
 	private void setLabels() {
-		System.out.println(currentPlayer);
 		turnLabel.setText(playerList.get(currentPlayer).getName() + "'s Turn " + timeLeft);
 		resourceLabel.setText(playerList.get(currentPlayer).getName() + "'s Money: "
 				+ playerList.get(currentPlayer).getMoney() + " Energy: ####");
@@ -190,12 +189,12 @@ public class GameManager {
 	}
 
 	private void landGrabPhase() {
-		if (Config.gameType == GameType.HOTSEAT) {
+		if (Config.getInstance().gameType == GameType.HOTSEAT) {
 			map.select(0, 0);
-			if (Config.selectEnabled) {
+			if (Config.getInstance().selectEnabled) {
 				runSelector();
 			}
-		} else if (Config.gameType == GameType.SIMULTANEOUS) {
+		} else if (Config.getInstance().gameType == GameType.SIMULTANEOUS) {
 			turnLabel.setText("Landgrab Phase");
 			map.select(0, 0);
 			runSelector();
@@ -210,7 +209,7 @@ public class GameManager {
 
 	private void enterAuction(List<Player> buyers) {
 		setInAuction(true);
-		Config.buyers = new ArrayList<>(buyers);
+		Config.getInstance().buyers = new ArrayList<>(buyers);
 		sceneLoader.setScene(MULE.AUCTION_SCENE);
 	}
 
@@ -253,7 +252,7 @@ public class GameManager {
 								setLabels();
 								if (timeLeft <= 0) {
 									timeLeft = 90;
-									currentPlayer = (currentPlayer + 1) % Config.numOfPlayers;
+									currentPlayer = (currentPlayer + 1) % Config.getInstance().numOfPlayers;
 									setLabels();
 									if (currentPlayer == 0) {
 										nextTurn();
