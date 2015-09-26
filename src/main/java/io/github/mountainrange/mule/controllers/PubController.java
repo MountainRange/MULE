@@ -38,6 +38,6 @@ public class PubController implements Initializable, SceneAgent {
 
 	@FXML
 	private void handleGambleAction(ActionEvent e) {
-
+		mule.getGameManager().endTurn();
 	}
 }

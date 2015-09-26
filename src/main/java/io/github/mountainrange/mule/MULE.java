@@ -44,6 +44,7 @@ public class MULE extends Application {
 	private Stage primaryStage;
 	private SceneLoader sceneLoader;
 	private SceneLoader menuBar;
+	private GameManager manager;
 
     @Override
     public void start(Stage pStage) throws Exception{
@@ -81,6 +82,14 @@ public class MULE extends Application {
 		primaryStage.setMinWidth(600);
 		primaryStage.show();
     }
+
+	public GameManager getGameManager() {
+		return manager;
+	}
+
+	public void setGameManager(GameManager manager) {
+		this.manager = manager;
+	}
 
 	public void setCenterScene(String name) {
 		sceneLoader.setScene(name);

@@ -61,6 +61,7 @@ public class PlayController implements Initializable, SceneAgent {
 			manager = new GameManager(map, turnLabel, resourceLabel, sceneLoader);
 		}
 		manager.setInAuction(false);
+		mule.setGameManager(manager);
 	}
 
 	@FXML
