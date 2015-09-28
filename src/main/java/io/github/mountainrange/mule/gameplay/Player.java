@@ -82,6 +82,10 @@ public class Player {
 		this.money = money;
 	}
 
+	public void addMoney(int money) {
+		this.money += money;
+	}
+
 	public Race getRace() {
 		return race;
 	}

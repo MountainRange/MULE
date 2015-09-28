@@ -7,16 +7,16 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-<BorderPane focusTraversable="true" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onKeyPressed="#handleKeyPress" onKeyReleased="#handleKeyRelease" onMouseMoved="#handleMouseMoved" onMousePressed="#handleMousePressed" onMouseReleased="#handleMouseReleased" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="io.github.mountainrange.mule.controllers.PlayController">
+<BorderPane focusTraversable="true" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onKeyPressed="#handleKeyPress" onKeyReleased="#handleKeyRelease" onMouseMoved="#handleMouseMoved" onMousePressed="#handleMousePressed" onMouseReleased="#handleMouseReleased" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="io.github.mountainrange.mule.controllers.PlayController">
    <center>
       <Pane fx:id="mapPane" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
    </center>
    <bottom>
       <GridPane>
          <columnConstraints>
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="196.0" minWidth="10.0" prefWidth="126.0" />
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="339.0" minWidth="10.0" />
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="280.0" minWidth="10.0" prefWidth="157.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="196.0" minWidth="10.0" prefWidth="144.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="342.0" minWidth="10.0" prefWidth="284.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="280.0" minWidth="10.0" prefWidth="172.0" />
          </columnConstraints>
          <rowConstraints>
             <RowConstraints />
@@ -29,18 +29,18 @@
                   <Button focusTraversable="false" layoutX="84.0" layoutY="11.0" mnemonicParsing="false" onAction="#handlePassAction" text="End Turn" />
               </items>
             </ToolBar>
-            <ToolBar prefHeight="40.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+            <ToolBar prefHeight="40.0" prefWidth="307.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
                <items>
-                  <Label fx:id="resourceLabel" prefHeight="27.0" prefWidth="304.0" text="Money: $$$$ Energy: ####">
+                  <Label fx:id="resourceLabel" prefHeight="27.0" text="Money: $$$$ Energy: ####">
                      <font>
                         <Font size="16.0" />
                      </font>
                   </Label>
                </items>
             </ToolBar>
-            <ToolBar prefHeight="40.0" prefWidth="182.0" GridPane.columnIndex="2" GridPane.rowIndex="1">
+            <ToolBar prefHeight="40.0" prefWidth="171.0" GridPane.columnIndex="2" GridPane.rowIndex="1">
                <items>
-                  <Label fx:id="turnLabel" alignment="CENTER_RIGHT" prefHeight="27.0" prefWidth="140.0" text="Player 1's Turn">
+                  <Label fx:id="turnLabel" alignment="CENTER_RIGHT" prefHeight="27.0" text="Player 1's Turn">
                      <font>
                         <Font size="18.0" />
                      </font>

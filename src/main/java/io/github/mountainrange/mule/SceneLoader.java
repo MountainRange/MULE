@@ -99,6 +99,10 @@ public class SceneLoader extends AnchorPane {
 		return true;
 	}
 
+	public String getCurrentScene() {
+		return sceneHistory.peek();
+	}
+
 	public boolean unloadScene(String name) {
 		if (scenes.remove(name) == null) {
 			System.err.println("Scene doesn't exist");

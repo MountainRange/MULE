@@ -45,6 +45,9 @@ public class GameManager {
 	private int timeLeft;
 	private int passCounter;
 	private boolean freeLand;
+	private boolean gamble;
+
+	private int[] roundBonus = {0, 50, 50, 50, 100, 100, 100, 100, 150, 150, 150, 150, 200};
 
 	public GameManager(WorldMap map, Label turnLabel, Label resourceLabel, SceneLoader sceneLoader) {
 		this.map = map;
@@ -254,7 +257,10 @@ public class GameManager {
 	 * End the current player's turn, begin the next player's turn, and perform any other associated actions.
 	 */
 	public void endTurn() {
-		timeLeft = 90;
+		if (!sceneLoader.getCurrentScene().equals(MULE.PLAY_SCENE)) {
+			sceneLoader.setScene(MULE.PLAY_SCENE);
+		}
+		timeLeft = 50;
 		currentPlayer = (currentPlayer + 1) % Config.getInstance().numOfPlayers;
 		setLabels();
 		if (currentPlayer == 0) {
@@ -320,7 +326,7 @@ public class GameManager {
 	}
 
 	private void turnTimer() {
-		timeLeft = 90;
+		timeLeft = 50;
 		timeCounter = new Timeline(
 				new KeyFrame(
 						Duration.seconds(Config.SELECTOR_SPEED),
@@ -329,6 +335,12 @@ public class GameManager {
 							public void handle(ActionEvent event) {
 								timeLeft--;
 								setLabels();
+								if (gamble == true) {
+									gamble = false;
+									playerList.get(currentPlayer).addMoney(Math.max(0, Math.min(250,
+											(int)(roundBonus[roundCount] * (Math.random() * timeLeft)))));
+									endTurn();
+								}
 								if (timeLeft <= 0) {
 									endTurn();
 								}
@@ -338,6 +350,10 @@ public class GameManager {
 		);
 		timeCounter.setCycleCount(Timeline.INDEFINITE);
 		timeCounter.play();
+	}
+
+	public void gamble() {
+		gamble = true;
 	}
 
 	/**
