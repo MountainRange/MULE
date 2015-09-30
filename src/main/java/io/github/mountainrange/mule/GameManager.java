@@ -197,10 +197,6 @@ public class GameManager {
 		if (freeLand == false || player.getLandOwned() < roundCount) {
 			if (map.getOwner() == null) {
 				int cost = (int)(300 + (roundCount * Math.random() * 100));
-				if (cost > player.getMoney()) {
-					System.out.println("Not enough money");
-					return;
-				}
 				if (phaseCount == 0) {
 					if (Config.getInstance().gameType == GameType.HOTSEAT) {
 						player.addLand();
@@ -222,7 +218,7 @@ public class GameManager {
 					}
 				} else if (phaseCount == 1) {
 					player.addLand();
-					player.setMoney((int)(player.getMoney() - (300 + (roundCount * Math.random()*100))));
+					player.setMoney((int)(player.getMoney() - cost));
 					map.buyTile(player);
 					setLabels();
 				}
@@ -438,7 +434,9 @@ public class GameManager {
 		public void handleEvent(MouseEvent e) {
 			if (e.getEventType().getName().equals("MOUSE_PRESSED")) {
 				if (map.isInside(new Point2D(e.getX(), e.getY()), (map.getColumns() / 2), (map.getRows() / 2))) {
-					sceneLoader.setScene(MULE.TOWN_SCENE);
+					if (phaseCount == 1) {
+						sceneLoader.setScene(MULE.TOWN_SCENE);
+					}
 				}
 			}
 		}
