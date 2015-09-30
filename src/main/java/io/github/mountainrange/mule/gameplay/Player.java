@@ -1,5 +1,6 @@
 package io.github.mountainrange.mule.gameplay;
 
+import io.github.mountainrange.mule.Config;
 import io.github.mountainrange.mule.enums.Race;
 import io.github.mountainrange.mule.enums.ResourceType;
 
@@ -60,6 +61,10 @@ public class Player {
 
 	public int stockOf(ResourceType resource) {
 		return stocks.get(resource);
+	}
+
+	public void addStock(ResourceType resource, int quantity) {
+		stocks.put(resource, stocks.get(resource) + quantity);
 	}
 
 	public int getId() {

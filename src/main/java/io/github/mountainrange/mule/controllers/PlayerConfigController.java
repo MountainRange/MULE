@@ -2,6 +2,8 @@ package io.github.mountainrange.mule.controllers;
 
 import io.github.mountainrange.mule.Config;
 import io.github.mountainrange.mule.MULE;
+import io.github.mountainrange.mule.enums.Difficulty;
+import io.github.mountainrange.mule.enums.ResourceType;
 import io.github.mountainrange.mule.gameplay.Player;
 import io.github.mountainrange.mule.SceneLoader;
 import io.github.mountainrange.mule.enums.Race;
@@ -89,7 +91,7 @@ public class PlayerConfigController implements Initializable, SceneAgent {
 
 	@FXML
 	private void handlePlayerAction(Event e) {
-		changePlayer(((int)playerSlider.getValue()) - 1);
+		changePlayer(((int) playerSlider.getValue()) - 1);
 	}
 
 	@FXML
@@ -116,9 +118,33 @@ public class PlayerConfigController implements Initializable, SceneAgent {
 	}
 
 	private void adjustPlayerCount() {
+		int difficulty = 0;
+		if (Config.getInstance().difficulty == Difficulty.HILL) {
+			difficulty = 0;
+		} else if (Config.getInstance().difficulty == Difficulty.MESA) {
+			difficulty = 1;
+		} else if (Config.getInstance().difficulty == Difficulty.PLATEAU) {
+			difficulty = 2;
+		} else if (Config.getInstance().difficulty == Difficulty.MOUNTAIN) {
+			difficulty = 3;
+		}
+		int foodCount;
+		if (difficulty == 0) {
+			foodCount = 8;
+		} else {
+			foodCount = 4;
+		}
+		int energyCount;
+		if (difficulty == 0) {
+			energyCount = 4;
+		} else {
+			energyCount = 2;
+		}
 		for (int i = 0; i < Config.getInstance().maxPlayers; i++) {
 			if (Config.getInstance().playerList[i] == null) {
 				Config.getInstance().playerList[i] = new Player(i);
+				Config.getInstance().playerList[i].addStock(ResourceType.ENERGY, energyCount);
+				Config.getInstance().playerList[i].addStock(ResourceType.FOOD, foodCount);
 			}
 		}
 		playerSlider.setMax(Config.getInstance().numOfPlayers);

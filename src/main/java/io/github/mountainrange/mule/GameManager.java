@@ -49,6 +49,7 @@ public class GameManager {
 	private int passCounter;
 	private boolean freeLand;
 	private boolean gamble;
+	private int foodRequired;
 
 	private int[] roundBonus = {0, 50, 50, 50, 100, 100, 100, 100, 150, 150, 150, 150, 200};
 
@@ -291,6 +292,14 @@ public class GameManager {
 		} else if (phaseCount == 1) {
 			normalPhase();
 		}
+		if (roundCount == 3) {
+			foodRequired = 3;
+		} else if (roundCount == 7) {
+			foodRequired++;
+		} else if (roundCount == 11) {
+			foodRequired++;
+		}
+		System.out.println("Food required: " + foodRequired);
 	}
 
 	/**
@@ -300,8 +309,8 @@ public class GameManager {
 		if (!sceneLoader.getCurrentScene().equals(MULE.PLAY_SCENE)) {
 			sceneLoader.setScene(MULE.PLAY_SCENE);
 		}
-		timeLeft = 50;
 		currentPlayer = (currentPlayer + 1) % Config.getInstance().numOfPlayers;
+		resetTimer();
 		setLabels();
 		if (currentPlayer == 0) {
 			nextRound();
@@ -365,8 +374,18 @@ public class GameManager {
 		runner.play();
 	}
 
+	private void resetTimer() {
+		if (playerList.get(currentPlayer).stockOf(ResourceType.FOOD) < foodRequired) {
+			timeLeft = 30;
+		} else if (playerList.get(currentPlayer).stockOf(ResourceType.FOOD) <= 0) {
+			timeLeft = 5;
+		} else {
+			timeLeft = 50;
+		}
+	}
+
 	private void turnTimer() {
-		timeLeft = 50;
+		resetTimer();
 		timeCounter = new Timeline(
 				new KeyFrame(
 						Duration.seconds(Config.SELECTOR_SPEED),
