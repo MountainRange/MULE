@@ -80,6 +80,9 @@ public class GameManager {
 						if (Config.getInstance().numOfPlayers == passCounter) {
 							nextRound();
 						}
+						if (currentPlayer == 0) {
+							passCounter = 0;
+						}
 					}
 				} else if (e.getCode() == KeyCode.O) {
 					if (currentPlayer == 1) {
@@ -88,6 +91,9 @@ public class GameManager {
 						setLabels();
 						if (Config.getInstance().numOfPlayers == passCounter) {
 							nextRound();
+						}
+						if (currentPlayer == 0) {
+							passCounter = 0;
 						}
 					}
 				} else if (e.getCode() == KeyCode.W) {
@@ -98,6 +104,9 @@ public class GameManager {
 						if (Config.getInstance().numOfPlayers == passCounter) {
 							nextRound();
 						}
+						if (currentPlayer == 0) {
+							passCounter = 0;
+						}
 					}
 				} else if (e.getCode() == KeyCode.COMMA) {
 					if (currentPlayer == 3) {
@@ -106,6 +115,9 @@ public class GameManager {
 						setLabels();
 						if (Config.getInstance().numOfPlayers == passCounter) {
 							nextRound();
+						}
+						if (currentPlayer == 0) {
+							passCounter = 0;
 						}
 					}
 				}
@@ -134,6 +146,9 @@ public class GameManager {
 						setLabels();
 						if (Config.getInstance().numOfPlayers == passCounter) {
 							nextRound();
+						}
+						if (currentPlayer == 0) {
+							passCounter = 0;
 						}
 					}
 				}
