@@ -197,6 +197,10 @@ public class GameManager {
 		if (freeLand == false || player.getLandOwned() < roundCount) {
 			if (map.getOwner() == null) {
 				int cost = (int)(300 + (roundCount * Math.random() * 100));
+				if (cost > player.getMoney()) {
+					System.out.println("Not enough money");
+					return;
+				}
 				if (phaseCount == 0) {
 					if (Config.getInstance().gameType == GameType.HOTSEAT) {
 						player.addLand();
