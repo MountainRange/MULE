@@ -1,6 +1,7 @@
 package io.github.mountainrange.mule;
 
 import io.github.mountainrange.mule.enums.GameType;
+import io.github.mountainrange.mule.enums.MuleType;
 import io.github.mountainrange.mule.enums.ResourceType;
 import io.github.mountainrange.mule.gameplay.Player;
 import io.github.mountainrange.mule.gameplay.Shop;
@@ -18,6 +19,7 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.util.Duration;
 
+import java.lang.reflect.Array;
 import java.util.*;
 
 /**
@@ -27,6 +29,7 @@ public class GameManager {
 
 	private List<Player> playerList;
 	private List<Player> buyers;
+	private List<Integer> turnOrder;
 
 	private Shop shop;
 	private WorldMap map;
@@ -57,6 +60,8 @@ public class GameManager {
 		playerList = new ArrayList<>();
 		playerList.addAll(Arrays.asList(Config.getInstance().playerList).subList(0, Config.getInstance().numOfPlayers));
 		buyers = new ArrayList<>();
+		turnOrder = new ArrayList<>();
+		shop = new Shop(Config.getInstance().difficulty);
 		roundCount = 0;
 		currentPlayer = 0;
 		phaseCount = 0;
@@ -73,7 +78,6 @@ public class GameManager {
 			if (Config.getInstance().gameType == GameType.SIMULTANEOUS) {
 				if (e.getCode() == KeyCode.X) {
 					if (currentPlayer == 0) {
-
 						passCounter++;
 						currentPlayer = (currentPlayer + 1) % Config.getInstance().numOfPlayers;
 						setLabels();
@@ -123,19 +127,19 @@ public class GameManager {
 				}
 				if (e.getCode() == KeyCode.SPACE) {
 					if (Config.getInstance().numOfPlayers > 0) {
-						buyTile(playerList.get(0));
+						buyTile(playerList.get(turnOrder.get(0)));
 					}
 				} else if (e.getCode() == KeyCode.P) {
 					if (Config.getInstance().numOfPlayers > 1) {
-						buyTile(playerList.get(1));
+						buyTile(playerList.get(turnOrder.get(1)));
 					}
 				} else if (e.getCode() == KeyCode.Q) {
 					if (Config.getInstance().numOfPlayers > 2) {
-						buyTile(playerList.get(2));
+						buyTile(playerList.get(turnOrder.get(2)));
 					}
 				} else if (e.getCode() == KeyCode.PERIOD) {
 					if (Config.getInstance().numOfPlayers > 3) {
-						buyTile(playerList.get(3));
+						buyTile(playerList.get(turnOrder.get(3)));
 					}
 				}
 			} else if (Config.getInstance().gameType == GameType.HOTSEAT) {
@@ -149,6 +153,7 @@ public class GameManager {
 						}
 						if (currentPlayer == 0) {
 							passCounter = 0;
+							calculateTurnOrder();
 						}
 					}
 				}
@@ -173,13 +178,13 @@ public class GameManager {
 		}
 		if(e.getCode() == KeyCode.SPACE) {
 			if (currentPlayer == 0) {
-				buyTile(playerList.get(0));
+				buyTile(playerList.get(turnOrder.get(0)));
 			} else if (currentPlayer == 1) {
-				buyTile(playerList.get(1));
+				buyTile(playerList.get(turnOrder.get(1)));
 			} else if (currentPlayer == 2) {
-				buyTile(playerList.get(2));
+				buyTile(playerList.get(turnOrder.get(2)));
 			} else if (currentPlayer == 3) {
-				buyTile(playerList.get(3));
+				buyTile(playerList.get(turnOrder.get(3)));
 			}
 		}
 	}
@@ -191,6 +196,11 @@ public class GameManager {
 	private void buyTile(Player player) {
 		if (freeLand == false || player.getLandOwned() < roundCount) {
 			if (map.getOwner() == null) {
+				int cost = (int)(300 + (roundCount * Math.random() * 100));
+				if (cost > player.getMoney()) {
+					System.out.println("Not enough money");
+					return;
+				}
 				if (phaseCount == 0) {
 					if (Config.getInstance().gameType == GameType.HOTSEAT) {
 						player.addLand();
@@ -198,7 +208,7 @@ public class GameManager {
 						currentPlayer = (currentPlayer + 1) % Config.getInstance().numOfPlayers;
 						setLabels();
 						if (!freeLand) {
-							player.setMoney((int) (player.getMoney() - (300 + (roundCount * Math.random() * 100))));
+							player.setMoney((int) (player.getMoney() - cost));
 							if (Config.getInstance().numOfPlayers == passCounter) {
 								nextRound();
 							}
@@ -243,15 +253,16 @@ public class GameManager {
 	}
 
 	private void setLabels() {
-		turnLabel.setText(playerList.get(currentPlayer).getName() + "'s Turn " + timeLeft);
-		resourceLabel.setText(playerList.get(currentPlayer).getName() + "'s Money: "
-				+ playerList.get(currentPlayer).getMoney() + " Energy: ####");
+		turnLabel.setText(playerList.get(turnOrder.get(currentPlayer)).getName() + "'s Turn " + timeLeft);
+		resourceLabel.setText(playerList.get(turnOrder.get(currentPlayer)).getName() + "'s Money: "
+				+ playerList.get(turnOrder.get(currentPlayer)).getMoney() + " Energy: ####");
 	}
 
 	/**
 	 * Advance the game to the next round, and perform any associated actions.
 	 */
 	private void nextRound() {
+		calculateTurnOrder();
 		roundCount++;
 		passCounter = 0;
 		setLabels();
@@ -352,8 +363,8 @@ public class GameManager {
 								setLabels();
 								if (gamble == true) {
 									gamble = false;
-									playerList.get(currentPlayer).addMoney(Math.max(0, Math.min(250,
-											(int)(roundBonus[roundCount] * (Math.random() * timeLeft)))));
+									playerList.get(turnOrder.get(currentPlayer)).addMoney(Math.max(0, Math.min(250,
+											(int) (roundBonus[roundCount] * (Math.random() * timeLeft)))));
 									endTurn();
 								}
 								if (timeLeft <= 0) {
@@ -396,11 +407,28 @@ public class GameManager {
 		for (Tile tile : map) {
 			Player owner = tile.getOwner();
 			if (owner != null) {
-				scores.put(owner, scores.get(owner) + Shop.outfitPriceOf(tile.getMule()));
+				scores.put(owner, scores.get(owner) + 500);
+				if (tile.getMule() != MuleType.EMPTY) {
+					scores.put(owner, scores.get(owner) + Shop.outfitPriceOf(tile.getMule()));
+				}
 			}
 		}
 
 		return scores;
+	}
+
+	public void calculateTurnOrder() {
+		Map<Player, Integer> scores = scoreGame();
+		List<Map.Entry<Player, Integer>> list = new ArrayList<>(scores.entrySet());
+		Collections.sort(list, (a,b) -> (a.getValue()).compareTo(b.getValue()));
+		for (int i = 0; i < list.size(); i++) {
+			try {
+				turnOrder.set(i, playerList.indexOf(list.get(i).getKey()));
+			} catch (IndexOutOfBoundsException e) {
+				turnOrder.add(i, playerList.indexOf(list.get(i).getKey()));
+			}
+			System.out.println(turnOrder.get(i) + ": " + list.get(i).getValue());
+		}
 	}
 
 	/**
