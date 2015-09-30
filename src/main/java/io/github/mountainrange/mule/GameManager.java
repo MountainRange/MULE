@@ -127,19 +127,19 @@ public class GameManager {
 				}
 				if (e.getCode() == KeyCode.SPACE) {
 					if (Config.getInstance().numOfPlayers > 0) {
-						buyTile(playerList.get(turnOrder.get(0)));
+						buyTile(playerList.get(0));
 					}
 				} else if (e.getCode() == KeyCode.P) {
 					if (Config.getInstance().numOfPlayers > 1) {
-						buyTile(playerList.get(turnOrder.get(1)));
+						buyTile(playerList.get(1));
 					}
 				} else if (e.getCode() == KeyCode.Q) {
 					if (Config.getInstance().numOfPlayers > 2) {
-						buyTile(playerList.get(turnOrder.get(2)));
+						buyTile(playerList.get(2));
 					}
 				} else if (e.getCode() == KeyCode.PERIOD) {
 					if (Config.getInstance().numOfPlayers > 3) {
-						buyTile(playerList.get(turnOrder.get(3)));
+						buyTile(playerList.get(3));
 					}
 				}
 			} else if (Config.getInstance().gameType == GameType.HOTSEAT) {
@@ -148,12 +148,9 @@ public class GameManager {
 						passCounter++;
 						currentPlayer = (currentPlayer + 1) % Config.getInstance().numOfPlayers;
 						setLabels();
+						System.out.println(passCounter);
 						if (Config.getInstance().numOfPlayers == passCounter) {
 							nextRound();
-						}
-						if (currentPlayer == 0) {
-							passCounter = 0;
-							calculateTurnOrder();
 						}
 					}
 				}
@@ -209,11 +206,17 @@ public class GameManager {
 						setLabels();
 						if (!freeLand) {
 							player.setMoney((int) (player.getMoney() - cost));
+							if (currentPlayer == 0) {
+								passCounter = 0;
+							}
 							if (Config.getInstance().numOfPlayers == passCounter) {
+								calculateTurnOrder();
 								nextRound();
 							}
 						} else if (freeLand) {
 							if (currentPlayer == 0) {
+								passCounter = 0;
+								calculateTurnOrder();
 								nextRound();
 							}
 						}
@@ -222,7 +225,7 @@ public class GameManager {
 					}
 				} else if (phaseCount == 1) {
 					player.addLand();
-					player.setMoney((int)(player.getMoney() - cost));
+					player.setMoney((int) (player.getMoney() - cost));
 					map.buyTile(player);
 					setLabels();
 				}
@@ -231,14 +234,25 @@ public class GameManager {
 	}
 
 	private void delayedBuy() {
-		if (buyers.size() > 1 && !freeLand) {
+		/*if (buyers.size() > 1 && !freeLand) {
 			enterAuction(buyers);
-		} else if (buyers.size() == 1) {
+		} else */if (buyers.size() > 0) {
 			Player player = buyers.get(0);
-			player.addLand();
-			player.setMoney((int) (player.getMoney() - (300 + (roundCount * Math.random() * 100))));
-			map.buyTile(player);
-			setLabels();
+			if (!freeLand) {
+				int cost = (int)(300 + (roundCount * Math.random() * 100));
+				if (cost > player.getMoney()) {
+					System.out.println("Not enough money");
+					return;
+				}
+				player.addLand();
+				map.buyTile(player);
+				setLabels();
+				player.setMoney((int) (player.getMoney() - cost));
+			} else if (freeLand) {
+				player.addLand();
+				map.buyTile(player);
+				setLabels();
+			}
 		}
 		buyers.clear();
 	}
