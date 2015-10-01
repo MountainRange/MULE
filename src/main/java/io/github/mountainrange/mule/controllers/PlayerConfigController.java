@@ -91,7 +91,7 @@ public class PlayerConfigController implements Initializable, SceneAgent {
 	private void handleNameAction(Event e) {
 		emptyName = false;
 		for (Player player : Config.getInstance().playerList) {
-			if (player.getName().equals(new String(""))) {
+			if (player.getName().equals(new String("")) && player.getId() < numSlider.getValue()) {
 				emptyName = true;
 			}
 		}
