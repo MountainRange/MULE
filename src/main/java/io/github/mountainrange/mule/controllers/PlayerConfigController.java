@@ -17,6 +17,8 @@ import javafx.scene.control.ColorPicker;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Slider;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Label;
+import javafx.scene.paint.Color;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -28,6 +30,8 @@ public class PlayerConfigController implements Initializable, SceneAgent {
 
 	private SceneLoader sceneLoader;
 	private MULE mule;
+	private boolean invalidColor;
+	private boolean emptyName;
 
 	@FXML
 	private Slider playerSlider;
@@ -39,8 +43,13 @@ public class PlayerConfigController implements Initializable, SceneAgent {
 	private ComboBox<String> raceCombo;
 
 	@FXML
+	private Label colorLabel;
+
+	@FXML
 	private ColorPicker colorPicker;
 
+	@FXML
+	private Label nameLabel;
 	@FXML
 	private TextField nameField;
 
@@ -80,7 +89,18 @@ public class PlayerConfigController implements Initializable, SceneAgent {
 
 	@FXML
 	private void handleNameAction(Event e) {
-		Config.getInstance().playerList[Config.getInstance().currentPlayer].setName(nameField.getText());
+		emptyName = false;
+		for (Player player : Config.getInstance().playerList) {
+			if (nameField.getText().equals(new String(""))) {
+				emptyName = true;
+			}
+		}
+		if (emptyName) {
+			nameLabel.setTextFill(Color.RED); // disallow empty name
+		} else {
+			nameLabel.setTextFill(Color.BLACK);
+			Config.getInstance().playerList[Config.getInstance().currentPlayer].setName(nameField.getText());
+		}
 	}
 
 	@FXML
@@ -107,7 +127,18 @@ public class PlayerConfigController implements Initializable, SceneAgent {
 
 	@FXML
 	private void handleColorAction(ActionEvent e) {
-		Config.getInstance().playerList[Config.getInstance().currentPlayer].setColor(colorPicker.getValue());
+		invalidColor = false;
+		for (Player player : Config.getInstance().playerList) {
+			if (colorPicker.getValue().equals(player.getColor())) {
+				invalidColor = true;
+			}
+		}
+		if (invalidColor) {
+			colorLabel.setTextFill(Color.RED); // disallow same colors
+		} else {
+			colorLabel.setTextFill(Color.BLACK);
+			Config.getInstance().playerList[Config.getInstance().currentPlayer].setColor(colorPicker.getValue());
+		}
 	}
 
 	private void updateValues() {
