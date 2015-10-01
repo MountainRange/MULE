@@ -91,7 +91,7 @@ public class PlayerConfigController implements Initializable, SceneAgent {
 	private void handleNameAction(Event e) {
 		emptyName = false;
 		for (Player player : Config.getInstance().playerList) {
-			if (nameField.getText().equals(new String(""))) {
+			if (player.getName().equals(new String(""))) {
 				emptyName = true;
 			}
 		}
@@ -99,8 +99,8 @@ public class PlayerConfigController implements Initializable, SceneAgent {
 			nameLabel.setTextFill(Color.RED); // disallow empty name
 		} else {
 			nameLabel.setTextFill(Color.BLACK);
-			Config.getInstance().playerList[Config.getInstance().currentPlayer].setName(nameField.getText());
 		}
+		Config.getInstance().playerList[Config.getInstance().currentPlayer].setName(nameField.getText());
 	}
 
 	@FXML
@@ -137,8 +137,8 @@ public class PlayerConfigController implements Initializable, SceneAgent {
 			colorLabel.setTextFill(Color.RED); // disallow same colors
 		} else {
 			colorLabel.setTextFill(Color.BLACK);
-			Config.getInstance().playerList[Config.getInstance().currentPlayer].setColor(colorPicker.getValue());
 		}
+		Config.getInstance().playerList[Config.getInstance().currentPlayer].setColor(colorPicker.getValue());
 	}
 
 	private void updateValues() {

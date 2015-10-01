@@ -54,7 +54,7 @@ public class Player {
 	 */
 	public Player(int id, String name, Race race, Color color) {
 		this.id = id;
-		this.name = Objects.requireNonNull(name);
+		this.name = name;
 		this.race = race;
 		this.color = color;
 	}
