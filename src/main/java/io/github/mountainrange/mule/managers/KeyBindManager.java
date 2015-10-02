@@ -1,16 +1,19 @@
 package io.github.mountainrange.mule.managers;
 
-import javafx.scene.input.KeyCode;
+import io.github.mountainrange.mule.Config;
+import io.github.mountainrange.mule.MULE;
 import io.github.mountainrange.mule.enums.GameType;
-import io.github.mountainrange.mule.GameManager;
+import javafx.scene.input.KeyCode;
+
 import java.util.HashMap;
 import java.util.Map;
 
 public class KeyBindManager {
-	private Map<GameState, Map<KeyCode, KeyFunction>> keyMap;
+	private Map<GameState, HashMap<KeyCode, KeyFunction>> keyMap;
 
 	public KeyBindManager() {
-		keyMap = new HashMap<GameState, Map<KeyCode, KeyFunction>>();
+		keyMap = new HashMap<>();
+		KeyBindManager.addDefaultBindings(this);
 	}
 
 	public void add(GameState state, KeyCode toAdd, KeyFunction lambda) {
@@ -21,45 +24,173 @@ public class KeyBindManager {
 	}
 
 	public void handleKey(GameState state, KeyCode key, KeyBindPackage datapacket) {
-		keyMap.get(state).get(key).act(datapacket);
+		HashMap<KeyCode, KeyFunction> first = keyMap.get(state);
+		if (first == null) {
+			// No Game state found.
+			return;
+		}
+		KeyFunction second = first.get(key);
+		if (second == null) {
+			// No Key In map
+			return;
+		}
+		second.act(datapacket);
 	}
 
-	public class GameState {
-		private GameType gameType;
-		private String sceneName;
+	/**
+	 * A method to initialize the defaults.
+	 */
+	public static void addDefaultBindings(KeyBindManager toBind) {
+		// ----------------------------TURN INCREMENTERS-------------------------------
+		// Player 1 Next Turn
+		toBind.add(new GameState(GameType.SIMULTANEOUS, MULE.PLAY_SCENE, 0), KeyCode.X,
+				   (a) -> {
+					   if (a.manager.getCurrentPlayer() == 0) {
+						   a.manager.incrementTurn();
+					   }
+					   return "Turn Incremented"; });
+		// Player 2 Next Turn
+		toBind.add(new GameState(GameType.SIMULTANEOUS, MULE.PLAY_SCENE, 0), KeyCode.O,
+				   (a) -> {
+					   if (a.manager.getCurrentPlayer() == 1) {
+						   a.manager.incrementTurn();
+					   }
+					   return "Turn Incremented"; });
+		// Player 3 Next Turn
+		toBind.add(new GameState(GameType.SIMULTANEOUS, MULE.PLAY_SCENE, 0), KeyCode.W,
+				   (a) -> {
+					   if (a.manager.getCurrentPlayer() == 2) {
+						   a.manager.incrementTurn();
+					   }
+					   return "Turn Incremented"; });
+		// Player 3 Next Turn
+		toBind.add(new GameState(GameType.SIMULTANEOUS, MULE.PLAY_SCENE, 0), KeyCode.COMMA,
+				   (a) -> {
+					   if (a.manager.getCurrentPlayer() == 3) {
+						   a.manager.incrementTurn();
+					   }
+					   return "Turn Incremented"; });
 
-		public GameState(GameType gt, String sn) {
-			this.gameType = gt;
-			this.sceneName = sn;
-		}
+		// ----------------------------BUYING LAND-------------------------------
 
-		@Override
-		public int hashCode() {
-			return this.gameType.hashCode() + this.sceneName.hashCode() * 7;
-		}
+		// Buy Land for Player 1
+		toBind.add(new GameState(GameType.SIMULTANEOUS, MULE.PLAY_SCENE, 0), KeyCode.SPACE,
+				   (a) -> {
+					   if (Config.getInstance().numOfPlayers > 0) {
+						   a.manager.buyTile(a.manager.getPlayerList().get(0));
+					   }
+					   return "Bought land for Player 1"; });
 
-		@Override
-		public boolean equals(Object other) {
-			if (!(other instanceof GameState)) {
-				return false;
-			} else if (other == this) {
-				return true;
-			} else {
-				GameState toCompare = (GameState) other;
-				return toCompare.gameType.equals(this.gameType) && toCompare.sceneName.equals(this.sceneName);
-			}
-		}
+		// Buy Land for Player 2
+		toBind.add(new GameState(GameType.SIMULTANEOUS, MULE.PLAY_SCENE, 0), KeyCode.P,
+				   (a) -> {
+					   if (Config.getInstance().numOfPlayers > 1) {
+						   a.manager.buyTile(a.manager.getPlayerList().get(1));
+					   }
+					   return "Bought land for Player 2"; });
+
+		// Buy Land for Player 3
+		toBind.add(new GameState(GameType.SIMULTANEOUS, MULE.PLAY_SCENE, 0), KeyCode.Q,
+				   (a) -> {
+					   if (Config.getInstance().numOfPlayers > 2) {
+						   a.manager.buyTile(a.manager.getPlayerList().get(2));
+					   }
+					   return "Bought land for Player 3"; });
+
+		// Buy Land for Player 3
+		toBind.add(new GameState(GameType.SIMULTANEOUS, MULE.PLAY_SCENE, 0), KeyCode.PERIOD,
+				   (a) -> {
+					   if (Config.getInstance().numOfPlayers > 3) {
+						   a.manager.buyTile(a.manager.getPlayerList().get(3));
+					   }
+					   return "Bought land for Player 4"; });
+
+
+		// ----------------------------Hotseat Hacks-------------------------------
+
+		toBind.add(new GameState(GameType.HOTSEAT, MULE.PLAY_SCENE, 0), KeyCode.X,
+				   (a) -> {
+					   a.manager.commentYourCodeGuys();
+					   return "Bought land for Player 4"; });
+
+
+
+		// ----------------------------Buying Tiles-------------------------------
+
+		toBind.add(new GameState(GameType.SIMULTANEOUS, MULE.PLAY_SCENE, 0), KeyCode.SPACE,
+				   (a) -> {
+					   a.manager.buyTile();
+					   return "Bought Tile"; });
+		toBind.add(new GameState(GameType.HOTSEAT, MULE.PLAY_SCENE, 0), KeyCode.SPACE,
+				   (a) -> {
+					   a.manager.buyTile();
+					   return "Bought Tile"; });
+		toBind.add(new GameState(GameType.SIMULTANEOUS, MULE.PLAY_SCENE, 1), KeyCode.SPACE,
+				   (a) -> {
+					   a.manager.buyTile();
+					   return "Bought Tile"; });
+		toBind.add(new GameState(GameType.HOTSEAT, MULE.PLAY_SCENE, 1), KeyCode.SPACE,
+				   (a) -> {
+					   a.manager.buyTile();
+					   return "Bought Tile"; });
+
+
+		// ----------------------------Movement Keys-------------------------------
+		// Moving Up
+		toBind.add(new GameState(GameType.HOTSEAT, MULE.PLAY_SCENE, 0), KeyCode.UP,
+				   (a) -> {
+					   a.map.selectUp();
+					   return "Moved Up"; });
+		toBind.add(new GameState(GameType.SIMULTANEOUS, MULE.PLAY_SCENE, 1), KeyCode.UP,
+				   (a) -> {
+					   a.map.selectUp();
+					   return "Moved Up"; });
+		toBind.add(new GameState(GameType.HOTSEAT, MULE.PLAY_SCENE, 1), KeyCode.UP,
+				   (a) -> {
+					   a.map.selectUp();
+					   return "Moved Up"; });
+
+		// Moving Down
+		toBind.add(new GameState(GameType.HOTSEAT, MULE.PLAY_SCENE, 0), KeyCode.DOWN,
+				   (a) -> {
+					   a.map.selectDown();
+					   return "Moved Down"; });
+		toBind.add(new GameState(GameType.SIMULTANEOUS, MULE.PLAY_SCENE, 1), KeyCode.DOWN,
+				   (a) -> {
+					   a.map.selectDown();
+					   return "Moved Down"; });
+		toBind.add(new GameState(GameType.HOTSEAT, MULE.PLAY_SCENE, 1), KeyCode.DOWN,
+				   (a) -> {
+					   a.map.selectDown();
+					   return "Moved Down"; });
+
+		// Moving Left
+		toBind.add(new GameState(GameType.HOTSEAT, MULE.PLAY_SCENE, 0), KeyCode.LEFT,
+				   (a) -> {
+					   a.map.selectLeft();
+					   return "Moved Left"; });
+		toBind.add(new GameState(GameType.SIMULTANEOUS, MULE.PLAY_SCENE, 1), KeyCode.LEFT,
+				   (a) -> {
+					   a.map.selectLeft();
+					   return "Moved Left"; });
+		toBind.add(new GameState(GameType.HOTSEAT, MULE.PLAY_SCENE, 1), KeyCode.LEFT,
+				   (a) -> {
+					   a.map.selectLeft();
+					   return "Moved Left"; });
+
+		// Moving Right
+		toBind.add(new GameState(GameType.HOTSEAT, MULE.PLAY_SCENE, 0), KeyCode.RIGHT,
+				   (a) -> {
+					   a.map.selectRight();
+					   return "Moved Right"; });
+		toBind.add(new GameState(GameType.SIMULTANEOUS, MULE.PLAY_SCENE, 1), KeyCode.RIGHT,
+				   (a) -> {
+					   a.map.selectRight();
+					   return "Moved Right"; });
+		toBind.add(new GameState(GameType.HOTSEAT, MULE.PLAY_SCENE, 1), KeyCode.RIGHT,
+				   (a) -> {
+					   a.map.selectRight();
+					   return "Moved Right"; });
 	}
 
-	public class KeyBindPackage {
-		public GameManager manager;
-
-		public KeyBindPackage(GameManager m) {
-			this.manager = m;
-		}
-	}
-
-	public interface KeyFunction {
-		public String act(KeyBindPackage m);
-	}
 }

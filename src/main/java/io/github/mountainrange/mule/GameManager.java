@@ -7,7 +7,10 @@ import io.github.mountainrange.mule.gameplay.Player;
 import io.github.mountainrange.mule.gameplay.Shop;
 import io.github.mountainrange.mule.gameplay.Tile;
 import io.github.mountainrange.mule.gameplay.WorldMap;
+import io.github.mountainrange.mule.managers.GameState;
+import io.github.mountainrange.mule.managers.KeyBindManager;
 
+import io.github.mountainrange.mule.managers.KeyBindPackage;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
@@ -19,7 +22,6 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.util.Duration;
 
-import java.lang.reflect.Array;
 import java.util.*;
 
 /**
@@ -40,6 +42,7 @@ public class GameManager {
 
 	private Timeline runner;
 	private Timeline timeCounter;
+	private KeyBindManager keyManager;
 
 	private int roundCount;
 	private int currentPlayer;
@@ -70,111 +73,61 @@ public class GameManager {
 		timeLeft = 0;
 		passCounter = 0;
 		freeLand = true;
+		this.keyManager = new KeyBindManager();
 		nextRound();
 	}
 
-	//TODO FIXME MOVE THIS TO ITS OWN CLASS
 	public void handleKey(KeyEvent e) {
-		if (phaseCount == 0) {
-			if (Config.getInstance().gameType == GameType.SIMULTANEOUS) {
-				if (e.getCode() == KeyCode.X) {
-					if (currentPlayer == 0) {
-						passCounter++;
-						currentPlayer = (currentPlayer + 1) % Config.getInstance().numOfPlayers;
-						setLabels();
-						if (Config.getInstance().numOfPlayers == passCounter) {
-							nextRound();
-						}
-						if (currentPlayer == 0) {
-							passCounter = 0;
-						}
-					}
-				} else if (e.getCode() == KeyCode.O) {
-					if (currentPlayer == 1) {
-						passCounter++;
-						currentPlayer = (currentPlayer + 1) % Config.getInstance().numOfPlayers;
-						setLabels();
-						if (Config.getInstance().numOfPlayers == passCounter) {
-							nextRound();
-						}
-						if (currentPlayer == 0) {
-							passCounter = 0;
-						}
-					}
-				} else if (e.getCode() == KeyCode.W) {
-					if (currentPlayer == 2) {
-						passCounter++;
-						currentPlayer = (currentPlayer + 1) % Config.getInstance().numOfPlayers;
-						setLabels();
-						if (Config.getInstance().numOfPlayers == passCounter) {
-							nextRound();
-						}
-						if (currentPlayer == 0) {
-							passCounter = 0;
-						}
-					}
-				} else if (e.getCode() == KeyCode.COMMA) {
-					if (currentPlayer == 3) {
-						passCounter++;
-						currentPlayer = (currentPlayer + 1) % Config.getInstance().numOfPlayers;
-						setLabels();
-						if (Config.getInstance().numOfPlayers == passCounter) {
-							nextRound();
-						}
-						if (currentPlayer == 0) {
-							passCounter = 0;
-						}
-					}
-				}
-				if (e.getCode() == KeyCode.SPACE) {
-					if (Config.getInstance().numOfPlayers > 0) {
-						buyTile(playerList.get(0));
-					}
-				} else if (e.getCode() == KeyCode.P) {
-					if (Config.getInstance().numOfPlayers > 1) {
-						buyTile(playerList.get(1));
-					}
-				} else if (e.getCode() == KeyCode.Q) {
-					if (Config.getInstance().numOfPlayers > 2) {
-						buyTile(playerList.get(2));
-					}
-				} else if (e.getCode() == KeyCode.PERIOD) {
-					if (Config.getInstance().numOfPlayers > 3) {
-						buyTile(playerList.get(3));
-					}
-				}
-			} else if (Config.getInstance().gameType == GameType.HOTSEAT) {
-				if (e.getCode() == KeyCode.X) {
-					if (!freeLand) {
-						passCounter++;
-						currentPlayer = (currentPlayer + 1) % Config.getInstance().numOfPlayers;
-						setLabels();
-						System.out.println(passCounter);
-						if (Config.getInstance().numOfPlayers == passCounter) {
-							nextRound();
-						}
-					}
-				}
-				handleMovement(e);
+
+		this.keyManager.handleKey(new GameState(Config.getInstance().gameType, sceneLoader.getCurrentScene(), phaseCount),
+								  e.getCode(), new KeyBindPackage(this, map));
+	}
+
+	/*
+	 * Someone tell me what this does
+	 */
+	public void commentYourCodeGuys() {
+		if (!freeLand) {
+			passCounter++;
+			currentPlayer = (currentPlayer + 1) % Config.getInstance().numOfPlayers;
+			setLabels();
+			System.out.println(passCounter);
+			if (Config.getInstance().numOfPlayers == passCounter) {
+				nextRound();
 			}
-		} else if (phaseCount == 1) {
-			handleMovement(e);
+		}
+
+	}
+
+	public List<Player> getPlayerList() {
+		return playerList;
+	}
+
+	/**
+	 * Increments the turn
+	 *
+	 * Matthew don't copy paste code...
+	 */
+	public void incrementTurn() {
+		passCounter++;
+		currentPlayer = (currentPlayer + 1) % Config.getInstance().numOfPlayers;
+		setLabels();
+		if (Config.getInstance().numOfPlayers == passCounter) {
+			nextRound();
+		}
+		if (currentPlayer == 0) {
+			passCounter = 0;
 		}
 	}
 
-	private void handleMovement(KeyEvent e) {
-		if (!Config.getInstance().selectEnabled) {
-			if (e.getCode() == KeyCode.UP) {
-				map.selectUp();
-			} else if (e.getCode() == KeyCode.DOWN) {
-				map.selectDown();
-			} else if (e.getCode() == KeyCode.LEFT) {
-				map.selectLeft();
-			} else if (e.getCode() == KeyCode.RIGHT) {
-				map.selectRight();
-			}
-		}
-		if(e.getCode() == KeyCode.SPACE) {
+	public int getCurrentPlayer() {
+		return currentPlayer;
+	}
+
+	/**
+	 * Buys a tile for the current player.
+	 */
+	public void buyTile() {
 			if (currentPlayer == 0) {
 				buyTile(playerList.get(turnOrder.get(0)));
 			} else if (currentPlayer == 1) {
@@ -184,15 +137,14 @@ public class GameManager {
 			} else if (currentPlayer == 3) {
 				buyTile(playerList.get(turnOrder.get(3)));
 			}
-		}
 	}
 
 	public void handleMouse(MouseEvent e) {
 		this.mouseHandler.handleEvent(e);
 	}
 
-	private void buyTile(Player player) {
-		if (freeLand == false || player.getLandOwned() < roundCount) {
+	public void buyTile(Player player) {
+		if (!freeLand || player.getLandOwned() < roundCount) {
 			if (map.getOwner() == null) {
 				int cost = (int)(300 + (roundCount * Math.random() * 100));
 				if (cost > player.getMoney()) {
@@ -236,8 +188,8 @@ public class GameManager {
 
 	private void delayedBuy() {
 		/*if (buyers.size() > 1 && !freeLand) {
-			enterAuction(buyers);
-		} else */if (buyers.size() > 0) {
+		  enterAuction(buyers);
+		  } else */if (buyers.size() > 0) {
 			Player player = buyers.get(0);
 			if (!freeLand) {
 				int cost = (int)(300 + (roundCount * Math.random() * 100));
@@ -249,7 +201,7 @@ public class GameManager {
 				map.buyTile(player);
 				setLabels();
 				player.setMoney((int) (player.getMoney() - cost));
-			} else if (freeLand) {
+			} else  {
 				player.addLand();
 				map.buyTile(player);
 				setLabels();
@@ -259,8 +211,8 @@ public class GameManager {
 	}
 
 	private boolean allBoughtLand() {
-		for (int i = 0; i < playerList.size(); i++) {
-			if (playerList.get(i).getLandOwned() < roundCount) {
+		for (Player aPlayerList : playerList) {
+			if (aPlayerList.getLandOwned() < roundCount) {
 				return false;
 			}
 		}
