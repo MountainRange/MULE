@@ -7,17 +7,16 @@ import io.github.mountainrange.mule.gameplay.Player;
 import io.github.mountainrange.mule.gameplay.Shop;
 import io.github.mountainrange.mule.gameplay.Tile;
 import io.github.mountainrange.mule.gameplay.WorldMap;
-import io.github.mountainrange.mule.managers.GameState;
+import io.github.mountainrange.mule.managers.GameView;
 import io.github.mountainrange.mule.managers.KeyBindManager;
 
-import io.github.mountainrange.mule.managers.KeyBindPackage;
+import io.github.mountainrange.mule.managers.GameState;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Point2D;
 import javafx.scene.control.Label;
-import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.util.Duration;
@@ -79,8 +78,8 @@ public class GameManager {
 
 	public void handleKey(KeyEvent e) {
 
-		this.keyManager.handleKey(new GameState(Config.getInstance().gameType, sceneLoader.getCurrentScene(), phaseCount),
-								  e.getCode(), new KeyBindPackage(this, map));
+		this.keyManager.handleKey(new GameView(Config.getInstance().gameType, sceneLoader.getCurrentScene(), phaseCount),
+								  e.getCode(), new GameState(this, map));
 	}
 
 	/*

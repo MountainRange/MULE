@@ -5,5 +5,5 @@ package io.github.mountainrange.mule.managers;
  */
 @FunctionalInterface
 public interface KeyFunction {
-	String act(KeyBindPackage m);
+	String act(GameState m);
 }
