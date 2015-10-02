@@ -1,9 +1,9 @@
 package io.github.mountainrange.mule.managers;
 
 /**
- * A interface to pass a lambda into this object
+ * A interface that represents a lambda that handles keypresses.
  */
 @FunctionalInterface
 public interface KeyFunction {
-    String act(KeyBindPackage m);
+	String act(KeyBindPackage m);
 }
