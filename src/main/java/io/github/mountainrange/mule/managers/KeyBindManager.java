@@ -7,6 +7,7 @@ import javafx.scene.input.KeyCode;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Arrays;
 
 public class KeyBindManager {
 	private Map<GameView, Map<KeyCode, KeyFunction>> keyMap;
@@ -16,11 +17,52 @@ public class KeyBindManager {
 		KeyBindManager.addDefaultBindings(this);
 	}
 
+	/**
+	 * An add method that takes in a GameView
+	 */
 	public void add(GameView state, KeyCode toAdd, KeyFunction lambda) {
 		if (!keyMap.containsKey(state)) {
 			keyMap.put(state, new HashMap<KeyCode, KeyFunction>());
 		}
 		keyMap.get(state).put(toAdd, lambda);
+	}
+
+	/**
+	 * An add method that takes in GameView Parts.
+	 * This one in particular takes in a Collection of phaseCounts
+	 */
+	public void add(GameType gt, String sn, Iterable<Integer> phaseCount, KeyCode toAdd, KeyFunction lambda) {
+		phaseCount.forEach((input) -> {
+				this.add(gt, sn, input, toAdd, lambda);
+			});
+	}
+
+	/**
+	 * An add method that takes in GameView Parts.
+	 * This particular one takes in a Collection of GameTypes, all set to this keyCode/function
+	 */
+	public void add(Iterable<GameType> gt, String sn, int phaseCount, KeyCode toAdd, KeyFunction lambda) {
+		gt.forEach((input) -> {
+				this.add(input, sn, phaseCount, toAdd, lambda);
+			});
+	}
+
+	/**
+	 * An add method that takes in GameView Parts.
+	 * This particular one takes in a Collection of GameTypes and phaseCounts.
+	 */
+	public void add(Iterable<GameType> gt, String sn, Iterable<Integer> phaseCount, KeyCode toAdd, KeyFunction lambda) {
+		gt.forEach((input) -> {
+				this.add(input, sn, phaseCount, toAdd, lambda);
+			});
+	}
+
+	/**
+	 * An add method that takes in GameView Parts.
+	 */
+	public void add(GameType gt, String sn, int phaseCount, KeyCode toAdd, KeyFunction lambda) {
+		GameView state = new GameView(gt, sn, phaseCount);
+		this.add(state, toAdd, lambda);
 	}
 
 	public void handleKey(GameView state, KeyCode key, GameState datapacket) {
@@ -41,6 +83,7 @@ public class KeyBindManager {
 	 * A method to initialize the defaults.
 	 */
 	public static void addDefaultBindings(KeyBindManager toBind) {
+
 		// ----------------------------TURN INCREMENTERS-------------------------------
 		// Player 1 Next Turn
 		toBind.add(new GameView(GameType.SIMULTANEOUS, MULE.PLAY_SCENE, 0), KeyCode.X,
@@ -117,19 +160,7 @@ public class KeyBindManager {
 
 		// ----------------------------Buying Tiles-------------------------------
 
-		toBind.add(new GameView(GameType.SIMULTANEOUS, MULE.PLAY_SCENE, 0), KeyCode.SPACE,
-				(a) -> {
-					a.manager.buyTile();
-					return "Bought Tile"; });
-		toBind.add(new GameView(GameType.HOTSEAT, MULE.PLAY_SCENE, 0), KeyCode.SPACE,
-				(a) -> {
-					a.manager.buyTile();
-					return "Bought Tile"; });
-		toBind.add(new GameView(GameType.SIMULTANEOUS, MULE.PLAY_SCENE, 1), KeyCode.SPACE,
-				(a) -> {
-					a.manager.buyTile();
-					return "Bought Tile"; });
-		toBind.add(new GameView(GameType.HOTSEAT, MULE.PLAY_SCENE, 1), KeyCode.SPACE,
+		toBind.add(Arrays.asList(GameType.SIMULTANEOUS, GameType.HOTSEAT), MULE.PLAY_SCENE, Arrays.asList(0, 1), KeyCode.SPACE,
 				(a) -> {
 					a.manager.buyTile();
 					return "Bought Tile"; });
@@ -141,11 +172,7 @@ public class KeyBindManager {
 				(a) -> {
 					a.map.selectUp();
 					return "Moved Up"; });
-		toBind.add(new GameView(GameType.SIMULTANEOUS, MULE.PLAY_SCENE, 1), KeyCode.UP,
-				(a) -> {
-					a.map.selectUp();
-					return "Moved Up"; });
-		toBind.add(new GameView(GameType.HOTSEAT, MULE.PLAY_SCENE, 1), KeyCode.UP,
+		toBind.add(Arrays.asList(GameType.HOTSEAT, GameType.SIMULTANEOUS), MULE.PLAY_SCENE, 1, KeyCode.UP,
 				(a) -> {
 					a.map.selectUp();
 					return "Moved Up"; });
@@ -155,11 +182,7 @@ public class KeyBindManager {
 				(a) -> {
 					a.map.selectDown();
 					return "Moved Down"; });
-		toBind.add(new GameView(GameType.SIMULTANEOUS, MULE.PLAY_SCENE, 1), KeyCode.DOWN,
-				(a) -> {
-					a.map.selectDown();
-					return "Moved Down"; });
-		toBind.add(new GameView(GameType.HOTSEAT, MULE.PLAY_SCENE, 1), KeyCode.DOWN,
+		toBind.add(Arrays.asList(GameType.SIMULTANEOUS, GameType.HOTSEAT), MULE.PLAY_SCENE, 1, KeyCode.DOWN,
 				(a) -> {
 					a.map.selectDown();
 					return "Moved Down"; });
@@ -169,7 +192,7 @@ public class KeyBindManager {
 				(a) -> {
 					a.map.selectLeft();
 					return "Moved Left"; });
-		toBind.add(new GameView(GameType.SIMULTANEOUS, MULE.PLAY_SCENE, 1), KeyCode.LEFT,
+		toBind.add(Arrays.asList(GameType.SIMULTANEOUS, GameType.HOTSEAT), MULE.PLAY_SCENE, 1, KeyCode.LEFT,
 				(a) -> {
 					a.map.selectLeft();
 					return "Moved Left"; });
@@ -183,11 +206,7 @@ public class KeyBindManager {
 				(a) -> {
 					a.map.selectRight();
 					return "Moved Right"; });
-		toBind.add(new GameView(GameType.SIMULTANEOUS, MULE.PLAY_SCENE, 1), KeyCode.RIGHT,
-				(a) -> {
-					a.map.selectRight();
-					return "Moved Right"; });
-		toBind.add(new GameView(GameType.HOTSEAT, MULE.PLAY_SCENE, 1), KeyCode.RIGHT,
+		toBind.add(Arrays.asList(GameType.SIMULTANEOUS, GameType.HOTSEAT), MULE.PLAY_SCENE, 1, KeyCode.RIGHT,
 				(a) -> {
 					a.map.selectRight();
 					return "Moved Right"; });
