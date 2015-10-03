@@ -2,6 +2,7 @@ package io.github.mountainrange.mule;
 
 import io.github.mountainrange.mule.controllers.SceneAgent;
 
+import io.github.mountainrange.mule.gameplay.Player;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
@@ -14,6 +15,7 @@ import javafx.scene.Parent;
 import javafx.util.Duration;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Stack;
 
 /**
@@ -73,7 +75,7 @@ public class SceneLoader extends AnchorPane {
 		final DoubleProperty opacity = opacityProperty();
 
 		if (!getChildren().isEmpty()) {
-			if (Config.fadeEnabled) {
+			if (Config.getInstance().fadeEnabled) {
 				fade(name, opacity);
 			} else {
 				getChildren().remove(0);
@@ -82,7 +84,7 @@ public class SceneLoader extends AnchorPane {
 				settingScene = false;
 			}
 		} else {
-			if (Config.fadeEnabled) {
+			if (Config.getInstance().fadeEnabled) {
 				fadeIn(name, opacity);
 			} else {
 				getChildren().add(sceneNode);
@@ -95,6 +97,10 @@ public class SceneLoader extends AnchorPane {
 
 		sceneHistory.push(name);
 		return true;
+	}
+
+	public String getCurrentScene() {
+		return sceneHistory.peek();
 	}
 
 	public boolean unloadScene(String name) {

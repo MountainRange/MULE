@@ -23,7 +23,7 @@
             </VBox>
             <VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="50.0" prefWidth="250.0">
                <children>
-                  <Label text="Enter Name">
+                  <Label fx:id="nameLabel" text="Enter Name">
                      <font>
                         <Font size="18.0" />
                      </font>
@@ -55,7 +55,7 @@
             </GridPane>
             <GridPane maxWidth="-Infinity" prefWidth="250.0">
                <children>
-                  <Label text="Player Color">
+                  <Label fx:id="colorLabel" text="Player Color">
                      <font>
                         <Font size="18.0" />
                      </font>
