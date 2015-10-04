@@ -12,7 +12,7 @@ public class Config {
 
 	private static Config instance = null;
 
-	public static final String DEFAULT_PACK = "plain";
+	public static final String DEFAULT_PACK = "fancy";
 	public static final int SELECTOR_SPEED = 1;
 
 	public Difficulty difficulty;
