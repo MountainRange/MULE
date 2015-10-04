@@ -68,8 +68,7 @@ SETUP_COMMAND="sudo apt-get update && sudo apt-get -y install openjfx"
 # Include the setup script itself, as well as any dependency files
 # Leaving this blank will turn off caching
 SETUP_SHA_FILES=()
- # This file should be included unless you leave this variable completely blank, forcing a rebuild when DoCIF is updated
-SETUP_SHA_FILES+=("./config.docif")
+SETUP_SHA_FILES+=("./deploy.sh")
 
 # @REQUIRED
 # Commands to run when testing. Each index will have it's own status token
