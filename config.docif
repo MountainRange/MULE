@@ -91,6 +91,6 @@ ENV_VARS+=("GH_PUSH_TOKEN")  # To be used by autoupdating script
 
 # Command to run when deploying. Leave blank for no deploy.
 # Make sure any secrets these commands need are added to ENV_VARS
-# DEPLOY_COMMAND="echo My secrets are $GH_USER"
+DEPLOY_COMMAND="./deploy.sh"
 
 ################################################################################
