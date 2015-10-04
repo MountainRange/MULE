@@ -87,7 +87,7 @@ TEST_COMMANDS+=( './gradlew check;test;A test to see if tests pass' )
 
 # Environmental variables to make available to the build environment
 ENV_VARS=()
-ENV_VARS+=("GH_PUSH_TOKEN")  # To be used by autoupdating script
+ENV_VARS+=("GH_TOKEN")  # To be used by autoupdating script
 
 # Command to run when deploying. Leave blank for no deploy.
 # Make sure any secrets these commands need are added to ENV_VARS
