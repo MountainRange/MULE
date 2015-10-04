@@ -5,10 +5,10 @@ set -e
 # This script is called by .travis.yml to update our doxygen documentation, which is stored on the gh-pages branch of this repo
 # It's based on this blog post: http://philipuren.com/serendipity/index.php?/archives/21-Using-Travis-to-automatically-publish-documentation.html
 
-git config --global user.name "$GIT_NAME"
-git config --global user.email $GIT_EMAIL
+git config --global user.name "$GH_NAME"
+git config --global user.email $GH_EMAIL
 
-gradle javadoc -i
+./gradle javadoc -i
 mkdir -p api_docs
 git clone -b gh-pages git://github.com/MountainRange/MULE api_docs/html
 rm -rf ./api_docs/html/doc

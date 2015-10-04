@@ -76,7 +76,8 @@ SETUP_SHA_FILES+=("./config.docif")
 # Commands are in this format
 # COMMAND; SHORT_NAME; DESCRIPTION
 TEST_COMMANDS=()
-TEST_COMMANDS+=( './gradlew build;compile;A test to see if the code compiles' )
+TEST_COMMANDS+=( './gradlew assemble;compile;A test to see if the code compiles' )
+TEST_COMMANDS+=( './gradlew check;test;A test to see if tests pass' )
 # TEST_COMMANDS+=( 'make test-cpp;test-cpp;A test to see if the code passes cpp tests' )
 
 # @RECCOMENDED
