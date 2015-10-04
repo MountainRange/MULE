@@ -8,7 +8,7 @@ set -e
 git config --global user.name "$GH_NAME"
 git config --global user.email $GH_EMAIL
 
-./gradle javadoc -i
+./gradlew javadoc -i
 mkdir -p api_docs
 git clone -b gh-pages git://github.com/MountainRange/MULE api_docs/html
 rm -rf ./api_docs/html/doc
