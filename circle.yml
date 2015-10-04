@@ -1,0 +1,5 @@
+# No Failure on this branch.
+test:
+  override:
+    - sh -c true
+
