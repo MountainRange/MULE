@@ -19,6 +19,7 @@ public class Tile extends Group {
 	private Rectangle ownerRect;
 	private TerrainType terrain;
 	private MuleType mule;
+
 	/**
 	 * Construct a tile with the given terrain with no mule installed and no owner.
 	 * @param terrain type of terrain on the tile
@@ -96,4 +97,29 @@ public class Tile extends Group {
 		this.mule = mule;
 	}
 
+	/**
+	 * Check if a Tile is equal to another tile, that is, if it has the same owner, terrain, and mule installed.
+	 * @param other tile to compare to
+	 * @return whether other is equal to this tile
+	 */
+	@Override
+	public boolean equals(Object other) {
+		if (other == null || !(other instanceof Tile)) {
+			return false;
+		}
+		if (this == other) {
+			return true;
+		}
+
+		Tile o = (Tile) other;
+		return Objects.equals(owner, o.owner) && terrain == o.terrain && mule == o.mule;
+	}
+
+	@Override
+	public int hashCode() {
+		int hash = owner.hashCode();
+        hash = (hash << 8) ^ terrain.ordinal();
+		hash = (hash << 8) ^ mule.ordinal();
+		return hash;
+	}
 }
