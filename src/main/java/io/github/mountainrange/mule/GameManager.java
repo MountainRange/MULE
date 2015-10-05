@@ -143,7 +143,7 @@ public class GameManager {
 	}
 
 	public void buyTile(Player player) {
-		if (!freeLand || player.getLandOwned() < roundCount) {
+		if (!freeLand || map.landOwnedBy(player) < roundCount) {
 			if (map.getOwner() == null) {
 				int cost = (int)(300 + (roundCount * Math.random() * 100));
 				if (cost > player.getMoney()) {
@@ -152,7 +152,6 @@ public class GameManager {
 				}
 				if (phaseCount == 0) {
 					if (Config.getInstance().gameType == GameType.HOTSEAT) {
-						player.addLand();
 						map.buyTile(player);
 						currentPlayer = (currentPlayer + 1) % Config.getInstance().numOfPlayers;
 						setLabels();
@@ -176,7 +175,6 @@ public class GameManager {
 						buyers.add(player);
 					}
 				} else if (phaseCount == 1) {
-					player.addLand();
 					player.setMoney((int) (player.getMoney() - cost));
 					map.buyTile(player);
 					setLabels();
@@ -196,12 +194,10 @@ public class GameManager {
 					System.out.println("Not enough money");
 					return;
 				}
-				player.addLand();
 				map.buyTile(player);
 				setLabels();
 				player.setMoney((int) (player.getMoney() - cost));
 			} else  {
-				player.addLand();
 				map.buyTile(player);
 				setLabels();
 			}
@@ -210,8 +206,8 @@ public class GameManager {
 	}
 
 	private boolean allBoughtLand() {
-		for (Player aPlayerList : playerList) {
-			if (aPlayerList.getLandOwned() < roundCount) {
+		for (Player p : playerList) {
+			if (map.landOwnedBy(p) < roundCount) {
 				return false;
 			}
 		}

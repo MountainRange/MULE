@@ -5,7 +5,7 @@ import io.github.mountainrange.mule.enums.MapType;
 import io.github.mountainrange.mule.enums.TerrainType;
 import javafx.geometry.Point2D;
 
-import java.util.Iterator;
+import java.util.*;
 
 /**
  * A class to represent the map and facilitates interactions
@@ -14,9 +14,15 @@ import java.util.Iterator;
 public class WorldMap implements Iterable<Tile> {
 
 	private Grid map;
+	private Map<Player, Set<Tile>> ownedTiles;
 
-	public WorldMap(Grid g) {
+	public WorldMap(Grid g, List<Player> playerList) {
 		this.map = g;
+
+		ownedTiles = new HashMap<>();
+		for (Player p : playerList) {
+			ownedTiles.put(p, new HashSet<>());
+		}
 	}
 
 	public boolean select(int x, int y) {
@@ -89,12 +95,18 @@ public class WorldMap implements Iterable<Tile> {
 		if (!t.hasOwner()) {
 			t.setOwner(player);
 		}
+
+		ownedTiles.get(player).add(t);
 	}
 
 	public Player getOwner() {
 		int x = map.getCursorX();
 		int y = map.getCursorY();
 		return map.get(x, y).getOwner();
+	}
+
+	public int landOwnedBy(Player player) {
+		return ownedTiles.get(player).size();
 	}
 
 	@Override
