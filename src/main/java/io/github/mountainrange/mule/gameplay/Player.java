@@ -1,11 +1,9 @@
 package io.github.mountainrange.mule.gameplay;
 
-import io.github.mountainrange.mule.Config;
 import io.github.mountainrange.mule.enums.Race;
 import io.github.mountainrange.mule.enums.ResourceType;
 
 import java.util.EnumMap;
-import java.util.Objects;
 
 import javafx.scene.paint.Color;
 
@@ -56,8 +54,18 @@ public class Player {
 		this.name = name;
 		this.race = race;
 		this.color = color;
+
+		stocks = new EnumMap<>(ResourceType.class);
+		for (ResourceType resource : ResourceType.values()) {
+			stocks.put(resource, 0);
+		}
 	}
 
+	/**
+	 * Get the amount of the given resource the player owns.
+	 * @param resource the resource to check the stock of
+	 * @return the stock of the given resource
+	 */
 	public int stockOf(ResourceType resource) {
 		return stocks.get(resource);
 	}
