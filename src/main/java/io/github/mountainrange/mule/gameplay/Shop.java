@@ -47,7 +47,7 @@ public class Shop {
 	/**
 	 * Gets the price of outfitting a MULE of the given type.
 	 * @param mule type of MULE to outfit
-	 * @return the price of outfitting the given MuleType
+	 * @return price of outfitting the given MuleType
 	 */
 	public static int outfitPriceOf(MuleType mule) {
 		return OUTFIT_PRICES.get(mule);
@@ -56,11 +56,12 @@ public class Shop {
 	/**
 	 * Get the percentage of a player's stock that <em>doesn't</em> spoil each turn.
 	 * @param resource resource to get the spoilage ratio of
-	 * @return the spoilage ratio of the given resource
+	 * @return spoilage ratio of the given resource
 	 */
 	public static double spoilageRatioOf(ResourceType resource) {
 		return SPOILAGE_RATIOS.get(resource);
 	}
+
 	/**
 	 * Get the amount of food required for each player on the given turn. Food usage starts at 3 on turn 0 and increases
 	 * by 1 every 3 turns.
