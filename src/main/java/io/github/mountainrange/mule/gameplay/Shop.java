@@ -52,6 +52,16 @@ public class Shop {
 		return outfitPrices.get(mule);
 	}
 
+	/**
+	 * Get the amount of food required for each player on the given turn. Food usage starts at 3 on turn 0 and increases
+	 * by 1 every 3 turns.
+	 * @param turn turn to calculate food usage
+	 * @return food usage on the given turn
+	 */
+	public static int foodUsage(int turn) {
+		return turn / 4 + 3;
+	}
+
 	static {
 		// Hard-coded initial shop prices and stocks at the beginning of the game
 		INITIAL_STOCKS = new EnumMap<>(Difficulty.class);
