@@ -9,8 +9,8 @@ import io.github.mountainrange.mule.gameplay.Tile;
 import io.github.mountainrange.mule.gameplay.WorldMap;
 import io.github.mountainrange.mule.managers.GameView;
 import io.github.mountainrange.mule.managers.KeyBindManager;
-
 import io.github.mountainrange.mule.managers.GameState;
+
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
@@ -77,7 +77,6 @@ public class GameManager {
 	}
 
 	public void handleKey(KeyEvent e) {
-
 		this.keyManager.handleKey(new GameView(Config.getInstance().gameType, sceneLoader.getCurrentScene(), phaseCount),
 								  e.getCode(), new GameState(this, map));
 	}
@@ -145,7 +144,7 @@ public class GameManager {
 	public void buyTile(Player player) {
 		if (!freeLand || map.landOwnedBy(player) < roundCount) {
 			if (map.getOwner() == null) {
-				int cost = (int)(300 + (roundCount * Math.random() * 100));
+				int cost = (int) (300 + (roundCount * Math.random() * 100));
 				if (cost > player.getMoney()) {
 					System.out.println("Not enough money");
 					return;
@@ -156,7 +155,7 @@ public class GameManager {
 						currentPlayer = (currentPlayer + 1) % Config.getInstance().numOfPlayers;
 						setLabels();
 						if (!freeLand) {
-							player.setMoney((int) (player.getMoney() - cost));
+							player.setMoney(player.getMoney() - cost);
 							if (currentPlayer == 0) {
 								passCounter = 0;
 							}
@@ -175,7 +174,7 @@ public class GameManager {
 						buyers.add(player);
 					}
 				} else if (phaseCount == 1) {
-					player.setMoney((int) (player.getMoney() - cost));
+					player.setMoney(player.getMoney() - cost);
 					map.buyTile(player);
 					setLabels();
 				}
@@ -184,9 +183,10 @@ public class GameManager {
 	}
 
 	private void delayedBuy() {
-		/*if (buyers.size() > 1 && !freeLand) {
-		  enterAuction(buyers);
-		  } else */if (buyers.size() > 0) {
+		/* if (buyers.size() > 1 && !freeLand) {
+			enterAuction(buyers);
+		} else */
+		if (buyers.size() > 0) {
 			Player player = buyers.get(0);
 			if (!freeLand) {
 				int cost = (int)(300 + (roundCount * Math.random() * 100));
@@ -196,7 +196,7 @@ public class GameManager {
 				}
 				map.buyTile(player);
 				setLabels();
-				player.setMoney((int) (player.getMoney() - cost));
+				player.setMoney(player.getMoney() - cost);
 			} else  {
 				map.buyTile(player);
 				setLabels();
@@ -341,7 +341,7 @@ public class GameManager {
 							public void handle(ActionEvent event) {
 								timeLeft--;
 								setLabels();
-								if (gamble == true) {
+								if (gamble) {
 									gamble = false;
 									playerList.get(turnOrder.get(currentPlayer)).addMoney(Math.max(0, Math.min(250,
 											(int) (roundBonus[roundCount] * (Math.random() * timeLeft)))));
@@ -397,18 +397,12 @@ public class GameManager {
 		return scores;
 	}
 
+	/**
+	 * Sort players in playerList in ascending order by score (so players with the lowest score go first).
+	 */
 	public void calculateTurnOrder() {
 		Map<Player, Integer> scores = scoreGame();
-		List<Map.Entry<Player, Integer>> list = new ArrayList<>(scores.entrySet());
-		Collections.sort(list, (a,b) -> (a.getValue()).compareTo(b.getValue()));
-		for (int i = 0; i < list.size(); i++) {
-			try {
-				turnOrder.set(i, playerList.indexOf(list.get(i).getKey()));
-			} catch (IndexOutOfBoundsException e) {
-				turnOrder.add(i, playerList.indexOf(list.get(i).getKey()));
-			}
-			System.out.println(turnOrder.get(i) + ": " + list.get(i).getValue());
-		}
+		playerList.sort((p1, p2) -> scores.get(p2) - scores.get(p1));
 	}
 
 	/**
