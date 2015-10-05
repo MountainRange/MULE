@@ -1,8 +1,5 @@
 package io.github.mountainrange.mule.gameplay;
 
-import io.github.mountainrange.mule.enums.MapSize;
-import io.github.mountainrange.mule.enums.MapType;
-import io.github.mountainrange.mule.enums.TerrainType;
 import javafx.geometry.Point2D;
 
 import java.util.*;
@@ -23,6 +20,45 @@ public class WorldMap implements Iterable<Tile> {
 		for (Player p : playerList) {
 			ownedTiles.put(p, new HashSet<>());
 		}
+	}
+
+	// ----------------------------Logical methods-------------------------------
+
+	public int landOwnedBy(Player player) {
+		return ownedTiles.get(player).size();
+	}
+
+	@Override
+	public Iterator<Tile> iterator() {
+		return map.iterator();
+	}
+
+	/**
+	 * Gets the number of columns in this map
+	 * @return cols the number of columns in this map
+	 */
+	public int getColumns() {
+		return map.getCols();
+	}
+
+	/**
+	 * Gets the number of rows in this map
+	 * @return rows the number of rows in this map
+	 */
+	public int getRows() {
+		return map.getRows();
+	}
+
+	// ----------------------------Graphical methods-----------------------------
+
+	/**
+	 * Get the tile the cursor is currently on.
+	 * @return the tile the cursor is on
+	 */
+	public Tile cursorTile() {
+		int x = map.getCursorX();
+		int y = map.getCursorY();
+		return map.get(x, y);
 	}
 
 	public boolean select(int x, int y) {
@@ -80,18 +116,8 @@ public class WorldMap implements Iterable<Tile> {
 		return selectRel(-1, 0);
 	}
 
-	public int height() {
-		return map.getRows();
-	}
-
-	public int width() {
-		return map.getCols();
-	}
-
 	public void buyTile(Player player) {
-		int x = map.getCursorX();
-		int y = map.getCursorY();
-		Tile t = map.get(x, y);
+		Tile t = cursorTile();
 		if (!t.hasOwner()) {
 			t.setOwner(player);
 		}
@@ -100,34 +126,7 @@ public class WorldMap implements Iterable<Tile> {
 	}
 
 	public Player getOwner() {
-		int x = map.getCursorX();
-		int y = map.getCursorY();
-		return map.get(x, y).getOwner();
-	}
-
-	public int landOwnedBy(Player player) {
-		return ownedTiles.get(player).size();
-	}
-
-	@Override
-	public Iterator<Tile> iterator() {
-		return map.iterator();
-	}
-
-	/**
-	 * Gets the number of columns in this map
-	 * @return cols
-	 */
-	public int getColumns() {
-		return map.getCols();
-	}
-
-	/**
-	 * Gets the number of rows in this map
-	 * @return rows
-	 */
-	public int getRows() {
-		return map.getRows();
+		return cursorTile().getOwner();
 	}
 
 	public boolean isInside(Point2D toCheck, int column, int row) {
