@@ -14,7 +14,8 @@ public class Shop {
 	private static final EnumMap<Difficulty, EnumMap<ResourceType, Integer>> INITIAL_STOCKS;
 	private static final EnumMap<Difficulty, EnumMap<ResourceType, Integer>> INITIAL_PRICES;
 
-	private static final EnumMap<MuleType, Integer> outfitPrices;
+	private static final EnumMap<MuleType, Integer> OUTFIT_PRICES;
+	private static final EnumMap<ResourceType, Double> SPOILAGE_RATIOS;
 
 	private EnumMap<ResourceType, Integer> stocks;
 	private EnumMap<ResourceType, Integer> prices;
@@ -49,9 +50,17 @@ public class Shop {
 	 * @return the price of outfitting the given MuleType
 	 */
 	public static int outfitPriceOf(MuleType mule) {
-		return outfitPrices.get(mule);
+		return OUTFIT_PRICES.get(mule);
 	}
 
+	/**
+	 * Get the percentage of a player's stock that <em>doesn't</em> spoil each turn.
+	 * @param resource resource to get the spoilage ratio of
+	 * @return the spoilage ratio of the given resource
+	 */
+	public static double spoilageRatioOf(ResourceType resource) {
+		return SPOILAGE_RATIOS.get(resource);
+	}
 	/**
 	 * Get the amount of food required for each player on the given turn. Food usage starts at 3 on turn 0 and increases
 	 * by 1 every 3 turns.
@@ -100,12 +109,20 @@ public class Shop {
 		INITIAL_PRICES.put(Difficulty.MOUNTAIN, beginnerPrices);
 
 		// Hard-coded MULE-outfitting prices
-		outfitPrices = new EnumMap<>(MuleType.class);
+		OUTFIT_PRICES = new EnumMap<>(MuleType.class);
 
-		outfitPrices.put(MuleType.FOOD_MULE, 25);
-		outfitPrices.put(MuleType.ENERGY_MULE, 50);
-		outfitPrices.put(MuleType.SMITHORE_MULE, 75);
-		outfitPrices.put(MuleType.CRYSTITE_MULE, 100);
+		OUTFIT_PRICES.put(MuleType.FOOD_MULE, 25);
+		OUTFIT_PRICES.put(MuleType.ENERGY_MULE, 50);
+		OUTFIT_PRICES.put(MuleType.SMITHORE_MULE, 75);
+		OUTFIT_PRICES.put(MuleType.CRYSTITE_MULE, 100);
+
+		// Hard-coded spoilage ratios from turn to turn
+		SPOILAGE_RATIOS = new EnumMap<>(ResourceType.class);
+
+		SPOILAGE_RATIOS.put(ResourceType.FOOD, 0.5);
+		SPOILAGE_RATIOS.put(ResourceType.ENERGY, 0.75);
+		SPOILAGE_RATIOS.put(ResourceType.SMITHORE, 0.0);
+		SPOILAGE_RATIOS.put(ResourceType.CRYSTITE, 0.0);
 	}
 
 }
