@@ -117,8 +117,8 @@ public class Tile extends Group {
 
 	@Override
 	public int hashCode() {
-		int hash = owner.hashCode();
-        hash = (hash << 8) ^ terrain.ordinal();
+		int hash = owner != null ? owner.hashCode() : 0;
+		hash = (hash << 8) ^ terrain.ordinal();
 		hash = (hash << 8) ^ mule.ordinal();
 		return hash;
 	}
