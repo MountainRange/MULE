@@ -98,7 +98,7 @@ public class PlayController implements Initializable, SceneAgent {
 
 	@FXML
 	private void handlePassAction(ActionEvent e) {
-		manager.endTurn();
+		manager.incrementTurn();
 	}
 
 }

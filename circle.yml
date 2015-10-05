@@ -6,6 +6,7 @@ machine:
     GH_STATUS: ${GITHUB_HAS_GREAT_SECURITY}f1342506638c87c9bef0
     GH_EMAIL: github@jgkamat.33mail.com
     GH_USER: jgkamat
+    GH_NAME: Jay Kamat
 
 checkout:
   post:
