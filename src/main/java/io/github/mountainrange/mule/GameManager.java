@@ -160,13 +160,11 @@ public class GameManager {
 								passCounter = 0;
 							}
 							if (Config.getInstance().numOfPlayers == passCounter) {
-								calculateTurnOrder();
 								nextRound();
 							}
 						} else if (freeLand) {
 							if (currentPlayer == 0) {
 								passCounter = 0;
-								calculateTurnOrder();
 								nextRound();
 							}
 						}
@@ -379,6 +377,8 @@ public class GameManager {
 			for (ResourceType resource : ResourceType.values()) {
 				score += player.stockOf(resource) * shop.priceOf(resource);
 			}
+
+			score += map.landOwnedBy(player) * 500;
 
 			scores.put(player, score);
 		}
