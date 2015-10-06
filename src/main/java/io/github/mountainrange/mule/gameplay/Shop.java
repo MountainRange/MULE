@@ -118,7 +118,8 @@ public class Shop {
 
 		initialPrices = new EnumMap<>(Difficulty.class);
 
-		EnumMap<ResourceType, Integer> startPrices = new EnumMap<>(ResourceType.class);startPrices.put(ResourceType.FOOD, 30);
+		EnumMap<ResourceType, Integer> startPrices = new EnumMap<>(ResourceType.class);
+		startPrices.put(ResourceType.FOOD, 30);
 		startPrices.put(ResourceType.ENERGY, 25);
 		startPrices.put(ResourceType.SMITHORE, 50);
 		startPrices.put(ResourceType.CRYSTITE, 100);

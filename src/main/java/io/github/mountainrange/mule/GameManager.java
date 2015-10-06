@@ -11,6 +11,7 @@ import io.github.mountainrange.mule.managers.GameView;
 import io.github.mountainrange.mule.managers.KeyBindManager;
 
 import io.github.mountainrange.mule.managers.GameState;
+import java.util.Formatter;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
@@ -229,12 +230,14 @@ public class GameManager {
 
 	public void setLabels() {
 		turnLabel.setText(playerList.get(turnOrder.get(currentPlayer)).getName() + "'s Turn " + timeLeft);
-		resourceLabel.setText(playerList.get(turnOrder.get(currentPlayer)).getName() + "'s Money: "
-				+ playerList.get(turnOrder.get(currentPlayer)).getMoney() + " F: "
-				+ playerList.get(turnOrder.get(currentPlayer)).stockOf(ResourceType.FOOD) + " E: "
-				+ playerList.get(turnOrder.get(currentPlayer)).stockOf(ResourceType.ENERGY) + " S: "
-				+ playerList.get(turnOrder.get(currentPlayer)).stockOf(ResourceType.SMITHORE) + " C: "
-				+ playerList.get(turnOrder.get(currentPlayer)).stockOf(ResourceType.CRYSTITE));
+		String s = String.format("%1$s's Money: %2$s F: %3$s E: %4$s S: %5$s C: %6$s",
+				playerList.get(turnOrder.get(currentPlayer)).getName(),
+				playerList.get(turnOrder.get(currentPlayer)).getMoney(),
+				playerList.get(turnOrder.get(currentPlayer)).stockOf(ResourceType.FOOD),
+				playerList.get(turnOrder.get(currentPlayer)).stockOf(ResourceType.ENERGY),
+				playerList.get(turnOrder.get(currentPlayer)).stockOf(ResourceType.SMITHORE),
+				playerList.get(turnOrder.get(currentPlayer)).stockOf(ResourceType.CRYSTITE));
+		resourceLabel.setText(s);
 	}
 
 	/**
