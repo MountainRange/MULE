@@ -88,28 +88,28 @@ public class KeyBindManager {
 		// Player 1 Next Turn
 		toBind.add(new GameView(GameType.SIMULTANEOUS, MULE.PLAY_SCENE, 0), KeyCode.X,
 				(a) -> {
-					if (a.manager.getCurrentPlayer() == 0) {
+					if (a.manager.getCurrentPlayerNum() == 0) {
 						a.manager.incrementTurn();
 					}
 					return "Turn Incremented"; });
 		// Player 2 Next Turn
 		toBind.add(new GameView(GameType.SIMULTANEOUS, MULE.PLAY_SCENE, 0), KeyCode.O,
 				(a) -> {
-					if (a.manager.getCurrentPlayer() == 1) {
+					if (a.manager.getCurrentPlayerNum() == 1) {
 						a.manager.incrementTurn();
 					}
 					return "Turn Incremented"; });
 		// Player 3 Next Turn
 		toBind.add(new GameView(GameType.SIMULTANEOUS, MULE.PLAY_SCENE, 0), KeyCode.W,
 				(a) -> {
-					if (a.manager.getCurrentPlayer() == 2) {
+					if (a.manager.getCurrentPlayerNum() == 2) {
 						a.manager.incrementTurn();
 					}
 					return "Turn Incremented"; });
 		// Player 3 Next Turn
 		toBind.add(new GameView(GameType.SIMULTANEOUS, MULE.PLAY_SCENE, 0), KeyCode.COMMA,
 				(a) -> {
-					if (a.manager.getCurrentPlayer() == 3) {
+					if (a.manager.getCurrentPlayerNum() == 3) {
 						a.manager.incrementTurn();
 					}
 					return "Turn Incremented"; });

@@ -119,8 +119,19 @@ public class GameManager {
 		}
 	}
 
-	public int getCurrentPlayer() {
+	public int getCurrentPlayerNum() {
 		return currentPlayer;
+	}
+
+	public Player getCurrentPlayer() {
+		return playerList.get(currentPlayer);
+	}
+
+	/**
+	 * Returns the shop
+	 */
+	public Shop getShop() {
+		return shop;
 	}
 
 	/**
