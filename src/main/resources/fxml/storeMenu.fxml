@@ -10,7 +10,7 @@
    <center>
       <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="30.0" BorderPane.alignment="CENTER">
          <children>
-            <ComboBox onAction="#handleBuySellToggle" prefWidth="150.0" promptText="Buy/Sell" />
+            <ComboBox fx:id="buySellCombo" onAction="#handleBuySellToggle" prefWidth="150.0" promptText="Buy/Sell" />
             <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
                <children>
                   <Button alignment="CENTER" mnemonicParsing="false" onAction="#handleExchangeFoodAction" text="Food: 30" textAlignment="CENTER">

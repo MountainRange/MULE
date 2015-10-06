@@ -2,6 +2,7 @@ package io.github.mountainrange.mule.controllers;
 
 import io.github.mountainrange.mule.MULE;
 import io.github.mountainrange.mule.SceneLoader;
+import io.github.mountainrange.mule.gameplay.Shop;
 import io.github.mountainrange.mule.enums.ResourceType;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -50,37 +51,55 @@ public class StoreController implements Initializable, SceneAgent {
 
 	@FXML
 	private void handleExchangeFoodAction(ActionEvent e) {
+		Shop shop = mule.getGameManager().getShop();
 		if (buyNotSell) {
-			mule.getGameManager().getShop().buy(mule.getGameManager().getCurrentPlayer(), ResourceType.FOOD);
-		} else {
-			mule.getGameManager().getShop().sell(mule.getGameManager().getCurrentPlayer(), ResourceType.FOOD);
+			if (shop.stockOf(ResourceType.FOOD) > 0) {
+				shop.buy(mule.getGameManager().getCurrentPlayer(), ResourceType.FOOD);
+			} else {
+				shop.sell(mule.getGameManager().getCurrentPlayer(), ResourceType.FOOD);
+			}
 		}
 	}
 
 	@FXML
 	private void handleExchangeEnergyAction(ActionEvent e) {
-		if (buyNotSell) {
-			mule.getGameManager().getShop().buy(mule.getGameManager().getCurrentPlayer(), ResourceType.ENERGY);
+		Shop shop = mule.getGameManager().getShop();
+		if (shop.stockOf(ResourceType.ENERGY) > 0) {
+			if (buyNotSell) {
+				shop.buy(mule.getGameManager().getCurrentPlayer(), ResourceType.ENERGY);
+			} else {
+				shop.sell(mule.getGameManager().getCurrentPlayer(), ResourceType.ENERGY);
+			}
 		} else {
-			mule.getGameManager().getShop().sell(mule.getGameManager().getCurrentPlayer(), ResourceType.ENERGY);
+			System.out.println("Out of energy");
 		}
 	}
 
 	@FXML
 	private void handleExchangeSmithoreAction(ActionEvent e) {
-		if (buyNotSell) {
-			mule.getGameManager().getShop().buy(mule.getGameManager().getCurrentPlayer(), ResourceType.SMITHORE);
+		Shop shop = mule.getGameManager().getShop();
+		if (shop.stockOf(ResourceType.SMITHORE) > 0) {
+			if (buyNotSell) {
+				shop.buy(mule.getGameManager().getCurrentPlayer(), ResourceType.SMITHORE);
+			} else {
+				shop.sell(mule.getGameManager().getCurrentPlayer(), ResourceType.SMITHORE);
+			}
 		} else {
-			mule.getGameManager().getShop().sell(mule.getGameManager().getCurrentPlayer(), ResourceType.SMITHORE);
+			System.out.println("Out of smithore");
 		}
 	}
 
 	@FXML
 	private void handleExchangeCrystiteAction(ActionEvent e) {
-		if (buyNotSell) {
-			mule.getGameManager().getShop().buy(mule.getGameManager().getCurrentPlayer(), ResourceType.CRYSTITE);
+		Shop shop = mule.getGameManager().getShop();
+		if (shop.stockOf(ResourceType.CRYSTITE) > 0) {
+			if (buyNotSell) {
+				shop.buy(mule.getGameManager().getCurrentPlayer(), ResourceType.CRYSTITE);
+			} else {
+				shop.sell(mule.getGameManager().getCurrentPlayer(), ResourceType.CRYSTITE);
+			}
 		} else {
-			mule.getGameManager().getShop().sell(mule.getGameManager().getCurrentPlayer(), ResourceType.CRYSTITE);
+			System.out.println("Out of crystite");
 		}
 	}
 

@@ -229,7 +229,7 @@ public class GameManager {
 		return true;
 	}
 
-	private void setLabels() {
+	public void setLabels() {
 		turnLabel.setText(playerList.get(turnOrder.get(currentPlayer)).getName() + "'s Turn " + timeLeft);
 		resourceLabel.setText(playerList.get(turnOrder.get(currentPlayer)).getName() + "'s Money: "
 				+ playerList.get(turnOrder.get(currentPlayer)).getMoney() + " Energy: ####");
