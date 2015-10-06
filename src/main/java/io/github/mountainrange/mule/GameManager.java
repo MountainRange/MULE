@@ -142,7 +142,7 @@ public class GameManager {
 	}
 
 	public void buyTile(Player player) {
-		if (!freeLand || map.landOwnedBy(player) < roundCount) {
+		if (!freeLand || map.countLandOwnedBy(player) < roundCount) {
 			if (map.getOwner() == null) {
 				int cost = (int) (300 + (roundCount * Math.random() * 100));
 				if (cost > player.getMoney()) {
@@ -151,7 +151,7 @@ public class GameManager {
 				}
 				if (phaseCount == 0) {
 					if (Config.getInstance().gameType == GameType.HOTSEAT) {
-						map.buyTile(player);
+						map.sellTile(player);
 						currentPlayer = (currentPlayer + 1) % Config.getInstance().numOfPlayers;
 						setLabels();
 						if (!freeLand) {
@@ -173,7 +173,7 @@ public class GameManager {
 					}
 				} else if (phaseCount == 1) {
 					player.setMoney(player.getMoney() - cost);
-					map.buyTile(player);
+					map.sellTile(player);
 					setLabels();
 				}
 			}
@@ -192,11 +192,11 @@ public class GameManager {
 					System.out.println("Not enough money");
 					return;
 				}
-				map.buyTile(player);
+				map.sellTile(player);
 				setLabels();
 				player.setMoney(player.getMoney() - cost);
 			} else  {
-				map.buyTile(player);
+				map.sellTile(player);
 				setLabels();
 			}
 		}
@@ -205,7 +205,7 @@ public class GameManager {
 
 	private boolean allBoughtLand() {
 		for (Player p : playerList) {
-			if (map.landOwnedBy(p) < roundCount) {
+			if (map.countLandOwnedBy(p) < roundCount) {
 				return false;
 			}
 		}
@@ -368,6 +368,7 @@ public class GameManager {
 	public Map<Player, Integer> scoreGame() {
 		Map<Player, Integer> scores = new HashMap<>();
 
+		// Add score from total number of mules in store
 		int muleScore = shop.stockOf(ResourceType.MULE) * 35;
 		for (Player player : playerList) {
 			// Add score from money and mules
@@ -378,20 +379,15 @@ public class GameManager {
 				score += player.stockOf(resource) * shop.priceOf(resource);
 			}
 
-			score += map.landOwnedBy(player) * 500;
-
-			scores.put(player, score);
-		}
-
-		// Add score from tiles owned and MULEs installed
-		for (Tile tile : map) {
-			Player owner = tile.getOwner();
-			if (owner != null) {
-				scores.put(owner, scores.get(owner) + 500);
+			// Add score from tiles owned and MULEs installed
+			score += map.countLandOwnedBy(player) * 500;
+			for (Tile tile : map.landOwnedBy(player)) {
 				if (tile.getMule() != MuleType.EMPTY) {
-					scores.put(owner, scores.get(owner) + Shop.outfitPriceOf(tile.getMule()));
+					score += Shop.outfitPriceOf(tile.getMule());
 				}
 			}
+
+			scores.put(player, score);
 		}
 
 		return scores;

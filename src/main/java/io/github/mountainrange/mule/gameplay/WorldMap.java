@@ -24,8 +24,38 @@ public class WorldMap implements Iterable<Tile> {
 
 	// ----------------------------Logical methods-------------------------------
 
-	public int landOwnedBy(Player player) {
+	/**
+	 * Count the number of tiles owned by the given player.
+	 * @param player player to count owned tiles
+	 * @return number of tiles owned by the given player
+	 */
+	public int countLandOwnedBy(Player player) {
 		return ownedTiles.get(player).size();
+	}
+
+	/**
+	 * Return an unmodifiable set with the tiles owned by the given player.
+	 * @param player player to get owned tiles
+	 * @return unmodifiable set with tiles owned by the given player
+	 */
+	public Set<Tile> landOwnedBy(Player player) {
+		return Collections.unmodifiableSet(ownedTiles.get(player));
+	}
+
+	/**
+	 * Sell the given tile to the given player. Selling will fail if the tile is already owned.
+	 * @param player player to sell the tile to
+	 * @param tile tile to sell
+	 * @return whether the tile was actually sold
+	 */
+	public boolean sellTile(Player player, Tile tile) {
+		if (tile.hasOwner()) {
+			return false;
+		}
+
+		tile.setOwner(player);
+		ownedTiles.get(player).add(tile);
+		return true;
 	}
 
 	@Override
@@ -59,6 +89,16 @@ public class WorldMap implements Iterable<Tile> {
 		int x = map.getCursorX();
 		int y = map.getCursorY();
 		return map.get(x, y);
+	}
+
+	/**
+	 * Sell the tile at the cursor location to the given player. Selling will fail if the tile is already owned.
+	 * @param player player to sell the tile to
+	 * @return whether the tile was actually sold
+	 */
+	public boolean sellTile(Player player) {
+		Tile tile = cursorTile();
+		return sellTile(player, tile);
 	}
 
 	public boolean select(int x, int y) {
@@ -114,15 +154,6 @@ public class WorldMap implements Iterable<Tile> {
 
 	public boolean selectLeft() {
 		return selectRel(-1, 0);
-	}
-
-	public void buyTile(Player player) {
-		Tile t = cursorTile();
-		if (!t.hasOwner()) {
-			t.setOwner(player);
-		}
-
-		ownedTiles.get(player).add(t);
 	}
 
 	public Player getOwner() {
