@@ -2,6 +2,7 @@ package io.github.mountainrange.mule.controllers;
 
 import io.github.mountainrange.mule.MULE;
 import io.github.mountainrange.mule.SceneLoader;
+import io.github.mountainrange.mule.gameplay.Player;
 import io.github.mountainrange.mule.gameplay.Shop;
 import io.github.mountainrange.mule.enums.ResourceType;
 import javafx.event.ActionEvent;
@@ -52,13 +53,27 @@ public class StoreController implements Initializable, SceneAgent {
 	@FXML
 	private void handleExchangeFoodAction(ActionEvent e) {
 		Shop shop = mule.getGameManager().getShop();
+		Player player = mule.getGameManager().getCurrentPlayer();
 		if (buyNotSell) {
 			if (shop.stockOf(ResourceType.FOOD) > 0) {
-				shop.buy(mule.getGameManager().getCurrentPlayer(), ResourceType.FOOD);
+				if (player.getMoney() >= shop.priceOf(ResourceType.FOOD)) {
+					shop.buy(player, ResourceType.FOOD);
+					System.out.println(player.getMoney());
+				} else {
+					System.out.println("Player does not have enough money");
+				}
 			} else {
-				shop.sell(mule.getGameManager().getCurrentPlayer(), ResourceType.FOOD);
+				System.out.println("Shop is out of food");
+			}
+		} else {
+			if (player.stockOf(ResourceType.FOOD) > 0) {
+				shop.sell(player, ResourceType.FOOD);
+				System.out.println(player.getMoney());
+			} else {
+				System.out.println("You are out of food");
 			}
 		}
+		mule.getGameManager().setLabels();
 	}
 
 	@FXML

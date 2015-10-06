@@ -124,7 +124,7 @@ public class GameManager {
 	}
 
 	public Player getCurrentPlayer() {
-		return playerList.get(currentPlayer);
+		return playerList.get(turnOrder.get(currentPlayer));
 	}
 
 	/**
