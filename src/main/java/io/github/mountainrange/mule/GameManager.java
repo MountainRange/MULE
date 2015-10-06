@@ -173,13 +173,11 @@ public class GameManager {
 								passCounter = 0;
 							}
 							if (Config.getInstance().numOfPlayers == passCounter) {
-								calculateTurnOrder();
 								nextRound();
 							}
 						} else if (freeLand) {
 							if (currentPlayer == 0) {
 								passCounter = 0;
-								calculateTurnOrder();
 								nextRound();
 							}
 						}
@@ -395,6 +393,8 @@ public class GameManager {
 				score += player.stockOf(resource) * shop.priceOf(resource);
 			}
 
+			score += player.getLandOwned() * 500;
+
 			scores.put(player, score);
 		}
 
@@ -415,7 +415,9 @@ public class GameManager {
 	public void calculateTurnOrder() {
 		Map<Player, Integer> scores = scoreGame();
 		List<Map.Entry<Player, Integer>> list = new ArrayList<>(scores.entrySet());
-		Collections.sort(list, (a,b) -> (a.getValue()).compareTo(b.getValue()));
+		if (!freeLand) {
+			Collections.sort(list, (a,b) -> (a.getValue()).compareTo(b.getValue()));
+		}
 		for (int i = 0; i < list.size(); i++) {
 			try {
 				turnOrder.set(i, playerList.indexOf(list.get(i).getKey()));
