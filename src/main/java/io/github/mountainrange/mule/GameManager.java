@@ -230,7 +230,11 @@ public class GameManager {
 	public void setLabels() {
 		turnLabel.setText(playerList.get(turnOrder.get(currentPlayer)).getName() + "'s Turn " + timeLeft);
 		resourceLabel.setText(playerList.get(turnOrder.get(currentPlayer)).getName() + "'s Money: "
-				+ playerList.get(turnOrder.get(currentPlayer)).getMoney() + " Energy: ####");
+				+ playerList.get(turnOrder.get(currentPlayer)).getMoney() + " F: "
+				+ playerList.get(turnOrder.get(currentPlayer)).stockOf(ResourceType.FOOD) + " E: "
+				+ playerList.get(turnOrder.get(currentPlayer)).stockOf(ResourceType.ENERGY) + " S: "
+				+ playerList.get(turnOrder.get(currentPlayer)).stockOf(ResourceType.SMITHORE) + " C: "
+				+ playerList.get(turnOrder.get(currentPlayer)).stockOf(ResourceType.CRYSTITE));
 	}
 
 	/**
