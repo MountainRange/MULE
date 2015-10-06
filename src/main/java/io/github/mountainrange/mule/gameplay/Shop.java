@@ -58,9 +58,18 @@ public class Shop {
 	 * @param resource The resource being bought
 	 */
 	public void buy(Player player, ResourceType resource) {
-		addResource(resource, -1);
-		player.addMoney(priceOf(resource) * -1);
-		player.addStock(resource, 1);
+		if (stockOf(resource) > 0) {
+			if (player.getMoney() >= priceOf(resource)) {
+				addResource(resource, -1);
+				player.addMoney(priceOf(resource) * -1);
+				player.addStock(resource, 1);
+				System.out.println(player.getMoney());
+			} else {
+				System.out.println("Player does not have enough money");
+			}
+		} else {
+			System.out.println("Shop is out of " + resource.toString());
+		}
 	}
 
 	/**
@@ -69,9 +78,14 @@ public class Shop {
 	 * @param resource The resource being sold
 	 */
 	public void sell(Player player, ResourceType resource) {
-		addResource(resource, 1);
-		player.addMoney(priceOf(resource) * 1);
-		player.addStock(resource, -1);
+		if (player.stockOf(resource) > 0) {
+			addResource(resource, 1);
+			player.addMoney(priceOf(resource) * 1);
+			player.addStock(resource, -1);
+			System.out.println(player.getMoney());
+		} else {
+			System.out.println("You are out of " + resource.toString());
+		}
 	}
 
 	private void addResource(ResourceType resource, int quantity) {

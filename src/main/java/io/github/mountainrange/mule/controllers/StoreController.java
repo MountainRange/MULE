@@ -22,6 +22,8 @@ public class StoreController implements Initializable, SceneAgent {
 	private SceneLoader sceneLoader;
 	private MULE mule;
 	private boolean buyNotSell;
+	private Shop shop;
+	private Player player;
 
 	@FXML
 	private ComboBox buySellCombo;
@@ -52,104 +54,48 @@ public class StoreController implements Initializable, SceneAgent {
 
 	@FXML
 	private void handleExchangeFoodAction(ActionEvent e) {
-		Shop shop = mule.getGameManager().getShop();
-		Player player = mule.getGameManager().getCurrentPlayer();
+		shop = mule.getGameManager().getShop();
+		player = mule.getGameManager().getCurrentPlayer();
 		if (buyNotSell) {
-			if (shop.stockOf(ResourceType.FOOD) > 0) {
-				if (player.getMoney() >= shop.priceOf(ResourceType.FOOD)) {
-					shop.buy(player, ResourceType.FOOD);
-					System.out.println(player.getMoney());
-				} else {
-					System.out.println("Player does not have enough money");
-				}
-			} else {
-				System.out.println("Shop is out of food");
-			}
+			shop.buy(player, ResourceType.FOOD);
 		} else {
-			if (player.stockOf(ResourceType.FOOD) > 0) {
-				shop.sell(player, ResourceType.FOOD);
-				System.out.println(player.getMoney());
-			} else {
-				System.out.println("You are out of food");
-			}
+			shop.sell(player, ResourceType.FOOD);
 		}
 		mule.getGameManager().setLabels();
 	}
 
 	@FXML
 	private void handleExchangeEnergyAction(ActionEvent e) {
-		Shop shop = mule.getGameManager().getShop();
-		Player player = mule.getGameManager().getCurrentPlayer();
+		shop = mule.getGameManager().getShop();
+		player = mule.getGameManager().getCurrentPlayer();
 		if (buyNotSell) {
-			if (shop.stockOf(ResourceType.ENERGY) > 0) {
-				if (player.getMoney() >= shop.priceOf(ResourceType.ENERGY)) {
-					shop.buy(player, ResourceType.ENERGY);
-					System.out.println(player.getMoney());
-				} else {
-					System.out.println("Player does not have enough money");
-				}
-			} else {
-				System.out.println("Shop is out of energy");
-			}
+			shop.buy(player, ResourceType.ENERGY);
 		} else {
-			if (player.stockOf(ResourceType.ENERGY) > 0) {
-				shop.sell(player, ResourceType.ENERGY);
-				System.out.println(player.getMoney());
-			} else {
-				System.out.println("You are out of energy");
-			}
+			shop.sell(player, ResourceType.ENERGY);
 		}
 		mule.getGameManager().setLabels();
 	}
 
 	@FXML
 	private void handleExchangeSmithoreAction(ActionEvent e) {
-		Shop shop = mule.getGameManager().getShop();
-		Player player = mule.getGameManager().getCurrentPlayer();
+		shop = mule.getGameManager().getShop();
+		player = mule.getGameManager().getCurrentPlayer();
 		if (buyNotSell) {
-			if (shop.stockOf(ResourceType.SMITHORE) > 0) {
-				if (player.getMoney() >= shop.priceOf(ResourceType.SMITHORE)) {
-					shop.buy(player, ResourceType.SMITHORE);
-					System.out.println(player.getMoney());
-				} else {
-					System.out.println("Player does not have enough money");
-				}
-			} else {
-				System.out.println("Shop is out of smithore");
-			}
+			shop.buy(player, ResourceType.SMITHORE);
 		} else {
-			if (player.stockOf(ResourceType.SMITHORE) > 0) {
-				shop.sell(player, ResourceType.SMITHORE);
-				System.out.println(player.getMoney());
-			} else {
-				System.out.println("You are out of smithore");
-			}
+			shop.sell(player, ResourceType.SMITHORE);
 		}
 		mule.getGameManager().setLabels();
 	}
 
 	@FXML
 	private void handleExchangeCrystiteAction(ActionEvent e) {
-		Shop shop = mule.getGameManager().getShop();
-		Player player = mule.getGameManager().getCurrentPlayer();
+		shop = mule.getGameManager().getShop();
+		player = mule.getGameManager().getCurrentPlayer();
 		if (buyNotSell) {
-			if (shop.stockOf(ResourceType.CRYSTITE) > 0) {
-				if (player.getMoney() >= shop.priceOf(ResourceType.CRYSTITE)) {
-					shop.buy(player, ResourceType.CRYSTITE);
-					System.out.println(player.getMoney());
-				} else {
-					System.out.println("Player does not have enough money");
-				}
-			} else {
-				System.out.println("Shop is out of crystite");
-			}
+			shop.buy(player, ResourceType.CRYSTITE);
 		} else {
-			if (player.stockOf(ResourceType.CRYSTITE) > 0) {
-				shop.sell(player, ResourceType.CRYSTITE);
-				System.out.println(player.getMoney());
-			} else {
-				System.out.println("You are out of crystite");
-			}
+			shop.sell(player, ResourceType.CRYSTITE);
 		}
 		mule.getGameManager().setLabels();
 	}
