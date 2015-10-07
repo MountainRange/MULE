@@ -30,7 +30,7 @@ public class GameManager {
 
 	private List<Player> playerList;
 	private List<Player> buyers;
-	private List<Integer> turnOrder;
+	private List<Player> turnOrder;
 
 	private Shop shop;
 	private WorldMap map;
@@ -63,7 +63,7 @@ public class GameManager {
 		playerList = new ArrayList<>();
 		playerList.addAll(Arrays.asList(Config.getInstance().playerList).subList(0, Config.getInstance().numOfPlayers));
 		buyers = new ArrayList<>();
-		turnOrder = new ArrayList<>();
+		turnOrder = new ArrayList<>(playerList);
 		shop = new Shop(Config.getInstance().difficulty);
 		roundCount = 0;
 		currentPlayer = 0;
@@ -126,15 +126,7 @@ public class GameManager {
 	 * Buys a tile for the current player.
 	 */
 	public void buyTile() {
-			if (currentPlayer == 0) {
-				buyTile(playerList.get(turnOrder.get(0)));
-			} else if (currentPlayer == 1) {
-				buyTile(playerList.get(turnOrder.get(1)));
-			} else if (currentPlayer == 2) {
-				buyTile(playerList.get(turnOrder.get(2)));
-			} else if (currentPlayer == 3) {
-				buyTile(playerList.get(turnOrder.get(3)));
-			}
+		buyTile(turnOrder.get(currentPlayer));
 	}
 
 	public void handleMouse(MouseEvent e) {
@@ -213,9 +205,9 @@ public class GameManager {
 	}
 
 	private void setLabels() {
-		turnLabel.setText(playerList.get(turnOrder.get(currentPlayer)).getName() + "'s Turn " + timeLeft);
-		resourceLabel.setText(playerList.get(turnOrder.get(currentPlayer)).getName() + "'s Money: "
-				+ playerList.get(turnOrder.get(currentPlayer)).getMoney() + " Energy: ####");
+		turnLabel.setText(turnOrder.get(currentPlayer).getName() + "'s Turn " + timeLeft);
+		resourceLabel.setText(turnOrder.get(currentPlayer).getName() + "'s Money: "
+				+ turnOrder.get(currentPlayer).getMoney() + " Energy: ####");
 	}
 
 	/**
@@ -341,7 +333,7 @@ public class GameManager {
 								setLabels();
 								if (gamble) {
 									gamble = false;
-									playerList.get(turnOrder.get(currentPlayer)).addMoney(Math.max(0, Math.min(250,
+									turnOrder.get(currentPlayer).addMoney(Math.max(0, Math.min(250,
 											(int) (roundBonus[roundCount] * (Math.random() * timeLeft)))));
 									endTurn();
 								}
@@ -394,11 +386,13 @@ public class GameManager {
 	}
 
 	/**
-	 * Sort players in playerList in ascending order by score (so players with the lowest score go first).
+	 * Sort players in ascending order by score (so players with the lowest score go first).
+	 *
+	 * <code>turnOrder</code> holds the sorted version of <code>playerList</code>.
 	 */
 	public void calculateTurnOrder() {
 		Map<Player, Integer> scores = scoreGame();
-		playerList.sort((p1, p2) -> scores.get(p2) - scores.get(p1));
+		turnOrder.sort((p1, p2) -> scores.get(p2) - scores.get(p1));
 	}
 
 	/**
