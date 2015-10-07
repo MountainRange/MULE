@@ -10,8 +10,39 @@
    <center>
       <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="30.0" BorderPane.alignment="CENTER">
          <children>
-            <Button mnemonicParsing="false" onAction="#handleBuyMuleAction" prefWidth="200.0" text="Buy Mule" />
-            <Button mnemonicParsing="false" onAction="#handleLoiterAction" prefWidth="200.0" text="Loiter" />
+            <ComboBox fx:id="buySellCombo" onAction="#handleBuySellToggle" prefWidth="150.0" promptText="Buy/Sell" />
+            <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+               <children>
+                  <Button alignment="CENTER" mnemonicParsing="false" onAction="#handleExchangeFoodAction" text="Food: 30" textAlignment="CENTER">
+                     <HBox.margin>
+                        <Insets left="10.0" right="10.0" />
+                     </HBox.margin>
+                  </Button>
+                  <Button alignment="CENTER" layoutX="281.0" layoutY="47.0" mnemonicParsing="false" onAction="#handleExchangeEnergyAction" text="Energy: 25" textAlignment="CENTER">
+                     <HBox.margin>
+                        <Insets left="10.0" right="10.0" />
+                     </HBox.margin>
+                  </Button>
+                  <Button alignment="CENTER" layoutX="320.0" layoutY="47.0" mnemonicParsing="false" onAction="#handleExchangeSmithoreAction" text="Smithore: 50" textAlignment="CENTER">
+                     <HBox.margin>
+                        <Insets left="10.0" right="10.0" />
+                     </HBox.margin>
+                  </Button>
+                  <Button alignment="CENTER" layoutX="349.0" layoutY="47.0" mnemonicParsing="false" onAction="#handleExchangeCrystiteAction" text="Crystite: 100" textAlignment="CENTER">
+                     <HBox.margin>
+                        <Insets left="10.0" right="10.0" />
+                     </HBox.margin>
+                  </Button>
+                  <Button alignment="CENTER" layoutX="378.0" layoutY="47.0" mnemonicParsing="false" onAction="#handleExchangeMuleAction" text="Mule: 100" textAlignment="CENTER">
+                     <HBox.margin>
+                        <Insets left="10.0" right="10.0" />
+                     </HBox.margin>
+                  </Button>
+               </children>
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+            </HBox>
             <Button mnemonicParsing="false" onAction="#handleLeaveAction" prefWidth="200.0" text="Leave" />
          </children>
       </VBox>
