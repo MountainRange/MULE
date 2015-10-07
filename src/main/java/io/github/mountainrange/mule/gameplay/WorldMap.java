@@ -13,6 +13,12 @@ public class WorldMap implements Iterable<Tile> {
 	private Grid map;
 	private Map<Player, Set<Tile>> ownedTiles;
 
+	public WorldMap(Grid g) {
+		this.map = g;
+
+		ownedTiles = new HashMap<>();
+	}
+
 	public WorldMap(Grid g, List<Player> playerList) {
 		this.map = g;
 
@@ -25,21 +31,25 @@ public class WorldMap implements Iterable<Tile> {
 	// ----------------------------Logical methods-------------------------------
 
 	/**
-	 * Count the number of tiles owned by the given player.
+	 * Count the number of tiles owned by the given player, or zero if the given player owns no tiles.
 	 * @param player player to count owned tiles
 	 * @return number of tiles owned by the given player
 	 */
 	public int countLandOwnedBy(Player player) {
+		if (!ownedTiles.containsKey(player)) {
+			return 0;
+		}
 		return ownedTiles.get(player).size();
 	}
 
 	/**
-	 * Return an unmodifiable set with the tiles owned by the given player.
+	 * Return an unmodifiable set with the tiles owned by the given player, or an empty set if the given player owns no
+	 * tiles.
 	 * @param player player to get owned tiles
 	 * @return unmodifiable set with tiles owned by the given player
 	 */
 	public Set<Tile> landOwnedBy(Player player) {
-		return Collections.unmodifiableSet(ownedTiles.get(player));
+		return Collections.unmodifiableSet(ownedTiles.getOrDefault(player, new HashSet<>()));
 	}
 
 	/**
@@ -54,6 +64,10 @@ public class WorldMap implements Iterable<Tile> {
 		}
 
 		tile.setOwner(player);
+		if (!ownedTiles.containsKey(player)) {
+			// Adding a new player
+			ownedTiles.put(player, new HashSet<>());
+		}
 		ownedTiles.get(player).add(tile);
 		return true;
 	}
