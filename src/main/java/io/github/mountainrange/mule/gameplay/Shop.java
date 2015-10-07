@@ -11,18 +11,19 @@ import java.util.EnumMap;
  */
 public class Shop {
 
-	private static final EnumMap<Difficulty, EnumMap<ResourceType, Integer>> initialStocks;
-	private static final EnumMap<Difficulty, EnumMap<ResourceType, Integer>> initialPrices;
+	private static final EnumMap<Difficulty, EnumMap<ResourceType, Integer>> INITIAL_STOCKS;
+	private static final EnumMap<Difficulty, EnumMap<ResourceType, Integer>> INITIAL_PRICES;
 
-	private static final EnumMap<MuleType, Integer> outfitPrices;
+	private static final EnumMap<MuleType, Integer> OUTFIT_PRICES;
+	private static final EnumMap<ResourceType, Double> SPOILAGE_RATIOS;
 
 	private EnumMap<ResourceType, Integer> stocks;
 	private EnumMap<ResourceType, Integer> prices;
 
 	public Shop(Difficulty difficulty) {
 		// Initialize stocks and prices to their starting values
-		stocks = new EnumMap<>(initialStocks.get(difficulty));
-		prices = new EnumMap<>(initialPrices.get(difficulty));
+		stocks = new EnumMap<>(INITIAL_STOCKS.get(difficulty));
+		prices = new EnumMap<>(INITIAL_PRICES.get(difficulty));
 	}
 
 	/**
@@ -46,15 +47,75 @@ public class Shop {
 	/**
 	 * Gets the price of outfitting a MULE of the given type.
 	 * @param mule type of MULE to outfit
-	 * @return the price of outfitting the given MuleType
+	 * @return price of outfitting the given MuleType
 	 */
 	public static int outfitPriceOf(MuleType mule) {
-		return outfitPrices.get(mule);
+		return OUTFIT_PRICES.get(mule);
+	}
+
+	/**
+	 * Get the percentage of a player's stock that <em>doesn't</em> spoil each turn.
+	 * @param resource resource to get the spoilage ratio of
+	 * @return spoilage ratio of the given resource
+	 */
+	public static double spoilageRatioOf(ResourceType resource) {
+		return SPOILAGE_RATIOS.get(resource);
+	}
+
+	/**
+	 * Get the amount of food required for each player on the given turn. Food usage starts at 3 on turn 0 and increases
+	 * by 1 every 3 turns.
+	 * @param turn turn to calculate food usage
+	 * @return food usage on the given turn
+	 */
+	public static int foodUsage(int turn) {
+		return turn / 4 + 3;
+	}
+
+	/**
+	 * Handles players buying stuff
+	 * @param player The Player who is buying
+	 * @param resource The resource being bought
+	 */
+	public void buy(Player player, ResourceType resource) {
+		if (stockOf(resource) > 0) {
+			if (player.getMoney() >= priceOf(resource)) {
+				addResource(resource, -1);
+				player.addMoney(priceOf(resource) * -1);
+				player.addStock(resource, 1);
+				System.out.println(player.getMoney());
+			} else {
+				System.out.println("Player does not have enough money");
+			}
+		} else {
+			System.out.println("Shop is out of " + resource.toString());
+		}
+	}
+
+	/**
+	 * Handles players selling stuff
+	 * @param player The Player who is selling
+	 * @param resource The resource being sold
+	 */
+	public void sell(Player player, ResourceType resource) {
+		if (player.stockOf(resource) > 0) {
+			addResource(resource, 1);
+			player.addMoney(priceOf(resource));
+			player.addStock(resource, -1);
+			System.out.println(player.getMoney());
+		} else {
+			System.out.println("You are out of " + resource.toString());
+		}
+	}
+
+	private void addResource(ResourceType resource, int quantity) {
+		int stock = stocks.get(resource);
+		stocks.put(resource, stock + quantity);
 	}
 
 	static {
 		// Hard-coded initial shop prices and stocks at the beginning of the game
-		initialStocks = new EnumMap<>(Difficulty.class);
+		INITIAL_STOCKS = new EnumMap<>(Difficulty.class);
 
 		EnumMap<ResourceType, Integer> beginnerStocks = new EnumMap<>(ResourceType.class);
 		beginnerStocks.put(ResourceType.FOOD, 16);
@@ -70,32 +131,40 @@ public class Shop {
 		otherStocks.put(ResourceType.CRYSTITE, 0);
 		otherStocks.put(ResourceType.MULE, 14);
 
-		initialStocks.put(Difficulty.HILL, beginnerStocks);
-		initialStocks.put(Difficulty.MESA, otherStocks);
-		initialStocks.put(Difficulty.PLATEAU, otherStocks);
-		initialStocks.put(Difficulty.MOUNTAIN, otherStocks);
+		INITIAL_STOCKS.put(Difficulty.HILL, beginnerStocks);
+		INITIAL_STOCKS.put(Difficulty.MESA, otherStocks);
+		INITIAL_STOCKS.put(Difficulty.PLATEAU, otherStocks);
+		INITIAL_STOCKS.put(Difficulty.MOUNTAIN, otherStocks);
 
-		initialPrices = new EnumMap<>(Difficulty.class);
+		INITIAL_PRICES = new EnumMap<>(Difficulty.class);
 
-		EnumMap<ResourceType, Integer> beginnerPrices = new EnumMap<>(ResourceType.class);
-		beginnerPrices.put(ResourceType.FOOD, 30);
-		beginnerPrices.put(ResourceType.ENERGY, 25);
-		beginnerPrices.put(ResourceType.SMITHORE, 50);
-		beginnerPrices.put(ResourceType.CRYSTITE, 100);
-		beginnerPrices.put(ResourceType.MULE, 100);
+		EnumMap<ResourceType, Integer> startPrices = new EnumMap<>(ResourceType.class);
+		startPrices.put(ResourceType.FOOD, 30);
+		startPrices.put(ResourceType.ENERGY, 25);
+		startPrices.put(ResourceType.SMITHORE, 50);
+		startPrices.put(ResourceType.CRYSTITE, 100);
+		startPrices.put(ResourceType.MULE, 100);
 
-		initialPrices.put(Difficulty.HILL, beginnerPrices);
-		initialPrices.put(Difficulty.MESA, beginnerPrices);
-		initialPrices.put(Difficulty.PLATEAU, beginnerPrices);
-		initialPrices.put(Difficulty.MOUNTAIN, beginnerPrices);
+		INITIAL_PRICES.put(Difficulty.HILL, startPrices);
+		INITIAL_PRICES.put(Difficulty.MESA, startPrices);
+		INITIAL_PRICES.put(Difficulty.PLATEAU, startPrices);
+		INITIAL_PRICES.put(Difficulty.MOUNTAIN, startPrices);
 
 		// Hard-coded MULE-outfitting prices
-		outfitPrices = new EnumMap<>(MuleType.class);
+		OUTFIT_PRICES = new EnumMap<>(MuleType.class);
 
-		outfitPrices.put(MuleType.FOOD_MULE, 25);
-		outfitPrices.put(MuleType.ENERGY_MULE, 50);
-		outfitPrices.put(MuleType.SMITHORE_MULE, 75);
-		outfitPrices.put(MuleType.CRYSTITE_MULE, 100);
+		OUTFIT_PRICES.put(MuleType.FOOD_MULE, 25);
+		OUTFIT_PRICES.put(MuleType.ENERGY_MULE, 50);
+		OUTFIT_PRICES.put(MuleType.SMITHORE_MULE, 75);
+		OUTFIT_PRICES.put(MuleType.CRYSTITE_MULE, 100);
+
+		// Hard-coded spoilage ratios from turn to turn
+		SPOILAGE_RATIOS = new EnumMap<>(ResourceType.class);
+
+		SPOILAGE_RATIOS.put(ResourceType.FOOD, 0.5);
+		SPOILAGE_RATIOS.put(ResourceType.ENERGY, 0.75);
+		SPOILAGE_RATIOS.put(ResourceType.SMITHORE, 0.0);
+		SPOILAGE_RATIOS.put(ResourceType.CRYSTITE, 0.0);
 	}
 
 }
