@@ -39,43 +39,43 @@ public class KeyManagerTest {
 	/**
 	 * Tests if the gameView add method is working
 	 */
-    @Test
-    public void testAddGameView() {
+	@Test
+	public void testAddGameView() {
 		KeyFunction lambda = (a) -> "Test";
 		keyManager.add(new GameView(GameType.SIMULTANEOUS, MULE.PLAY_SCENE, 0), KeyCode.X, lambda);
 		KeyFunction lambda2 = keyManager.getBinding(new GameView(GameType.SIMULTANEOUS, MULE.PLAY_SCENE, 0), KeyCode.X);
 		assertSame(lambda, lambda2);
-    }
+	}
 
 	/**
 	 * Tests if the raw add method is working
 	 */
-    @Test
-    public void testAddRaw() {
+	@Test
+	public void testAddRaw() {
 		KeyFunction lambda = (a) -> "Test";
 		keyManager.add(GameType.SIMULTANEOUS, MULE.PLAY_SCENE, 0, KeyCode.X, lambda);
 		KeyFunction lambda2 = keyManager.getBinding(new GameView(GameType.SIMULTANEOUS, MULE.PLAY_SCENE, 0), KeyCode.X);
 		assertSame(lambda, lambda2);
-    }
+	}
 
 	/**
 	 * Tests if the iterable GameType method is working
 	 */
-    @Test
-    public void testAddIterableGameType() {
+	@Test
+	public void testAddIterableGameType() {
 		KeyFunction lambda = (a) -> "Test";
 		keyManager.add(Arrays.asList(GameType.SIMULTANEOUS, GameType.HOTSEAT), MULE.PLAY_SCENE, 0, KeyCode.X, lambda);
 		KeyFunction lambda2 = keyManager.getBinding(new GameView(GameType.SIMULTANEOUS, MULE.PLAY_SCENE, 0), KeyCode.X);
 		KeyFunction lambda3 = keyManager.getBinding(new GameView(GameType.HOTSEAT, MULE.PLAY_SCENE, 0), KeyCode.X);
 		assertSame(lambda, lambda2);
 		assertSame(lambda, lambda3);
-    }
+	}
 
 	/**
 	 * Tests if the iterable GameType method is working
 	 */
-    @Test
-    public void testAddIterablePhaseCount() {
+	@Test
+	public void testAddIterablePhaseCount() {
 		KeyFunction lambda = (a) -> "Test";
 		keyManager.add(GameType.HOTSEAT, MULE.PLAY_SCENE, Arrays.asList(0,1,2), KeyCode.X, lambda);
 		KeyFunction lambda2 = keyManager.getBinding(new GameView(GameType.HOTSEAT, MULE.PLAY_SCENE, 0), KeyCode.X);
@@ -84,13 +84,13 @@ public class KeyManagerTest {
 		assertSame(lambda, lambda2);
 		assertSame(lambda, lambda3);
 		assertSame(lambda, lambda4);
-    }
+	}
 
 	/**
 	 * Tests if the deluxe iterable add is working
 	 */
-    @Test
-    public void testAddDeluxe() {
+	@Test
+	public void testAddDeluxe() {
 		KeyFunction lambda = (a) -> "Test";
 		keyManager.add(Arrays.asList(GameType.HOTSEAT, GameType.SIMULTANEOUS), MULE.PLAY_SCENE, Arrays.asList(0,1,2), KeyCode.X, lambda);
 		KeyFunction lambda2 = keyManager.getBinding(new GameView(GameType.HOTSEAT, MULE.PLAY_SCENE, 0), KeyCode.X);
@@ -114,5 +114,5 @@ public class KeyManagerTest {
 		assertNull(null1);
 		assertNull(null2);
 		assertNull(null3);
-    }
+	}
 }
