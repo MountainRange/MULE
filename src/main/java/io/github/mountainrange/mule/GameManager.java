@@ -145,7 +145,7 @@ public class GameManager {
 	}
 
 	public void buyTile(Player player) {
-		if (!freeLand || map.countLandOwnedBy(player) < roundCount) {
+		if ((!freeLand || map.countLandOwnedBy(player) < roundCount) && player.stockOf(ResourceType.MULE) == 0) {
 			if (map.getOwner() == null) {
 				int cost = (int) (300 + (roundCount * Math.random() * 100));
 				if (cost > player.getMoney()) {
@@ -180,6 +180,9 @@ public class GameManager {
 					setLabels();
 				}
 			}
+		} else if (player.stockOf(ResourceType.MULE) > 0) {
+			player.addStock(ResourceType.MULE, -1);
+			map.setMule(player);
 		}
 	}
 
