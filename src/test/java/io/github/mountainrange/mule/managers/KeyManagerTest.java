@@ -3,20 +3,23 @@ package io.github.mountainrange.mule.managers;
 // Junit Imports
 import org.junit.*;
 import static org.junit.Assert.*;
-import java.util.*;
+import org.junit.rules.Timeout;
 
-import io.github.mountainrange.mule.Config;
 import io.github.mountainrange.mule.MULE;
 import io.github.mountainrange.mule.enums.GameType;
-import javafx.scene.input.KeyCode;
-
 import io.github.mountainrange.mule.managers.KeyBindManager;
+
+import java.util.*;
+import javafx.scene.input.KeyCode;
 
 
 /**
  * A Class to Test the KeyManager
  */
 public class KeyManagerTest {
+
+	@Rule
+	public Timeout timeout = new Timeout(200);
 
 	private KeyBindManager keyManager;
 
@@ -38,9 +41,7 @@ public class KeyManagerTest {
 	 */
     @Test
     public void testAddGameView() {
-		KeyFunction lambda = ((a) -> {
-			return "Test";
-		});
+		KeyFunction lambda = (a) -> "Test";
 		keyManager.add(new GameView(GameType.SIMULTANEOUS, MULE.PLAY_SCENE, 0), KeyCode.X, lambda);
 		KeyFunction lambda2 = keyManager.getBinding(new GameView(GameType.SIMULTANEOUS, MULE.PLAY_SCENE, 0), KeyCode.X);
 		assertSame(lambda, lambda2);
@@ -51,9 +52,7 @@ public class KeyManagerTest {
 	 */
     @Test
     public void testAddRaw() {
-		KeyFunction lambda = ((a) -> {
-			return "Test";
-		});
+		KeyFunction lambda = (a) -> "Test";
 		keyManager.add(GameType.SIMULTANEOUS, MULE.PLAY_SCENE, 0, KeyCode.X, lambda);
 		KeyFunction lambda2 = keyManager.getBinding(new GameView(GameType.SIMULTANEOUS, MULE.PLAY_SCENE, 0), KeyCode.X);
 		assertSame(lambda, lambda2);
@@ -64,9 +63,7 @@ public class KeyManagerTest {
 	 */
     @Test
     public void testAddIterableGameType() {
-		KeyFunction lambda = ((a) -> {
-			return "Test";
-		});
+		KeyFunction lambda = (a) -> "Test";
 		keyManager.add(Arrays.asList(GameType.SIMULTANEOUS, GameType.HOTSEAT), MULE.PLAY_SCENE, 0, KeyCode.X, lambda);
 		KeyFunction lambda2 = keyManager.getBinding(new GameView(GameType.SIMULTANEOUS, MULE.PLAY_SCENE, 0), KeyCode.X);
 		KeyFunction lambda3 = keyManager.getBinding(new GameView(GameType.HOTSEAT, MULE.PLAY_SCENE, 0), KeyCode.X);
@@ -79,9 +76,7 @@ public class KeyManagerTest {
 	 */
     @Test
     public void testAddIterablePhaseCount() {
-		KeyFunction lambda = ((a) -> {
-			return "Test";
-		});
+		KeyFunction lambda = (a) -> "Test";
 		keyManager.add(GameType.HOTSEAT, MULE.PLAY_SCENE, Arrays.asList(0,1,2), KeyCode.X, lambda);
 		KeyFunction lambda2 = keyManager.getBinding(new GameView(GameType.HOTSEAT, MULE.PLAY_SCENE, 0), KeyCode.X);
 		KeyFunction lambda3 = keyManager.getBinding(new GameView(GameType.HOTSEAT, MULE.PLAY_SCENE, 1), KeyCode.X);
@@ -96,9 +91,7 @@ public class KeyManagerTest {
 	 */
     @Test
     public void testAddDeluxe() {
-		KeyFunction lambda = ((a) -> {
-			return "Test";
-		});
+		KeyFunction lambda = (a) -> "Test";
 		keyManager.add(Arrays.asList(GameType.HOTSEAT, GameType.SIMULTANEOUS), MULE.PLAY_SCENE, Arrays.asList(0,1,2), KeyCode.X, lambda);
 		KeyFunction lambda2 = keyManager.getBinding(new GameView(GameType.HOTSEAT, MULE.PLAY_SCENE, 0), KeyCode.X);
 		KeyFunction lambda3 = keyManager.getBinding(new GameView(GameType.HOTSEAT, MULE.PLAY_SCENE, 1), KeyCode.X);
