@@ -1,9 +1,17 @@
+
+plugins {
+	id "com.github.kt3k.coveralls" version "2.4.0x";
+}
+
+apply plugin: 'jacoco'
 apply plugin: 'java';
 apply plugin: 'eclipse';
 apply plugin: 'application';
 
+
 sourceCompatibility = 1.8;
 mainClassName = "io.github.mountainrange.mule.MULE";
+
 
 repositories {
 	mavenCentral();
@@ -24,4 +32,15 @@ jar {
 
 	// Include any required libraries in the resulting jar
 	from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
+}
+
+jacoco {
+    applyTo run
+}
+
+jacocoTestReport {
+    reports {
+        xml.enabled = true // coveralls plugin depends on xml format report
+        html.enabled = true
+    }
 }
