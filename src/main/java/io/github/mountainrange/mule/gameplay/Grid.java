@@ -31,6 +31,31 @@ public abstract class Grid implements Iterable<Tile> {
 			{0,0,3,0,1,0,0,0,3}
 	};
 
+
+	private int[][] generateRandomMap(int cols, int rows) { //TODO none of these should be 9
+		int riverPosition = (int) (Math.random() * cols);
+		int[][] tileGrid = new int[rows][cols];
+		for (int y = 0; y < rows; y++) {
+			for (int x = 0; x < cols; x++) {
+				double r = Math.random();
+				if (x == (cols/2) && y == (rows/2)) {
+					tileGrid[y][x] = 5;
+				} else if (x == riverPosition) {
+					tileGrid[y][x] = 1;
+				} else if (r < .1) {
+					tileGrid[y][x] = 2;
+				} else if (r < .2) {
+					tileGrid[y][x] = 3;
+				} else if (r < .3) {
+					tileGrid[y][x] = 4;
+				} else {
+					tileGrid[y][x] = 0;
+				}
+			}
+		}
+		return tileGrid;
+	}
+
 	public Grid (int columns, int rows, MapType m, MapSize s) {
 		int[][] map;
 
@@ -44,8 +69,7 @@ public abstract class Grid implements Iterable<Tile> {
 		if (m == MapType.CLASSIC) {
 			map = classicMap;
 		} else {
-			// TODO add other map options here!
-			map = classicMap;
+			map = generateRandomMap(columns, rows);
 		}
 
 		tiles = new Tile[this.cols][this.rows];
