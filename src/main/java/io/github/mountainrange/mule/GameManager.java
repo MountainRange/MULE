@@ -229,13 +229,8 @@ public class GameManager {
 		} else if (phaseCount == 1) {
 			normalPhase();
 		}
-		if (roundCount == 3) {
-			foodRequired = 3;
-		} else if (roundCount == 7) {
-			foodRequired++;
-		} else if (roundCount == 11) {
-			foodRequired++;
-		}
+
+		foodRequired = Shop.foodUsage(roundCount);
 		System.out.println("Food required: " + foodRequired);
 	}
 
