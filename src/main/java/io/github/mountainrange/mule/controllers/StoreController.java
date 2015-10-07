@@ -45,9 +45,9 @@ public class StoreController implements Initializable, SceneAgent {
 
 	@FXML
 	private void handleBuySellToggle(ActionEvent e) {
-		if (buySellCombo.getValue().equals(new String("Buy"))) {
+		if (buySellCombo.getValue().equals("Buy")) {
 			buyNotSell = true;
-		} else if (buySellCombo.getValue().equals(new String("Sell"))) {
+		} else if (buySellCombo.getValue().equals("Sell")) {
 			buyNotSell = false;
 		}
 	}

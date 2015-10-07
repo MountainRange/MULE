@@ -100,7 +100,7 @@ public class Shop {
 	public void sell(Player player, ResourceType resource) {
 		if (player.stockOf(resource) > 0) {
 			addResource(resource, 1);
-			player.addMoney(priceOf(resource) * 1);
+			player.addMoney(priceOf(resource));
 			player.addStock(resource, -1);
 			System.out.println(player.getMoney());
 		} else {

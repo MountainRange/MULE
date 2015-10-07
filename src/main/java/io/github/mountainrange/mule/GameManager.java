@@ -44,7 +44,7 @@ public class GameManager {
 	private KeyBindManager keyManager;
 
 	private int roundCount;
-	private int currentPlayer;
+	private int currentPlayerNum;
 	private int phaseCount;
 	private boolean inAuction;
 	private int timeLeft;
@@ -66,7 +66,7 @@ public class GameManager {
 		turnOrder = new ArrayList<>(playerList);
 		shop = new Shop(Config.getInstance().difficulty);
 		roundCount = 0;
-		currentPlayer = 0;
+		currentPlayerNum = 0;
 		phaseCount = 0;
 		this.mouseHandler = new MouseHandler();
 		timeLeft = 0;
@@ -87,7 +87,7 @@ public class GameManager {
 	public void commentYourCodeGuys() {
 		if (!freeLand) {
 			passCounter++;
-			currentPlayer = (currentPlayer + 1) % Config.getInstance().numOfPlayers;
+			currentPlayerNum = (currentPlayerNum + 1) % Config.getInstance().numOfPlayers;
 			setLabels();
 			System.out.println(passCounter);
 			if (Config.getInstance().numOfPlayers == passCounter) {
@@ -108,22 +108,22 @@ public class GameManager {
 	 */
 	public void incrementTurn() {
 		passCounter++;
-		currentPlayer = (currentPlayer + 1) % Config.getInstance().numOfPlayers;
+		currentPlayerNum = (currentPlayerNum + 1) % Config.getInstance().numOfPlayers;
 		setLabels();
 		if (Config.getInstance().numOfPlayers == passCounter) {
 			nextRound();
 		}
-		if (currentPlayer == 0) {
+		if (currentPlayerNum == 0) {
 			passCounter = 0;
 		}
 	}
 
 	public int getCurrentPlayerNum() {
-		return currentPlayer;
+		return currentPlayerNum;
 	}
 
 	public Player getCurrentPlayer() {
-		return playerList.get(turnOrder.get(currentPlayer));
+		return turnOrder.get(currentPlayerNum);
 	}
 
 	/**
@@ -137,7 +137,7 @@ public class GameManager {
 	 * Buys a tile for the current player.
 	 */
 	public void buyTile() {
-		buyTile(turnOrder.get(currentPlayer));
+		buyTile(turnOrder.get(currentPlayerNum));
 	}
 
 	public void handleMouse(MouseEvent e) {
@@ -155,18 +155,18 @@ public class GameManager {
 				if (phaseCount == 0) {
 					if (Config.getInstance().gameType == GameType.HOTSEAT) {
 						map.sellTile(player);
-						currentPlayer = (currentPlayer + 1) % Config.getInstance().numOfPlayers;
+						currentPlayerNum = (currentPlayerNum + 1) % Config.getInstance().numOfPlayers;
 						setLabels();
 						if (!freeLand) {
 							player.setMoney(player.getMoney() - cost);
-							if (currentPlayer == 0) {
+							if (currentPlayerNum == 0) {
 								passCounter = 0;
 							}
 							if (Config.getInstance().numOfPlayers == passCounter) {
 								nextRound();
 							}
 						} else if (freeLand) {
-							if (currentPlayer == 0) {
+							if (currentPlayerNum == 0) {
 								passCounter = 0;
 								nextRound();
 							}
@@ -216,14 +216,14 @@ public class GameManager {
 	}
 
 	public void setLabels() {
-		turnLabel.setText(turnOrder.get(currentPlayer).getName() + "'s Turn " + timeLeft);
+		Player currentPlayer = turnOrder.get(currentPlayerNum);
+		turnLabel.setText(turnOrder.get(currentPlayerNum).getName() + "'s Turn " + timeLeft);
 		String s = String.format("%1$s's Money: %2$s F: %3$s E: %4$s S: %5$s C: %6$s",
-				turnOrder.get(currentPlayer).getName(),
-				turnOrder.get(currentPlayer).getMoney(),
-				turnOrder.get(currentPlayer).stockOf(ResourceType.FOOD),
-				turnOrder.get(currentPlayer).stockOf(ResourceType.ENERGY),
-				turnOrder.get(currentPlayer).stockOf(ResourceType.SMITHORE),
-				turnOrder.get(currentPlayer).stockOf(ResourceType.CRYSTITE));
+				currentPlayer.getName(), currentPlayer.getMoney(),
+				currentPlayer.stockOf(ResourceType.FOOD),
+				currentPlayer.stockOf(ResourceType.ENERGY),
+				currentPlayer.stockOf(ResourceType.SMITHORE),
+				currentPlayer.stockOf(ResourceType.CRYSTITE));
 		resourceLabel.setText(s);
 	}
 
@@ -258,10 +258,10 @@ public class GameManager {
 		if (!sceneLoader.getCurrentScene().equals(MULE.PLAY_SCENE)) {
 			sceneLoader.setScene(MULE.PLAY_SCENE);
 		}
-		currentPlayer = (currentPlayer + 1) % Config.getInstance().numOfPlayers;
+		currentPlayerNum = (currentPlayerNum + 1) % Config.getInstance().numOfPlayers;
 		resetTimer();
 		setLabels();
-		if (currentPlayer == 0) {
+		if (currentPlayerNum == 0) {
 			nextRound();
 			if (timeCounter != null) timeCounter.stop();
 		}
@@ -324,9 +324,9 @@ public class GameManager {
 	}
 
 	private void resetTimer() {
-		if (playerList.get(currentPlayer).stockOf(ResourceType.FOOD) < foodRequired) {
+		if (playerList.get(currentPlayerNum).stockOf(ResourceType.FOOD) < foodRequired) {
 			timeLeft = 30;
-		} else if (playerList.get(currentPlayer).stockOf(ResourceType.FOOD) <= 0) {
+		} else if (playerList.get(currentPlayerNum).stockOf(ResourceType.FOOD) <= 0) {
 			timeLeft = 5;
 		} else {
 			timeLeft = 50;
@@ -345,7 +345,7 @@ public class GameManager {
 								setLabels();
 								if (gamble) {
 									gamble = false;
-									turnOrder.get(currentPlayer).addMoney(Math.max(0, Math.min(250,
+									turnOrder.get(currentPlayerNum).addMoney(Math.max(0, Math.min(250,
 											(int) (roundBonus[roundCount] * (Math.random() * timeLeft)))));
 									endTurn();
 								}

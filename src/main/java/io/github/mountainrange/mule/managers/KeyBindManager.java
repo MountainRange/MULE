@@ -22,7 +22,7 @@ public class KeyBindManager {
 	 */
 	public void add(GameView state, KeyCode toAdd, KeyFunction lambda) {
 		if (!keyMap.containsKey(state)) {
-			keyMap.put(state, new HashMap<KeyCode, KeyFunction>());
+			keyMap.put(state, new HashMap<>());
 		}
 		keyMap.get(state).put(toAdd, lambda);
 	}
