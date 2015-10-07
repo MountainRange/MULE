@@ -13,8 +13,19 @@ public class KeyBindManager {
 	private Map<GameView, Map<KeyCode, KeyFunction>> keyMap;
 
 	public KeyBindManager() {
+		this(true);
+	}
+
+	/**
+	 * Creates a KeyBindManager object
+	 *
+	 * @param useDefaults whether to use default keybindings or not
+	 */
+	public KeyBindManager(boolean useDefaults) {
 		keyMap = new HashMap<>();
-		KeyBindManager.addDefaultBindings(this);
+		if (useDefaults) {
+			KeyBindManager.addDefaultBindings(this);
+		}
 	}
 
 	/**
@@ -65,6 +76,20 @@ public class KeyBindManager {
 		this.add(state, toAdd, lambda);
 	}
 
+	/**
+	 * Gets the lambda function associated with this keybinding if one is available
+	 * @return The binding if is available, null if no binding was found
+	 */
+	public KeyFunction getBinding(GameView state, KeyCode key) {
+		Map<KeyCode, KeyFunction> first = keyMap.get(state);
+		if (first == null) {
+			// No Game state found.
+			return null;
+		}
+
+		return first.get(key);
+	}
+
 	public void handleKey(GameView state, KeyCode key, GameState datapacket) {
 		Map<KeyCode, KeyFunction> first = keyMap.get(state);
 		if (first == null) {
@@ -77,6 +102,13 @@ public class KeyBindManager {
 			return;
 		}
 		second.act(datapacket);
+	}
+
+	/**
+	 * Clears all bindings from this manager
+	 */
+	public void clear() {
+		this.keyMap.clear();
 	}
 
 	/**
