@@ -72,6 +72,47 @@ public class Shop {
 		return turn / 4 + 3;
 	}
 
+	/**
+	 * Handles players buying stuff
+	 * @param player The Player who is buying
+	 * @param resource The resource being bought
+	 */
+	public void buy(Player player, ResourceType resource) {
+		if (stockOf(resource) > 0) {
+			if (player.getMoney() >= priceOf(resource)) {
+				addResource(resource, -1);
+				player.addMoney(priceOf(resource) * -1);
+				player.addStock(resource, 1);
+				System.out.println(player.getMoney());
+			} else {
+				System.out.println("Player does not have enough money");
+			}
+		} else {
+			System.out.println("Shop is out of " + resource.toString());
+		}
+	}
+
+	/**
+	 * Handles players selling stuff
+	 * @param player The Player who is selling
+	 * @param resource The resource being sold
+	 */
+	public void sell(Player player, ResourceType resource) {
+		if (player.stockOf(resource) > 0) {
+			addResource(resource, 1);
+			player.addMoney(priceOf(resource) * 1);
+			player.addStock(resource, -1);
+			System.out.println(player.getMoney());
+		} else {
+			System.out.println("You are out of " + resource.toString());
+		}
+	}
+
+	private void addResource(ResourceType resource, int quantity) {
+		int stock = stocks.get(resource);
+		stocks.put(resource, stock + quantity);
+	}
+
 	static {
 		// Hard-coded initial shop prices and stocks at the beginning of the game
 		INITIAL_STOCKS = new EnumMap<>(Difficulty.class);
@@ -97,17 +138,17 @@ public class Shop {
 
 		INITIAL_PRICES = new EnumMap<>(Difficulty.class);
 
-		EnumMap<ResourceType, Integer> beginnerPrices = new EnumMap<>(ResourceType.class);
-		beginnerPrices.put(ResourceType.FOOD, 30);
-		beginnerPrices.put(ResourceType.ENERGY, 25);
-		beginnerPrices.put(ResourceType.SMITHORE, 50);
-		beginnerPrices.put(ResourceType.CRYSTITE, 100);
-		beginnerPrices.put(ResourceType.MULE, 100);
+		EnumMap<ResourceType, Integer> startPrices = new EnumMap<>(ResourceType.class);
+		startPrices.put(ResourceType.FOOD, 30);
+		startPrices.put(ResourceType.ENERGY, 25);
+		startPrices.put(ResourceType.SMITHORE, 50);
+		startPrices.put(ResourceType.CRYSTITE, 100);
+		startPrices.put(ResourceType.MULE, 100);
 
-		INITIAL_PRICES.put(Difficulty.HILL, beginnerPrices);
-		INITIAL_PRICES.put(Difficulty.MESA, beginnerPrices);
-		INITIAL_PRICES.put(Difficulty.PLATEAU, beginnerPrices);
-		INITIAL_PRICES.put(Difficulty.MOUNTAIN, beginnerPrices);
+		INITIAL_PRICES.put(Difficulty.HILL, startPrices);
+		INITIAL_PRICES.put(Difficulty.MESA, startPrices);
+		INITIAL_PRICES.put(Difficulty.PLATEAU, startPrices);
+		INITIAL_PRICES.put(Difficulty.MOUNTAIN, startPrices);
 
 		// Hard-coded MULE-outfitting prices
 		OUTFIT_PRICES = new EnumMap<>(MuleType.class);

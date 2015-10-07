@@ -118,8 +118,19 @@ public class GameManager {
 		}
 	}
 
-	public int getCurrentPlayer() {
+	public int getCurrentPlayerNum() {
 		return currentPlayer;
+	}
+
+	public Player getCurrentPlayer() {
+		return playerList.get(turnOrder.get(currentPlayer));
+	}
+
+	/**
+	 * Returns the shop
+	 */
+	public Shop getShop() {
+		return shop;
 	}
 
 	/**
@@ -204,10 +215,16 @@ public class GameManager {
 		return true;
 	}
 
-	private void setLabels() {
+	public void setLabels() {
 		turnLabel.setText(turnOrder.get(currentPlayer).getName() + "'s Turn " + timeLeft);
-		resourceLabel.setText(turnOrder.get(currentPlayer).getName() + "'s Money: "
-				+ turnOrder.get(currentPlayer).getMoney() + " Energy: ####");
+		String s = String.format("%1$s's Money: %2$s F: %3$s E: %4$s S: %5$s C: %6$s",
+				turnOrder.get(currentPlayer).getName(),
+				turnOrder.get(currentPlayer).getMoney(),
+				turnOrder.get(currentPlayer).stockOf(ResourceType.FOOD),
+				turnOrder.get(currentPlayer).stockOf(ResourceType.ENERGY),
+				turnOrder.get(currentPlayer).stockOf(ResourceType.SMITHORE),
+				turnOrder.get(currentPlayer).stockOf(ResourceType.CRYSTITE));
+		resourceLabel.setText(s);
 	}
 
 	/**
