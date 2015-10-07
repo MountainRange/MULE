@@ -98,12 +98,12 @@ public class Tile extends Group {
 	}
 
 	/**
-	 * Check if a Tile is equal to another tile, that is, if it has the same owner, terrain, and mule installed.
+	 * Check if a Tile has the same data as another tile, that is, if it has the same owner, terrain, and mule
+	 * installed.
 	 * @param other tile to compare to
 	 * @return whether other is equal to this tile
 	 */
-	@Override
-	public boolean equals(Object other) {
+	public boolean deepEquals(Object other) {
 		if (other == null || !(other instanceof Tile)) {
 			return false;
 		}
