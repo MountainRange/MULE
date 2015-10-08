@@ -19,6 +19,7 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.util.Duration;
 
+import java.awt.event.ActionEvent;
 import java.util.*;
 
 /**
@@ -159,9 +160,9 @@ public class GameManager {
 	}
 
 	private void delayedBuy() {
-		/* if (buyers.size() > 1 && !freeLand) {
-			enterAuction(buyers);
-		} else */
+		// if (buyers.size() > 1 && !freeLand) {
+		// 	enterAuction(buyers);
+		// } else
 		if (buyers.size() > 0) {
 			Player player = buyers.get(0);
 			if (!freeLand) {
@@ -285,23 +286,23 @@ public class GameManager {
 	private void runSelector() {
 		runner = new Timeline(
 				new KeyFrame(
-						Duration.seconds(Config.SELECTOR_SPEED),
-						event -> {
-                            if (!inAuction && phaseCount == 0) {
-                                delayedBuy();
-                                map.selectRightWrap();
-                            }
-                            if (allBoughtLand() && freeLand) {
-                                runner.stop();
-                                nextRound();
-                            }
-                            if (config.numOfPlayers == passCounter) {
-                                runner.stop();
-                                nextRound();
-                            }
-                        }
-				)
-		);
+					Duration.seconds(Config.SELECTOR_SPEED),
+					event -> {
+						if (!inAuction && phaseCount == 0) {
+							delayedBuy();
+							map.selectRightWrap();
+						}
+						if (allBoughtLand() && freeLand) {
+							runner.stop();
+							nextRound();
+						}
+						if (config.numOfPlayers == passCounter) {
+							runner.stop();
+							nextRound();
+						}
+					}
+					)
+				);
 		runner.setCycleCount(Timeline.INDEFINITE);
 		runner.play();
 	}
@@ -324,24 +325,27 @@ public class GameManager {
 		resetTimer();
 		timeCounter = new Timeline(
 				new KeyFrame(
-						// Desired number of seconds for each time unit
-						Duration.seconds(Config.SELECTOR_SPEED),
-						event -> {
-                            timeLeft--;
-                            setLabels();
-                            if (gambleFlag) {
-                                gambleFlag = false;
-                                turnOrder.get(currentPlayerNum).addMoney(Shop.gamblingProfit(roundCount, timeLeft));
-                                endTurn();
-                            }
-                            if (timeLeft <= 0) {
-                                endTurn();
-                            }
-                        }
-				)
-		);
+					Duration.seconds(Config.SELECTOR_SPEED),
+					event -> {
+						timeLeft--;
+						setLabels();
+						if (gambleFlag) {
+							gambleFlag = false;
+							turnOrder.get(currentPlayerNum).addMoney(Shop.gamblingProfit(roundCount, timeLeft));
+							endTurn();
+						}
+						if (timeLeft <= 0) {
+							endTurn();
+						}
+					}
+					)
+				);
 		timeCounter.setCycleCount(Timeline.INDEFINITE);
 		timeCounter.play();
+	}
+
+	private void turnTimerAction(ActionEvent event) {
+
 	}
 
 	/**
