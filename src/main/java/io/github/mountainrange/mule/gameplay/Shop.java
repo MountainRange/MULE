@@ -76,13 +76,30 @@ public class Shop {
 	}
 
 	/**
+	 * Randomly generate an amount of money earned gambling on the given round with the given time left. The value is
+	 * the base gambling profit plus a random percentage of the amount of time left. Also see
+	 * <a href="http://bringerp.free.fr/RE/Mule/reverseEngineering.php5#GamblingAtThePub">Gambling at the Pub</a>.
+	 * @param round round to compute gambling profit on
+	 * @param timeLeft time left in the given turn
+	 * @return amount of money earned gambling
+	 */
+	public static int gamblingProfit(int round, int timeLeft) {
+		if (round < 0 || timeLeft < 0) {
+			String msg = String.format("Can't get gambling profit for round %d with %d time left: negative values",
+					round, timeLeft);
+			throw new IllegalArgumentException(msg);
+		}
+		return Math.max(0, Math.min(250, (baseGamblingProfit(round) + ((int) (Math.random() * timeLeft)))));
+	}
+
+	/**
 	 * Get the base amount of money earned gambling on the given round. It is 50 from rounds 0-2, and increases by 50
 	 * every 4 rounds afterwards. Also see
 	 * <a href="http://bringerp.free.fr/RE/Mule/reverseEngineering.php5#GamblingAtThePub">Gambling at the Pub</a>.
 	 * @param round round to check gambling profit
 	 * @return minimum amount of money earned gambling on the given round
 	 */
-	public static int baseGamblingProfit(int round) {
+	private static int baseGamblingProfit(int round) {
 		if (round < 0) {
 			String msg = String.format("Can't get base gambling profit for round %d: negative round", round);
 			throw new IllegalArgumentException(msg);
@@ -163,6 +180,7 @@ public class Shop {
 		startPrices.put(ResourceType.CRYSTITE, 100);
 		startPrices.put(ResourceType.MULE, 100);
 
+		// Initial prices are the same on every difficulty
 		INITIAL_PRICES.put(Difficulty.HILL, startPrices);
 		INITIAL_PRICES.put(Difficulty.MESA, startPrices);
 		INITIAL_PRICES.put(Difficulty.PLATEAU, startPrices);

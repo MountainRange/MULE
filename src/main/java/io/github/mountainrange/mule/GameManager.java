@@ -330,8 +330,7 @@ public class GameManager {
                             setLabels();
                             if (gamble) {
                                 gamble = false;
-                                turnOrder.get(currentPlayerNum).addMoney(Math.max(0, Math.min(250,
-                                        (int) (Shop.baseGamblingProfit(roundCount) * (Math.random() * timeLeft)))));
+                                turnOrder.get(currentPlayerNum).addMoney(Shop.gamblingProfit(roundCount, timeLeft));
                                 endTurn();
                             }
                             if (timeLeft <= 0) {
