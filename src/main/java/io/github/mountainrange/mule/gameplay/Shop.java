@@ -113,18 +113,18 @@ public class Shop {
 	 * @param resource resource being bought
 	 */
 	public void buy(Player player, ResourceType resource) {
-		if (stockOf(resource) > 0) {
-			if (player.getMoney() >= priceOf(resource)) {
-				addResource(resource, -1);
-				player.addMoney(priceOf(resource) * -1);
-				player.addStock(resource, 1);
-				System.out.println(player.getMoney());
-			} else {
-				System.out.println("Player does not have enough money");
-			}
-		} else {
-			System.out.println("Shop is out of " + resource.toString());
+		if (stockOf(resource) <= 0) {
+			System.out.printf("Shop is out of %s\n", resource.toString());
+			return;
 		}
+		if (player.getMoney() < priceOf(resource)) {
+			System.out.println("Player does not have enough money");
+			return;
+		}
+
+		addResource(resource, -1);
+		player.addMoney(priceOf(resource) * -1);
+		player.addStock(resource, 1);
 	}
 
 	/**
@@ -133,14 +133,14 @@ public class Shop {
 	 * @param resource resource being sold
 	 */
 	public void sell(Player player, ResourceType resource) {
-		if (player.stockOf(resource) > 0) {
-			addResource(resource, 1);
-			player.addMoney(priceOf(resource));
-			player.addStock(resource, -1);
-			System.out.println(player.getMoney());
-		} else {
-			System.out.println("You are out of " + resource.toString());
+		if (player.stockOf(resource) <= 0) {
+			System.out.printf("Player is out of %s\n", resource.toString());
+			return;
 		}
+
+		addResource(resource, 1);
+		player.addMoney(priceOf(resource));
+		player.addStock(resource, -1);
 	}
 
 	private void addResource(ResourceType resource, int quantity) {
