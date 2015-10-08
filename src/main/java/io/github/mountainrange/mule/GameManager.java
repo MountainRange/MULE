@@ -31,20 +31,20 @@ public class GameManager {
 	private List<Player> turnOrder;
 
 	private Config config;
-	private MouseHandler mouseHandler;
 	private SceneLoader sceneLoader;
 	private Shop shop;
 	private WorldMap map;
 
+	private KeyBindManager keyManager;
+	private MouseHandler mouseHandler;
 	private Timeline runner;
 	private Timeline timeCounter;
-	private KeyBindManager keyManager;
 
 	private Label resourceLabel;
 	private Label turnLabel;
 
 	private boolean freeLand;
-	private boolean gamble;
+	private boolean gambleFlag;
 	private boolean inAuction;
 
 	private int currentPlayerNum;
@@ -66,11 +66,11 @@ public class GameManager {
 		turnOrder = new ArrayList<>(playerList);
 		shop = new Shop(config.difficulty);
 
-		roundCount = 0;
 		currentPlayerNum = 0;
-		phaseCount = 0;
-		timeLeft = 0;
 		passCounter = 0;
+		phaseCount = 0;
+		roundCount = 0;
+		timeLeft = 0;
 
 		freeLand = true;
 
@@ -324,12 +324,13 @@ public class GameManager {
 		resetTimer();
 		timeCounter = new Timeline(
 				new KeyFrame(
+						// Desired number of seconds for each time unit
 						Duration.seconds(Config.SELECTOR_SPEED),
 						event -> {
                             timeLeft--;
                             setLabels();
-                            if (gamble) {
-                                gamble = false;
+                            if (gambleFlag) {
+                                gambleFlag = false;
                                 turnOrder.get(currentPlayerNum).addMoney(Shop.gamblingProfit(roundCount, timeLeft));
                                 endTurn();
                             }
@@ -341,10 +342,6 @@ public class GameManager {
 		);
 		timeCounter.setCycleCount(Timeline.INDEFINITE);
 		timeCounter.play();
-	}
-
-	public void gamble() {
-		gamble = true;
 	}
 
 	/**
@@ -388,6 +385,14 @@ public class GameManager {
 	public void calculateTurnOrder() {
 		Map<Player, Integer> scores = scoreGame();
 		turnOrder.sort((p1, p2) -> scores.get(p2) - scores.get(p1));
+	}
+
+	/**
+	 * Sets a global variable indicating the player is going to gamble. This is read by the timer in {@code turnTimer},
+	 * and causes the turn to end and gives the player the money earned gambling.
+	 */
+	public void setGambleFlag() {
+		gambleFlag = true;
 	}
 
 	public void handleKey(KeyEvent e) {
