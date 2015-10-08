@@ -15,7 +15,7 @@ import java.util.*;
 public class ShopTest {
 
 	@Rule
-	public Timeout timeout = new Timeout(200);
+	public Timeout timeout = new Timeout(2000);
 
 	private Shop hillShop;
 

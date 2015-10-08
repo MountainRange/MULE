@@ -19,7 +19,7 @@ import javafx.scene.input.KeyCode;
 public class KeyManagerTest {
 
 	@Rule
-	public Timeout timeout = new Timeout(200);
+	public Timeout timeout = new Timeout(2000);
 
 	private KeyBindManager keyManager;
 
