@@ -1,4 +1,4 @@
-# MULE [![Build Status](https://circleci.com/gh/MountainRange/MULE.svg?&style=svg)](https://circleci.com/gh/MountainRange/MULE)
+# MULE [![Build Status](https://circleci.com/gh/MountainRange/MULE.svg?&style=svg)](https://circleci.com/gh/MountainRange/MULE) [![Coverage Status](https://coveralls.io/repos/MountainRange/MULE/badge.svg?branch=master&service=github)](https://coveralls.io/github/MountainRange/MULE?branch=master)
 
 MULE was originally a game built by ATARI. Team MountainRange is here to rebuild it from the ground up to peak performance.
 

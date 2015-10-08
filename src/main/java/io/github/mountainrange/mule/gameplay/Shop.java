@@ -64,11 +64,14 @@ public class Shop {
 
 	/**
 	 * Get the amount of food required for each player on the given turn. Food usage starts at 3 on turn 0 and increases
-	 * by 1 every 3 turns.
+	 * by 1 every 4 turns.
 	 * @param turn turn to calculate food usage
 	 * @return food usage on the given turn
 	 */
 	public static int foodUsage(int turn) {
+		if (turn < 0) {
+			throw new IllegalArgumentException(String.format("Can't get food usage for turn %d: negative turn", turn));
+		}
 		return turn / 4 + 3;
 	}
 

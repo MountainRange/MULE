@@ -2,7 +2,7 @@
 
 set -e
 
-# This script is called by .travis.yml to update our doxygen documentation, which is stored on the gh-pages branch of this repo
+# This script is called by .circle.yml to update our doxygen documentation, which is stored on the gh-pages branch of this repo
 # It's based on this blog post: http://philipuren.com/serendipity/index.php?/archives/21-Using-Travis-to-automatically-publish-documentation.html
 
 git config --global user.name "$GH_NAME"
