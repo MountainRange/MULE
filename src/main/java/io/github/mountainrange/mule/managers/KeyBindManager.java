@@ -1,65 +1,247 @@
 package io.github.mountainrange.mule.managers;
 
-import javafx.scene.input.KeyCode;
+import io.github.mountainrange.mule.Config;
+import io.github.mountainrange.mule.MULE;
 import io.github.mountainrange.mule.enums.GameType;
-import io.github.mountainrange.mule.GameManager;
+import javafx.scene.input.KeyCode;
+
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Arrays;
 
 public class KeyBindManager {
-	private Map<GameState, Map<KeyCode, KeyFunction>> keyMap;
+	private Map<GameView, Map<KeyCode, KeyFunction>> keyMap;
 
 	public KeyBindManager() {
-		keyMap = new HashMap<GameState, Map<KeyCode, KeyFunction>>();
+		this(true);
 	}
 
-	public void add(GameState state, KeyCode toAdd, KeyFunction lambda) {
+	/**
+	 * Creates a KeyBindManager object
+	 *
+	 * @param useDefaults whether to use default keybindings or not
+	 */
+	public KeyBindManager(boolean useDefaults) {
+		keyMap = new HashMap<>();
+		if (useDefaults) {
+			KeyBindManager.addDefaultBindings(this);
+		}
+	}
+
+	/**
+	 * An add method that takes in a GameView
+	 */
+	public void add(GameView state, KeyCode toAdd, KeyFunction lambda) {
 		if (!keyMap.containsKey(state)) {
-			keyMap.put(state, new HashMap<KeyCode, KeyFunction>());
+			keyMap.put(state, new HashMap<>());
 		}
 		keyMap.get(state).put(toAdd, lambda);
 	}
 
-	public void handleKey(GameState state, KeyCode key, KeyBindPackage datapacket) {
-		keyMap.get(state).get(key).act(datapacket);
+	/**
+	 * An add method that takes in GameView Parts.
+	 * This one in particular takes in a Collection of phaseCounts
+	 */
+	public void add(GameType gt, String sn, Iterable<Integer> phaseCount, KeyCode toAdd, KeyFunction lambda) {
+		phaseCount.forEach((input) -> {
+				this.add(gt, sn, input, toAdd, lambda);
+			});
 	}
 
-	public class GameState {
-		private GameType gameType;
-		private String sceneName;
-
-		public GameState(GameType gt, String sn) {
-			this.gameType = gt;
-			this.sceneName = sn;
-		}
-
-		@Override
-		public int hashCode() {
-			return this.gameType.hashCode() + this.sceneName.hashCode() * 7;
-		}
-
-		@Override
-		public boolean equals(Object other) {
-			if (!(other instanceof GameState)) {
-				return false;
-			} else if (other == this) {
-				return true;
-			} else {
-				GameState toCompare = (GameState) other;
-				return toCompare.gameType.equals(this.gameType) && toCompare.sceneName.equals(this.sceneName);
-			}
-		}
+	/**
+	 * An add method that takes in GameView Parts.
+	 * This particular one takes in a Collection of GameTypes, all set to this keyCode/function
+	 */
+	public void add(Iterable<GameType> gt, String sn, int phaseCount, KeyCode toAdd, KeyFunction lambda) {
+		gt.forEach((input) -> {
+				this.add(input, sn, phaseCount, toAdd, lambda);
+			});
 	}
 
-	public class KeyBindPackage {
-		public GameManager manager;
+	/**
+	 * An add method that takes in GameView Parts.
+	 * This particular one takes in a Collection of GameTypes and phaseCounts.
+	 */
+	public void add(Iterable<GameType> gt, String sn, Iterable<Integer> phaseCount, KeyCode toAdd, KeyFunction lambda) {
+		gt.forEach((input) -> {
+				this.add(input, sn, phaseCount, toAdd, lambda);
+			});
+	}
 
-		public KeyBindPackage(GameManager m) {
-			this.manager = m;
+	/**
+	 * An add method that takes in GameView Parts.
+	 */
+	public void add(GameType gt, String sn, int phaseCount, KeyCode toAdd, KeyFunction lambda) {
+		GameView state = new GameView(gt, sn, phaseCount);
+		this.add(state, toAdd, lambda);
+	}
+
+	/**
+	 * Gets the lambda function associated with this keybinding if one is available
+	 * @return The binding if is available, null if no binding was found
+	 */
+	public KeyFunction getBinding(GameView state, KeyCode key) {
+		Map<KeyCode, KeyFunction> first = keyMap.get(state);
+		if (first == null) {
+			// No Game state found.
+			return null;
 		}
+
+		return first.get(key);
 	}
 
-	public interface KeyFunction {
-		public String act(KeyBindPackage m);
+	public void handleKey(GameView state, KeyCode key, GameState datapacket) {
+		Map<KeyCode, KeyFunction> first = keyMap.get(state);
+		if (first == null) {
+			// No Game state found.
+			return;
+		}
+		KeyFunction second = first.get(key);
+		if (second == null) {
+			// No Key In map
+			return;
+		}
+		second.act(datapacket);
 	}
+
+	/**
+	 * Clears all bindings from this manager
+	 */
+	public void clear() {
+		this.keyMap.clear();
+	}
+
+	/**
+	 * A method to initialize the defaults.
+	 */
+	public static void addDefaultBindings(KeyBindManager toBind) {
+
+		// ----------------------------TURN INCREMENTERS-------------------------------
+		// Player 1 Next Turn
+		toBind.add(new GameView(GameType.SIMULTANEOUS, MULE.PLAY_SCENE, 0), KeyCode.X,
+				(a) -> {
+					if (a.manager.getCurrentPlayerNum() == 0) {
+						a.manager.incrementTurn();
+					}
+					return "Turn Incremented"; });
+		// Player 2 Next Turn
+		toBind.add(new GameView(GameType.SIMULTANEOUS, MULE.PLAY_SCENE, 0), KeyCode.O,
+				(a) -> {
+					if (a.manager.getCurrentPlayerNum() == 1) {
+						a.manager.incrementTurn();
+					}
+					return "Turn Incremented"; });
+		// Player 3 Next Turn
+		toBind.add(new GameView(GameType.SIMULTANEOUS, MULE.PLAY_SCENE, 0), KeyCode.W,
+				(a) -> {
+					if (a.manager.getCurrentPlayerNum() == 2) {
+						a.manager.incrementTurn();
+					}
+					return "Turn Incremented"; });
+		// Player 3 Next Turn
+		toBind.add(new GameView(GameType.SIMULTANEOUS, MULE.PLAY_SCENE, 0), KeyCode.COMMA,
+				(a) -> {
+					if (a.manager.getCurrentPlayerNum() == 3) {
+						a.manager.incrementTurn();
+					}
+					return "Turn Incremented"; });
+
+		// ----------------------------BUYING LAND-------------------------------
+
+		// Buy Land for Player 1
+		toBind.add(new GameView(GameType.SIMULTANEOUS, MULE.PLAY_SCENE, 0), KeyCode.SPACE,
+				(a) -> {
+					if (Config.getInstance().numOfPlayers > 0) {
+						a.manager.buyTile(a.manager.getPlayerList().get(0));
+					}
+					return "Bought land for Player 1"; });
+
+		// Buy Land for Player 2
+		toBind.add(new GameView(GameType.SIMULTANEOUS, MULE.PLAY_SCENE, 0), KeyCode.P,
+				(a) -> {
+					if (Config.getInstance().numOfPlayers > 1) {
+						a.manager.buyTile(a.manager.getPlayerList().get(1));
+					}
+					return "Bought land for Player 2"; });
+
+		// Buy Land for Player 3
+		toBind.add(new GameView(GameType.SIMULTANEOUS, MULE.PLAY_SCENE, 0), KeyCode.Q,
+				(a) -> {
+					if (Config.getInstance().numOfPlayers > 2) {
+						a.manager.buyTile(a.manager.getPlayerList().get(2));
+					}
+					return "Bought land for Player 3"; });
+
+		// Buy Land for Player 3
+		toBind.add(new GameView(GameType.SIMULTANEOUS, MULE.PLAY_SCENE, 0), KeyCode.PERIOD,
+				(a) -> {
+					if (Config.getInstance().numOfPlayers > 3) {
+						a.manager.buyTile(a.manager.getPlayerList().get(3));
+					}
+					return "Bought land for Player 4"; });
+
+
+		// ----------------------------Hotseat Hacks-------------------------------
+
+		toBind.add(new GameView(GameType.HOTSEAT, MULE.PLAY_SCENE, 0), KeyCode.X,
+				(a) -> {
+					a.manager.commentYourCodeGuys();
+					return "Bought land for Player 4"; });
+
+
+
+		// ----------------------------Buying Tiles-------------------------------
+
+		toBind.add(Arrays.asList(GameType.SIMULTANEOUS, GameType.HOTSEAT), MULE.PLAY_SCENE, Arrays.asList(0, 1), KeyCode.SPACE,
+				(a) -> {
+					a.manager.buyTile();
+					return "Bought Tile"; });
+
+
+		// ----------------------------Movement Keys-------------------------------
+		// Moving Up
+		toBind.add(new GameView(GameType.HOTSEAT, MULE.PLAY_SCENE, 0), KeyCode.UP,
+				(a) -> {
+					a.map.selectUp();
+					return "Moved Up"; });
+		toBind.add(Arrays.asList(GameType.HOTSEAT, GameType.SIMULTANEOUS), MULE.PLAY_SCENE, 1, KeyCode.UP,
+				(a) -> {
+					a.map.selectUp();
+					return "Moved Up"; });
+
+		// Moving Down
+		toBind.add(new GameView(GameType.HOTSEAT, MULE.PLAY_SCENE, 0), KeyCode.DOWN,
+				(a) -> {
+					a.map.selectDown();
+					return "Moved Down"; });
+		toBind.add(Arrays.asList(GameType.SIMULTANEOUS, GameType.HOTSEAT), MULE.PLAY_SCENE, 1, KeyCode.DOWN,
+				(a) -> {
+					a.map.selectDown();
+					return "Moved Down"; });
+
+		// Moving Left
+		toBind.add(new GameView(GameType.HOTSEAT, MULE.PLAY_SCENE, 0), KeyCode.LEFT,
+				(a) -> {
+					a.map.selectLeft();
+					return "Moved Left"; });
+		toBind.add(Arrays.asList(GameType.SIMULTANEOUS, GameType.HOTSEAT), MULE.PLAY_SCENE, 1, KeyCode.LEFT,
+				(a) -> {
+					a.map.selectLeft();
+					return "Moved Left"; });
+		toBind.add(new GameView(GameType.HOTSEAT, MULE.PLAY_SCENE, 1), KeyCode.LEFT,
+				(a) -> {
+					a.map.selectLeft();
+					return "Moved Left"; });
+
+		// Moving Right
+		toBind.add(new GameView(GameType.HOTSEAT, MULE.PLAY_SCENE, 0), KeyCode.RIGHT,
+				(a) -> {
+					a.map.selectRight();
+					return "Moved Right"; });
+		toBind.add(Arrays.asList(GameType.SIMULTANEOUS, GameType.HOTSEAT), MULE.PLAY_SCENE, 1, KeyCode.RIGHT,
+				(a) -> {
+					a.map.selectRight();
+					return "Moved Right"; });
+	}
+
 }

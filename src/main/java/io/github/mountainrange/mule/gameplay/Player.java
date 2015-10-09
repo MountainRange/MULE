@@ -1,11 +1,10 @@
 package io.github.mountainrange.mule.gameplay;
 
-import io.github.mountainrange.mule.Config;
+import io.github.mountainrange.mule.enums.MuleType;
 import io.github.mountainrange.mule.enums.Race;
 import io.github.mountainrange.mule.enums.ResourceType;
 
 import java.util.EnumMap;
-import java.util.Objects;
 
 import javafx.scene.paint.Color;
 
@@ -15,7 +14,6 @@ import javafx.scene.paint.Color;
 public class Player {
 
 	public static final Color[] DEFAULT_COLORS = { Color.RED, Color.BLUE, Color.GREEN, Color.ORANGE };
-	public static final int[] MONEY_ARRAY = { 1600, 600, 1000, 1000, 1000 };
 
 	private Race race;
 	private Color color;
@@ -23,10 +21,11 @@ public class Player {
 	private final int id;
 	private String name;
 
-	private int landOwned;
 	private int money;
 
 	private EnumMap<ResourceType, Integer> stocks;
+
+	private MuleType currentMuleType;
 
 	/**
 	 * Create a new Player with the given id and set their name, race, and color to some default based on id.
@@ -37,7 +36,8 @@ public class Player {
 		name = "Player " + (id + 1);
 		race = Race.values()[id % Race.values().length];
 		color = DEFAULT_COLORS[id % DEFAULT_COLORS.length];
-		money = MONEY_ARRAY[race.ordinal()];
+		money = race.getStartingMoney();
+		currentMuleType = MuleType.EMPTY;
 
 		stocks = new EnumMap<>(ResourceType.class);
 		for (ResourceType resource : ResourceType.values()) {
@@ -57,8 +57,18 @@ public class Player {
 		this.name = name;
 		this.race = race;
 		this.color = color;
+
+		stocks = new EnumMap<>(ResourceType.class);
+		for (ResourceType resource : ResourceType.values()) {
+			stocks.put(resource, 0);
+		}
 	}
 
+	/**
+	 * Get the amount of the given resource the player owns.
+	 * @param resource the resource to check the stock of
+	 * @return the stock of the given resource
+	 */
 	public int stockOf(ResourceType resource) {
 		return stocks.get(resource);
 	}
@@ -97,7 +107,7 @@ public class Player {
 
 	public void setRace(Race race) {
 		this.race = race;
-		money = MONEY_ARRAY[race.ordinal()];
+		money = race.getStartingMoney();
 	}
 
 	public Color getColor() {
@@ -108,12 +118,12 @@ public class Player {
 		this.color = color;
 	}
 
-	public int getLandOwned() {
-		return landOwned;
+	public MuleType getCurrentMuleType() {
+		return currentMuleType;
 	}
 
-	public void addLand() {
-		landOwned++;
+	public void setCurrentMuleType(MuleType currentMuleType) {
+		this.currentMuleType = currentMuleType;
 	}
 
 	public boolean equals(Object other) {

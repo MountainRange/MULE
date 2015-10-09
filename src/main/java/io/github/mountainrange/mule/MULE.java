@@ -46,8 +46,8 @@ public class MULE extends Application {
 	private SceneLoader menuBar;
 	private GameManager manager;
 
-    @Override
-    public void start(Stage pStage) throws Exception{
+	@Override
+	public void start(Stage pStage) throws Exception {
 		primaryStage = pStage;
 
 		sceneLoader = new SceneLoader(this);
@@ -76,12 +76,12 @@ public class MULE extends Application {
 
 		Scene mainScene = new Scene(overlay, 640, 360);
 
-        primaryStage.setTitle("MULE");
-        primaryStage.setScene(mainScene);
+		primaryStage.setTitle("MULE");
+		primaryStage.setScene(mainScene);
 		primaryStage.setMinHeight(600);
 		primaryStage.setMinWidth(600);
 		primaryStage.show();
-    }
+	}
 
 	public GameManager getGameManager() {
 		return manager;
@@ -107,8 +107,8 @@ public class MULE extends Application {
 		primaryStage.close();
 	}
 
+	public static void main(String[] args) {
+		launch(args);
+	}
 
-    public static void main(String[] args) {
-        launch(args);
-    }
 }
