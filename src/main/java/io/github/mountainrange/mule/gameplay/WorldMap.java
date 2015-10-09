@@ -1,5 +1,7 @@
 package io.github.mountainrange.mule.gameplay;
 
+import io.github.mountainrange.mule.enums.MuleType;
+import io.github.mountainrange.mule.enums.ResourceType;
 import javafx.geometry.Point2D;
 
 import java.util.*;
@@ -72,6 +74,21 @@ public class WorldMap implements Iterable<Tile> {
 		return true;
 	}
 
+	/**
+	 * Set the player's mule at a given tile
+	 * @param player player to get mule from
+	 * @param tile tile to set mule
+	 * @return whether the mule was placed
+	 */
+	public boolean setMule(Player player, Tile tile) {
+		if (tile.getOwner() != player || tile.getMule() != MuleType.EMPTY) {
+			return false;
+		}
+
+		tile.setMuleDraw(player.getCurrentMuleType());
+		return true;
+	}
+
 	@Override
 	public Iterator<Tile> iterator() {
 		return map.iterator();
@@ -113,6 +130,16 @@ public class WorldMap implements Iterable<Tile> {
 	public boolean sellTile(Player player) {
 		Tile tile = cursorTile();
 		return sellTile(player, tile);
+	}
+
+	/**
+	 * Set the mule at the current location
+	 * @param player player to get mule from
+	 * @return whether the mule was set
+	 */
+	public boolean setMule(Player player) {
+		Tile tile = cursorTile();
+		return setMule(player, tile);
 	}
 
 	public boolean select(int x, int y) {

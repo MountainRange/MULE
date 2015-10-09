@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="io.github.mountainrange.mule.controllers.StoreController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="io.github.mountainrange.mule.controllers.StoreController">
    <center>
       <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="30.0" BorderPane.alignment="CENTER">
          <children>
@@ -31,11 +32,13 @@
                         <Insets left="10.0" right="10.0" />
                      </HBox.margin>
                   </Button>
-                  <Button alignment="CENTER" layoutX="378.0" layoutY="47.0" mnemonicParsing="false" onAction="#handleExchangeMuleAction" text="Mule: 100" textAlignment="CENTER">
-                     <HBox.margin>
-                        <Insets left="10.0" right="10.0" />
-                     </HBox.margin>
-                  </Button>
+                  <VBox alignment="CENTER" prefHeight="100.0" prefWidth="130.0">
+                     <children>
+                        <Button alignment="CENTER" mnemonicParsing="false" onAction="#handleExchangeFoodMuleAction" text="Food Mule: 100" textAlignment="CENTER" />
+                        <Button alignment="CENTER" mnemonicParsing="false" onAction="#handleExchangeEnergyMuleAction" text="Energy Mule: 100" textAlignment="CENTER" />
+                        <Button alignment="CENTER" mnemonicParsing="false" onAction="#handleExchangeSmithoreMuleAction" text="Smithore Mule: 100" textAlignment="CENTER" />
+                     </children>
+                  </VBox>
                </children>
                <opaqueInsets>
                   <Insets />

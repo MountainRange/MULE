@@ -54,7 +54,7 @@ public class Shop {
 	}
 
 	/**
-	 * Get the percentage of a player's stock that <em>doesn't</em> spoil each turn.
+	 * Get the percentage of a player's stock of a given resource that <em>doesn't</em> spoil each turn.
 	 * @param resource resource to get the spoilage ratio of
 	 * @return spoilage ratio of the given resource
 	 */
@@ -76,39 +76,71 @@ public class Shop {
 	}
 
 	/**
+	 * Randomly generate an amount of money earned gambling on the given round with the given time left. The value is
+	 * the base gambling profit plus a random percentage of the amount of time left. Also see
+	 * <a href="http://bringerp.free.fr/RE/Mule/reverseEngineering.php5#GamblingAtThePub">Gambling at the Pub</a>.
+	 * @param round round to compute gambling profit on
+	 * @param timeLeft time left in the given turn
+	 * @return amount of money earned gambling
+	 */
+	public static int gamblingProfit(int round, int timeLeft) {
+		if (round < 0 || timeLeft < 0) {
+			String msg = String.format("Can't get gambling profit for round %d with %d time left: negative values",
+					round, timeLeft);
+			throw new IllegalArgumentException(msg);
+		}
+		return Math.max(0, Math.min(250, (baseGamblingProfit(round) + ((int) (Math.random() * timeLeft)))));
+	}
+
+	/**
+	 * Get the base amount of money earned gambling on the given round. It is 50 from rounds 0-2, and increases by 50
+	 * every 4 rounds afterwards. Also see
+	 * <a href="http://bringerp.free.fr/RE/Mule/reverseEngineering.php5#GamblingAtThePub">Gambling at the Pub</a>.
+	 * @param round round to check gambling profit
+	 * @return minimum amount of money earned gambling on the given round
+	 */
+	private static int baseGamblingProfit(int round) {
+		if (round < 0) {
+			String msg = String.format("Can't get base gambling profit for round %d: negative round", round);
+			throw new IllegalArgumentException(msg);
+		}
+		return ((round + 1) / 4 + 1) * 50;
+	}
+
+	/**
 	 * Handles players buying stuff
-	 * @param player The Player who is buying
-	 * @param resource The resource being bought
+	 * @param player player who is buying
+	 * @param resource resource being bought
 	 */
 	public void buy(Player player, ResourceType resource) {
-		if (stockOf(resource) > 0) {
-			if (player.getMoney() >= priceOf(resource)) {
-				addResource(resource, -1);
-				player.addMoney(priceOf(resource) * -1);
-				player.addStock(resource, 1);
-				System.out.println(player.getMoney());
-			} else {
-				System.out.println("Player does not have enough money");
-			}
-		} else {
-			System.out.println("Shop is out of " + resource.toString());
+		if (stockOf(resource) <= 0) {
+			System.out.printf("Shop is out of %s\n", resource.toString());
+			return;
 		}
+		if (player.getMoney() < priceOf(resource)) {
+			System.out.println("Player does not have enough money");
+			return;
+		}
+
+		addResource(resource, -1);
+		player.addMoney(priceOf(resource) * -1);
+		player.addStock(resource, 1);
 	}
 
 	/**
 	 * Handles players selling stuff
-	 * @param player The Player who is selling
-	 * @param resource The resource being sold
+	 * @param player player who is selling
+	 * @param resource resource being sold
 	 */
 	public void sell(Player player, ResourceType resource) {
-		if (player.stockOf(resource) > 0) {
-			addResource(resource, 1);
-			player.addMoney(priceOf(resource));
-			player.addStock(resource, -1);
-			System.out.println(player.getMoney());
-		} else {
-			System.out.println("You are out of " + resource.toString());
+		if (player.stockOf(resource) <= 0) {
+			System.out.printf("Player is out of %s\n", resource.toString());
+			return;
 		}
+
+		addResource(resource, 1);
+		player.addMoney(priceOf(resource));
+		player.addStock(resource, -1);
 	}
 
 	private void addResource(ResourceType resource, int quantity) {
@@ -148,6 +180,7 @@ public class Shop {
 		startPrices.put(ResourceType.CRYSTITE, 100);
 		startPrices.put(ResourceType.MULE, 100);
 
+		// Initial prices are the same on every difficulty
 		INITIAL_PRICES.put(Difficulty.HILL, startPrices);
 		INITIAL_PRICES.put(Difficulty.MESA, startPrices);
 		INITIAL_PRICES.put(Difficulty.PLATEAU, startPrices);

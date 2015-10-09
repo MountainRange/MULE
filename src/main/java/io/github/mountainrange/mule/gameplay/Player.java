@@ -1,5 +1,6 @@
 package io.github.mountainrange.mule.gameplay;
 
+import io.github.mountainrange.mule.enums.MuleType;
 import io.github.mountainrange.mule.enums.Race;
 import io.github.mountainrange.mule.enums.ResourceType;
 
@@ -24,6 +25,8 @@ public class Player {
 
 	private EnumMap<ResourceType, Integer> stocks;
 
+	private MuleType currentMuleType;
+
 	/**
 	 * Create a new Player with the given id and set their name, race, and color to some default based on id.
 	 * @param id the id of the player to create
@@ -34,6 +37,7 @@ public class Player {
 		race = Race.values()[id % Race.values().length];
 		color = DEFAULT_COLORS[id % DEFAULT_COLORS.length];
 		money = race.getStartingMoney();
+		currentMuleType = MuleType.EMPTY;
 
 		stocks = new EnumMap<>(ResourceType.class);
 		for (ResourceType resource : ResourceType.values()) {
@@ -112,6 +116,14 @@ public class Player {
 
 	public void setColor(Color color) {
 		this.color = color;
+	}
+
+	public MuleType getCurrentMuleType() {
+		return currentMuleType;
+	}
+
+	public void setCurrentMuleType(MuleType currentMuleType) {
+		this.currentMuleType = currentMuleType;
 	}
 
 	public boolean equals(Object other) {

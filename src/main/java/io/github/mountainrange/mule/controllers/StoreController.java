@@ -2,6 +2,7 @@ package io.github.mountainrange.mule.controllers;
 
 import io.github.mountainrange.mule.MULE;
 import io.github.mountainrange.mule.SceneLoader;
+import io.github.mountainrange.mule.enums.MuleType;
 import io.github.mountainrange.mule.gameplay.Player;
 import io.github.mountainrange.mule.gameplay.Shop;
 import io.github.mountainrange.mule.enums.ResourceType;
@@ -101,8 +102,30 @@ public class StoreController implements Initializable, SceneAgent {
 	}
 
 	@FXML
-	private void handleExchangeMuleAction(ActionEvent e) {
-		// todo
+	private void handleExchangeFoodMuleAction(ActionEvent e) {
+		doMule(MuleType.FOOD_MULE);
+	}
+
+	@FXML
+	private void handleExchangeEnergyMuleAction(ActionEvent e) {
+		doMule(MuleType.ENERGY_MULE);
+	}
+
+	@FXML
+	private void handleExchangeSmithoreMuleAction(ActionEvent e) {
+		doMule(MuleType.SMITHORE_MULE);
+	}
+
+	private void doMule(MuleType muleType) {
+		shop = mule.getGameManager().getShop();
+		player = mule.getGameManager().getCurrentPlayer();
+		if (buyNotSell) {
+			player.setCurrentMuleType(muleType);
+			shop.buy(player, ResourceType.MULE);
+		} else {
+			shop.sell(player, ResourceType.MULE);
+		}
+		mule.getGameManager().setLabels();
 	}
 
 
