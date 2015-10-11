@@ -90,6 +90,8 @@ TEST_COMMANDS+=( './gradlew jacocoTestReport coveralls;coverage;A test to check 
 # Environmental variables to make available to the build environment
 ENV_VARS=()
 ENV_VARS+=("GH_TOKEN")  # To be used by autoupdating script
+ENV_VARS+=("GH_NAME")  # To be used by autoupdating script
+ENV_VARS+=("GH_EMAIL")  # To be used by autoupdating script
 # Coveralls
 ENV_VARS+=("COVERALLS_REPO_TOKEN")
 ENV_VARS+=("CIRCLE_BUILD_NUM")

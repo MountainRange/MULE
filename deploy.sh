@@ -6,7 +6,7 @@ set -e
 # It's based on this blog post: http://philipuren.com/serendipity/index.php?/archives/21-Using-Travis-to-automatically-publish-documentation.html
 
 git config --global user.name "$GH_NAME"
-git config --global user.email $GH_EMAIL
+git config --global user.email "$GH_EMAIL"
 
 ./gradlew javadoc -i
 mkdir -p api_docs
