@@ -1,6 +1,7 @@
 package io.github.mountainrange.mule.gameplay;
 
 import io.github.mountainrange.mule.enums.MuleType;
+import io.github.mountainrange.mule.enums.ResourceType;
 import io.github.mountainrange.mule.enums.TerrainType;
 import javafx.scene.Group;
 import javafx.scene.image.ImageView;
@@ -17,8 +18,10 @@ public class Tile extends Group {
 
 	private Player owner;
 	private Rectangle ownerRect;
+	private Rectangle muleRect;
 	private TerrainType terrain;
 	private MuleType mule;
+
 	/**
 	 * Construct a tile with the given terrain with no mule installed and no owner.
 	 * @param terrain type of terrain on the tile
@@ -68,6 +71,19 @@ public class Tile extends Group {
 		getChildren().add(ownerRect);
 	}
 
+	public void setMuleDraw(MuleType mule) {
+		this.mule = mule;
+		if (muleRect != null) {
+			this.getChildren().remove(muleRect);
+		}
+		muleRect = new Rectangle(0.25, 0.25, 0.5, 0.5);
+		muleRect.setFill(Color.TRANSPARENT);
+		muleRect.setStroke(mule.getColor());
+		muleRect.setStrokeWidth(0.05);
+
+		getChildren().add(muleRect);
+	}
+
 	public TerrainType getTerrainType() {
 		return terrain;
 	}
@@ -96,4 +112,29 @@ public class Tile extends Group {
 		this.mule = mule;
 	}
 
+	/**
+	 * Check if a Tile has the same data as another tile, that is, if it has the same owner, terrain, and mule
+	 * installed.
+	 * @param other tile to compare to
+	 * @return whether other is equal to this tile
+	 */
+	public boolean deepEquals(Object other) {
+		if (other == null || !(other instanceof Tile)) {
+			return false;
+		}
+		if (this == other) {
+			return true;
+		}
+
+		Tile o = (Tile) other;
+		return Objects.equals(owner, o.owner) && terrain == o.terrain && mule == o.mule;
+	}
+
+	@Override
+	public int hashCode() {
+		int hash = owner != null ? owner.hashCode() : 0;
+		hash = (hash << 8) ^ terrain.ordinal();
+		hash = (hash << 8) ^ mule.ordinal();
+		return hash;
+	}
 }

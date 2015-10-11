@@ -1,8 +1,24 @@
 package io.github.mountainrange.mule.enums;
 
+import javafx.scene.paint.Color;
+
 /**
  * Describes the type of MULE installed on a given plot.
  */
 public enum MuleType {
-	EMPTY, FOOD_MULE, ENERGY_MULE, SMITHORE_MULE, CRYSTITE_MULE
+	EMPTY(Color.BLACK),
+	FOOD_MULE(Color.GREEN),
+	ENERGY_MULE(Color.YELLOW),
+	SMITHORE_MULE(Color.PURPLE),
+	CRYSTITE_MULE(Color.SILVER);
+
+	private Color color;
+
+	MuleType(Color color) {
+		this.color = color;
+	}
+
+	public Color getColor() {
+		return color;
+	}
 }

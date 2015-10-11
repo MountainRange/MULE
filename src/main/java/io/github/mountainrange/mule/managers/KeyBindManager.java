@@ -13,8 +13,19 @@ public class KeyBindManager {
 	private Map<GameView, Map<KeyCode, KeyFunction>> keyMap;
 
 	public KeyBindManager() {
+		this(true);
+	}
+
+	/**
+	 * Creates a KeyBindManager object
+	 *
+	 * @param useDefaults whether to use default keybindings or not
+	 */
+	public KeyBindManager(boolean useDefaults) {
 		keyMap = new HashMap<>();
-		KeyBindManager.addDefaultBindings(this);
+		if (useDefaults) {
+			KeyBindManager.addDefaultBindings(this);
+		}
 	}
 
 	/**
@@ -22,7 +33,7 @@ public class KeyBindManager {
 	 */
 	public void add(GameView state, KeyCode toAdd, KeyFunction lambda) {
 		if (!keyMap.containsKey(state)) {
-			keyMap.put(state, new HashMap<KeyCode, KeyFunction>());
+			keyMap.put(state, new HashMap<>());
 		}
 		keyMap.get(state).put(toAdd, lambda);
 	}
@@ -65,6 +76,20 @@ public class KeyBindManager {
 		this.add(state, toAdd, lambda);
 	}
 
+	/**
+	 * Gets the lambda function associated with this keybinding if one is available
+	 * @return The binding if is available, null if no binding was found
+	 */
+	public KeyFunction getBinding(GameView state, KeyCode key) {
+		Map<KeyCode, KeyFunction> first = keyMap.get(state);
+		if (first == null) {
+			// No Game state found.
+			return null;
+		}
+
+		return first.get(key);
+	}
+
 	public void handleKey(GameView state, KeyCode key, GameState datapacket) {
 		Map<KeyCode, KeyFunction> first = keyMap.get(state);
 		if (first == null) {
@@ -80,6 +105,13 @@ public class KeyBindManager {
 	}
 
 	/**
+	 * Clears all bindings from this manager
+	 */
+	public void clear() {
+		this.keyMap.clear();
+	}
+
+	/**
 	 * A method to initialize the defaults.
 	 */
 	public static void addDefaultBindings(KeyBindManager toBind) {
@@ -88,28 +120,28 @@ public class KeyBindManager {
 		// Player 1 Next Turn
 		toBind.add(new GameView(GameType.SIMULTANEOUS, MULE.PLAY_SCENE, 0), KeyCode.X,
 				(a) -> {
-					if (a.manager.getCurrentPlayer() == 0) {
+					if (a.manager.getCurrentPlayerNum() == 0) {
 						a.manager.incrementTurn();
 					}
 					return "Turn Incremented"; });
 		// Player 2 Next Turn
 		toBind.add(new GameView(GameType.SIMULTANEOUS, MULE.PLAY_SCENE, 0), KeyCode.O,
 				(a) -> {
-					if (a.manager.getCurrentPlayer() == 1) {
+					if (a.manager.getCurrentPlayerNum() == 1) {
 						a.manager.incrementTurn();
 					}
 					return "Turn Incremented"; });
 		// Player 3 Next Turn
 		toBind.add(new GameView(GameType.SIMULTANEOUS, MULE.PLAY_SCENE, 0), KeyCode.W,
 				(a) -> {
-					if (a.manager.getCurrentPlayer() == 2) {
+					if (a.manager.getCurrentPlayerNum() == 2) {
 						a.manager.incrementTurn();
 					}
 					return "Turn Incremented"; });
 		// Player 3 Next Turn
 		toBind.add(new GameView(GameType.SIMULTANEOUS, MULE.PLAY_SCENE, 0), KeyCode.COMMA,
 				(a) -> {
-					if (a.manager.getCurrentPlayer() == 3) {
+					if (a.manager.getCurrentPlayerNum() == 3) {
 						a.manager.incrementTurn();
 					}
 					return "Turn Incremented"; });

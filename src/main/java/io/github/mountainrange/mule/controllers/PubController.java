@@ -1,6 +1,5 @@
 package io.github.mountainrange.mule.controllers;
 
-import io.github.mountainrange.mule.Config;
 import io.github.mountainrange.mule.MULE;
 import io.github.mountainrange.mule.SceneLoader;
 import javafx.event.ActionEvent;
@@ -38,6 +37,6 @@ public class PubController implements Initializable, SceneAgent {
 
 	@FXML
 	private void handleGambleAction(ActionEvent e) {
-		mule.getGameManager().gamble();
+		mule.getGameManager().setGambleFlag();
 	}
 }

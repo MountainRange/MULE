@@ -1,11 +1,10 @@
 package io.github.mountainrange.mule.gameplay;
 
-import io.github.mountainrange.mule.enums.MapSize;
-import io.github.mountainrange.mule.enums.MapType;
-import io.github.mountainrange.mule.enums.TerrainType;
+import io.github.mountainrange.mule.enums.MuleType;
+import io.github.mountainrange.mule.enums.ResourceType;
 import javafx.geometry.Point2D;
 
-import java.util.Iterator;
+import java.util.*;
 
 /**
  * A class to represent the map and facilitates interactions
@@ -14,9 +13,133 @@ import java.util.Iterator;
 public class WorldMap implements Iterable<Tile> {
 
 	private Grid map;
+	private Map<Player, Set<Tile>> ownedTiles;
 
 	public WorldMap(Grid g) {
 		this.map = g;
+
+		ownedTiles = new HashMap<>();
+	}
+
+	public WorldMap(Grid g, List<Player> playerList) {
+		this.map = g;
+
+		ownedTiles = new HashMap<>();
+		for (Player p : playerList) {
+			ownedTiles.put(p, new HashSet<>());
+		}
+	}
+
+	// ----------------------------Logical methods-------------------------------
+
+	/**
+	 * Count the number of tiles owned by the given player, or zero if the given player owns no tiles.
+	 * @param player player to count owned tiles
+	 * @return number of tiles owned by the given player
+	 */
+	public int countLandOwnedBy(Player player) {
+		if (!ownedTiles.containsKey(player)) {
+			return 0;
+		}
+		return ownedTiles.get(player).size();
+	}
+
+	/**
+	 * Return an unmodifiable set with the tiles owned by the given player, or an empty set if the given player owns no
+	 * tiles.
+	 * @param player player to get owned tiles
+	 * @return unmodifiable set with tiles owned by the given player
+	 */
+	public Set<Tile> landOwnedBy(Player player) {
+		return Collections.unmodifiableSet(ownedTiles.getOrDefault(player, new HashSet<>()));
+	}
+
+	/**
+	 * Sell the given tile to the given player. Selling will fail if the tile is already owned.
+	 * @param player player to sell the tile to
+	 * @param tile tile to sell
+	 * @return whether the tile was actually sold
+	 */
+	public boolean sellTile(Player player, Tile tile) {
+		if (tile.hasOwner()) {
+			return false;
+		}
+
+		tile.setOwner(player);
+		if (!ownedTiles.containsKey(player)) {
+			// Adding a new player
+			ownedTiles.put(player, new HashSet<>());
+		}
+		ownedTiles.get(player).add(tile);
+		return true;
+	}
+
+	/**
+	 * Set the player's mule at a given tile
+	 * @param player player to get mule from
+	 * @param tile tile to set mule
+	 * @return whether the mule was placed
+	 */
+	public boolean setMule(Player player, Tile tile) {
+		if (tile.getOwner() != player || tile.getMule() != MuleType.EMPTY) {
+			return false;
+		}
+
+		tile.setMuleDraw(player.getCurrentMuleType());
+		return true;
+	}
+
+	@Override
+	public Iterator<Tile> iterator() {
+		return map.iterator();
+	}
+
+	/**
+	 * Gets the number of columns in this map
+	 * @return cols the number of columns in this map
+	 */
+	public int getColumns() {
+		return map.getCols();
+	}
+
+	/**
+	 * Gets the number of rows in this map
+	 * @return rows the number of rows in this map
+	 */
+	public int getRows() {
+		return map.getRows();
+	}
+
+	// ----------------------------Graphical methods-----------------------------
+
+	/**
+	 * Get the tile the cursor is currently on.
+	 * @return the tile the cursor is on
+	 */
+	public Tile cursorTile() {
+		int x = map.getCursorX();
+		int y = map.getCursorY();
+		return map.get(x, y);
+	}
+
+	/**
+	 * Sell the tile at the cursor location to the given player. Selling will fail if the tile is already owned.
+	 * @param player player to sell the tile to
+	 * @return whether the tile was actually sold
+	 */
+	public boolean sellTile(Player player) {
+		Tile tile = cursorTile();
+		return sellTile(player, tile);
+	}
+
+	/**
+	 * Set the mule at the current location
+	 * @param player player to get mule from
+	 * @return whether the mule was set
+	 */
+	public boolean setMule(Player player) {
+		Tile tile = cursorTile();
+		return setMule(player, tile);
 	}
 
 	public boolean select(int x, int y) {
@@ -74,48 +197,8 @@ public class WorldMap implements Iterable<Tile> {
 		return selectRel(-1, 0);
 	}
 
-	public int height() {
-		return map.getRows();
-	}
-
-	public int width() {
-		return map.getCols();
-	}
-
-	public void buyTile(Player player) {
-		int x = map.getCursorX();
-		int y = map.getCursorY();
-		Tile t = map.get(x, y);
-		if (!t.hasOwner()) {
-			t.setOwner(player);
-		}
-	}
-
 	public Player getOwner() {
-		int x = map.getCursorX();
-		int y = map.getCursorY();
-		return map.get(x, y).getOwner();
-	}
-
-	@Override
-	public Iterator<Tile> iterator() {
-		return map.iterator();
-	}
-
-	/**
-	 * Gets the number of columns in this map
-	 * @return cols
-	 */
-	public int getColumns() {
-		return map.getCols();
-	}
-
-	/**
-	 * Gets the number of rows in this map
-	 * @return rows
-	 */
-	public int getRows() {
-		return map.getRows();
+		return cursorTile().getOwner();
 	}
 
 	public boolean isInside(Point2D toCheck, int column, int row) {
