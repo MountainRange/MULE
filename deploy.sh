@@ -16,5 +16,10 @@ mkdir -p ./api_docs/html/doc
 mv -f build/docs/javadoc/* ./api_docs/html/doc
 cd api_docs/html
 git add ./doc
-git commit -m 'auto-updated api docs'
-git push https://$GH_TOKEN@github.com/MountainRange/MULE gh-pages
+
+if ! git diff --quiet --exit-code --cached; then
+	git commit -m 'auto-updated api docs'
+	git push https://$GH_TOKEN@github.com/MountainRange/MULE gh-pages
+else
+	echo "Nothing to deploy!"
+fi

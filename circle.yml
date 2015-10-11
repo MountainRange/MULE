@@ -23,6 +23,7 @@ dependencies:
     - ./build # See $CACHE_DIRECTORIES in sample_config.docif
 
 # The test phase dosen't actually run tests. We need the caching from the deploy step.
+
 test:
   override:
     - sh -c true
