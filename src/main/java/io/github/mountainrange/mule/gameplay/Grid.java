@@ -23,14 +23,6 @@ public abstract class Grid implements Iterable<Tile> {
 
 	protected Point2D playerPosition = null;
 
-	public static final int[][] classicMap = {
-			{0,0,2,0,1,0,4,0,0},
-			{0,2,0,0,1,0,0,0,4},
-			{4,0,0,0,5,0,0,0,2},
-			{0,3,0,0,1,0,3,0,0},
-			{0,0,3,0,1,0,0,0,3}
-	};
-
 	public Grid (int columns, int rows, MapType m, MapSize s) {
 		int[][] map;
 
@@ -41,12 +33,7 @@ public abstract class Grid implements Iterable<Tile> {
 			throw new IllegalArgumentException("Grid can only be constructed with more than 2 rows and columns");
 		}
 
-		if (m == MapType.CLASSIC) {
-			map = classicMap;
-		} else {
-			// TODO add other map options here!
-			map = classicMap;
-		}
+		map = m.map;
 
 		tiles = new Tile[this.cols][this.rows];
 
@@ -90,6 +77,14 @@ public abstract class Grid implements Iterable<Tile> {
 		return cols;
 	}
 
+	/**
+	 * A method to get a tile
+	 * DO NOT USE UNLESS ABSOLUTELY NECCESARY
+	 *
+	 * @param column column to get
+	 * @param row row to get
+	 * @deprecated
+	 */
 	public Tile get(int column, int row) {
 		if (column < 0 || row < 0 || column >= tiles.length || row >= tiles[0].length) {
 			throw new IllegalArgumentException("Invalid row or column!");
