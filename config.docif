@@ -84,7 +84,7 @@ TEST_COMMANDS+=( './gradlew jacocoTestReport coveralls;coverage;A test to check 
 # @RECCOMENDED
 # Clean command. Cleans the build files so there is no way the previous build can interfere. Add if you run
 # into issues
-# CLEAN_COMMAND="./gradlew clean || true"
+CLEAN_COMMAND="rm -rf ./build/*"
 # Other options are `gradle clean`, `mvn clean`, or `rm -rf build`
 
 # Environmental variables to make available to the build environment

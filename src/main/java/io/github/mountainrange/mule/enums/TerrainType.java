@@ -15,7 +15,8 @@ public enum TerrainType {
 	MOUNTAIN1("pictures/", Config.DEFAULT_PACK, "/mountain1.png"),
 	MOUNTAIN2("pictures/", Config.DEFAULT_PACK, "/mountain2.png"),
 	MOUNTAIN3("pictures/", Config.DEFAULT_PACK, "/mountain3.png"),
-	TOWN("pictures/", Config.DEFAULT_PACK, "/town.png");
+	TOWN("pictures/", Config.DEFAULT_PACK, "/town.png"),
+	NULL(null, null, null);
 
 	private final int tileSize = 40;
 

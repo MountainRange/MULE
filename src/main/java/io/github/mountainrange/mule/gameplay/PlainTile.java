@@ -13,8 +13,6 @@ import java.util.Objects;
  * Self-contained class for information about a given tile.
  */
 public class PlainTile implements TileInterface {
-	private ImageView image;
-
 	private Player owner;
 	private Rectangle ownerRect;
 	private Rectangle muleRect;
@@ -24,15 +22,13 @@ public class PlainTile implements TileInterface {
 	/**
 	 * Construct a tile with the given terrain with no mule installed and no owner.
 	 * @param terrain type of terrain on the tile
-	 */
+	 * @deprecated Use VisualTile or copy this class into a different view.
+s	 */
 	public PlainTile(TerrainType terrain) {
 		this(Objects.requireNonNull(terrain), MuleType.EMPTY, null);
 	}
 
 	public PlainTile(TerrainType terrain, MuleType mule, Player owner) {
-		image.setFitWidth(1);
-		image.setFitHeight(1);
-
 		this.terrain = terrain;
 		this.mule = mule;
 		this.owner = owner;

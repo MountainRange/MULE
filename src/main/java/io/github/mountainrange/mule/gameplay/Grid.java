@@ -130,11 +130,11 @@ public abstract class Grid<T extends TileInterface> implements Iterable<T> {
 	}
 
 	public int getCursorX() {
-		return (int)selection.getX();
+		return ((selection == null) ? -1 : (int) selection.getX());
 	}
 
 	public int getCursorY() {
-		return (int)selection.getY();
+		return (selection == null ? -1 : (int) selection.getY());
 	}
 
 	/**

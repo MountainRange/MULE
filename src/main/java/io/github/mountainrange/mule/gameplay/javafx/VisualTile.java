@@ -32,12 +32,16 @@ public class VisualTile extends Group implements TileInterface {
 	}
 
 	public VisualTile(TerrainType terrain, MuleType mule, Player owner) {
-		this.image = new ImageView(terrain.getPath());
-		image.setFitWidth(1);
-		image.setFitHeight(1);
-		this.getChildren().add(image);
-		this.maxWidth(1);
-		this.maxHeight(1);
+		// If we are not supposed to draw something, don't draw it.
+		if (terrain != TerrainType.NULL) {
+			this.image = new ImageView(terrain.getPath());
+			image.setFitWidth(1);
+			image.setFitHeight(1);
+			this.getChildren().add(image);
+
+			this.maxWidth(1);
+			this.maxHeight(1);
+		}
 
 		this.terrain = terrain;
 		this.mule = mule;
@@ -58,31 +62,36 @@ public class VisualTile extends Group implements TileInterface {
 
 	public void setOwner(Player owner) {
 		this.owner = owner;
-		if (ownerRect != null) {
-			this.getChildren().remove(ownerRect);
+
+		if (terrain != TerrainType.NULL) {
+			if (ownerRect != null) {
+				this.getChildren().remove(ownerRect);
+			}
+			ownerRect = new Rectangle(0.05, 0.05, 1, 1);
+			ownerRect.setFill(Color.TRANSPARENT);
+			ownerRect.setStroke(owner.getColor());
+			ownerRect.setStrokeWidth(0.05);
+
+			ownerRect.setHeight(1 - ownerRect.getStrokeWidth() * 2);
+			ownerRect.setWidth(1 - ownerRect.getStrokeWidth() * 2);
+
+			getChildren().add(ownerRect);
 		}
-		ownerRect = new Rectangle(0.05, 0.05, 1, 1);
-		ownerRect.setFill(Color.TRANSPARENT);
-		ownerRect.setStroke(owner.getColor());
-		ownerRect.setStrokeWidth(0.05);
-
-		ownerRect.setHeight(1 - ownerRect.getStrokeWidth() * 2);
-		ownerRect.setWidth(1 - ownerRect.getStrokeWidth() * 2);
-
-		getChildren().add(ownerRect);
 	}
 
 	public void setMuleDraw(MuleType mule) {
 		this.mule = mule;
-		if (muleRect != null) {
-			this.getChildren().remove(muleRect);
-		}
-		muleRect = new Rectangle(0.25, 0.25, 0.5, 0.5);
-		muleRect.setFill(Color.TRANSPARENT);
-		muleRect.setStroke(mule.getColor());
-		muleRect.setStrokeWidth(0.05);
+		if (this.terrain != TerrainType.NULL) {
+			if (muleRect != null) {
+				this.getChildren().remove(muleRect);
+			}
+			muleRect = new Rectangle(0.25, 0.25, 0.5, 0.5);
+			muleRect.setFill(Color.TRANSPARENT);
+			muleRect.setStroke(mule.getColor());
+			muleRect.setStrokeWidth(0.05);
 
-		getChildren().add(muleRect);
+			getChildren().add(muleRect);
+		}
 	}
 
 	public TerrainType getTerrainType() {
