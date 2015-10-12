@@ -1,7 +1,9 @@
 package io.github.mountainrange.mule.gameplay;
 
+import io.github.mountainrange.mule.enums.MapType;
 import io.github.mountainrange.mule.enums.MuleType;
 import io.github.mountainrange.mule.enums.ResourceType;
+import io.github.mountainrange.mule.enums.TerrainType;
 import javafx.geometry.Point2D;
 
 import java.util.*;
@@ -15,16 +17,23 @@ public class WorldMap implements Iterable<Tile> {
 	private Grid map;
 	private Map<Player, Set<Tile>> ownedTiles;
 
-	public WorldMap(Grid g) {
+	public WorldMap(Grid g, MapType mType) {
 		this.map = g;
 
 		ownedTiles = new HashMap<>();
+
+		for (int i = 0; i < mType.map.length; i++) {
+			for (int j = 0; j < mType.map[0].length; j++) {
+				if (mType.map[i][j] != null) {
+					map.add(new Tile(mType.map[i][j]), j, i);
+				}
+			}
+		}
 	}
 
-	public WorldMap(Grid g, List<Player> playerList) {
-		this.map = g;
+	public WorldMap(Grid g, MapType mType, List<Player> playerList) {
+		this(g, mType);
 
-		ownedTiles = new HashMap<>();
 		for (Player p : playerList) {
 			ownedTiles.put(p, new HashSet<>());
 		}
@@ -33,9 +42,9 @@ public class WorldMap implements Iterable<Tile> {
 	// ----------------------------Logical methods-------------------------------
 
 	/**
-	 * Count the number of tiles owned by the given player, or zero if the given player owns no tiles.
-	 * @param player player to count owned tiles
-	 * @return number of tiles owned by the given player
+	 * Count the number of grid owned by the given player, or zero if the given player owns no grid.
+	 * @param player player to count owned grid
+	 * @return number of grid owned by the given player
 	 */
 	public int countLandOwnedBy(Player player) {
 		if (!ownedTiles.containsKey(player)) {
@@ -45,10 +54,10 @@ public class WorldMap implements Iterable<Tile> {
 	}
 
 	/**
-	 * Return an unmodifiable set with the tiles owned by the given player, or an empty set if the given player owns no
-	 * tiles.
-	 * @param player player to get owned tiles
-	 * @return unmodifiable set with tiles owned by the given player
+	 * Return an unmodifiable set with the grid owned by the given player, or an empty set if the given player owns no
+	 * grid.
+	 * @param player player to get owned grid
+	 * @return unmodifiable set with grid owned by the given player
 	 */
 	public Set<Tile> landOwnedBy(Player player) {
 		return Collections.unmodifiableSet(ownedTiles.getOrDefault(player, new HashSet<>()));

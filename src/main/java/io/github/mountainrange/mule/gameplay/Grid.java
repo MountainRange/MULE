@@ -7,6 +7,7 @@ import javafx.geometry.Point2D;
 import javafx.scene.Node;
 
 import java.awt.*;
+import java.lang.reflect.Array;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
@@ -15,58 +16,41 @@ import java.util.NoSuchElementException;
  *
  * Visualization classes can extend this to actually show things!
  */
-public abstract class Grid implements Iterable<Tile> {
+public abstract class Grid<T extends Tile> implements Iterable<T> {
 
-	protected Tile[][] tiles;
+	protected T[][] grid;
 	protected int rows, cols;
 	protected Point selection = null;
 
 	protected Point2D playerPosition = null;
 
 	public Grid (int columns, int rows, MapType m, MapSize s) {
-		int[][] map;
-
 		this.rows = rows;
 		this.cols = columns;
 
 		if (this.rows < 2 || this.cols < 2) {
 			throw new IllegalArgumentException("Grid can only be constructed with more than 2 rows and columns");
 		}
+//= new Object[this.cols][this.rows];
 
-		map = m.map;
 
-		tiles = new Tile[this.cols][this.rows];
+		grid = (T[][]) Array.newInstance(new Tile(TerrainType.PLAIN).getClass(), this.cols, this.rows);
 
-		if (map.length <= 0 || tiles.length != map[0].length || tiles[0].length != map.length) {
-			throw new IllegalArgumentException("Mismatch detected betwen grid size and map size!");
+
+
+		if (m.map.length <= 0 || grid.length != m.map[0].length || grid[0].length != m.map.length) {
+			throw new IllegalArgumentException("Mismatch detected betwen grid size and m.map size!");
 		}
 
-		for (int i = 0; i < tiles.length; i++) {
-			for (int j = 0; j < tiles[0].length; j++) {
-				if (map[j][i] == 0) {
-					tiles[i][j] = new Tile(TerrainType.PLAIN);
-				} else if (map[j][i] == 1) {
-					tiles[i][j] = new Tile(TerrainType.RIVER);
-				} else if (map[j][i] == 2) {
-					tiles[i][j] = new Tile(TerrainType.MOUNTAIN1);
-				} else if (map[j][i] == 3) {
-					tiles[i][j] = new Tile(TerrainType.MOUNTAIN2);
-				} else if (map[j][i] == 4) {
-					tiles[i][j] = new Tile(TerrainType.MOUNTAIN3);
-				} else if (map[j][i] == 5) {
-					tiles[i][j] = new Tile(TerrainType.TOWN);
-				}
-			}
-		}
 	}
 
 	/**
-	 * Gets the tiles in use.
-	 * @return the tiles in this grid
-	 * @deprecated use helper functions instead
+	 * Gets the grid in use.
+	 * @return the grid in this grid
+	 * @deprecated use helper functions instead. Mainly for tests.
 	 */
-	public Tile[][] getTiles() {
-		return tiles;
+	public T[][] getBackingArray() {
+		return grid;
 	}
 
 	public int getRows() {
@@ -79,17 +63,17 @@ public abstract class Grid implements Iterable<Tile> {
 
 	/**
 	 * A method to get a tile
-	 * DO NOT USE UNLESS ABSOLUTELY NECCESARY
+	 * DO NOT USE UNLESS ABSOLUTELY NECESSARY
 	 *
 	 * @param column column to get
 	 * @param row row to get
 	 * @deprecated
 	 */
-	public Tile get(int column, int row) {
-		if (column < 0 || row < 0 || column >= tiles.length || row >= tiles[0].length) {
+	public T get(int column, int row) {
+		if (column < 0 || row < 0 || column >= grid.length || row >= grid[0].length) {
 			throw new IllegalArgumentException("Invalid row or column!");
 		}
-		return tiles[column][row];
+		return grid[column][row];
 	}
 
 	/**
@@ -97,8 +81,8 @@ public abstract class Grid implements Iterable<Tile> {
 	 *
 	 * Will overwrite any existing element in the grid.
 	 */
-	public void add(Tile toAdd, int column, int row) {
-		if (column < 0 || row < 0 || column >= tiles.length || row >= tiles[0].length) {
+	public void add(T toAdd, int column, int row) {
+		if (column < 0 || row < 0 || column >= grid.length || row >= grid[0].length) {
 			throw new IllegalArgumentException("Invalid row or column!");
 		}
 
@@ -109,7 +93,7 @@ public abstract class Grid implements Iterable<Tile> {
 			this.remove(column, row);
 		}
 
-		tiles[column][row] = toAdd;
+		grid[column][row] = toAdd;
 	}
 
 	/**
@@ -118,16 +102,16 @@ public abstract class Grid implements Iterable<Tile> {
 	 * Will overwrite any existing element in the grid.
 	 */
 	public void addToTile(Node toAdd, int column, int row) {
-		tiles[column][row].getChildren().add(toAdd);
+		grid[column][row].getChildren().add(toAdd);
 	}
 
 	/**
 	 * Removes a node from a selected row/column
 	 */
-	public Tile remove(int column, int row) {
-		Tile toReturn = tiles[column][row];
+	public T remove(int column, int row) {
+		T toReturn = grid[column][row];
 
-		tiles[column][row] = null;
+		grid[column][row] = null;
 		return toReturn;
 	}
 
@@ -144,7 +128,7 @@ public abstract class Grid implements Iterable<Tile> {
 	 * Will overwrite previous calls to select.
 	 */
 	public void select(int column, int row) {
-		if (column < 0 || row < 0 || column >= tiles.length || row >= tiles[0].length) {
+		if (column < 0 || row < 0 || column >= grid.length || row >= grid[0].length) {
 			throw new IllegalArgumentException("Invalid row or column!");
 		}
 
@@ -172,23 +156,23 @@ public abstract class Grid implements Iterable<Tile> {
 	 * @param rowTo end row
 	 */
 	public void move(int columnFrom, int rowFrom, int columnTo, int rowTo) {
-		if (columnFrom < 0 || rowFrom < 0 || columnFrom >= tiles.length || rowFrom >= tiles[0].length) {
+		if (columnFrom < 0 || rowFrom < 0 || columnFrom >= grid.length || rowFrom >= grid[0].length) {
 			throw new IllegalArgumentException("Invalid row or column!");
 		}
 
-		if (columnTo < 0 || rowTo < 0 || columnTo >= tiles.length || rowTo >= tiles[0].length) {
+		if (columnTo < 0 || rowTo < 0 || columnTo >= grid.length || rowTo >= grid[0].length) {
 			throw new IllegalArgumentException("Invalid row or column!");
 		}
 
 		// Create the animation object to move the item to the destination and keep it there.
-		Tile toMove = tiles[columnFrom][rowFrom];
+		T toMove = grid[columnFrom][rowFrom];
 
 		if (toMove == null) {
 			throw new IllegalArgumentException("You tried to move a tile that was non existent");
 		}
 
-		tiles[columnFrom][rowFrom] = null;
-		tiles[columnTo][rowTo] = toMove;
+		grid[columnFrom][rowFrom] = null;
+		grid[columnTo][rowTo] = toMove;
 	}
 
 	/**
@@ -229,11 +213,11 @@ public abstract class Grid implements Iterable<Tile> {
 	 * @return an iterator for Tiles
 	 */
 	@Override
-	public Iterator<Tile> iterator() {
+	public Iterator<T> iterator() {
 		return new GridIterator();
 	}
 
-	private class GridIterator implements Iterator<Tile> {
+	private class GridIterator implements Iterator<T> {
 		int nextCol;
 		int nextRow;
 
@@ -243,7 +227,7 @@ public abstract class Grid implements Iterable<Tile> {
 		}
 
 		@Override
-		public Tile next() {
+		public T next() {
 			if (!hasNext()) {
 				throw new NoSuchElementException("Can't get next: no more elements");
 			}
@@ -253,9 +237,7 @@ public abstract class Grid implements Iterable<Tile> {
 				nextRow++;
 			}
 
-			Tile next = tiles[nextCol][nextRow];
-			nextCol++;
-			return next;
+			return grid[nextCol++][nextRow];
 		}
 	}
 

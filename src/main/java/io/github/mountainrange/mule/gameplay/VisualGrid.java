@@ -15,8 +15,6 @@ import javafx.scene.shape.Path;
 import javafx.scene.shape.Rectangle;
 import javafx.util.Duration;
 
-import javax.swing.*;
-
 /**
  * A class to represent a scalable Grid in javafx.
  * Needs a pane to draw the grid to.
@@ -53,7 +51,7 @@ public class VisualGrid extends Grid {
 		super(cols, rows, mapType, mapSize);
 		this.upperPane = upperPane;
 
-		// Loads existing tiles in, and other stuff.
+		// Loads existing grid in, and other stuff.
 		resetGrid();
 	}
 
@@ -86,10 +84,10 @@ public class VisualGrid extends Grid {
 			upperPane.getChildren().add(toAdd);
 		}
 
-		for (int i = 0; i < tiles.length; i++) {
-			for (int j = 0; j < tiles[0].length; j ++) {
-				if (tiles[i][j] != null) {
-					this.add(tiles[i][j], i, j);
+		for (int i = 0; i < grid.length; i++) {
+			for (int j = 0; j < grid[0].length; j ++) {
+				if (grid[i][j] != null) {
+					this.add(grid[i][j], i, j);
 				}
 			}
 		}
@@ -168,7 +166,7 @@ public class VisualGrid extends Grid {
 		super.move(columnFrom, rowFrom, columnTo, rowTo);
 
 		// Find the node to animate (has already been moved)
-		Tile toAnimate = tiles[columnTo][rowTo];
+		Tile toAnimate = grid[columnTo][rowTo];
 
 		toAnimate.layoutXProperty().unbind();
 		toAnimate.layoutYProperty().unbind();
@@ -202,7 +200,7 @@ public class VisualGrid extends Grid {
 
 	@Override
 	public boolean isInside(Point2D toCheck, int column, int row) {
-		Tile tile = tiles[column][row];
+		Tile tile = grid[column][row];
 		Rectangle r = new Rectangle(tile.getLayoutX() - tile.getScaleX() / 2,
 				tile.getLayoutY() - tile.getScaleY() / 2,
 				tile.getScaleX(), tile.getScaleY());

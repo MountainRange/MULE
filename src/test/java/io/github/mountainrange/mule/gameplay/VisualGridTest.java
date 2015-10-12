@@ -1,3 +1,5 @@
+package io.github.mountainrange.mule.gameplay;
+
 // Junit Imports
 import org.junit.*;
 import static org.junit.Assert.*;

@@ -9,24 +9,34 @@ public enum MapType {
 	EXPERIMENTAL("experimental"),
 	EMPTY("empty");
 
-	public final int[][] map;
+	public final TerrainType[][] map;
+
 
 	MapType(String name) {
+		// Abbreviations
+		final TerrainType T99 = null;
+		final TerrainType T00 = TerrainType.PLAIN;
+		final TerrainType T01 = TerrainType.RIVER;
+		final TerrainType T02 = TerrainType.MOUNTAIN1;
+		final TerrainType T03 = TerrainType.MOUNTAIN2;
+		final TerrainType T04 = TerrainType.MOUNTAIN3;
+		final TerrainType T05 = TerrainType.TOWN;
+
 		if (name.equalsIgnoreCase("empty")) {
-			this.map = new int[][]{
-				{-1,-1,-1,-1,-1,-1,-1,-1,-1},
-				{-1,-1,-1,-1,-1,-1,-1,-1,-1},
-				{-1,-1,-1,-1,-1,-1,-1,-1,-1},
-				{-1,-1,-1,-1,-1,-1,-1,-1,-1},
-				{-1,-1,-1,-1,-1,-1,-1,-1,-1}
+			this.map = new TerrainType[][]{
+				{T99, T99, T99, T99, T99, T99, T99, T99, T99},
+				{T99, T99, T99, T99, T99, T99, T99, T99, T99},
+				{T99, T99, T99, T99, T99, T99, T99, T99, T99},
+				{T99, T99, T99, T99, T99, T99, T99, T99, T99},
+				{T99, T99, T99, T99, T99, T99, T99, T99, T99}
 			};
 		} else {
-			this.map = new int[][]{
-				{0,0,2,0,1,0,4,0,0},
-				{0,2,0,0,1,0,0,0,4},
-				{4,0,0,0,5,0,0,0,2},
-				{0,3,0,0,1,0,3,0,0},
-				{0,0,3,0,1,0,0,0,3}
+			this.map = new TerrainType[][]{
+				{T00, T00, T02, T00, T01, T00, T04, T00, T00},
+				{T00, T02, T00, T00, T01, T00, T00, T00, T04},
+				{T04, T00, T00, T00, T05, T00, T00, T00, T02},
+				{T00, T03, T00, T00, T01, T00, T03, T00, T00},
+				{T00, T00, T03, T00, T01, T00, T00, T00, T03}
 			};
 		}
 	}

@@ -367,7 +367,7 @@ public class GameManager {
 				score += player.stockOf(resource) * shop.priceOf(resource);
 			}
 
-			// Add score from tiles owned and MULEs installed
+			// Add score from grid owned and MULEs installed
 			score += map.countLandOwnedBy(player) * 500;
 			for (Tile tile : map.landOwnedBy(player)) {
 				if (tile.getMule() != MuleType.EMPTY) {
