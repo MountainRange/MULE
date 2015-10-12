@@ -1,8 +1,9 @@
-package io.github.mountainrange.mule.gameplay;
+package io.github.mountainrange.mule.gameplay.javafx;
 
 import io.github.mountainrange.mule.enums.MuleType;
-import io.github.mountainrange.mule.enums.ResourceType;
 import io.github.mountainrange.mule.enums.TerrainType;
+import io.github.mountainrange.mule.gameplay.Player;
+import io.github.mountainrange.mule.gameplay.TileInterface;
 import javafx.scene.Group;
 import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
@@ -13,7 +14,7 @@ import java.util.Objects;
 /**
  * Self-contained class for information about a given tile.
  */
-public class Tile extends Group {
+public class VisualTile extends Group implements TileInterface {
 	private ImageView image;
 
 	private Player owner;
@@ -26,11 +27,11 @@ public class Tile extends Group {
 	 * Construct a tile with the given terrain with no mule installed and no owner.
 	 * @param terrain type of terrain on the tile
 	 */
-	public Tile(TerrainType terrain) {
+	public VisualTile(TerrainType terrain) {
 		this(Objects.requireNonNull(terrain), MuleType.EMPTY, null);
 	}
 
-	public Tile(TerrainType terrain, MuleType mule, Player owner) {
+	public VisualTile(TerrainType terrain, MuleType mule, Player owner) {
 		this.image = new ImageView(terrain.getPath());
 		image.setFitWidth(1);
 		image.setFitHeight(1);
@@ -119,14 +120,14 @@ public class Tile extends Group {
 	 * @return whether other is equal to this tile
 	 */
 	public boolean deepEquals(Object other) {
-		if (other == null || !(other instanceof Tile)) {
+		if (other == null || !(other instanceof VisualTile)) {
 			return false;
 		}
 		if (this == other) {
 			return true;
 		}
 
-		Tile o = (Tile) other;
+		VisualTile o = (VisualTile) other;
 		return Objects.equals(owner, o.owner) && terrain == o.terrain && mule == o.mule;
 	}
 

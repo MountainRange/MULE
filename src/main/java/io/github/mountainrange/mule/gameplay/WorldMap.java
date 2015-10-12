@@ -2,8 +2,7 @@ package io.github.mountainrange.mule.gameplay;
 
 import io.github.mountainrange.mule.enums.MapType;
 import io.github.mountainrange.mule.enums.MuleType;
-import io.github.mountainrange.mule.enums.ResourceType;
-import io.github.mountainrange.mule.enums.TerrainType;
+import io.github.mountainrange.mule.gameplay.javafx.VisualTile;
 import javafx.geometry.Point2D;
 
 import java.util.*;
@@ -12,10 +11,10 @@ import java.util.*;
  * A class to represent the map and facilitates interactions
  * between the actual data store and the rest of the program
  */
-public class WorldMap implements Iterable<Tile> {
+public class WorldMap implements Iterable<VisualTile> {
 
-	private Grid map;
-	private Map<Player, Set<Tile>> ownedTiles;
+	private Grid<VisualTile> map;
+	private Map<Player, Set<VisualTile>> ownedTiles;
 
 	public WorldMap(Grid g, MapType mType) {
 		this.map = g;
@@ -25,7 +24,7 @@ public class WorldMap implements Iterable<Tile> {
 		for (int i = 0; i < mType.map.length; i++) {
 			for (int j = 0; j < mType.map[0].length; j++) {
 				if (mType.map[i][j] != null) {
-					map.add(new Tile(mType.map[i][j]), j, i);
+					map.add(new VisualTile(mType.map[i][j]), j, i);
 				}
 			}
 		}
@@ -59,7 +58,7 @@ public class WorldMap implements Iterable<Tile> {
 	 * @param player player to get owned grid
 	 * @return unmodifiable set with grid owned by the given player
 	 */
-	public Set<Tile> landOwnedBy(Player player) {
+	public Set<VisualTile> landOwnedBy(Player player) {
 		return Collections.unmodifiableSet(ownedTiles.getOrDefault(player, new HashSet<>()));
 	}
 
@@ -69,7 +68,7 @@ public class WorldMap implements Iterable<Tile> {
 	 * @param tile tile to sell
 	 * @return whether the tile was actually sold
 	 */
-	public boolean sellTile(Player player, Tile tile) {
+	public boolean sellTile(Player player, VisualTile tile) {
 		if (tile.hasOwner()) {
 			return false;
 		}
@@ -89,7 +88,7 @@ public class WorldMap implements Iterable<Tile> {
 	 * @param tile tile to set mule
 	 * @return whether the mule was placed
 	 */
-	public boolean setMule(Player player, Tile tile) {
+	public boolean setMule(Player player, VisualTile tile) {
 		if (tile.getOwner() != player || tile.getMule() != MuleType.EMPTY) {
 			return false;
 		}
@@ -99,7 +98,7 @@ public class WorldMap implements Iterable<Tile> {
 	}
 
 	@Override
-	public Iterator<Tile> iterator() {
+	public Iterator<VisualTile> iterator() {
 		return map.iterator();
 	}
 
@@ -124,8 +123,10 @@ public class WorldMap implements Iterable<Tile> {
 	/**
 	 * Get the tile the cursor is currently on.
 	 * @return the tile the cursor is on
+	 * @deprecated This is bad style.
 	 */
-	public Tile cursorTile() {
+	@SuppressWarnings("deprecated")
+	public VisualTile cursorTile() {
 		int x = map.getCursorX();
 		int y = map.getCursorY();
 		return map.get(x, y);
@@ -137,7 +138,7 @@ public class WorldMap implements Iterable<Tile> {
 	 * @return whether the tile was actually sold
 	 */
 	public boolean sellTile(Player player) {
-		Tile tile = cursorTile();
+		VisualTile tile = cursorTile();
 		return sellTile(player, tile);
 	}
 
@@ -147,7 +148,7 @@ public class WorldMap implements Iterable<Tile> {
 	 * @return whether the mule was set
 	 */
 	public boolean setMule(Player player) {
-		Tile tile = cursorTile();
+		VisualTile tile = cursorTile();
 		return setMule(player, tile);
 	}
 

@@ -2,9 +2,8 @@ package io.github.mountainrange.mule.gameplay;
 
 import io.github.mountainrange.mule.enums.MapSize;
 import io.github.mountainrange.mule.enums.MapType;
-import io.github.mountainrange.mule.enums.TerrainType;
+import io.github.mountainrange.mule.gameplay.javafx.VisualTile;
 import javafx.geometry.Point2D;
-import javafx.scene.Node;
 
 import java.awt.*;
 import java.lang.reflect.Array;
@@ -16,7 +15,8 @@ import java.util.NoSuchElementException;
  *
  * Visualization classes can extend this to actually show things!
  */
-public abstract class Grid<T extends Tile> implements Iterable<T> {
+@SuppressWarnings("unchecked")
+public abstract class Grid<T extends TileInterface> implements Iterable<T> {
 
 	protected T[][] grid;
 	protected int rows, cols;
@@ -31,12 +31,8 @@ public abstract class Grid<T extends Tile> implements Iterable<T> {
 		if (this.rows < 2 || this.cols < 2) {
 			throw new IllegalArgumentException("Grid can only be constructed with more than 2 rows and columns");
 		}
-//= new Object[this.cols][this.rows];
 
-
-		grid = (T[][]) Array.newInstance(new Tile(TerrainType.PLAIN).getClass(), this.cols, this.rows);
-
-
+		grid = (T[][]) Array.newInstance(VisualTile.class, this.cols, this.rows);
 
 		if (m.map.length <= 0 || grid.length != m.map[0].length || grid[0].length != m.map.length) {
 			throw new IllegalArgumentException("Mismatch detected betwen grid size and m.map size!");
@@ -86,9 +82,6 @@ public abstract class Grid<T extends Tile> implements Iterable<T> {
 			throw new IllegalArgumentException("Invalid row or column!");
 		}
 
-		toAdd.maxHeight(1);
-		toAdd.maxWidth(1);
-
 		if (this.get(column, row) != null) {
 			this.remove(column, row);
 		}
@@ -98,12 +91,9 @@ public abstract class Grid<T extends Tile> implements Iterable<T> {
 
 	/**
 	 * Adds a node to this grid.
-	 *
 	 * Will overwrite any existing element in the grid.
 	 */
-	public void addToTile(Node toAdd, int column, int row) {
-		grid[column][row].getChildren().add(toAdd);
-	}
+	public abstract void addToTile(Object toAdd, int column, int row);
 
 	/**
 	 * Removes a node from a selected row/column

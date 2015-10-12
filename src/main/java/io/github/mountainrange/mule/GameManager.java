@@ -5,8 +5,8 @@ import io.github.mountainrange.mule.enums.MuleType;
 import io.github.mountainrange.mule.enums.ResourceType;
 import io.github.mountainrange.mule.gameplay.Player;
 import io.github.mountainrange.mule.gameplay.Shop;
-import io.github.mountainrange.mule.gameplay.Tile;
 import io.github.mountainrange.mule.gameplay.WorldMap;
+import io.github.mountainrange.mule.gameplay.javafx.VisualTile;
 import io.github.mountainrange.mule.managers.GameView;
 import io.github.mountainrange.mule.managers.KeyBindManager;
 import io.github.mountainrange.mule.managers.GameState;
@@ -369,7 +369,7 @@ public class GameManager {
 
 			// Add score from grid owned and MULEs installed
 			score += map.countLandOwnedBy(player) * 500;
-			for (Tile tile : map.landOwnedBy(player)) {
+			for (VisualTile tile : map.landOwnedBy(player)) {
 				if (tile.getMule() != MuleType.EMPTY) {
 					score += Shop.outfitPriceOf(tile.getMule());
 				}

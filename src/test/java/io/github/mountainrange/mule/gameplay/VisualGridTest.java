@@ -1,12 +1,12 @@
 package io.github.mountainrange.mule.gameplay;
 
 // Junit Imports
+import io.github.mountainrange.mule.gameplay.javafx.VisualTile;
+import io.github.mountainrange.mule.gameplay.javafx.VisualGrid;
 import org.junit.*;
 import static org.junit.Assert.*;
 import org.junit.rules.Timeout;
 
-import io.github.mountainrange.mule.gameplay.VisualGrid;
-import io.github.mountainrange.mule.gameplay.Tile;
 import io.github.mountainrange.mule.enums.MapSize;
 import io.github.mountainrange.mule.enums.MapType;
 import io.github.mountainrange.mule.enums.TerrainType;
@@ -41,9 +41,9 @@ public class VisualGridTest {
 
 	@Test
 	public void basicAddTest() {
-		Tile input = new Tile(TerrainType.PLAIN);
+		VisualTile input = new VisualTile(TerrainType.PLAIN);
 		grid.add(input, 2, 3);
-		Tile output = grid.get(2, 3);
+		VisualTile output = grid.get(2, 3);
 		assertEquals(input, output);
 	}
 
