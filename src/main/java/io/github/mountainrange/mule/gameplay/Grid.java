@@ -58,8 +58,8 @@ public abstract class Grid<T extends Tile> implements Iterable<Tile> {
 	}
 
 	/**
-	 * A method to get a tile
-	 * DO NOT USE UNLESS ABSOLUTELY NECESSARY
+	 * A method to get a tile.
+	 * DO NOT USE UNLESS ABSOLUTELY NECESSARY.
 	 *
 	 * @param column column to get
 	 * @param row row to get
@@ -106,7 +106,7 @@ public abstract class Grid<T extends Tile> implements Iterable<Tile> {
 	}
 
 	/**
-	 * Removes the current selection
+	 * Removes the current selection.
 	 */
 	public void removeSelection() {
 		selection = null;
@@ -139,7 +139,6 @@ public abstract class Grid<T extends Tile> implements Iterable<Tile> {
 
 	/**
 	 * Moves an object from one area to another.
-	 *
 	 * @param columnFrom start col
 	 * @param rowFrom start row
 	 * @param columnTo end column

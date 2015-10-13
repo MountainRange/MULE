@@ -40,8 +40,7 @@ public class VisualGridTest {
 		this.grid = new VisualGrid<>(9, 5, MapType.EMPTY, MapSize.ALPS, upperPane);
 	}
 
-	@Test
-	@SuppressWarnings("deprecated") // We need this for tests
+	@Test @SuppressWarnings("deprecated") // We need this for tests
 	public void basicAddTest() {
 		VisualTile input = new VisualTile(TerrainType.NULL);
 		grid.add(input, 2, 3);
@@ -51,8 +50,7 @@ public class VisualGridTest {
 		assertNull(empty);
 	}
 
-	@Test
-	@SuppressWarnings("deprecated") // We need this for tests
+	@Test @SuppressWarnings("deprecated") // We need this for tests
 	public void testRemove() {
 		VisualTile input = new VisualTile(TerrainType.NULL);
 		VisualTile input2 = new VisualTile(TerrainType.NULL);
@@ -79,8 +77,7 @@ public class VisualGridTest {
 
 	}
 
-	@Test
-	@SuppressWarnings("deprecated") // We need this for tests
+	@Test @SuppressWarnings("deprecated") // We need this for tests
 	public void basicSelectionTest() {
 		assertEquals(-1, grid.getCursorX());
 		assertEquals(-1, grid.getCursorY());
@@ -91,8 +88,7 @@ public class VisualGridTest {
 	}
 
 
-	@Test
-	@SuppressWarnings("deprecated") // We need this for tests
+	@Test @SuppressWarnings("deprecated") // We need this for tests
 	public void basicMoveTest() {
 		VisualTile input = new VisualTile(TerrainType.NULL);
 		grid.add(input, 2, 3);
@@ -109,9 +105,6 @@ public class VisualGridTest {
 		assertNull(empty);
 		assertNull(empty2);
 	}
-
-
-
 
 	// A pane that isn't a real pane and won't open a window
 	private class TestPane extends Pane {
