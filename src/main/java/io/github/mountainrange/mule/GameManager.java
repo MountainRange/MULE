@@ -114,11 +114,13 @@ public class GameManager {
 	}
 
 	/**
-	 * Attempt to buy the currently selected tile for the given player.
+	 * Attempt to buy the currently selected tile for the given player, or place a MULE.
 	 * @param player player to buy tile for
 	 */
 	public void buyTile(Player player) {
-		if ((!freeLand || map.countLandOwnedBy(player) < roundCount) && player.stockOf(ResourceType.MULE) == 0) {
+		if (player.hasMule()) {
+			map.placeMule(player);
+		} else if ((!freeLand || map.countLandOwnedBy(player) < roundCount)) {
 			if (map.getOwner() == null) {
 				int cost = (int) (300 + (roundCount * Math.random() * 100));
 				if (cost > player.getMoney()) {
@@ -153,9 +155,6 @@ public class GameManager {
 					setLabels();
 				}
 			}
-		} else if (player.stockOf(ResourceType.MULE) > 0) {
-			player.addStock(ResourceType.MULE, -1);
-			map.setMule(player);
 		}
 	}
 
@@ -357,7 +356,7 @@ public class GameManager {
 		Map<Player, Integer> scores = new HashMap<>();
 
 		// Add score from total number of mules in store
-		int muleScore = shop.stockOf(ResourceType.MULE) * 35;
+		int muleScore = shop.muleStock() * 35;
 		for (Player player : playerList) {
 			// Add score from money and mules
 			int score = player.getMoney() + muleScore;
@@ -384,7 +383,7 @@ public class GameManager {
 	/**
 	 * Sort players in ascending order by score (so players with the lowest score go first).
 	 *
-	 * <code>turnOrder</code> holds the sorted version of <code>playerList</code>.
+	 * {@code turnOrder} holds the sorted version of {@code playerList}.
 	 */
 	public void calculateTurnOrder() {
 		Map<Player, Integer> scores = scoreGame();

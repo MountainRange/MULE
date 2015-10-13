@@ -118,12 +118,28 @@ public class Player {
 		this.color = color;
 	}
 
-	public MuleType getCurrentMuleType() {
+	/**
+	 * Whether this player is carrying a MULE with them or not.
+	 * @return whether this player has a MULE
+	 */
+	public boolean hasMule() {
+		return currentMuleType != null;
+	}
+
+	/**
+	 * Get the type of MULE this player is carrying, or null if they are not carrying a MULE.
+	 * @return the type of MULE this player is carrying
+	 */
+	public MuleType getMule() {
 		return currentMuleType;
 	}
 
-	public void setCurrentMuleType(MuleType currentMuleType) {
-		this.currentMuleType = currentMuleType;
+	/**
+	 * Set the type of MULE this player is carrying.
+	 * @param muleType type of MULE this player should carry
+	 */
+	public void setMule(MuleType muleType) {
+		currentMuleType = muleType;
 	}
 
 	public boolean equals(Object other) {
