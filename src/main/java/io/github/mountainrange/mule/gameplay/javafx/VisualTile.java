@@ -54,14 +54,12 @@ public class VisualTile extends Group implements Tile {
 		}
 	}
 
-	public boolean hasOwner() {
-		return owner != null;
-	}
-
+	@Override
 	public Player getOwner() {
 		return owner;
 	}
 
+	@Override
 	public void setOwner(Player owner) {
 		this.owner = owner;
 
@@ -81,6 +79,7 @@ public class VisualTile extends Group implements Tile {
 		}
 	}
 
+	@Override
 	public void setMuleDraw(MuleType mule) {
 		this.mule = mule;
 		if (this.terrain != TerrainType.NULL) {
@@ -96,50 +95,24 @@ public class VisualTile extends Group implements Tile {
 		}
 	}
 
-	public TerrainType getTerrainType() {
-		return terrain;
-	}
-
-	public MuleType getMuleType() {
-		return mule;
-	}
-
-	public void setMuleType(MuleType mule) {
-		this.mule = mule;
-	}
-
+	@Override
 	public TerrainType getTerrain() {
 		return terrain;
 	}
 
+	@Override
 	public void setTerrain(TerrainType terrain) {
 		this.terrain = terrain;
 	}
 
+	@Override
 	public MuleType getMule() {
 		return mule;
 	}
 
+	@Override
 	public void setMule(MuleType mule) {
 		this.mule = mule;
-	}
-
-	/**
-	 * Check if a Tile has the same data as another tile, that is, if it has the same owner, terrain, and mule
-	 * installed.
-	 * @param other tile to compare to
-	 * @return whether other is equal to this tile
-	 */
-	public boolean deepEquals(Object other) {
-		if (other == null || !(other instanceof VisualTile)) {
-			return false;
-		}
-		if (this == other) {
-			return true;
-		}
-
-		VisualTile o = (VisualTile) other;
-		return Objects.equals(owner, o.owner) && terrain == o.terrain && mule == o.mule;
 	}
 
 	@Override

@@ -17,13 +17,15 @@ public interface Tile {
 
 	/**
 	 * Returns if this tile has been claimed by a player yet.
-	 * @return True if this tile has an owner, false otherwise
+	 * @return true if this tile has an owner, false otherwise
 	 */
-	boolean hasOwner();
+	default boolean hasOwner() {
+		return getOwner() != null;
+	}
 
 	/**
 	 * Returns this tile's owner
-	 * @return The tile's owner, or null if no owner.
+	 * @return the tile's owner, or null if no owner.
 	 */
 	Player getOwner();
 
@@ -34,13 +36,28 @@ public interface Tile {
 	 * @param owner The owner to set to
 	 */
 	void setOwner(Player owner);
+
 	void setMuleDraw(MuleType mule);
-	TerrainType getTerrainType();
-	MuleType getMuleType();
-	void setMuleType(MuleType mule);
 	TerrainType getTerrain();
 	void setTerrain(TerrainType terrain);
 	MuleType getMule();
 	void setMule(MuleType mule);
-	boolean deepEquals(Object other);
+
+	/**
+	 * Check if a Tile has the same data as another tile, that is, if it has the same owner, terrain, and mule
+	 * installed.
+	 * @param other tile to compare to
+	 * @return whether other is equal to this tile
+	 */
+	default boolean deepEquals(Object other) {
+		if (other == null || !(other instanceof PlainTile)) {
+			return false;
+		}
+		if (this == other) {
+			return true;
+		}
+
+		PlainTile o = (PlainTile) other;
+		return Objects.equals(getOwner(), o.getOwner()) && getTerrain() == o.getTerrain() && getMule() == o.getMule();
+	}
 }

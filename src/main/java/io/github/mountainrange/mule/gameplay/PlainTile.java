@@ -1,15 +1,12 @@
-package io.github.mountainrange.mule.gameplay.javafx;
+package io.github.mountainrange.mule.gameplay;
 
 import io.github.mountainrange.mule.enums.MuleType;
 import io.github.mountainrange.mule.enums.TerrainType;
-import io.github.mountainrange.mule.gameplay.Player;
-import io.github.mountainrange.mule.gameplay.Tile;
-import javafx.scene.shape.Rectangle;
 
 import java.util.Objects;
 
 /**
- * An Alternate Tile implementation, which does not use JavaFX
+ * An alternate Tile implementation, which does not use JavaFX.
  *
  * This tile does not actually draw anything to the screen, it is only
  * a sample implementation of Tile.
@@ -18,8 +15,6 @@ import java.util.Objects;
  */
 public class PlainTile implements Tile {
 	private Player owner;
-	private Rectangle ownerRect;
-	private Rectangle muleRect;
 	private TerrainType terrain;
 	private MuleType mule;
 
@@ -42,66 +37,39 @@ s	 */
 		}
 	}
 
-	public boolean hasOwner() {
-		return owner != null;
-	}
-
+	@Override
 	public Player getOwner() {
 		return owner;
 	}
 
+	@Override
 	public void setOwner(Player owner) {
 		this.owner = owner;
 	}
 
+	@Override
 	public void setMuleDraw(MuleType mule) {
 		this.mule = mule;
 	}
 
-	public TerrainType getTerrainType() {
-		return terrain;
-	}
-
-	public MuleType getMuleType() {
-		return mule;
-	}
-
-	public void setMuleType(MuleType mule) {
-		this.mule = mule;
-	}
-
+	@Override
 	public TerrainType getTerrain() {
 		return terrain;
 	}
 
+	@Override
 	public void setTerrain(TerrainType terrain) {
 		this.terrain = terrain;
 	}
 
+	@Override
 	public MuleType getMule() {
 		return mule;
 	}
 
+	@Override
 	public void setMule(MuleType mule) {
 		this.mule = mule;
-	}
-
-	/**
-	 * Check if a Tile has the same data as another tile, that is, if it has the same owner, terrain, and mule
-	 * installed.
-	 * @param other tile to compare to
-	 * @return whether other is equal to this tile
-	 */
-	public boolean deepEquals(Object other) {
-		if (other == null || !(other instanceof PlainTile)) {
-			return false;
-		}
-		if (this == other) {
-			return true;
-		}
-
-		PlainTile o = (PlainTile) other;
-		return Objects.equals(owner, o.owner) && terrain == o.terrain && mule == o.mule;
 	}
 
 	@Override
