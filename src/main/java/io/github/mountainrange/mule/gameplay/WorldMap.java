@@ -11,7 +11,7 @@ import java.util.*;
  * A class to represent the map and facilitates interactions
  * between the actual data store and the rest of the program
  */
-public class WorldMap implements Iterable<VisualTile> {
+public class WorldMap implements Iterable<TileInterface> {
 
 	private Grid<VisualTile> map;
 	private Map<Player, Set<VisualTile>> ownedTiles;
@@ -98,7 +98,7 @@ public class WorldMap implements Iterable<VisualTile> {
 	}
 
 	@Override
-	public Iterator<VisualTile> iterator() {
+	public Iterator<TileInterface> iterator() {
 		return map.iterator();
 	}
 

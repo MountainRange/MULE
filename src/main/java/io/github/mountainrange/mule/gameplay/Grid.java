@@ -7,6 +7,7 @@ import javafx.geometry.Point2D;
 
 import java.awt.*;
 import java.lang.reflect.Array;
+import java.util.Arrays;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
@@ -16,7 +17,7 @@ import java.util.NoSuchElementException;
  * Visualization classes can extend this to actually show things!
  */
 @SuppressWarnings("unchecked")
-public abstract class Grid<T extends TileInterface> implements Iterable<T> {
+public abstract class Grid<T extends TileInterface> implements Iterable<TileInterface> {
 
 	protected T[][] grid;
 	protected int rows, cols;
@@ -203,32 +204,7 @@ public abstract class Grid<T extends TileInterface> implements Iterable<T> {
 	 * @return an iterator for Tiles
 	 */
 	@Override
-	public Iterator<T> iterator() {
-		return new GridIterator();
+	public Iterator<TileInterface> iterator() {
+		return (Iterator<TileInterface>) Arrays.stream(grid).flatMap(Arrays::stream).iterator();
 	}
-
-	private class GridIterator implements Iterator<T> {
-		int nextCol;
-		int nextRow;
-
-		@Override
-		public boolean hasNext() {
-			return nextRow != rows - 1 && nextCol != cols;
-		}
-
-		@Override
-		public T next() {
-			if (!hasNext()) {
-				throw new NoSuchElementException("Can't get next: no more elements");
-			}
-
-			if (nextCol == cols) {
-				nextCol = 0;
-				nextRow++;
-			}
-
-			return grid[nextCol++][nextRow];
-		}
-	}
-
 }
