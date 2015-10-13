@@ -4,15 +4,15 @@ package io.github.mountainrange.mule.enums;
  * List of map types (for the map generator).
  */
 public enum MapType {
-	CLASSIC("classic"),
-	RANDOM("random"),
-	EXPERIMENTAL("experimental"),
-	EMPTY("empty");
+	CLASSIC(),
+	RANDOM(),
+	EXPERIMENTAL(),
+	EMPTY();
 
 	public final TerrainType[][] map;
 
 
-	MapType(String name) {
+	MapType() {
 		// Abbreviations
 		final TerrainType T99 = null;
 		final TerrainType T00 = TerrainType.PLAIN;
@@ -22,7 +22,7 @@ public enum MapType {
 		final TerrainType T04 = TerrainType.MOUNTAIN3;
 		final TerrainType T05 = TerrainType.TOWN;
 
-		if (name.equalsIgnoreCase("empty")) {
+		if (this.name().equalsIgnoreCase("empty")) {
 			this.map = new TerrainType[][]{
 				{T99, T99, T99, T99, T99, T99, T99, T99, T99},
 				{T99, T99, T99, T99, T99, T99, T99, T99, T99},
