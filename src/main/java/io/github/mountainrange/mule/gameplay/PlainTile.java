@@ -3,16 +3,20 @@ package io.github.mountainrange.mule.gameplay.javafx;
 import io.github.mountainrange.mule.enums.MuleType;
 import io.github.mountainrange.mule.enums.TerrainType;
 import io.github.mountainrange.mule.gameplay.Player;
-import io.github.mountainrange.mule.gameplay.TileInterface;
-import javafx.scene.image.ImageView;
+import io.github.mountainrange.mule.gameplay.Tile;
 import javafx.scene.shape.Rectangle;
 
 import java.util.Objects;
 
 /**
- * Self-contained class for information about a given tile.
+ * An Alternate Tile implementation, which does not use JavaFX
+ *
+ * This tile does not actually draw anything to the screen, it is only
+ * a sample implementation of Tile.
+ *
+ * This is useful for Junit Tests.
  */
-public class PlainTile implements TileInterface {
+public class PlainTile implements Tile {
 	private Player owner;
 	private Rectangle ownerRect;
 	private Rectangle muleRect;

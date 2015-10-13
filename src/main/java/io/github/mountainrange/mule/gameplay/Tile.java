@@ -10,11 +10,29 @@ import javafx.scene.shape.Rectangle;
 import java.util.Objects;
 
 /**
- * Self-contained class for information about a given tile.
+ * An interface which all tiles will implement.
+ * Contains common tile functions which tiles of any kind must implement.
  */
-public interface TileInterface {
+public interface Tile {
+
+	/**
+	 * Returns if this tile has been claimed by a player yet.
+	 * @return True if this tile has an owner, false otherwise
+	 */
 	boolean hasOwner();
+
+	/**
+	 * Returns this tile's owner
+	 * @return The tile's owner, or null if no owner.
+	 */
 	Player getOwner();
+
+	/**
+	 * Sets this tile's owner.
+	 * This will overwrite any existing owner of this tile
+	 *
+	 * @param owner The owner to set to
+	 */
 	void setOwner(Player owner);
 	void setMuleDraw(MuleType mule);
 	TerrainType getTerrainType();

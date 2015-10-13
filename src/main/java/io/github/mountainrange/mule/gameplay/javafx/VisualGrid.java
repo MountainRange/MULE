@@ -4,7 +4,7 @@ import io.github.mountainrange.mule.enums.MapSize;
 import io.github.mountainrange.mule.enums.MapType;
 
 import io.github.mountainrange.mule.gameplay.Grid;
-import io.github.mountainrange.mule.gameplay.TileInterface;
+import io.github.mountainrange.mule.gameplay.Tile;
 import javafx.animation.Interpolator;
 import javafx.animation.PathTransition;
 import javafx.geometry.Point2D;
@@ -26,7 +26,7 @@ import javafx.util.Duration;
  * @version 1.0
  *
  */
-public class VisualGrid<T extends Group & TileInterface> extends Grid<T> {
+public class VisualGrid<T extends Group & Tile> extends Grid<T> {
 	private Pane upperPane;
 	private Rectangle selectionRect;
 
@@ -153,7 +153,7 @@ public class VisualGrid<T extends Group & TileInterface> extends Grid<T> {
 
 	@Override
 	public void addToTile(Object toAdd, int column, int row) {
-		if (!(toAdd instanceof Node && toAdd instanceof TileInterface)) {
+		if (!(toAdd instanceof Node && toAdd instanceof Tile)) {
 			throw new IllegalArgumentException("You cannot add non-visual elements to a VisualGrid Tile");
 		}
 

@@ -9,7 +9,6 @@ import java.awt.*;
 import java.lang.reflect.Array;
 import java.util.Arrays;
 import java.util.Iterator;
-import java.util.NoSuchElementException;
 
 /**
  * A class to represent location of things on the board.
@@ -17,7 +16,7 @@ import java.util.NoSuchElementException;
  * Visualization classes can extend this to actually show things!
  */
 @SuppressWarnings("unchecked")
-public abstract class Grid<T extends TileInterface> implements Iterable<TileInterface> {
+public abstract class Grid<T extends Tile> implements Iterable<Tile> {
 
 	protected T[][] grid;
 	protected int rows, cols;
@@ -204,7 +203,7 @@ public abstract class Grid<T extends TileInterface> implements Iterable<TileInte
 	 * @return an iterator for Tiles
 	 */
 	@Override
-	public Iterator<TileInterface> iterator() {
-		return (Iterator<TileInterface>) Arrays.stream(grid).flatMap(Arrays::stream).iterator();
+	public Iterator<Tile> iterator() {
+		return (Iterator<Tile>) Arrays.stream(grid).flatMap(Arrays::stream).iterator();
 	}
 }

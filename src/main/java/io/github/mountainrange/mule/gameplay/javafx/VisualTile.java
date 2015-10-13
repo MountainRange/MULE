@@ -3,7 +3,7 @@ package io.github.mountainrange.mule.gameplay.javafx;
 import io.github.mountainrange.mule.enums.MuleType;
 import io.github.mountainrange.mule.enums.TerrainType;
 import io.github.mountainrange.mule.gameplay.Player;
-import io.github.mountainrange.mule.gameplay.TileInterface;
+import io.github.mountainrange.mule.gameplay.Tile;
 import javafx.scene.Group;
 import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
@@ -12,10 +12,12 @@ import javafx.scene.shape.Rectangle;
 import java.util.Objects;
 
 /**
- * Self-contained class for information about a given tile.
+ * A tile which is drawin onto the screen.
+ *
+ * This tile is for use with the VisualGrid class, and javafx in general.
+ * As so, it extends the group object, so other JavaFX objects can be
  */
-public class VisualTile extends Group implements TileInterface {
-	private ImageView image;
+public class VisualTile extends Group implements Tile {
 
 	private Player owner;
 	private Rectangle ownerRect;
@@ -34,7 +36,7 @@ public class VisualTile extends Group implements TileInterface {
 	public VisualTile(TerrainType terrain, MuleType mule, Player owner) {
 		// If we are not supposed to draw something, don't draw it.
 		if (terrain != TerrainType.NULL) {
-			this.image = new ImageView(terrain.getPath());
+			ImageView image = new ImageView(terrain.getPath());
 			image.setFitWidth(1);
 			image.setFitHeight(1);
 			this.getChildren().add(image);
