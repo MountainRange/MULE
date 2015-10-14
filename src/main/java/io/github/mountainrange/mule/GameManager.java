@@ -7,9 +7,9 @@ import io.github.mountainrange.mule.gameplay.Player;
 import io.github.mountainrange.mule.gameplay.Shop;
 import io.github.mountainrange.mule.gameplay.Tile;
 import io.github.mountainrange.mule.gameplay.WorldMap;
+import io.github.mountainrange.mule.managers.GameState;
 import io.github.mountainrange.mule.managers.GameView;
 import io.github.mountainrange.mule.managers.KeyBindManager;
-import io.github.mountainrange.mule.managers.GameState;
 
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -19,7 +19,6 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.util.Duration;
 
-import java.awt.event.ActionEvent;
 import java.util.*;
 
 /**
@@ -344,10 +343,6 @@ public class GameManager {
 		timeCounter.play();
 	}
 
-	private void turnTimerAction(ActionEvent event) {
-
-	}
-
 	/**
 	 * Compute the score of the given player. The score of a player is computed as follows:
 	 * <code>money + (plot * 500 + price of outfitting) + mules in store * 35 + (resource * price of resource)</code>.
@@ -367,7 +362,7 @@ public class GameManager {
 				score += player.stockOf(resource) * shop.priceOf(resource);
 			}
 
-			// Add score from tiles owned and MULEs installed
+			// Add score from grid owned and MULEs installed
 			score += map.countLandOwnedBy(player) * 500;
 			for (Tile tile : map.landOwnedBy(player)) {
 				if (tile.getMule() != MuleType.EMPTY) {
@@ -418,6 +413,7 @@ public class GameManager {
 
 	/**
 	 * Returns the shop.
+	 * @return {@code Shop} associated with this {@code GameManager}
 	 */
 	public Shop getShop() {
 		return shop;
