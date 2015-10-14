@@ -11,6 +11,7 @@ import io.github.mountainrange.mule.managers.GameState;
 import io.github.mountainrange.mule.managers.GameView;
 import io.github.mountainrange.mule.managers.KeyBindManager;
 
+import io.github.mountainrange.mule.managers.ProductionManager;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
@@ -32,6 +33,7 @@ public class GameManager {
 	private List<Player> turnOrder;
 
 	private Config config;
+	private ProductionManager productionManager;
 	private SceneLoader sceneLoader;
 	private Shop shop;
 	private WorldMap map;
@@ -62,6 +64,7 @@ public class GameManager {
 		this.turnLabel = turnLabel;
 
 		config = Config.getInstance();
+		productionManager = new ProductionManager(map);
 		playerList = new ArrayList<>(Arrays.asList(config.playerList).subList(0, config.numOfPlayers));
 		buyers = new ArrayList<>();
 		turnOrder = new ArrayList<>(playerList);
@@ -243,7 +246,7 @@ public class GameManager {
 			normalPhase();
 		}
 
-		foodRequired = Shop.foodUsage(roundCount);
+		foodRequired = ProductionManager.foodUsage(roundCount);
 		System.out.println("Food required: " + foodRequired);
 	}
 
