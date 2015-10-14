@@ -7,9 +7,9 @@ import io.github.mountainrange.mule.gameplay.Player;
 import io.github.mountainrange.mule.gameplay.Shop;
 import io.github.mountainrange.mule.gameplay.Tile;
 import io.github.mountainrange.mule.gameplay.WorldMap;
+import io.github.mountainrange.mule.managers.GameState;
 import io.github.mountainrange.mule.managers.GameView;
 import io.github.mountainrange.mule.managers.KeyBindManager;
-import io.github.mountainrange.mule.managers.GameState;
 
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -432,6 +432,7 @@ public class GameManager {
 
 	/**
 	 * Returns the shop.
+	 * @return {@code Shop} associated with this {@code GameManager}
 	 */
 	public Shop getShop() {
 		return shop;

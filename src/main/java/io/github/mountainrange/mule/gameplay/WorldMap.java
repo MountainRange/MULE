@@ -1,7 +1,8 @@
 package io.github.mountainrange.mule.gameplay;
 
+import io.github.mountainrange.mule.enums.MapType;
 import io.github.mountainrange.mule.enums.MuleType;
-import io.github.mountainrange.mule.enums.ResourceType;
+import io.github.mountainrange.mule.gameplay.javafx.VisualTile;
 import javafx.geometry.Point2D;
 
 import java.util.*;
@@ -12,17 +13,25 @@ import java.util.*;
  */
 public class WorldMap implements Iterable<Tile> {
 
-	private Grid map;
-	private Map<Player, Set<Tile>> ownedTiles;
+	private Grid<VisualTile> map;
+	private Map<Player, Set<VisualTile>> ownedTiles;
 
-	public WorldMap(Grid g) {
+	public WorldMap(Grid g, MapType mType) {
 		this.map = g;
 
 		ownedTiles = new HashMap<>();
+
+		for (int i = 0; i < mType.map.length; i++) {
+			for (int j = 0; j < mType.map[0].length; j++) {
+				if (mType.map[i][j] != null) {
+					map.add(new VisualTile(mType.map[i][j]), j, i);
+				}
+			}
+		}
 	}
 
-	public WorldMap(Grid g, List<Player> playerList) {
-		this.map = g;
+	public WorldMap(Grid g, MapType mType, List<Player> playerList) {
+		this(g, mType);
 
 		ownedTiles = new HashMap<>();
 		for (Player p : playerList) {
@@ -33,9 +42,9 @@ public class WorldMap implements Iterable<Tile> {
 	// ----------------------------Logical methods-------------------------------
 
 	/**
-	 * Count the number of tiles owned by the given player, or zero if the given player owns no tiles.
-	 * @param player player to count owned tiles
-	 * @return number of tiles owned by the given player
+	 * Count the number of grid owned by the given player, or zero if the given player owns no grid.
+	 * @param player player to count owned grid
+	 * @return number of grid owned by the given player
 	 */
 	public int countLandOwnedBy(Player player) {
 		if (!ownedTiles.containsKey(player)) {
@@ -45,12 +54,12 @@ public class WorldMap implements Iterable<Tile> {
 	}
 
 	/**
-	 * Return an unmodifiable set with the tiles owned by the given player, or an empty set if the given player owns no
-	 * tiles.
-	 * @param player player to get owned tiles
-	 * @return unmodifiable set with tiles owned by the given player
+	 * Return an unmodifiable set with the grid owned by the given player, or an empty set if the given player owns no
+	 * grid.
+	 * @param player player to get owned grid
+	 * @return unmodifiable set with grid owned by the given player
 	 */
-	public Set<Tile> landOwnedBy(Player player) {
+	public Set<VisualTile> landOwnedBy(Player player) {
 		return Collections.unmodifiableSet(ownedTiles.getOrDefault(player, new HashSet<>()));
 	}
 
@@ -60,7 +69,7 @@ public class WorldMap implements Iterable<Tile> {
 	 * @param tile tile to sell
 	 * @return whether the tile was actually sold
 	 */
-	public boolean sellTile(Player player, Tile tile) {
+	public boolean sellTile(Player player, VisualTile tile) {
 		if (tile.hasOwner()) {
 			return false;
 		}
@@ -118,8 +127,10 @@ public class WorldMap implements Iterable<Tile> {
 	/**
 	 * Get the tile the cursor is currently on.
 	 * @return the tile the cursor is on
+	 * @deprecated This is bad style.
 	 */
-	public Tile cursorTile() {
+	@SuppressWarnings("deprecated")
+	public VisualTile cursorTile() {
 		int x = map.getCursorX();
 		int y = map.getCursorY();
 		return map.get(x, y);
@@ -131,7 +142,7 @@ public class WorldMap implements Iterable<Tile> {
 	 * @return whether the tile was actually sold
 	 */
 	public boolean sellTile(Player player) {
-		Tile tile = cursorTile();
+		VisualTile tile = cursorTile();
 		return sellTile(player, tile);
 	}
 
@@ -159,10 +170,14 @@ public class WorldMap implements Iterable<Tile> {
 	public boolean selectRel(int xmove, int ymove) {
 		int newposx = map.getCursorX() + xmove;
 		int newposy = map.getCursorY() + ymove;
-		if (newposx < 0 || newposy < 0 || newposx >= map.getCols()
-				|| newposy >= map.getRows()) {
-			System.out.println("Cannot select off map");
-			return false;
+		if (newposx < 0) {
+			newposx = map.getCols() - 1;
+		} else if (newposy < 0) {
+			newposy = map.getRows() - 1;
+		} else if (newposx >= map.getCols()) {
+			newposx = 0;
+		} else if (newposy >= map.getRows()) {
+			newposy = 0;
 		}
 		map.select(newposx, newposy);
 		return true;
