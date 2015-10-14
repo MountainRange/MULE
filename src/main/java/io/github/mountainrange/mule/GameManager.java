@@ -13,13 +13,13 @@ import io.github.mountainrange.mule.managers.GameState;
 
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.event.ActionEvent;
 import javafx.geometry.Point2D;
 import javafx.scene.control.Label;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.util.Duration;
 
-import java.awt.event.ActionEvent;
 import java.util.*;
 
 /**
@@ -38,8 +38,8 @@ public class GameManager {
 
 	private KeyBindManager keyManager;
 	private MouseHandler mouseHandler;
-	private Timeline runner;
-	private Timeline timeCounter;
+	private Timeline selectorTimeline;
+	private Timeline timerTimeline;
 
 	private Label resourceLabel;
 	private Label turnLabel;
@@ -77,6 +77,23 @@ public class GameManager {
 
 		mouseHandler = new MouseHandler();
 		keyManager = new KeyBindManager();
+
+		timerTimeline = new Timeline(
+				new KeyFrame(
+						Duration.seconds(Config.SELECTOR_SPEED),
+						this::turnTimerAction
+				)
+		);
+		timerTimeline.setCycleCount(Timeline.INDEFINITE);
+
+		selectorTimeline = new Timeline(
+				new KeyFrame(
+						Duration.seconds(Config.SELECTOR_SPEED),
+						this::selectorAction
+				)
+		);
+		selectorTimeline.setCycleCount(Timeline.INDEFINITE);
+
 		nextRound();
 	}
 
@@ -120,7 +137,7 @@ public class GameManager {
 	public void buyTile(Player player) {
 		if (player.hasMule()) {
 			map.placeMule(player);
-		} else if ((!freeLand || map.countLandOwnedBy(player) < roundCount)) {
+		} else if (!freeLand || map.countLandOwnedBy(player) < roundCount) {
 			if (map.getOwner() == null) {
 				int cost = (int) (300 + (roundCount * Math.random() * 100));
 				if (cost > player.getMoney()) {
@@ -240,24 +257,25 @@ public class GameManager {
 		if (!sceneLoader.getCurrentScene().equals(MULE.PLAY_SCENE)) {
 			sceneLoader.setScene(MULE.PLAY_SCENE);
 		}
+		timerTimeline.stop();
 		currentPlayerNum = (currentPlayerNum + 1) % config.numOfPlayers;
+
 		resetTimer();
 		setLabels();
+
 		if (currentPlayerNum == 0) {
 			nextRound();
-			if (timeCounter != null) timeCounter.stop();
 		}
 	}
 
 	private void landGrabPhase() {
+		map.select(0, 0);
 		if (config.gameType == GameType.HOTSEAT) {
-			map.select(0, 0);
 			if (config.selectEnabled) {
 				runSelector();
 			}
 		} else if (config.gameType == GameType.SIMULTANEOUS) {
 			turnLabel.setText("Land grab Phase");
-			map.select(0, 0);
 			runSelector();
 		}
 	}
@@ -283,33 +301,35 @@ public class GameManager {
 	 * players to buy the currently selected tile.
 	 */
 	private void runSelector() {
-		runner = new Timeline(
-				new KeyFrame(
-					Duration.seconds(Config.SELECTOR_SPEED),
-					event -> {
-						if (!inAuction && phaseCount == 0) {
-							delayedBuy();
-							map.selectRightWrap();
-						}
-						if (allBoughtLand() && freeLand) {
-							runner.stop();
-							nextRound();
-						}
-						if (config.numOfPlayers == passCounter) {
-							runner.stop();
-							nextRound();
-						}
-					}
-					)
-				);
-		runner.setCycleCount(Timeline.INDEFINITE);
-		runner.play();
+		selectorTimeline.play();
 	}
 
+	/**
+	 * Perform all the actions associated with moving the map cursor in simultaneous mode.
+	 * @param event event to react to
+	 */
+	private void selectorAction(ActionEvent event) {
+		if (!inAuction && phaseCount == 0) {
+			delayedBuy();
+			map.selectRightWrap();
+		}
+		if (allBoughtLand() && freeLand) {
+			selectorTimeline.stop();
+			nextRound();
+		}
+		if (config.numOfPlayers == passCounter) {
+			selectorTimeline.stop();
+			nextRound();
+		}
+	}
+
+	/**
+	 * Set {@code timeLeft} based on the amount of food the current player has.
+	 */
 	private void resetTimer() {
-		if (playerList.get(currentPlayerNum).stockOf(ResourceType.FOOD) < foodRequired) {
+		if (turnOrder.get(currentPlayerNum).stockOf(ResourceType.FOOD) < foodRequired) {
 			timeLeft = 30;
-		} else if (playerList.get(currentPlayerNum).stockOf(ResourceType.FOOD) <= 0) {
+		} else if (turnOrder.get(currentPlayerNum).stockOf(ResourceType.FOOD) <= 0) {
 			timeLeft = 5;
 		} else {
 			timeLeft = 50;
@@ -322,34 +342,29 @@ public class GameManager {
 	 */
 	private void turnTimer() {
 		resetTimer();
-		timeCounter = new Timeline(
-				new KeyFrame(
-					Duration.seconds(Config.SELECTOR_SPEED),
-					event -> {
-						timeLeft--;
-						setLabels();
-						if (gambleFlag) {
-							gambleFlag = false;
-							turnOrder.get(currentPlayerNum).addMoney(Shop.gamblingProfit(roundCount, timeLeft));
-							endTurn();
-						}
-						if (timeLeft <= 0) {
-							endTurn();
-						}
-					}
-					)
-				);
-		timeCounter.setCycleCount(Timeline.INDEFINITE);
-		timeCounter.play();
+		timerTimeline.play();
 	}
 
+	/**
+	 * Perform all the actions associated with a single tick of the turn timer.
+	 * @param event event to react to
+	 */
 	private void turnTimerAction(ActionEvent event) {
-
+		timeLeft--;
+		setLabels();
+		if (gambleFlag) {
+			gambleFlag = false;
+			turnOrder.get(currentPlayerNum).addMoney(Shop.gamblingProfit(roundCount, timeLeft));
+			endTurn();
+		}
+		if (timeLeft <= 0) {
+			endTurn();
+		}
 	}
 
 	/**
 	 * Compute the score of the given player. The score of a player is computed as follows:
-	 * <code>money + (plot * 500 + price of outfitting) + mules in store * 35 + (resource * price of resource)</code>.
+	 * {@code money + (plot * 500 + price of outfitting) + mules in store * 35 + (resource * price of resource)}.
 	 * @return map of players to their scores
 	 */
 	public Map<Player, Integer> scoreGame() {
