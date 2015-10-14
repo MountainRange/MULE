@@ -22,7 +22,7 @@ public class StoreController implements Initializable, SceneAgent {
 
 	private SceneLoader sceneLoader;
 	private MULE mule;
-	private boolean buyNotSell;
+	private boolean buyMode;
 	private Shop shop;
 	private Player player;
 
@@ -34,6 +34,7 @@ public class StoreController implements Initializable, SceneAgent {
 		buySellCombo.setItems(FXCollections.observableArrayList());
 		buySellCombo.getItems().add("Buy");
 		buySellCombo.getItems().add("Sell");
+		buyMode = true;
 	}
 
 	public void setSceneParent(SceneLoader sceneLoader, MULE mule){
@@ -47,9 +48,9 @@ public class StoreController implements Initializable, SceneAgent {
 	@FXML
 	private void handleBuySellToggle(ActionEvent e) {
 		if (buySellCombo.getValue().equals("Buy")) {
-			buyNotSell = true;
+			buyMode = true;
 		} else if (buySellCombo.getValue().equals("Sell")) {
-			buyNotSell = false;
+			buyMode = false;
 		}
 	}
 
@@ -57,7 +58,7 @@ public class StoreController implements Initializable, SceneAgent {
 	private void handleExchangeFoodAction(ActionEvent e) {
 		shop = mule.getGameManager().getShop();
 		player = mule.getGameManager().getCurrentPlayer();
-		if (buyNotSell) {
+		if (buyMode) {
 			shop.buy(player, ResourceType.FOOD);
 		} else {
 			shop.sell(player, ResourceType.FOOD);
@@ -69,7 +70,7 @@ public class StoreController implements Initializable, SceneAgent {
 	private void handleExchangeEnergyAction(ActionEvent e) {
 		shop = mule.getGameManager().getShop();
 		player = mule.getGameManager().getCurrentPlayer();
-		if (buyNotSell) {
+		if (buyMode) {
 			shop.buy(player, ResourceType.ENERGY);
 		} else {
 			shop.sell(player, ResourceType.ENERGY);
@@ -81,7 +82,7 @@ public class StoreController implements Initializable, SceneAgent {
 	private void handleExchangeSmithoreAction(ActionEvent e) {
 		shop = mule.getGameManager().getShop();
 		player = mule.getGameManager().getCurrentPlayer();
-		if (buyNotSell) {
+		if (buyMode) {
 			shop.buy(player, ResourceType.SMITHORE);
 		} else {
 			shop.sell(player, ResourceType.SMITHORE);
@@ -93,7 +94,7 @@ public class StoreController implements Initializable, SceneAgent {
 	private void handleExchangeCrystiteAction(ActionEvent e) {
 		shop = mule.getGameManager().getShop();
 		player = mule.getGameManager().getCurrentPlayer();
-		if (buyNotSell) {
+		if (buyMode) {
 			shop.buy(player, ResourceType.CRYSTITE);
 		} else {
 			shop.sell(player, ResourceType.CRYSTITE);
@@ -124,6 +125,7 @@ public class StoreController implements Initializable, SceneAgent {
 		shop = mule.getGameManager().getShop();
 		player = mule.getGameManager().getCurrentPlayer();
 
+		// Shop can only sell MULEs to the player, not buy them back
 		shop.sellMule(player, muleType);
 		mule.getGameManager().setLabels();
 	}

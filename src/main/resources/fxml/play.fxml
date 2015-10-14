@@ -12,42 +12,29 @@
       <Pane fx:id="mapPane" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
    </center>
    <bottom>
-      <GridPane>
-         <columnConstraints>
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="196.0" minWidth="10.0" prefWidth="144.0" />
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="342.0" minWidth="10.0" prefWidth="284.0" />
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="280.0" minWidth="10.0" prefWidth="172.0" />
-         </columnConstraints>
-         <rowConstraints>
-            <RowConstraints />
-            <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
-         </rowConstraints>
-         <children>
-            <ToolBar focusTraversable="false" prefHeight="40.0" prefWidth="200.0" GridPane.rowIndex="1">
-              <items>
+      <BorderPane prefWidth="200.0" BorderPane.alignment="CENTER">
+         <center>
+            <Label fx:id="resourceLabel" prefHeight="27.0" text="Money: $$$$ Energy: ####" BorderPane.alignment="CENTER">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Label>
+         </center>
+         <left>
+            <HBox alignment="CENTER_LEFT" prefWidth="200.0" BorderPane.alignment="CENTER">
+               <children>
                 <Button focusTraversable="false" mnemonicParsing="false" onAction="#handleBackAction" text="Go Back" />
-                  <Button focusTraversable="false" layoutX="84.0" layoutY="11.0" mnemonicParsing="false" onAction="#handlePassAction" text="End Turn" />
-              </items>
-            </ToolBar>
-            <ToolBar prefHeight="40.0" prefWidth="307.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
-               <items>
-                  <Label fx:id="resourceLabel" prefHeight="27.0" text="Money: $$$$ Energy: ####">
-                     <font>
-                        <Font size="16.0" />
-                     </font>
-                  </Label>
-               </items>
-            </ToolBar>
-            <ToolBar prefHeight="40.0" prefWidth="171.0" GridPane.columnIndex="2" GridPane.rowIndex="1">
-               <items>
-                  <Label fx:id="turnLabel" alignment="CENTER_RIGHT" prefHeight="27.0" text="Player 1's Turn">
-                     <font>
-                        <Font size="18.0" />
-                     </font>
-                  </Label>
-               </items>
-            </ToolBar>
-         </children>
-      </GridPane>
+                  <Button focusTraversable="false" mnemonicParsing="false" onAction="#handlePassAction" text="End Turn" />
+               </children>
+            </HBox>
+         </left>
+         <right>
+            <Label fx:id="turnLabel" alignment="CENTER_RIGHT" prefHeight="27.0" text="Player 1's Turn" textAlignment="RIGHT" BorderPane.alignment="CENTER">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+         </right>
+      </BorderPane>
    </bottom>
 </BorderPane>
