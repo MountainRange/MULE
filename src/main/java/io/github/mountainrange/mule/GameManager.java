@@ -57,9 +57,9 @@ public class GameManager {
 
 	public GameManager(WorldMap map, Label turnLabel, Label resourceLabel, SceneLoader sceneLoader) {
 		this.map = map;
-		this.turnLabel = turnLabel;
 		this.resourceLabel = resourceLabel;
 		this.sceneLoader = sceneLoader;
+		this.turnLabel = turnLabel;
 
 		config = Config.getInstance();
 		playerList = new ArrayList<>(Arrays.asList(config.playerList).subList(0, config.numOfPlayers));
@@ -75,16 +75,8 @@ public class GameManager {
 
 		freeLand = true;
 
-		mouseHandler = new MouseHandler();
 		keyManager = new KeyBindManager();
-
-		timerTimeline = new Timeline(
-				new KeyFrame(
-						Duration.seconds(Config.SELECTOR_SPEED),
-						this::turnTimerAction
-				)
-		);
-		timerTimeline.setCycleCount(Timeline.INDEFINITE);
+		mouseHandler = new MouseHandler();
 
 		selectorTimeline = new Timeline(
 				new KeyFrame(
@@ -93,6 +85,14 @@ public class GameManager {
 				)
 		);
 		selectorTimeline.setCycleCount(Timeline.INDEFINITE);
+
+		timerTimeline = new Timeline(
+				new KeyFrame(
+						Duration.seconds(Config.SELECTOR_SPEED),
+						this::turnTimerAction
+				)
+		);
+		timerTimeline.setCycleCount(Timeline.INDEFINITE);
 
 		nextRound();
 	}
@@ -176,9 +176,6 @@ public class GameManager {
 	}
 
 	private void delayedBuy() {
-		// if (buyers.size() > 1 && !freeLand) {
-		// 	enterAuction(buyers);
-		// } else
 		if (buyers.size() > 0) {
 			Player player = buyers.get(0);
 			if (!freeLand) {

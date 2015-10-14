@@ -14,9 +14,9 @@ import java.util.*;
 public class WorldMap implements Iterable<Tile> {
 
 	private Grid<VisualTile> map;
-	private Map<Player, Set<VisualTile>> ownedTiles;
+	private Map<Player, Set<Tile>> ownedTiles;
 
-	public WorldMap(Grid g, MapType mType) {
+	public WorldMap(Grid<VisualTile> g, MapType mType) {
 		this.map = g;
 
 		ownedTiles = new HashMap<>();
@@ -59,7 +59,7 @@ public class WorldMap implements Iterable<Tile> {
 	 * @param player player to get owned grid
 	 * @return unmodifiable set with grid owned by the given player
 	 */
-	public Set<VisualTile> landOwnedBy(Player player) {
+	public Set<Tile> landOwnedBy(Player player) {
 		return Collections.unmodifiableSet(ownedTiles.getOrDefault(player, new HashSet<>()));
 	}
 
