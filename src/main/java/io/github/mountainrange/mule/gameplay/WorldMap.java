@@ -76,13 +76,13 @@ public class WorldMap implements Iterable<Tile> {
 
 	/**
 	 * Places a MULE for the given player on the given tile. Placing fails if the given player does not actually own the
-	 * given tile, or the player is not carrying a MULE.
+	 * given tile, the player is not carrying a MULE, or the player is carrying a MULE that has not been outfitted.
 	 * @param player player to get mule from
 	 * @param tile tile to set mule
 	 * @return whether the mule was placed
 	 */
 	public boolean placeMule(Player player, Tile tile) {
-		if (tile.getOwner() != player || !player.hasMule()) {
+		if (tile.getOwner() != player || !player.hasMule() || player.getMule() == MuleType.EMPTY) {
 			return false;
 		}
 
@@ -137,7 +137,8 @@ public class WorldMap implements Iterable<Tile> {
 
 	/**
 	 * Places a MULE for the given player on the currently selected tile. Placing fails if the given player does not
-	 * actually own the given tile, or the player is not carrying a MULE.
+	 * actually own the given tile, the player is not carrying a MULE, or the player is carrying a MULE that has not
+	 * been outfitted.
 	 * @param player player to get mule from
 	 * @return whether the mule was placed
 	 */

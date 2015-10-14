@@ -37,7 +37,7 @@ public class Player {
 		race = Race.values()[id % Race.values().length];
 		color = DEFAULT_COLORS[id % DEFAULT_COLORS.length];
 		money = race.getStartingMoney();
-		currentMuleType = MuleType.EMPTY;
+		currentMuleType = null;
 
 		stocks = new EnumMap<>(ResourceType.class);
 		for (ResourceType resource : ResourceType.values()) {
