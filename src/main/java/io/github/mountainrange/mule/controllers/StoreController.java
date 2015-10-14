@@ -34,6 +34,7 @@ public class StoreController implements Initializable, SceneAgent {
 		buySellCombo.setItems(FXCollections.observableArrayList());
 		buySellCombo.getItems().add("Buy");
 		buySellCombo.getItems().add("Sell");
+		buyMode = true;
 	}
 
 	public void setSceneParent(SceneLoader sceneLoader, MULE mule){
