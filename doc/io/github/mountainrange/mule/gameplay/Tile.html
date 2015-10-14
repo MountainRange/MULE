@@ -17,8 +17,8 @@
     catch(err) {
     }
 //-->
-var methods = {"i0":10,"i1":10,"i2":10,"i3":10,"i4":10,"i5":10,"i6":10,"i7":10,"i8":10,"i9":10,"i10":10,"i11":10,"i12":10};
-var tabs = {65535:["t0","All Methods"],2:["t2","Instance Methods"],8:["t4","Concrete Methods"]};
+var methods = {"i0":18,"i1":6,"i2":6,"i3":6,"i4":18,"i5":6,"i6":6,"i7":6,"i8":6};
+var tabs = {65535:["t0","All Methods"],2:["t2","Instance Methods"],4:["t3","Abstract Methods"],16:["t5","Default Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
 var tableTab = "tableTab";
@@ -48,7 +48,7 @@ var activeTableTab = "activeTableTab";
 <div class="subNav">
 <ul class="navList">
 <li><a href="../../../../../io/github/mountainrange/mule/gameplay/Shop.html" title="class in io.github.mountainrange.mule.gameplay"><span class="typeNameLink">Prev&nbsp;Class</span></a></li>
-<li><a href="../../../../../io/github/mountainrange/mule/gameplay/VisualGrid.html" title="class in io.github.mountainrange.mule.gameplay"><span class="typeNameLink">Next&nbsp;Class</span></a></li>
+<li><a href="../../../../../io/github/mountainrange/mule/gameplay/WorldMap.html" title="class in io.github.mountainrange.mule.gameplay"><span class="typeNameLink">Next&nbsp;Class</span></a></li>
 </ul>
 <ul class="navList">
 <li><a href="../../../../../index.html?io/github/mountainrange/mule/gameplay/Tile.html" target="_top">Frames</a></li>
@@ -73,14 +73,14 @@ var activeTableTab = "activeTableTab";
 <ul class="subNavList">
 <li>Summary:&nbsp;</li>
 <li>Nested&nbsp;|&nbsp;</li>
-<li><a href="#fields.inherited.from.class.javafx.scene.Node">Field</a>&nbsp;|&nbsp;</li>
-<li><a href="#constructor.summary">Constr</a>&nbsp;|&nbsp;</li>
+<li>Field&nbsp;|&nbsp;</li>
+<li>Constr&nbsp;|&nbsp;</li>
 <li><a href="#method.summary">Method</a></li>
 </ul>
 <ul class="subNavList">
 <li>Detail:&nbsp;</li>
 <li>Field&nbsp;|&nbsp;</li>
-<li><a href="#constructor.detail">Constr</a>&nbsp;|&nbsp;</li>
+<li>Constr&nbsp;|&nbsp;</li>
 <li><a href="#method.detail">Method</a></li>
 </ul>
 </div>
@@ -91,118 +91,27 @@ var activeTableTab = "activeTableTab";
 <!-- ======== START OF CLASS DATA ======== -->
 <div class="header">
 <div class="subTitle">io.github.mountainrange.mule.gameplay</div>
-<h2 title="Class Tile" class="title">Class Tile</h2>
+<h2 title="Interface Tile" class="title">Interface Tile</h2>
 </div>
 <div class="contentContainer">
-<ul class="inheritance">
-<li>java.lang.Object</li>
-<li>
-<ul class="inheritance">
-<li>javafx.scene.Node</li>
-<li>
-<ul class="inheritance">
-<li>javafx.scene.Parent</li>
-<li>
-<ul class="inheritance">
-<li>javafx.scene.Group</li>
-<li>
-<ul class="inheritance">
-<li>io.github.mountainrange.mule.gameplay.Tile</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
 <div class="description">
 <ul class="blockList">
 <li class="blockList">
 <dl>
-<dt>All Implemented Interfaces:</dt>
-<dd>javafx.css.Styleable, javafx.event.EventTarget</dd>
+<dt>All Known Implementing Classes:</dt>
+<dd><a href="../../../../../io/github/mountainrange/mule/gameplay/PlainTile.html" title="class in io.github.mountainrange.mule.gameplay">PlainTile</a>, <a href="../../../../../io/github/mountainrange/mule/gameplay/javafx/VisualTile.html" title="class in io.github.mountainrange.mule.gameplay.javafx">VisualTile</a></dd>
 </dl>
 <hr>
 <br>
-<pre>public class <span class="typeNameLabel">Tile</span>
-extends javafx.scene.Group</pre>
-<div class="block">Self-contained class for information about a given tile.</div>
+<pre>public interface <span class="typeNameLabel">Tile</span></pre>
+<div class="block">An interface which all tiles will implement.
+ Contains common tile functions which tiles of any kind must implement.</div>
 </li>
 </ul>
 </div>
 <div class="summary">
 <ul class="blockList">
 <li class="blockList">
-<!-- =========== PROPERTY SUMMARY =========== -->
-<ul class="blockList">
-<li class="blockList"><a name="property.summary">
-<!--   -->
-</a>
-<h3>Property Summary</h3>
-<ul class="blockList">
-<li class="blockList"><a name="properties.inherited.from.class.javafx.scene.Group">
-<!--   -->
-</a>
-<h3>Properties inherited from class&nbsp;javafx.scene.Group</h3>
-<code>autoSizeChildrenProperty</code></li>
-</ul>
-<ul class="blockList">
-<li class="blockList"><a name="properties.inherited.from.class.javafx.scene.Parent">
-<!--   -->
-</a>
-<h3>Properties inherited from class&nbsp;javafx.scene.Parent</h3>
-<code>impl_traversalEngineProperty, needsLayoutProperty</code></li>
-</ul>
-<ul class="blockList">
-<li class="blockList"><a name="properties.inherited.from.class.javafx.scene.Node">
-<!--   -->
-</a>
-<h3>Properties inherited from class&nbsp;javafx.scene.Node</h3>
-<code>accessibleHelpProperty, accessibleRoleDescriptionProperty, accessibleRoleProperty, accessibleTextProperty, blendModeProperty, boundsInLocalProperty, boundsInParentProperty, cacheHintProperty, cacheProperty, clipProperty, cursorProperty, depthTestProperty, disabledProperty, disableProperty, effectiveNodeOrientationProperty, effectProperty, eventDispatcherProperty, focusedProperty, focusTraversableProperty, hoverProperty, idProperty, impl_showMnemonicsProperty, impl_treeVisibleProperty, inputMethodRequestsProperty, layoutBoundsProperty, layoutXProperty, layoutYProperty, localToParentTransformProperty, localToSceneTransformProperty, managedProperty, mouseTransparentProperty, nodeOrientationProperty, onContextMenuRequestedProperty, onDragDetectedProperty, onDragDoneProperty, onDragDroppedProperty, onDragEnteredProperty, onDragExitedProperty, onDragOverProperty, onInputMethodTextChangedProperty, onKeyPressedProperty, onKeyReleasedProperty, onKeyTypedProperty, onMouseClickedProperty, onMouseDragEnteredProperty, onMouseDragExitedProperty, onMouseDraggedProperty, onMouseDragOverProperty, onMouseDragReleasedProperty, onMouseEnteredProperty, onMouseExitedProperty, onMouseMovedProperty, onMousePressedProperty, onMouseReleasedProperty, onRotateProperty, onRotationFinishedProperty, onRotationStartedProperty, onScrollFinishedProperty, onScrollProperty, onScrollStartedProperty, onSwipeDownProperty, onSwipeLeftProperty, onSwipeRightProperty, onSwipeUpProperty, onTouchMovedProperty, onTouchPressedProperty, onTouchReleasedProperty, onTouchStationaryProperty, onZoomFinishedProperty, onZoomProperty, onZoomStartedProperty, opacityProperty, parentProperty, pickOnBoundsProperty, pressedProperty, rotateProperty, rotationAxisProperty, scaleXProperty, scaleYProperty, scaleZProperty, sceneProperty, styleProperty, translateXProperty, translateYProperty, translateZProperty, visibleProperty</code></li>
-</ul>
-</li>
-</ul>
-<!-- =========== FIELD SUMMARY =========== -->
-<ul class="blockList">
-<li class="blockList"><a name="field.summary">
-<!--   -->
-</a>
-<h3>Field Summary</h3>
-<ul class="blockList">
-<li class="blockList"><a name="fields.inherited.from.class.javafx.scene.Node">
-<!--   -->
-</a>
-<h3>Fields inherited from class&nbsp;javafx.scene.Node</h3>
-<code>BASELINE_OFFSET_SAME_AS_HEIGHT</code></li>
-</ul>
-</li>
-</ul>
-<!-- ======== CONSTRUCTOR SUMMARY ======== -->
-<ul class="blockList">
-<li class="blockList"><a name="constructor.summary">
-<!--   -->
-</a>
-<h3>Constructor Summary</h3>
-<table class="memberSummary" border="0" cellpadding="3" cellspacing="0" summary="Constructor Summary table, listing constructors, and an explanation">
-<caption><span>Constructors</span><span class="tabEnd">&nbsp;</span></caption>
-<tr>
-<th class="colOne" scope="col">Constructor and Description</th>
-</tr>
-<tr class="altColor">
-<td class="colOne"><code><span class="memberNameLink"><a href="../../../../../io/github/mountainrange/mule/gameplay/Tile.html#Tile-io.github.mountainrange.mule.enums.TerrainType-">Tile</a></span>(<a href="../../../../../io/github/mountainrange/mule/enums/TerrainType.html" title="enum in io.github.mountainrange.mule.enums">TerrainType</a>&nbsp;terrain)</code>
-<div class="block">Construct a tile with the given terrain with no mule installed and no owner.</div>
-</td>
-</tr>
-<tr class="rowColor">
-<td class="colOne"><code><span class="memberNameLink"><a href="../../../../../io/github/mountainrange/mule/gameplay/Tile.html#Tile-io.github.mountainrange.mule.enums.TerrainType-io.github.mountainrange.mule.enums.MuleType-io.github.mountainrange.mule.gameplay.Player-">Tile</a></span>(<a href="../../../../../io/github/mountainrange/mule/enums/TerrainType.html" title="enum in io.github.mountainrange.mule.enums">TerrainType</a>&nbsp;terrain,
-    <a href="../../../../../io/github/mountainrange/mule/enums/MuleType.html" title="enum in io.github.mountainrange.mule.enums">MuleType</a>&nbsp;mule,
-    <a href="../../../../../io/github/mountainrange/mule/gameplay/Player.html" title="class in io.github.mountainrange.mule.gameplay">Player</a>&nbsp;owner)</code>&nbsp;</td>
-</tr>
-</table>
-</li>
-</ul>
 <!-- ========== METHOD SUMMARY =========== -->
 <ul class="blockList">
 <li class="blockList"><a name="method.summary">
@@ -210,13 +119,13 @@ extends javafx.scene.Group</pre>
 </a>
 <h3>Method Summary</h3>
 <table class="memberSummary" border="0" cellpadding="3" cellspacing="0" summary="Method Summary table, listing methods, and an explanation">
-<caption><span id="t0" class="activeTableTab"><span>All Methods</span><span class="tabEnd">&nbsp;</span></span><span id="t2" class="tableTab"><span><a href="javascript:show(2);">Instance Methods</a></span><span class="tabEnd">&nbsp;</span></span><span id="t4" class="tableTab"><span><a href="javascript:show(8);">Concrete Methods</a></span><span class="tabEnd">&nbsp;</span></span></caption>
+<caption><span id="t0" class="activeTableTab"><span>All Methods</span><span class="tabEnd">&nbsp;</span></span><span id="t2" class="tableTab"><span><a href="javascript:show(2);">Instance Methods</a></span><span class="tabEnd">&nbsp;</span></span><span id="t3" class="tableTab"><span><a href="javascript:show(4);">Abstract Methods</a></span><span class="tabEnd">&nbsp;</span></span><span id="t5" class="tableTab"><span><a href="javascript:show(16);">Default Methods</a></span><span class="tabEnd">&nbsp;</span></span></caption>
 <tr>
 <th class="colFirst" scope="col">Modifier and Type</th>
 <th class="colLast" scope="col">Method and Description</th>
 </tr>
 <tr id="i0" class="altColor">
-<td class="colFirst"><code>boolean</code></td>
+<td class="colFirst"><code>default boolean</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../io/github/mountainrange/mule/gameplay/Tile.html#deepEquals-java.lang.Object-">deepEquals</a></span>(java.lang.Object&nbsp;other)</code>
 <div class="block">Check if a Tile has the same data as another tile, that is, if it has the same owner, terrain, and mule
  installed.</div>
@@ -227,78 +136,40 @@ extends javafx.scene.Group</pre>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../io/github/mountainrange/mule/gameplay/Tile.html#getMule--">getMule</a></span>()</code>&nbsp;</td>
 </tr>
 <tr id="i2" class="altColor">
-<td class="colFirst"><code><a href="../../../../../io/github/mountainrange/mule/enums/MuleType.html" title="enum in io.github.mountainrange.mule.enums">MuleType</a></code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../io/github/mountainrange/mule/gameplay/Tile.html#getMuleType--">getMuleType</a></span>()</code>&nbsp;</td>
+<td class="colFirst"><code><a href="../../../../../io/github/mountainrange/mule/gameplay/Player.html" title="class in io.github.mountainrange.mule.gameplay">Player</a></code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../io/github/mountainrange/mule/gameplay/Tile.html#getOwner--">getOwner</a></span>()</code>
+<div class="block">Returns this tile's owner</div>
+</td>
 </tr>
 <tr id="i3" class="rowColor">
-<td class="colFirst"><code><a href="../../../../../io/github/mountainrange/mule/gameplay/Player.html" title="class in io.github.mountainrange.mule.gameplay">Player</a></code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../io/github/mountainrange/mule/gameplay/Tile.html#getOwner--">getOwner</a></span>()</code>&nbsp;</td>
-</tr>
-<tr id="i4" class="altColor">
 <td class="colFirst"><code><a href="../../../../../io/github/mountainrange/mule/enums/TerrainType.html" title="enum in io.github.mountainrange.mule.enums">TerrainType</a></code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../io/github/mountainrange/mule/gameplay/Tile.html#getTerrain--">getTerrain</a></span>()</code>&nbsp;</td>
 </tr>
+<tr id="i4" class="altColor">
+<td class="colFirst"><code>default boolean</code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../io/github/mountainrange/mule/gameplay/Tile.html#hasOwner--">hasOwner</a></span>()</code>
+<div class="block">Returns if this tile has been claimed by a player yet.</div>
+</td>
+</tr>
 <tr id="i5" class="rowColor">
-<td class="colFirst"><code><a href="../../../../../io/github/mountainrange/mule/enums/TerrainType.html" title="enum in io.github.mountainrange.mule.enums">TerrainType</a></code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../io/github/mountainrange/mule/gameplay/Tile.html#getTerrainType--">getTerrainType</a></span>()</code>&nbsp;</td>
-</tr>
-<tr id="i6" class="altColor">
-<td class="colFirst"><code>int</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../io/github/mountainrange/mule/gameplay/Tile.html#hashCode--">hashCode</a></span>()</code>&nbsp;</td>
-</tr>
-<tr id="i7" class="rowColor">
-<td class="colFirst"><code>boolean</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../io/github/mountainrange/mule/gameplay/Tile.html#hasOwner--">hasOwner</a></span>()</code>&nbsp;</td>
-</tr>
-<tr id="i8" class="altColor">
 <td class="colFirst"><code>void</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../io/github/mountainrange/mule/gameplay/Tile.html#setMule-io.github.mountainrange.mule.enums.MuleType-">setMule</a></span>(<a href="../../../../../io/github/mountainrange/mule/enums/MuleType.html" title="enum in io.github.mountainrange.mule.enums">MuleType</a>&nbsp;mule)</code>&nbsp;</td>
 </tr>
-<tr id="i9" class="rowColor">
+<tr id="i6" class="altColor">
 <td class="colFirst"><code>void</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../io/github/mountainrange/mule/gameplay/Tile.html#setMuleDraw-io.github.mountainrange.mule.enums.MuleType-">setMuleDraw</a></span>(<a href="../../../../../io/github/mountainrange/mule/enums/MuleType.html" title="enum in io.github.mountainrange.mule.enums">MuleType</a>&nbsp;mule)</code>&nbsp;</td>
 </tr>
-<tr id="i10" class="altColor">
+<tr id="i7" class="rowColor">
 <td class="colFirst"><code>void</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../io/github/mountainrange/mule/gameplay/Tile.html#setMuleType-io.github.mountainrange.mule.enums.MuleType-">setMuleType</a></span>(<a href="../../../../../io/github/mountainrange/mule/enums/MuleType.html" title="enum in io.github.mountainrange.mule.enums">MuleType</a>&nbsp;mule)</code>&nbsp;</td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../io/github/mountainrange/mule/gameplay/Tile.html#setOwner-io.github.mountainrange.mule.gameplay.Player-">setOwner</a></span>(<a href="../../../../../io/github/mountainrange/mule/gameplay/Player.html" title="class in io.github.mountainrange.mule.gameplay">Player</a>&nbsp;owner)</code>
+<div class="block">Sets this tile's owner.</div>
+</td>
 </tr>
-<tr id="i11" class="rowColor">
-<td class="colFirst"><code>void</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../io/github/mountainrange/mule/gameplay/Tile.html#setOwner-io.github.mountainrange.mule.gameplay.Player-">setOwner</a></span>(<a href="../../../../../io/github/mountainrange/mule/gameplay/Player.html" title="class in io.github.mountainrange.mule.gameplay">Player</a>&nbsp;owner)</code>&nbsp;</td>
-</tr>
-<tr id="i12" class="altColor">
+<tr id="i8" class="altColor">
 <td class="colFirst"><code>void</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../io/github/mountainrange/mule/gameplay/Tile.html#setTerrain-io.github.mountainrange.mule.enums.TerrainType-">setTerrain</a></span>(<a href="../../../../../io/github/mountainrange/mule/enums/TerrainType.html" title="enum in io.github.mountainrange.mule.enums">TerrainType</a>&nbsp;terrain)</code>&nbsp;</td>
 </tr>
 </table>
-<ul class="blockList">
-<li class="blockList"><a name="methods.inherited.from.class.javafx.scene.Group">
-<!--   -->
-</a>
-<h3>Methods inherited from class&nbsp;javafx.scene.Group</h3>
-<code>autoSizeChildrenProperty, getChildren, impl_computeLayoutBounds, isAutoSizeChildren, layoutChildren, minHeight, minWidth, prefHeight, prefWidth, setAutoSizeChildren</code></li>
-</ul>
-<ul class="blockList">
-<li class="blockList"><a name="methods.inherited.from.class.javafx.scene.Parent">
-<!--   -->
-</a>
-<h3>Methods inherited from class&nbsp;javafx.scene.Parent</h3>
-<code>computeMinHeight, computeMinWidth, computePrefHeight, computePrefWidth, getBaselineOffset, getChildrenUnmodifiable, getImpl_traversalEngine, getManagedChildren, getStylesheets, impl_computeContains, impl_computeGeomBounds, impl_createPeer, impl_getAllParentStylesheets, impl_pickNodeLocal, impl_processCSS, impl_processMXNode, impl_traversalEngineProperty, impl_updatePeer, isNeedsLayout, layout, lookup, needsLayoutProperty, queryAccessibleAttribute, requestLayout, requestParentLayout, setImpl_traversalEngine, setNeedsLayout, updateBounds</code></li>
-</ul>
-<ul class="blockList">
-<li class="blockList"><a name="methods.inherited.from.class.javafx.scene.Node">
-<!--   -->
-</a>
-<h3>Methods inherited from class&nbsp;javafx.scene.Node</h3>
-<code>accessibleHelpProperty, accessibleRoleDescriptionProperty, accessibleRoleProperty, accessibleTextProperty, addEventFilter, addEventHandler, applyCss, autosize, blendModeProperty, boundsInLocalProperty, boundsInParentProperty, buildEventDispatchChain, cacheHintProperty, cacheProperty, clipProperty, computeAreaInScreen, contains, contains, containsBounds, cursorProperty, depthTestProperty, disabledProperty, disableProperty, effectiveNodeOrientationProperty, effectProperty, eventDispatcherProperty, executeAccessibleAction, fireEvent, focusedProperty, focusTraversableProperty, getAccessibleHelp, getAccessibleRole, getAccessibleRoleDescription, getAccessibleText, getBlendMode, getBoundsInLocal, getBoundsInParent, getCacheHint, getClassCssMetaData, getClip, getContentBias, getCssMetaData, getCursor, getDepthTest, getEffect, getEffectiveNodeOrientation, getEventDispatcher, getId, getInputMethodRequests, getLayoutBounds, getLayoutX, getLayoutY, getLocalToParentTransform, getLocalToSceneTransform, getNodeOrientation, getOnContextMenuRequested, getOnDragDetected, getOnDragDone, getOnDragDropped, getOnDragEntered, getOnDragExited, getOnDragOver, getOnInputMethodTextChanged, getOnKeyPressed, getOnKeyReleased, getOnKeyTyped, getOnMouseClicked, getOnMouseDragEntered, getOnMouseDragExited, getOnMouseDragged, getOnMouseDragOver, getOnMouseDragReleased, getOnMouseEntered, getOnMouseExited, getOnMouseMoved, getOnMousePressed, getOnMouseReleased, getOnRotate, getOnRotationFinished, getOnRotationStarted, getOnScroll, getOnScrollFinished, getOnScrollStarted, getOnSwipeDown, getOnSwipeLeft, getOnSwipeRight, getOnSwipeUp, getOnTouchMoved, getOnTouchPressed, getOnTouchReleased, getOnTouchStationary, getOnZoom, getOnZoomFinished, getOnZoomStarted, getOpacity, getParent, getProperties, getPseudoClassStates, getRotate, getRotationAxis, getScaleX, getScaleY, getScaleZ, getScene, getStyle, getStyleableParent, getStyleClass, getTransforms, getTranslateX, getTranslateY, getTranslateZ, getTypeSelector, getUserData, hasProperties, hoverProperty, idProperty, impl_clearDirty, impl_computeIntersects, impl_cssGetCursorInitialValue, impl_cssGetFocusTraversableInitialValue, impl_findStyles, impl_geomChanged, impl_getLeafTransform, impl_getMatchingStyles, impl_getPeer, impl_getPivotX, impl_getPivotY, impl_getPivotZ, impl_getStyleMap, impl_hasTransforms, impl_intersects, impl_intersectsBounds, impl_isDirty, impl_isDirtyEmpty, impl_isShowMnemonics, impl_isTreeVisible, impl_layoutBoundsChanged, impl_markDirty, impl_notifyLayoutBoundsChanged, impl_pickNode, impl_processCSS, impl_reapplyCSS, impl_setShowMnemonics, impl_setStyleMap, impl_showMnemonicsProperty, impl_syncPeer, impl_transformsChanged, impl_traverse, impl_treeVisibleProperty, inputMethodRequestsProperty, intersects, intersects, isCache, isDisable, isDisabled, isFocused, isFocusTraversable, isHover, isManaged, isMouseTransparent, isPickOnBounds, isPressed, isResizable, isVisible, layoutBoundsProperty, layoutXProperty, layoutYProperty, localToParent, localToParent, localToParent, localToParent, localToParent, localToParentTransformProperty, localToScene, localToScene, localToScene, localToScene, localToScene, localToScene, localToScene, localToScene, localToScene, localToScene, localToSceneTransformProperty, localToScreen, localToScreen, localToScreen, localToScreen, localToScreen, lookupAll, managedProperty, maxHeight, maxWidth, mouseTransparentProperty, nodeOrientationProperty, notifyAccessibleAttributeChanged, onContextMenuRequestedProperty, onDragDetectedProperty, onDragDoneProperty, onDragDroppedProperty, onDragEnteredProperty, onDragExitedProperty, onDragOverProperty, onInputMethodTextChangedProperty, onKeyPressedProperty, onKeyReleasedProperty, onKeyTypedProperty, onMouseClickedProperty, onMouseDragEnteredProperty, onMouseDragExitedProperty, onMouseDraggedProperty, onMouseDragOverProperty, onMouseDragReleasedProperty, onMouseEnteredProperty, onMouseExitedProperty, onMouseMovedProperty, onMousePressedProperty, onMouseReleasedProperty, onRotateProperty, onRotationFinishedProperty, onRotationStartedProperty, onScrollFinishedProperty, onScrollProperty, onScrollStartedProperty, onSwipeDownProperty, onSwipeLeftProperty, onSwipeRightProperty, onSwipeUpProperty, onTouchMovedProperty, onTouchPressedProperty, onTouchReleasedProperty, onTouchStationaryProperty, onZoomFinishedProperty, onZoomProperty, onZoomStartedProperty, opacityProperty, parentProperty, parentToLocal, parentToLocal, parentToLocal, parentToLocal, parentToLocal, pickOnBoundsProperty, pressedProperty, pseudoClassStateChanged, relocate, removeEventFilter, removeEventHandler, requestFocus, resize, resizeRelocate, rotateProperty, rotationAxisProperty, scaleXProperty, scaleYProperty, scaleZProperty, sceneProperty, sceneToLocal, sceneToLocal, sceneToLocal, sceneToLocal, sceneToLocal, sceneToLocal, sceneToLocal, sceneToLocal, screenToLocal, screenToLocal, screenToLocal, setAccessibleHelp, setAccessibleRole, setAccessibleRoleDescription, setAccessibleText, setBlendMode, setCache, setCacheHint, setClip, setCursor, setDepthTest, setDisable, setDisabled, setEffect, setEventDispatcher, setEventHandler, setFocused, setFocusTraversable, setHover, setId, setInputMethodRequests, setLayoutX, setLayoutY, setManaged, setMouseTransparent, setNodeOrientation, setOnContextMenuRequested, setOnDragDetected, setOnDragDone, setOnDragDropped, setOnDragEntered, setOnDragExited, setOnDragOver, setOnInputMethodTextChanged, setOnKeyPressed, setOnKeyReleased, setOnKeyTyped, setOnMouseClicked, setOnMouseDragEntered, setOnMouseDragExited, setOnMouseDragged, setOnMouseDragOver, setOnMouseDragReleased, setOnMouseEntered, setOnMouseExited, setOnMouseMoved, setOnMousePressed, setOnMouseReleased, setOnRotate, setOnRotationFinished, setOnRotationStarted, setOnScroll, setOnScrollFinished, setOnScrollStarted, setOnSwipeDown, setOnSwipeLeft, setOnSwipeRight, setOnSwipeUp, setOnTouchMoved, setOnTouchPressed, setOnTouchReleased, setOnTouchStationary, setOnZoom, setOnZoomFinished, setOnZoomStarted, setOpacity, setPickOnBounds, setPressed, setRotate, setRotationAxis, setScaleX, setScaleY, setScaleZ, setStyle, setTranslateX, setTranslateY, setTranslateZ, setUserData, setVisible, snapshot, snapshot, startDragAndDrop, startFullDrag, styleProperty, toBack, toFront, toString, translateXProperty, translateYProperty, translateZProperty, usesMirroring, visibleProperty</code></li>
-</ul>
-<ul class="blockList">
-<li class="blockList"><a name="methods.inherited.from.class.java.lang.Object">
-<!--   -->
-</a>
-<h3>Methods inherited from class&nbsp;java.lang.Object</h3>
-<code>clone, equals, finalize, getClass, notify, notifyAll, wait, wait, wait</code></li>
-</ul>
 </li>
 </ul>
 </li>
@@ -307,39 +178,6 @@ extends javafx.scene.Group</pre>
 <div class="details">
 <ul class="blockList">
 <li class="blockList">
-<!-- ========= CONSTRUCTOR DETAIL ======== -->
-<ul class="blockList">
-<li class="blockList"><a name="constructor.detail">
-<!--   -->
-</a>
-<h3>Constructor Detail</h3>
-<a name="Tile-io.github.mountainrange.mule.enums.TerrainType-">
-<!--   -->
-</a>
-<ul class="blockList">
-<li class="blockList">
-<h4>Tile</h4>
-<pre>public&nbsp;Tile(<a href="../../../../../io/github/mountainrange/mule/enums/TerrainType.html" title="enum in io.github.mountainrange.mule.enums">TerrainType</a>&nbsp;terrain)</pre>
-<div class="block">Construct a tile with the given terrain with no mule installed and no owner.</div>
-<dl>
-<dt><span class="paramLabel">Parameters:</span></dt>
-<dd><code>terrain</code> - type of terrain on the tile</dd>
-</dl>
-</li>
-</ul>
-<a name="Tile-io.github.mountainrange.mule.enums.TerrainType-io.github.mountainrange.mule.enums.MuleType-io.github.mountainrange.mule.gameplay.Player-">
-<!--   -->
-</a>
-<ul class="blockListLast">
-<li class="blockList">
-<h4>Tile</h4>
-<pre>public&nbsp;Tile(<a href="../../../../../io/github/mountainrange/mule/enums/TerrainType.html" title="enum in io.github.mountainrange.mule.enums">TerrainType</a>&nbsp;terrain,
-            <a href="../../../../../io/github/mountainrange/mule/enums/MuleType.html" title="enum in io.github.mountainrange.mule.enums">MuleType</a>&nbsp;mule,
-            <a href="../../../../../io/github/mountainrange/mule/gameplay/Player.html" title="class in io.github.mountainrange.mule.gameplay">Player</a>&nbsp;owner)</pre>
-</li>
-</ul>
-</li>
-</ul>
 <!-- ============ METHOD DETAIL ========== -->
 <ul class="blockList">
 <li class="blockList"><a name="method.detail">
@@ -352,7 +190,12 @@ extends javafx.scene.Group</pre>
 <ul class="blockList">
 <li class="blockList">
 <h4>hasOwner</h4>
-<pre>public&nbsp;boolean&nbsp;hasOwner()</pre>
+<pre>default&nbsp;boolean&nbsp;hasOwner()</pre>
+<div class="block">Returns if this tile has been claimed by a player yet.</div>
+<dl>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>true if this tile has an owner, false otherwise</dd>
+</dl>
 </li>
 </ul>
 <a name="getOwner--">
@@ -361,7 +204,12 @@ extends javafx.scene.Group</pre>
 <ul class="blockList">
 <li class="blockList">
 <h4>getOwner</h4>
-<pre>public&nbsp;<a href="../../../../../io/github/mountainrange/mule/gameplay/Player.html" title="class in io.github.mountainrange.mule.gameplay">Player</a>&nbsp;getOwner()</pre>
+<pre><a href="../../../../../io/github/mountainrange/mule/gameplay/Player.html" title="class in io.github.mountainrange.mule.gameplay">Player</a>&nbsp;getOwner()</pre>
+<div class="block">Returns this tile's owner</div>
+<dl>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>the tile's owner, or null if no owner.</dd>
+</dl>
 </li>
 </ul>
 <a name="setOwner-io.github.mountainrange.mule.gameplay.Player-">
@@ -370,7 +218,13 @@ extends javafx.scene.Group</pre>
 <ul class="blockList">
 <li class="blockList">
 <h4>setOwner</h4>
-<pre>public&nbsp;void&nbsp;setOwner(<a href="../../../../../io/github/mountainrange/mule/gameplay/Player.html" title="class in io.github.mountainrange.mule.gameplay">Player</a>&nbsp;owner)</pre>
+<pre>void&nbsp;setOwner(<a href="../../../../../io/github/mountainrange/mule/gameplay/Player.html" title="class in io.github.mountainrange.mule.gameplay">Player</a>&nbsp;owner)</pre>
+<div class="block">Sets this tile's owner.
+ This will overwrite any existing owner of this tile</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>owner</code> - The owner to set to</dd>
+</dl>
 </li>
 </ul>
 <a name="setMuleDraw-io.github.mountainrange.mule.enums.MuleType-">
@@ -379,34 +233,7 @@ extends javafx.scene.Group</pre>
 <ul class="blockList">
 <li class="blockList">
 <h4>setMuleDraw</h4>
-<pre>public&nbsp;void&nbsp;setMuleDraw(<a href="../../../../../io/github/mountainrange/mule/enums/MuleType.html" title="enum in io.github.mountainrange.mule.enums">MuleType</a>&nbsp;mule)</pre>
-</li>
-</ul>
-<a name="getTerrainType--">
-<!--   -->
-</a>
-<ul class="blockList">
-<li class="blockList">
-<h4>getTerrainType</h4>
-<pre>public&nbsp;<a href="../../../../../io/github/mountainrange/mule/enums/TerrainType.html" title="enum in io.github.mountainrange.mule.enums">TerrainType</a>&nbsp;getTerrainType()</pre>
-</li>
-</ul>
-<a name="getMuleType--">
-<!--   -->
-</a>
-<ul class="blockList">
-<li class="blockList">
-<h4>getMuleType</h4>
-<pre>public&nbsp;<a href="../../../../../io/github/mountainrange/mule/enums/MuleType.html" title="enum in io.github.mountainrange.mule.enums">MuleType</a>&nbsp;getMuleType()</pre>
-</li>
-</ul>
-<a name="setMuleType-io.github.mountainrange.mule.enums.MuleType-">
-<!--   -->
-</a>
-<ul class="blockList">
-<li class="blockList">
-<h4>setMuleType</h4>
-<pre>public&nbsp;void&nbsp;setMuleType(<a href="../../../../../io/github/mountainrange/mule/enums/MuleType.html" title="enum in io.github.mountainrange.mule.enums">MuleType</a>&nbsp;mule)</pre>
+<pre>void&nbsp;setMuleDraw(<a href="../../../../../io/github/mountainrange/mule/enums/MuleType.html" title="enum in io.github.mountainrange.mule.enums">MuleType</a>&nbsp;mule)</pre>
 </li>
 </ul>
 <a name="getTerrain--">
@@ -415,7 +242,7 @@ extends javafx.scene.Group</pre>
 <ul class="blockList">
 <li class="blockList">
 <h4>getTerrain</h4>
-<pre>public&nbsp;<a href="../../../../../io/github/mountainrange/mule/enums/TerrainType.html" title="enum in io.github.mountainrange.mule.enums">TerrainType</a>&nbsp;getTerrain()</pre>
+<pre><a href="../../../../../io/github/mountainrange/mule/enums/TerrainType.html" title="enum in io.github.mountainrange.mule.enums">TerrainType</a>&nbsp;getTerrain()</pre>
 </li>
 </ul>
 <a name="setTerrain-io.github.mountainrange.mule.enums.TerrainType-">
@@ -424,7 +251,7 @@ extends javafx.scene.Group</pre>
 <ul class="blockList">
 <li class="blockList">
 <h4>setTerrain</h4>
-<pre>public&nbsp;void&nbsp;setTerrain(<a href="../../../../../io/github/mountainrange/mule/enums/TerrainType.html" title="enum in io.github.mountainrange.mule.enums">TerrainType</a>&nbsp;terrain)</pre>
+<pre>void&nbsp;setTerrain(<a href="../../../../../io/github/mountainrange/mule/enums/TerrainType.html" title="enum in io.github.mountainrange.mule.enums">TerrainType</a>&nbsp;terrain)</pre>
 </li>
 </ul>
 <a name="getMule--">
@@ -433,7 +260,7 @@ extends javafx.scene.Group</pre>
 <ul class="blockList">
 <li class="blockList">
 <h4>getMule</h4>
-<pre>public&nbsp;<a href="../../../../../io/github/mountainrange/mule/enums/MuleType.html" title="enum in io.github.mountainrange.mule.enums">MuleType</a>&nbsp;getMule()</pre>
+<pre><a href="../../../../../io/github/mountainrange/mule/enums/MuleType.html" title="enum in io.github.mountainrange.mule.enums">MuleType</a>&nbsp;getMule()</pre>
 </li>
 </ul>
 <a name="setMule-io.github.mountainrange.mule.enums.MuleType-">
@@ -442,16 +269,16 @@ extends javafx.scene.Group</pre>
 <ul class="blockList">
 <li class="blockList">
 <h4>setMule</h4>
-<pre>public&nbsp;void&nbsp;setMule(<a href="../../../../../io/github/mountainrange/mule/enums/MuleType.html" title="enum in io.github.mountainrange.mule.enums">MuleType</a>&nbsp;mule)</pre>
+<pre>void&nbsp;setMule(<a href="../../../../../io/github/mountainrange/mule/enums/MuleType.html" title="enum in io.github.mountainrange.mule.enums">MuleType</a>&nbsp;mule)</pre>
 </li>
 </ul>
 <a name="deepEquals-java.lang.Object-">
 <!--   -->
 </a>
-<ul class="blockList">
+<ul class="blockListLast">
 <li class="blockList">
 <h4>deepEquals</h4>
-<pre>public&nbsp;boolean&nbsp;deepEquals(java.lang.Object&nbsp;other)</pre>
+<pre>default&nbsp;boolean&nbsp;deepEquals(java.lang.Object&nbsp;other)</pre>
 <div class="block">Check if a Tile has the same data as another tile, that is, if it has the same owner, terrain, and mule
  installed.</div>
 <dl>
@@ -459,19 +286,6 @@ extends javafx.scene.Group</pre>
 <dd><code>other</code> - tile to compare to</dd>
 <dt><span class="returnLabel">Returns:</span></dt>
 <dd>whether other is equal to this tile</dd>
-</dl>
-</li>
-</ul>
-<a name="hashCode--">
-<!--   -->
-</a>
-<ul class="blockListLast">
-<li class="blockList">
-<h4>hashCode</h4>
-<pre>public&nbsp;int&nbsp;hashCode()</pre>
-<dl>
-<dt><span class="overrideSpecifyLabel">Overrides:</span></dt>
-<dd><code>hashCode</code>&nbsp;in class&nbsp;<code>java.lang.Object</code></dd>
 </dl>
 </li>
 </ul>
@@ -503,7 +317,7 @@ extends javafx.scene.Group</pre>
 <div class="subNav">
 <ul class="navList">
 <li><a href="../../../../../io/github/mountainrange/mule/gameplay/Shop.html" title="class in io.github.mountainrange.mule.gameplay"><span class="typeNameLink">Prev&nbsp;Class</span></a></li>
-<li><a href="../../../../../io/github/mountainrange/mule/gameplay/VisualGrid.html" title="class in io.github.mountainrange.mule.gameplay"><span class="typeNameLink">Next&nbsp;Class</span></a></li>
+<li><a href="../../../../../io/github/mountainrange/mule/gameplay/WorldMap.html" title="class in io.github.mountainrange.mule.gameplay"><span class="typeNameLink">Next&nbsp;Class</span></a></li>
 </ul>
 <ul class="navList">
 <li><a href="../../../../../index.html?io/github/mountainrange/mule/gameplay/Tile.html" target="_top">Frames</a></li>
@@ -528,14 +342,14 @@ extends javafx.scene.Group</pre>
 <ul class="subNavList">
 <li>Summary:&nbsp;</li>
 <li>Nested&nbsp;|&nbsp;</li>
-<li><a href="#fields.inherited.from.class.javafx.scene.Node">Field</a>&nbsp;|&nbsp;</li>
-<li><a href="#constructor.summary">Constr</a>&nbsp;|&nbsp;</li>
+<li>Field&nbsp;|&nbsp;</li>
+<li>Constr&nbsp;|&nbsp;</li>
 <li><a href="#method.summary">Method</a></li>
 </ul>
 <ul class="subNavList">
 <li>Detail:&nbsp;</li>
 <li>Field&nbsp;|&nbsp;</li>
-<li><a href="#constructor.detail">Constr</a>&nbsp;|&nbsp;</li>
+<li>Constr&nbsp;|&nbsp;</li>
 <li><a href="#method.detail">Method</a></li>
 </ul>
 </div>

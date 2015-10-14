@@ -2,4 +2,5 @@ io.github.mountainrange.mule
 io.github.mountainrange.mule.controllers
 io.github.mountainrange.mule.enums
 io.github.mountainrange.mule.gameplay
+io.github.mountainrange.mule.gameplay.javafx
 io.github.mountainrange.mule.managers
