@@ -21,7 +21,7 @@
                   <Slider fx:id="diffSlider" blockIncrement="1.0" majorTickUnit="1.0" max="3.0" maxWidth="-Infinity" minorTickCount="0" onMouseReleased="#handleDiffAction" prefWidth="300.0" showTickLabels="true" showTickMarks="true" snapToTicks="true" />
                </children>
             </VBox>
-            <GridPane maxWidth="-Infinity" prefWidth="250.0">
+            <GridPane maxWidth="-Infinity" prefHeight="30.0" prefWidth="273.0">
                <children>
                   <ComboBox fx:id="gameTypeCombo" onAction="#handleGameTypeAction" prefWidth="150.0" GridPane.columnIndex="1" />
                   <Label text="Game Type">
