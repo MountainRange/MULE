@@ -154,10 +154,14 @@ public class WorldMap implements Iterable<Tile> {
 	public boolean selectRel(int xmove, int ymove) {
 		int newposx = map.getCursorX() + xmove;
 		int newposy = map.getCursorY() + ymove;
-		if (newposx < 0 || newposy < 0 || newposx >= map.getCols()
-				|| newposy >= map.getRows()) {
-			System.out.println("Cannot select off map");
-			return false;
+		if (newposx < 0) {
+			newposx = map.getCols() - 1;
+		} else if (newposy < 0) {
+			newposy = map.getRows() - 1;
+		} else if (newposx >= map.getCols()) {
+			newposx = 0;
+		} else if (newposy >= map.getRows()) {
+			newposy = 0;
 		}
 		map.select(newposx, newposy);
 		return true;
