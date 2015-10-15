@@ -33,7 +33,7 @@ public class WorldMap implements Iterable<Tile> {
 		}
 	}
 
-	public WorldMap(Grid g, MapType mType, List<Player> playerList) {
+	public WorldMap(Grid<VisualTile> g, MapType mType, List<Player> playerList) {
 		this(g, mType);
 
 		productionTiles = new HashMap<>();
@@ -73,6 +73,16 @@ public class WorldMap implements Iterable<Tile> {
 		return productionTiles.get(player).values().stream()
 				.flatMap(Set::stream)
 				.collect(Collectors.toCollection(HashSet::new));
+	}
+
+	/**
+	 * Count the number of tiles owned by the given player with the given MULE installed.
+	 * @param player player who owns the tiles
+	 * @param mule mule installed on the tiles
+	 * @return number of tiles that the player owns with the mule installed
+	 */
+	public int countTilesWithMule(Player player, MuleType mule) {
+		return productionTiles.get(player).get(mule).size();
 	}
 
 	/**
