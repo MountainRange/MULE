@@ -1,5 +1,6 @@
 package io.github.mountainrange.mule.controllers;
 
+import io.github.mountainrange.mule.Config;
 import io.github.mountainrange.mule.GameManager;
 import io.github.mountainrange.mule.MULE;
 import io.github.mountainrange.mule.SceneLoader;
@@ -40,8 +41,8 @@ public class PlayController implements Initializable, SceneAgent {
 
 	@Override
 	public void initialize(URL url, ResourceBundle rb) {
-		g = new VisualGrid(9, 5, MapType.CLASSIC, MapSize.ALPS, mapPane);
-		map = new WorldMap(g, MapType.CLASSIC);
+		g = new VisualGrid(9, 5, Config.getInstance().mapType, MapSize.ALPS, mapPane);
+		map = new WorldMap(g, Config.getInstance().mapType);
 	}
 
 	public void setSceneParent(SceneLoader sceneLoader, MULE mule){

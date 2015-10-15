@@ -34,7 +34,7 @@ public abstract class Grid<T extends Tile> implements Iterable<Tile> {
 
 		grid = (T[][]) Array.newInstance(VisualTile.class, this.cols, this.rows);
 
-		if (m.map.length <= 0 || grid.length != m.map[0].length || grid[0].length != m.map.length) {
+		if (m.getMap().length <= 0 || grid.length != m.getMap()[0].length || grid[0].length != m.getMap().length) {
 			throw new IllegalArgumentException("Mismatch detected betwen grid size and m.map size!");
 		}
 

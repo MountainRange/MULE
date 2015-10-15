@@ -21,7 +21,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 /**
- * Created by Matthew Keezer on 9/9/2015.
+ * A controller to manage Game config
  */
 public class GameConfigController implements Initializable, SceneAgent {
 
