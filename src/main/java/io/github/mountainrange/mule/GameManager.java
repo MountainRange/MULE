@@ -254,7 +254,10 @@ public class GameManager {
 		if (!sceneLoader.getCurrentScene().equals(MULE.PLAY_SCENE)) {
 			sceneLoader.setScene(MULE.PLAY_SCENE);
 		}
+		// Stop the ticking turn timer
 		timerTimeline.stop();
+		// Clear the player's MULE, if the player is carrying one
+		turnOrder.get(currentPlayerNum).setMule(null);
 		currentPlayerNum = (currentPlayerNum + 1) % config.numOfPlayers;
 
 		resetTimer();
