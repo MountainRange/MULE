@@ -64,7 +64,6 @@ public class GameManager {
 		this.turnLabel = turnLabel;
 
 		config = Config.getInstance();
-		productionManager = new ProductionManager(map);
 		playerList = new ArrayList<>(Arrays.asList(config.playerList).subList(0, config.numOfPlayers));
 		buyers = new ArrayList<>();
 		turnOrder = new ArrayList<>(playerList);
@@ -245,9 +244,6 @@ public class GameManager {
 		} else if (phaseCount == 1) {
 			normalPhase();
 		}
-
-		foodRequired = ProductionManager.foodUsage(roundCount);
-		System.out.println("Food required: " + foodRequired);
 	}
 
 	/**
