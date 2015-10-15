@@ -1,13 +1,14 @@
 package io.github.mountainrange.mule.managers;
 
+import io.github.mountainrange.mule.enums.MuleType;
 import io.github.mountainrange.mule.enums.ResourceType;
 import io.github.mountainrange.mule.enums.TerrainType;
 import io.github.mountainrange.mule.gameplay.Player;
 import io.github.mountainrange.mule.gameplay.ProductionResult;
+import io.github.mountainrange.mule.gameplay.Tile;
 import io.github.mountainrange.mule.gameplay.WorldMap;
 
-import java.util.EnumMap;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Responsible for computing production, spoilage, etc.
@@ -16,8 +17,57 @@ public class ProductionManager {
 
 	private static final EnumMap<TerrainType, EnumMap<ResourceType, Integer>> BASE_PRODUCTION;
 
-	public static Map<Player, EnumMap<ResourceType, ProductionResult>> calculateProduction(WorldMap map, int round) {
-		return null;
+	/**
+	 * Calculate production for the given players on the given map on the given round number.
+	 * @param map map to calculate production on
+	 * @param playerList list of players to calculate production for
+	 * @param round round number (affects food requirement)
+	 * @return map from players to production results for each resource
+	 */
+	public static Map<Player, EnumMap<ResourceType, ProductionResult>> calculateProduction(WorldMap map, List<Player>
+			playerList, int round) {
+		if (round < 0) {
+			String msg = String.format("Can't calculate production for round %d: negative round", round);
+			throw new IllegalArgumentException(msg);
+		}
+
+		Map<Player, EnumMap<ResourceType, ProductionResult>> productionResult = new HashMap<>();
+
+		for (Player player : playerList) {
+			EnumMap<ResourceType, ProductionResult> playerProduction = new EnumMap<>(ResourceType.class);
+			for (ResourceType resource : ResourceType.values()) {
+				int usage = usageOf(resource, player, map, round);
+				int requirement = usageOf(resource, player, map, round + 1);
+				int spoilage = spoilageOf(resource, player.stockOf(resource), requirement);
+
+				int production = 0;
+				Set<Tile> producingTiles = map.tilesWithMule(player, resource.producedBy);
+				for (Tile tile : producingTiles) {
+					production += baseProductionOf(tile.getTerrain(), resource);
+				}
+
+				// TODO: Economies of scale and learning curve bonuses
+				ProductionResult resourceProduction = new ProductionResult(usage, spoilage, production, requirement);
+				playerProduction.put(resource, resourceProduction);
+			}
+			productionResult.put(player, playerProduction);
+		}
+
+		return productionResult;
+	}
+
+	private static int usageOf(ResourceType resource, Player player, WorldMap map, int round) {
+		if (resource == ResourceType.FOOD) {
+			// Food usage starts at 3 and increases every 4 turns
+			return round / 4 + 3;
+		} else if (resource == ResourceType.ENERGY) {
+			// Energy used depends on number of food, smithore, and crystite MULEs installed
+			return map.countTilesWithMule(player, MuleType.FOOD_MULE) + map.countTilesWithMule(player,
+					MuleType.SMITHORE_MULE) + map.countTilesWithMule(player, MuleType.CRYSTITE_MULE);
+		}
+
+		// No smithore or crystite is used for upkeep
+		return 0;
 	}
 
 	/**
@@ -45,16 +95,13 @@ public class ProductionManager {
 	}
 
 	/**
-	 * Get the amount of food required for each player on the given turn. Food usage starts at 3 on turn 0 and increases
-	 * by 1 every 4 turns.
-	 * @param turn turn to calculate food usage
-	 * @return food usage on the given turn
+	 * Get the base quantity of the given resource produced on the given terrain.
+	 * @param terrain terrain to get base production
+	 * @param resource resource to get base production
+	 * @return base production of the given resource on the given terrain
 	 */
-	public static int foodUsage(int turn) {
-		if (turn < 0) {
-			throw new IllegalArgumentException(String.format("Can't get food usage for turn %d: negative turn", turn));
-		}
-		return turn / 4 + 3;
+	private static int baseProductionOf(TerrainType terrain, ResourceType resource) {
+		return BASE_PRODUCTION.get(terrain).get(resource);
 	}
 
 	/**
