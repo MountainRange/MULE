@@ -2,9 +2,12 @@ package io.github.mountainrange.mule.managers;
 
 import io.github.mountainrange.mule.enums.ResourceType;
 import io.github.mountainrange.mule.enums.TerrainType;
+import io.github.mountainrange.mule.gameplay.Player;
+import io.github.mountainrange.mule.gameplay.ProductionResult;
 import io.github.mountainrange.mule.gameplay.WorldMap;
 
 import java.util.EnumMap;
+import java.util.Map;
 
 /**
  * Responsible for computing production, spoilage, etc.
@@ -12,21 +15,33 @@ import java.util.EnumMap;
 public class ProductionManager {
 
 	private static final EnumMap<TerrainType, EnumMap<ResourceType, Integer>> BASE_PRODUCTION;
-	private static final EnumMap<ResourceType, Double> SPOILAGE_RATIOS;
 
-	private WorldMap map;
-
-	public ProductionManager(WorldMap map) {
-		this.map = map;
+	public static Map<Player, EnumMap<ResourceType, ProductionResult>> calculateProduction(WorldMap map, int round) {
+		return null;
 	}
 
 	/**
-	 * Get the percentage of a player's stock of a given resource that <em>doesn't</em> spoil each turn.
-	 * @param resource resource to get the spoilage ratio of
-	 * @return spoilage ratio of the given resource
+	 * Return the quantity of the given resource that spoils.
+	 * @param resource resource to calculate spoilage of
+	 * @param quantity amount of resource before spoilage
+	 * @return how many units of the given resource spoil
 	 */
-	public static double spoilageRatioOf(ResourceType resource) {
-		return SPOILAGE_RATIOS.get(resource);
+	private static int spoilageOf(ResourceType resource, int quantity, int requirement) {
+		if (resource == ResourceType.FOOD) {
+			if (quantity > requirement + 1) {
+				// Half the food spoils if there is more than requirement + 1 food
+				return quantity / 2;
+			} else {
+				// No food spoils if there is less than requirement + 1 food
+				return 0;
+			}
+		} else if (resource == ResourceType.ENERGY) {
+			// One quarter of energy spoils
+			return quantity / 4;
+		}
+
+		// Smithore and crystite only spoil if there are more than 50 units
+		return Math.max(quantity - 50, 0);
 	}
 
 	/**
@@ -59,14 +74,6 @@ public class ProductionManager {
 	}
 
 	static {
-		// Hard-coded spoilage ratios from turn to turn
-		SPOILAGE_RATIOS = new EnumMap<>(ResourceType.class);
-
-		SPOILAGE_RATIOS.put(ResourceType.FOOD, 0.5);
-		SPOILAGE_RATIOS.put(ResourceType.ENERGY, 0.75);
-		SPOILAGE_RATIOS.put(ResourceType.SMITHORE, 0.0);
-		SPOILAGE_RATIOS.put(ResourceType.CRYSTITE, 0.0);
-
 		// Hard-coded base production quantities for each terrain type and resource
 		BASE_PRODUCTION = new EnumMap<>(TerrainType.class);
 
