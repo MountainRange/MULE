@@ -53,8 +53,8 @@ GH_EMAIL_VAR="GH_EMAIL"
 # for caching on their servers
 # YOU MUST USE ~ IN YOUR PATH (NO $HOME), SO WE KNOW WHERE TO LINK TO INSIDE THE CONTAINER.
 # This directory MUST BE ADDED TO circle.yml AS WELL IN ORDER FOR ACTUAL CACHING TO TAKE PLACE
-CACHE_DIRECTORIES=()
-CACHE_DIRECTORIES+=('./build')
+# CACHE_DIRECTORIES=()
+# CACHE_DIRECTORIES+=('./build')
 
 
 ################################# COMMANDS #####################################
@@ -84,12 +84,14 @@ TEST_COMMANDS+=( './gradlew jacocoTestReport coveralls;coverage;A test to check 
 # @RECCOMENDED
 # Clean command. Cleans the build files so there is no way the previous build can interfere. Add if you run
 # into issues
-# CLEAN_COMMAND="./gradlew clean || true"
+# CLEAN_COMMAND="rm -rf ./build/*"
 # Other options are `gradle clean`, `mvn clean`, or `rm -rf build`
 
 # Environmental variables to make available to the build environment
 ENV_VARS=()
 ENV_VARS+=("GH_TOKEN")  # To be used by autoupdating script
+ENV_VARS+=("GH_NAME")  # To be used by autoupdating script
+ENV_VARS+=("GH_EMAIL")  # To be used by autoupdating script
 # Coveralls
 ENV_VARS+=("COVERALLS_REPO_TOKEN")
 ENV_VARS+=("CIRCLE_BUILD_NUM")

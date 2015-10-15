@@ -1,11 +1,14 @@
-package io.github.mountainrange.mule.gameplay;
+package io.github.mountainrange.mule.gameplay.javafx;
 
 import io.github.mountainrange.mule.enums.MapSize;
 import io.github.mountainrange.mule.enums.MapType;
 
+import io.github.mountainrange.mule.gameplay.Grid;
+import io.github.mountainrange.mule.gameplay.Tile;
 import javafx.animation.Interpolator;
 import javafx.animation.PathTransition;
 import javafx.geometry.Point2D;
+import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
@@ -15,8 +18,6 @@ import javafx.scene.shape.Path;
 import javafx.scene.shape.Rectangle;
 import javafx.util.Duration;
 
-import javax.swing.*;
-
 /**
  * A class to represent a scalable Grid in javafx.
  * Needs a pane to draw the grid to.
@@ -25,7 +26,7 @@ import javax.swing.*;
  * @version 1.0
  *
  */
-public class VisualGrid extends Grid {
+public class VisualGrid<T extends Group & Tile> extends Grid<T> {
 	private Pane upperPane;
 	private Rectangle selectionRect;
 
@@ -53,7 +54,7 @@ public class VisualGrid extends Grid {
 		super(cols, rows, mapType, mapSize);
 		this.upperPane = upperPane;
 
-		// Loads existing tiles in, and other stuff.
+		// Loads existing grid in, and other stuff.
 		resetGrid();
 	}
 
@@ -86,10 +87,10 @@ public class VisualGrid extends Grid {
 			upperPane.getChildren().add(toAdd);
 		}
 
-		for (int i = 0; i < tiles.length; i++) {
-			for (int j = 0; j < tiles[0].length; j ++) {
-				if (tiles[i][j] != null) {
-					this.add(tiles[i][j], i, j);
+		for (int i = 0; i < grid.length; i++) {
+			for (int j = 0; j < grid[0].length; j ++) {
+				if (grid[i][j] != null) {
+					this.add(grid[i][j], i, j);
 				}
 			}
 		}
@@ -114,8 +115,15 @@ public class VisualGrid extends Grid {
 	 *
 	 * Will overwrite any existing element in the grid.
 	 */
-	public void add(Tile toAdd, int column, int row) {
+	public void add(T toAdd, int column, int row) {
+		if (!(toAdd instanceof VisualTile)) {
+			throw new IllegalArgumentException("You cannot use non-visual tiles with VisualGrid!");
+		}
+
 		super.add(toAdd, column, row);
+
+		toAdd.maxHeight(1);
+		toAdd.maxWidth(1);
 
 		this.bindToGrid(toAdd, column, row);
 		upperPane.getChildren().add(toAdd);
@@ -124,8 +132,8 @@ public class VisualGrid extends Grid {
 	/**
 	 * Removes a node from a selected row/column
 	 */
-	public Tile remove(int column, int row) {
-		Tile toReturn = super.remove(column, row);
+	public T remove(int column, int row) {
+		T toReturn = super.remove(column, row);
 		if (toReturn != null) {
 			upperPane.getChildren().remove(toReturn);
 		}
@@ -141,6 +149,15 @@ public class VisualGrid extends Grid {
 			upperPane.getChildren().remove(selectionRect);
 			selectionRect = null;
 		}
+	}
+
+	@Override
+	public void addToTile(Object toAdd, int column, int row) {
+		if (!(toAdd instanceof Node && toAdd instanceof Tile)) {
+			throw new IllegalArgumentException("You cannot add non-visual elements to a VisualGrid Tile");
+		}
+
+		((T)grid[column][row]).getChildren().add((T) toAdd);
 	}
 
 	/**
@@ -168,7 +185,7 @@ public class VisualGrid extends Grid {
 		super.move(columnFrom, rowFrom, columnTo, rowTo);
 
 		// Find the node to animate (has already been moved)
-		Tile toAnimate = tiles[columnTo][rowTo];
+		T toAnimate = grid[columnTo][rowTo];
 
 		toAnimate.layoutXProperty().unbind();
 		toAnimate.layoutYProperty().unbind();
@@ -202,7 +219,7 @@ public class VisualGrid extends Grid {
 
 	@Override
 	public boolean isInside(Point2D toCheck, int column, int row) {
-		Tile tile = tiles[column][row];
+		T tile = grid[column][row];
 		Rectangle r = new Rectangle(tile.getLayoutX() - tile.getScaleX() / 2,
 				tile.getLayoutY() - tile.getScaleY() / 2,
 				tile.getScaleX(), tile.getScaleY());

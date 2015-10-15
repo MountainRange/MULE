@@ -26,7 +26,6 @@ public class KeyManagerTest {
 	@Before
 	public void setup() {
 		// Run for every test.
-		System.out.println("clearing");
 		this.keyManager = new KeyBindManager(false);
 	}
 

@@ -12,6 +12,9 @@ apply plugin: 'application';
 sourceCompatibility = 1.8;
 mainClassName = "io.github.mountainrange.mule.MULE";
 
+wrapper {
+	gradleVersion = '2.8-rc-1';
+}
 
 repositories {
 	mavenCentral();
@@ -19,9 +22,9 @@ repositories {
 
 
 dependencies {
-    compile group: 'commons-collections', name: 'commons-collections', version: '3.2';
-    compile group: 'io.github.jgkamat.JayLayer', name: 'JayLayer', version: '[4.0,)';
-    testCompile group: 'junit', name: 'junit', version: '[4.0,)';
+	compile group: 'commons-collections', name: 'commons-collections', version: '3.2';
+	compile group: 'io.github.jgkamat.JayLayer', name: 'JayLayer', version: '[4.0,)';
+	testCompile group: 'junit', name: 'junit', version: '[4.0,)';
 }
 
 jar {
@@ -34,13 +37,17 @@ jar {
 	from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
 }
 
+javadoc {
+	options.noTimestamp = true;
+}
+
 jacoco {
-    applyTo run
+	applyTo run
 }
 
 jacocoTestReport {
-    reports {
-        xml.enabled = true // coveralls plugin depends on xml format report
-        html.enabled = true
-    }
+	reports {
+		xml.enabled = true // coveralls plugin depends on xml format report;
+		html.enabled = true
+	}
 }
