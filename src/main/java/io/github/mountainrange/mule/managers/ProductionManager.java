@@ -143,7 +143,7 @@ public class ProductionManager {
 	 * @param max upper bound
 	 * @return quantity bounded by min and max
 	 */
-	protected int bound(int quantity, int min, int max) {
+	protected static int bound(int quantity, int min, int max) {
 		if (min > max) {
 			String msg = String.format("Can't bound %d by %d and %d: min > max", quantity, min, max);
 			throw new IllegalArgumentException(msg);

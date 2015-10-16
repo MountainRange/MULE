@@ -30,7 +30,6 @@ public class GameManager {
 	private List<Player> turnOrder;
 
 	private Config config;
-	private ProductionManager productionManager;
 	private SceneLoader sceneLoader;
 	private Shop shop;
 	private WorldMap map;
