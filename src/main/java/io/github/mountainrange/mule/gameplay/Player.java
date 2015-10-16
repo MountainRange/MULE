@@ -74,7 +74,9 @@ public class Player {
 	}
 
 	public void addStock(ResourceType resource, int quantity) {
-		stocks.put(resource, stocks.get(resource) + quantity);
+		if (resource != null) {
+			stocks.put(resource, stocks.get(resource) + quantity);
+		}
 	}
 
 	public int getId() {

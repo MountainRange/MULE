@@ -1,6 +1,7 @@
 package io.github.mountainrange.mule.gameplay;
 
 import io.github.mountainrange.mule.enums.MuleType;
+import io.github.mountainrange.mule.enums.ResourceType;
 import io.github.mountainrange.mule.enums.TerrainType;
 
 import java.util.Objects;
@@ -78,5 +79,9 @@ s	 */
 		hash = (hash << 8) ^ terrain.ordinal();
 		hash = (hash << 8) ^ mule.ordinal();
 		return hash;
+	}
+
+	@Override
+	public void produce() {
 	}
 }
