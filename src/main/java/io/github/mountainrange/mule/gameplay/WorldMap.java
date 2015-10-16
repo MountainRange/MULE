@@ -14,9 +14,9 @@ import java.util.*;
 public class WorldMap implements Iterable<Tile> {
 
 	private Grid<VisualTile> map;
-	private Map<Player, Set<VisualTile>> ownedTiles;
+	private Map<Player, Set<Tile>> ownedTiles;
 
-	public WorldMap(Grid g, MapType mType) {
+	public WorldMap(Grid<VisualTile> g, MapType mType) {
 		this.map = g;
 
 		ownedTiles = new HashMap<>();
@@ -33,6 +33,7 @@ public class WorldMap implements Iterable<Tile> {
 	public WorldMap(Grid g, MapType mType, List<Player> playerList) {
 		this(g, mType);
 
+		ownedTiles = new HashMap<>();
 		for (Player p : playerList) {
 			ownedTiles.put(p, new HashSet<>());
 		}
@@ -58,7 +59,7 @@ public class WorldMap implements Iterable<Tile> {
 	 * @param player player to get owned grid
 	 * @return unmodifiable set with grid owned by the given player
 	 */
-	public Set<VisualTile> landOwnedBy(Player player) {
+	public Set<Tile> landOwnedBy(Player player) {
 		return Collections.unmodifiableSet(ownedTiles.getOrDefault(player, new HashSet<>()));
 	}
 
@@ -83,17 +84,20 @@ public class WorldMap implements Iterable<Tile> {
 	}
 
 	/**
-	 * Set the player's mule at a given tile
+	 * Places a MULE for the given player on the given tile. Placing fails if the given player does not actually own the
+	 * given tile, the player is not carrying a MULE, or the player is carrying a MULE that has not been outfitted.
 	 * @param player player to get mule from
 	 * @param tile tile to set mule
 	 * @return whether the mule was placed
 	 */
-	public boolean setMule(Player player, VisualTile tile) {
-		if (tile.getOwner() != player || tile.getMule() != MuleType.EMPTY) {
+	public boolean placeMule(Player player, Tile tile) {
+		if (tile.getOwner() != player || !player.hasMule() || player.getMule() == MuleType.EMPTY) {
 			return false;
 		}
 
-		tile.setMuleDraw(player.getCurrentMuleType());
+		tile.setMule(player.getMule());
+		tile.setMuleDraw(player.getMule());
+		player.setMule(null);
 		return true;
 	}
 
@@ -143,13 +147,15 @@ public class WorldMap implements Iterable<Tile> {
 	}
 
 	/**
-	 * Set the mule at the current location
+	 * Places a MULE for the given player on the currently selected tile. Placing fails if the given player does not
+	 * actually own the given tile, the player is not carrying a MULE, or the player is carrying a MULE that has not
+	 * been outfitted.
 	 * @param player player to get mule from
-	 * @return whether the mule was set
+	 * @return whether the mule was placed
 	 */
-	public boolean setMule(Player player) {
-		VisualTile tile = cursorTile();
-		return setMule(player, tile);
+	public boolean placeMule(Player player) {
+		Tile tile = cursorTile();
+		return placeMule(player, tile);
 	}
 
 	public boolean select(int x, int y) {

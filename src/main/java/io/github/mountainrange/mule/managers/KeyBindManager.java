@@ -172,7 +172,7 @@ public class KeyBindManager {
 					}
 					return "Bought land for Player 3"; });
 
-		// Buy Land for Player 3
+		// Buy Land for Player 4
 		toBind.add(new GameView(GameType.SIMULTANEOUS, MULE.PLAY_SCENE, 0), KeyCode.PERIOD,
 				(a) -> {
 					if (Config.getInstance().numOfPlayers > 3) {

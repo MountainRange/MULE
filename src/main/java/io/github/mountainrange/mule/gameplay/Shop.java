@@ -14,16 +14,24 @@ public class Shop {
 	private static final EnumMap<Difficulty, EnumMap<ResourceType, Integer>> INITIAL_STOCKS;
 	private static final EnumMap<Difficulty, EnumMap<ResourceType, Integer>> INITIAL_PRICES;
 
+	private static final EnumMap<Difficulty, Integer> INITIAL_MULE_STOCK;
+	private static final EnumMap<Difficulty, Integer> INITIAL_MULE_PRICE;
+
 	private static final EnumMap<MuleType, Integer> OUTFIT_PRICES;
 	private static final EnumMap<ResourceType, Double> SPOILAGE_RATIOS;
 
 	private EnumMap<ResourceType, Integer> stocks;
 	private EnumMap<ResourceType, Integer> prices;
+	private int muleStock;
+	private int mulePrice;
 
 	public Shop(Difficulty difficulty) {
 		// Initialize stocks and prices to their starting values
 		stocks = new EnumMap<>(INITIAL_STOCKS.get(difficulty));
 		prices = new EnumMap<>(INITIAL_PRICES.get(difficulty));
+
+		muleStock = INITIAL_MULE_STOCK.get(difficulty);
+		mulePrice = INITIAL_MULE_PRICE.get(difficulty);
 	}
 
 	/**
@@ -42,6 +50,22 @@ public class Shop {
 	 */
 	public int priceOf(ResourceType resource) {
 		return prices.get(resource);
+	}
+
+	/**
+	 * Get the number of MULEs available in the shop.
+	 * @return number of MULEs for sale in the shop
+	 */
+	public int muleStock() {
+		return muleStock;
+	}
+
+	/**
+	 * Get the price of MULEs in the shop
+	 * @return price of MULEs in the shop
+	 */
+	public int mulePrice() {
+		return mulePrice;
 	}
 
 	/**
@@ -108,39 +132,62 @@ public class Shop {
 	}
 
 	/**
-	 * Handles players buying stuff
+	 * Buy a single unit of the given resource from the given player to this shop. Buying fails if the shop doesn't have
+	 * any of the given resource, or the player doesn't have enough money.
 	 * @param player player who is buying
 	 * @param resource resource being bought
+	 * @return whether the resource was successfully sold
 	 */
-	public void buy(Player player, ResourceType resource) {
+	public boolean buy(Player player, ResourceType resource) {
 		if (stockOf(resource) <= 0) {
 			System.out.printf("Shop is out of %s\n", resource.toString());
-			return;
+			return false;
 		}
 		if (player.getMoney() < priceOf(resource)) {
 			System.out.println("Player does not have enough money");
-			return;
+			return false;
 		}
 
 		addResource(resource, -1);
-		player.addMoney(priceOf(resource) * -1);
+		player.addMoney(-priceOf(resource));
 		player.addStock(resource, 1);
+		return true;
 	}
 
 	/**
-	 * Handles players selling stuff
+	 * Sell a single unit of the given resource to the given player from this shop. Selling fails if the given player
+	 * doesn't have any of the given resource.
 	 * @param player player who is selling
 	 * @param resource resource being sold
+	 * @return whether the resource was successfully sold
 	 */
-	public void sell(Player player, ResourceType resource) {
+	public boolean sell(Player player, ResourceType resource) {
 		if (player.stockOf(resource) <= 0) {
 			System.out.printf("Player is out of %s\n", resource.toString());
-			return;
+			return false;
 		}
 
 		addResource(resource, 1);
 		player.addMoney(priceOf(resource));
 		player.addStock(resource, -1);
+		return true;
+	}
+
+	/**
+	 * Sell a MULE of the given type to the given player. Selling fails if the player is already carrying a MULE, or
+	 * there are no mules in the shop.
+	 * @param player player to buy MULE for
+	 * @return whether a MULE was successfully bought
+	 */
+	public boolean sellMule(Player player, MuleType muleType) {
+		if (muleStock <= 0 || player.hasMule() || player.getMoney() < outfitPriceOf(muleType)) {
+			return false;
+		}
+
+		muleStock--;
+		player.addMoney(-outfitPriceOf(muleType));
+		player.setMule(muleType);
+		return true;
 	}
 
 	private void addResource(ResourceType resource, int quantity) {
@@ -157,14 +204,12 @@ public class Shop {
 		beginnerStocks.put(ResourceType.ENERGY, 16);
 		beginnerStocks.put(ResourceType.SMITHORE, 0);
 		beginnerStocks.put(ResourceType.CRYSTITE, 0);
-		beginnerStocks.put(ResourceType.MULE, 25);
 
 		EnumMap<ResourceType, Integer> otherStocks = new EnumMap<>(ResourceType.class);
 		otherStocks.put(ResourceType.FOOD, 8);
 		otherStocks.put(ResourceType.ENERGY, 8);
 		otherStocks.put(ResourceType.SMITHORE, 8);
 		otherStocks.put(ResourceType.CRYSTITE, 0);
-		otherStocks.put(ResourceType.MULE, 14);
 
 		INITIAL_STOCKS.put(Difficulty.HILL, beginnerStocks);
 		INITIAL_STOCKS.put(Difficulty.MESA, otherStocks);
@@ -178,13 +223,27 @@ public class Shop {
 		startPrices.put(ResourceType.ENERGY, 25);
 		startPrices.put(ResourceType.SMITHORE, 50);
 		startPrices.put(ResourceType.CRYSTITE, 100);
-		startPrices.put(ResourceType.MULE, 100);
 
 		// Initial prices are the same on every difficulty
 		INITIAL_PRICES.put(Difficulty.HILL, startPrices);
 		INITIAL_PRICES.put(Difficulty.MESA, startPrices);
 		INITIAL_PRICES.put(Difficulty.PLATEAU, startPrices);
 		INITIAL_PRICES.put(Difficulty.MOUNTAIN, startPrices);
+
+		// Hard-coded initial MULE stocks and prices
+		INITIAL_MULE_STOCK = new EnumMap<>(Difficulty.class);
+
+		INITIAL_MULE_STOCK.put(Difficulty.HILL, 25);
+		INITIAL_MULE_STOCK.put(Difficulty.MESA, 14);
+		INITIAL_MULE_STOCK.put(Difficulty.PLATEAU, 14);
+		INITIAL_MULE_STOCK.put(Difficulty.MOUNTAIN, 14);
+
+		INITIAL_MULE_PRICE = new EnumMap<>(Difficulty.class);
+
+		INITIAL_MULE_PRICE.put(Difficulty.HILL, 100);
+		INITIAL_MULE_PRICE.put(Difficulty.MESA, 100);
+		INITIAL_MULE_PRICE.put(Difficulty.PLATEAU, 100);
+		INITIAL_MULE_PRICE.put(Difficulty.MOUNTAIN, 100);
 
 		// Hard-coded MULE-outfitting prices
 		OUTFIT_PRICES = new EnumMap<>(MuleType.class);
