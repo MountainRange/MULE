@@ -3,10 +3,7 @@ package io.github.mountainrange.mule;
 import io.github.mountainrange.mule.enums.GameType;
 import io.github.mountainrange.mule.enums.MuleType;
 import io.github.mountainrange.mule.enums.ResourceType;
-import io.github.mountainrange.mule.gameplay.Player;
-import io.github.mountainrange.mule.gameplay.Shop;
-import io.github.mountainrange.mule.gameplay.Tile;
-import io.github.mountainrange.mule.gameplay.WorldMap;
+import io.github.mountainrange.mule.gameplay.*;
 import io.github.mountainrange.mule.managers.GameState;
 import io.github.mountainrange.mule.managers.GameView;
 import io.github.mountainrange.mule.managers.KeyBindManager;
@@ -226,11 +223,33 @@ public class GameManager {
 	}
 
 	/**
-	 * Advance the game to the next round, and perform any associated actions.
+	 * Advance the game to the next round, and perform any associated actions. Specifically, calculate and apply
+	 * production, increment the round counter, and reorder players by increasing score.
 	 */
 	private void nextRound() {
+		// Calculate production for all players on the given round
+		Map<Player, EnumMap<ResourceType, ProductionResult>> production = ProductionManager.calculateProduction(map,
+				playerList, roundCount);
+
+		// Apply production results
+		for (Map.Entry<Player, EnumMap<ResourceType, ProductionResult>> playerEntry : production.entrySet()) {
+			Player player = playerEntry.getKey();
+			EnumMap<ResourceType, ProductionResult> resourceResults = playerEntry.getValue();
+
+			for (Map.Entry<ResourceType, ProductionResult> resourceEntry : resourceResults.entrySet()) {
+				ResourceType resource = resourceEntry.getKey();
+				ProductionResult productionResult = resourceEntry.getValue();
+
+				// For each resource, change the player's stock by the appropriate amount
+				player.changeStockOf(resource, productionResult.delta());
+			}
+		}
+
+		// Reorder players based on score
 		calculateTurnOrder();
+		// Increment roundCount to the next round
 		roundCount++;
+
 		passCounter = 0;
 		setLabels();
 		if (roundCount == 3) {
@@ -369,7 +388,7 @@ public class GameManager {
 	public Map<Player, Integer> scoreGame() {
 		Map<Player, Integer> scores = new HashMap<>();
 
-		// Add score from total number of mules in store
+		// Compute score from total number of mules in store
 		int muleScore = shop.muleStock() * 35;
 		for (Player player : playerList) {
 			// Add score from money and mules
