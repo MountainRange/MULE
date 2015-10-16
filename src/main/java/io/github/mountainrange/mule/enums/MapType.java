@@ -159,7 +159,7 @@ public enum MapType {
 				}
 
 				lastDir = direction;
-				System.out.println(riverX + " " + riverY);
+				// System.out.println(riverX + " " + riverY);
 			}
 		}
 
