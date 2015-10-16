@@ -3,10 +3,8 @@ package io.github.mountainrange.mule.gameplay;
 import io.github.mountainrange.mule.enums.Difficulty;
 import io.github.mountainrange.mule.enums.MuleType;
 import io.github.mountainrange.mule.enums.ResourceType;
-import io.github.mountainrange.mule.enums.TerrainType;
 
 import java.util.EnumMap;
-import java.util.IntSummaryStatistics;
 
 /**
  * Hold information about current prices and inventories.
@@ -129,7 +127,7 @@ public class Shop {
 
 		addResource(resource, -1);
 		player.addMoney(-priceOf(resource));
-		player.addStock(resource, 1);
+		player.changeStockOf(resource, 1);
 		return true;
 	}
 
@@ -148,7 +146,7 @@ public class Shop {
 
 		addResource(resource, 1);
 		player.addMoney(priceOf(resource));
-		player.addStock(resource, -1);
+		player.changeStockOf(resource, -1);
 		return true;
 	}
 

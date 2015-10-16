@@ -73,8 +73,13 @@ public class Player {
 		return stocks.get(resource);
 	}
 
-	public void addStock(ResourceType resource, int quantity) {
-		stocks.put(resource, stocks.get(resource) + quantity);
+	/**
+	 * Change the player's resources by the given amount. Stocks will always remain greater than or equal to zero.
+	 * @param resource resource to change
+	 * @param delta amount to add/subtract from the player's stocks
+	 */
+	public void changeStockOf(ResourceType resource, int delta) {
+		stocks.put(resource, Math.max(0, stocks.get(resource) + delta));
 	}
 
 	public int getId() {

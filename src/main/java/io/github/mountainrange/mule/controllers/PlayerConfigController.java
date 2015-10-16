@@ -24,7 +24,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 /**
- * Created by Matthew Keezer on 9/9/2015.
+ * Controller for the player configuration section of the game configuration.
  */
 public class PlayerConfigController implements Initializable, SceneAgent {
 
@@ -91,7 +91,7 @@ public class PlayerConfigController implements Initializable, SceneAgent {
 	private void handleNameAction(Event e) {
 		emptyName = false;
 		for (Player player : Config.getInstance().playerList) {
-			if (player.getName().equals(new String("")) && player.getId() < numSlider.getValue()) {
+			if (player.getName().equals("") && player.getId() < numSlider.getValue()) {
 				emptyName = true;
 			}
 		}
@@ -174,8 +174,8 @@ public class PlayerConfigController implements Initializable, SceneAgent {
 		for (int i = 0; i < Config.getInstance().maxPlayers; i++) {
 			if (Config.getInstance().playerList[i] == null) {
 				Config.getInstance().playerList[i] = new Player(i);
-				Config.getInstance().playerList[i].addStock(ResourceType.ENERGY, energyCount);
-				Config.getInstance().playerList[i].addStock(ResourceType.FOOD, foodCount);
+				Config.getInstance().playerList[i].changeStockOf(ResourceType.ENERGY, energyCount);
+				Config.getInstance().playerList[i].changeStockOf(ResourceType.FOOD, foodCount);
 			}
 		}
 		playerSlider.setMax(Config.getInstance().numOfPlayers);
