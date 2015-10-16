@@ -258,4 +258,11 @@ public class VisualGrid<T extends Group & Tile> extends Grid<T> {
 			this.player = null;
 		}
 	}
+
+	@Override
+	public void clear() {
+		// Remove all visual items.
+		upperPane.getChildren().clear();
+		super.clear();
+	}
 }

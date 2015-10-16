@@ -66,6 +66,7 @@ public class GameManager {
 		turnOrder = new ArrayList<>(playerList);
 		shop = new Shop(config.difficulty);
 
+
 		currentPlayerNum = 0;
 		passCounter = 0;
 		phaseCount = 0;

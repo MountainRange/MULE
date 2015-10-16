@@ -19,3 +19,5 @@ build/
 # intelliJ
 *.iml
 .idea/
+tags
+TAGS

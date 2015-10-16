@@ -8,6 +8,7 @@ import io.github.mountainrange.mule.gameplay.WorldMap;
 import io.github.mountainrange.mule.enums.MapSize;
 import io.github.mountainrange.mule.enums.MapType;
 import io.github.mountainrange.mule.gameplay.javafx.VisualGrid;
+import io.github.mountainrange.mule.gameplay.javafx.VisualTile;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -26,7 +27,7 @@ public class PlayController implements Initializable, SceneAgent {
 
 	private SceneLoader sceneLoader;
 	private MULE mule;
-	private VisualGrid g;
+	private VisualGrid<VisualTile> g;
 	private WorldMap map;
 	private GameManager manager;
 
@@ -41,8 +42,6 @@ public class PlayController implements Initializable, SceneAgent {
 
 	@Override
 	public void initialize(URL url, ResourceBundle rb) {
-		g = new VisualGrid(9, 5, Config.getInstance().mapType, MapSize.ALPS, mapPane);
-		map = new WorldMap(g, Config.getInstance().mapType);
 	}
 
 	public void setSceneParent(SceneLoader sceneLoader, MULE mule){
@@ -51,6 +50,10 @@ public class PlayController implements Initializable, SceneAgent {
 	}
 
 	public void onSetScene() {
+		if (g == null || map == null) {
+			g = new VisualGrid<>(9, 5, Config.getInstance().mapType, MapSize.ALPS, mapPane);
+			map = new WorldMap(g, Config.getInstance().mapType);
+		}
 		if (manager == null) {
 			manager = new GameManager(map, turnLabel, resourceLabel, sceneLoader);
 		}
@@ -84,9 +87,6 @@ public class PlayController implements Initializable, SceneAgent {
 
 	@FXML
 	private void handleBackAction(ActionEvent e) {
-//		g.movePlayer(g.getPlayerPosition().getX() + 1, g.getPlayerPosition().getY() + 1);
-//		g.select(4,1);
-//		g.move(4,2,1,1);
 		sceneLoader.goBack();
 	}
 

@@ -198,6 +198,13 @@ public abstract class Grid<T extends Tile> implements Iterable<Tile> {
 	}
 
 	/**
+	 * Clears this grid completely
+	 */
+	public void clear() {
+		grid = (T[][]) Array.newInstance(VisualTile.class, this.cols, this.rows);
+	}
+
+	/**
 	 * Return an iterator for all the Tile objects in the grid.
 	 * @return an iterator for Tiles
 	 */
