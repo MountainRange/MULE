@@ -105,7 +105,6 @@ public class GameManager {
 			passCounter++;
 			currentPlayerNum = (currentPlayerNum + 1) % config.numOfPlayers;
 			setLabels();
-			System.out.println(passCounter);
 			if (config.numOfPlayers == passCounter) {
 				nextRound();
 			}
@@ -260,7 +259,7 @@ public class GameManager {
 		turnOrder.get(currentPlayerNum).setMule(null);
 		currentPlayerNum = (currentPlayerNum + 1) % config.numOfPlayers;
 
-		resetTimer();
+		turnTimer();
 		setLabels();
 
 		if (currentPlayerNum == 0) {

@@ -107,7 +107,6 @@ public class WorldMap implements Iterable<Tile> {
 	}
 
 	public void calculateProduction() {
-		System.out.println("TEST");
 		ownedTiles.keySet().stream().forEach(
 				(player) -> ownedTiles.get(player).stream().forEach((tile) -> tile.produce()));
 	}
