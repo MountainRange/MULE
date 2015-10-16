@@ -42,4 +42,13 @@ public class ProductionResult {
 				&& requirement == o.requirement;
 	}
 
+	@Override
+	public int hashCode() {
+		int hash = usage;
+		hash = (hash << 8) ^ spoilage;
+		hash = (hash << 8) ^ production;
+		hash = (hash << 8) ^ requirement;
+		return hash;
+	}
+
 }
