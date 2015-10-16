@@ -15,7 +15,12 @@ import java.util.*;
  */
 public class ProductionManager {
 
+	/** Base production of each resource on each terrain type. */
 	private static final EnumMap<TerrainType, EnumMap<ResourceType, Integer>> BASE_PRODUCTION;
+	/** Map from resource to the type of MULE that produces it. */
+	private static final EnumMap<ResourceType, MuleType> MULE_PRODUCED_BY;
+	/** Map from MULE to resource it produces. */
+	private static final EnumMap<MuleType, ResourceType> PRODUCES_RESOURCE;
 
 	/**
 	 * Calculate production for the given players on the given map on the given round number.
@@ -41,7 +46,7 @@ public class ProductionManager {
 				int spoilage = spoilageOf(resource, player.stockOf(resource), requirement);
 
 				int production = 0;
-				Set<Tile> producingTiles = map.tilesWithMule(player, resource.producedBy);
+				Set<Tile> producingTiles = map.tilesWithMule(player, muleProducedBy(resource));
 				for (Tile tile : producingTiles) {
 					production += baseProductionOf(tile.getTerrain(), resource);
 				}
@@ -56,9 +61,17 @@ public class ProductionManager {
 		return productionResult;
 	}
 
+	/**
+	 * Calculate the usage of the given resource for the given player on the given map on the given round.
+	 * @param resource resource to calculate usage of
+	 * @param player player to calculate usage of
+	 * @param map map to calculate usage of
+	 * @param round round number to calculate usage of
+	 * @return number of units of the given resource used
+	 */
 	private static int usageOf(ResourceType resource, Player player, WorldMap map, int round) {
 		if (resource == ResourceType.FOOD) {
-			// Food usage starts at 3 and increases every 4 turns
+			// Food usage starts at 3 and increases every 4 rounds
 			return round / 4 + 3;
 		} else if (resource == ResourceType.ENERGY) {
 			// Energy used depends on number of food, smithore, and crystite MULEs installed
@@ -102,6 +115,24 @@ public class ProductionManager {
 	 */
 	private static int baseProductionOf(TerrainType terrain, ResourceType resource) {
 		return BASE_PRODUCTION.get(terrain).get(resource);
+	}
+
+	/**
+	 * Get the corresponding type of mule that produces this resource.
+	 * @param resource resource to get MuleType for
+	 * @return MuleType for the given resource
+	 */
+	public static MuleType muleProducedBy(ResourceType resource) {
+		return MULE_PRODUCED_BY.get(resource);
+	}
+
+	/**
+	 * Get the corresponding type of resource that this type of MULE produces.
+	 * @param mule MuleType to get type of resource for
+	 * @return ResourceType for the given MULE
+	 */
+	public static ResourceType producesResource(MuleType mule) {
+		return PRODUCES_RESOURCE.get(mule);
 	}
 
 	/**
@@ -153,6 +184,18 @@ public class ProductionManager {
 		BASE_PRODUCTION.put(TerrainType.MOUNTAIN1, mountain1Production);
 		BASE_PRODUCTION.put(TerrainType.MOUNTAIN2, mountain2Production);
 		BASE_PRODUCTION.put(TerrainType.MOUNTAIN3, mountain3Production);
+
+		MULE_PRODUCED_BY = new EnumMap<>(ResourceType.class);
+		MULE_PRODUCED_BY.put(ResourceType.FOOD, MuleType.FOOD_MULE);
+		MULE_PRODUCED_BY.put(ResourceType.ENERGY, MuleType.ENERGY_MULE);
+		MULE_PRODUCED_BY.put(ResourceType.SMITHORE, MuleType.SMITHORE_MULE);
+		MULE_PRODUCED_BY.put(ResourceType.CRYSTITE, MuleType.CRYSTITE_MULE);
+
+		PRODUCES_RESOURCE = new EnumMap<>(MuleType.class);
+		PRODUCES_RESOURCE.put(MuleType.FOOD_MULE, ResourceType.FOOD);
+		PRODUCES_RESOURCE.put(MuleType.ENERGY_MULE, ResourceType.ENERGY);
+		PRODUCES_RESOURCE.put(MuleType.SMITHORE_MULE, ResourceType.SMITHORE);
+		PRODUCES_RESOURCE.put(MuleType.CRYSTITE_MULE, ResourceType.CRYSTITE);
 	}
 
 }
