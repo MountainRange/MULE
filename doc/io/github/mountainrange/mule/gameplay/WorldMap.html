@@ -134,7 +134,7 @@ implements java.lang.Iterable&lt;<a href="../../../../../io/github/mountainrange
 <th class="colOne" scope="col">Constructor and Description</th>
 </tr>
 <tr class="altColor">
-<td class="colOne"><code><span class="memberNameLink"><a href="../../../../../io/github/mountainrange/mule/gameplay/WorldMap.html#WorldMap-io.github.mountainrange.mule.gameplay.Grid-io.github.mountainrange.mule.enums.MapType-">WorldMap</a></span>(<a href="../../../../../io/github/mountainrange/mule/gameplay/Grid.html" title="class in io.github.mountainrange.mule.gameplay">Grid</a>&nbsp;g,
+<td class="colOne"><code><span class="memberNameLink"><a href="../../../../../io/github/mountainrange/mule/gameplay/WorldMap.html#WorldMap-io.github.mountainrange.mule.gameplay.Grid-io.github.mountainrange.mule.enums.MapType-">WorldMap</a></span>(<a href="../../../../../io/github/mountainrange/mule/gameplay/Grid.html" title="class in io.github.mountainrange.mule.gameplay">Grid</a>&lt;<a href="../../../../../io/github/mountainrange/mule/gameplay/javafx/VisualTile.html" title="class in io.github.mountainrange.mule.gameplay.javafx">VisualTile</a>&gt;&nbsp;g,
         <a href="../../../../../io/github/mountainrange/mule/enums/MapType.html" title="enum in io.github.mountainrange.mule.enums">MapType</a>&nbsp;mType)</code>&nbsp;</td>
 </tr>
 <tr class="rowColor">
@@ -198,7 +198,7 @@ implements java.lang.Iterable&lt;<a href="../../../../../io/github/mountainrange
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../io/github/mountainrange/mule/gameplay/WorldMap.html#iterator--">iterator</a></span>()</code>&nbsp;</td>
 </tr>
 <tr id="i7" class="rowColor">
-<td class="colFirst"><code>java.util.Set&lt;<a href="../../../../../io/github/mountainrange/mule/gameplay/javafx/VisualTile.html" title="class in io.github.mountainrange.mule.gameplay.javafx">VisualTile</a>&gt;</code></td>
+<td class="colFirst"><code>java.util.Set&lt;<a href="../../../../../io/github/mountainrange/mule/gameplay/Tile.html" title="interface in io.github.mountainrange.mule.gameplay">Tile</a>&gt;</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../io/github/mountainrange/mule/gameplay/WorldMap.html#landOwnedBy-io.github.mountainrange.mule.gameplay.Player-">landOwnedBy</a></span>(<a href="../../../../../io/github/mountainrange/mule/gameplay/Player.html" title="class in io.github.mountainrange.mule.gameplay">Player</a>&nbsp;player)</code>
 <div class="block">Return an unmodifiable set with the grid owned by the given player, or an empty set if the given player owns no
  grid.</div>
@@ -206,62 +206,62 @@ implements java.lang.Iterable&lt;<a href="../../../../../io/github/mountainrange
 </tr>
 <tr id="i8" class="altColor">
 <td class="colFirst"><code>boolean</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../io/github/mountainrange/mule/gameplay/WorldMap.html#select-int-int-">select</a></span>(int&nbsp;x,
-      int&nbsp;y)</code>&nbsp;</td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../io/github/mountainrange/mule/gameplay/WorldMap.html#placeMule-io.github.mountainrange.mule.gameplay.Player-">placeMule</a></span>(<a href="../../../../../io/github/mountainrange/mule/gameplay/Player.html" title="class in io.github.mountainrange.mule.gameplay">Player</a>&nbsp;player)</code>
+<div class="block">Places a MULE for the given player on the currently selected tile.</div>
+</td>
 </tr>
 <tr id="i9" class="rowColor">
 <td class="colFirst"><code>boolean</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../io/github/mountainrange/mule/gameplay/WorldMap.html#selectDown--">selectDown</a></span>()</code>&nbsp;</td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../io/github/mountainrange/mule/gameplay/WorldMap.html#placeMule-io.github.mountainrange.mule.gameplay.Player-io.github.mountainrange.mule.gameplay.Tile-">placeMule</a></span>(<a href="../../../../../io/github/mountainrange/mule/gameplay/Player.html" title="class in io.github.mountainrange.mule.gameplay">Player</a>&nbsp;player,
+         <a href="../../../../../io/github/mountainrange/mule/gameplay/Tile.html" title="interface in io.github.mountainrange.mule.gameplay">Tile</a>&nbsp;tile)</code>
+<div class="block">Places a MULE for the given player on the given tile.</div>
+</td>
 </tr>
 <tr id="i10" class="altColor">
 <td class="colFirst"><code>boolean</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../io/github/mountainrange/mule/gameplay/WorldMap.html#selectLeft--">selectLeft</a></span>()</code>&nbsp;</td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../io/github/mountainrange/mule/gameplay/WorldMap.html#select-int-int-">select</a></span>(int&nbsp;x,
+      int&nbsp;y)</code>&nbsp;</td>
 </tr>
 <tr id="i11" class="rowColor">
 <td class="colFirst"><code>boolean</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../io/github/mountainrange/mule/gameplay/WorldMap.html#selectLeftWrap--">selectLeftWrap</a></span>()</code>&nbsp;</td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../io/github/mountainrange/mule/gameplay/WorldMap.html#selectDown--">selectDown</a></span>()</code>&nbsp;</td>
 </tr>
 <tr id="i12" class="altColor">
+<td class="colFirst"><code>boolean</code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../io/github/mountainrange/mule/gameplay/WorldMap.html#selectLeft--">selectLeft</a></span>()</code>&nbsp;</td>
+</tr>
+<tr id="i13" class="rowColor">
+<td class="colFirst"><code>boolean</code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../io/github/mountainrange/mule/gameplay/WorldMap.html#selectLeftWrap--">selectLeftWrap</a></span>()</code>&nbsp;</td>
+</tr>
+<tr id="i14" class="altColor">
 <td class="colFirst"><code>boolean</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../io/github/mountainrange/mule/gameplay/WorldMap.html#selectRel-int-int-">selectRel</a></span>(int&nbsp;xmove,
          int&nbsp;ymove)</code>&nbsp;</td>
 </tr>
-<tr id="i13" class="rowColor">
+<tr id="i15" class="rowColor">
 <td class="colFirst"><code>boolean</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../io/github/mountainrange/mule/gameplay/WorldMap.html#selectRight--">selectRight</a></span>()</code>&nbsp;</td>
 </tr>
-<tr id="i14" class="altColor">
+<tr id="i16" class="altColor">
 <td class="colFirst"><code>boolean</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../io/github/mountainrange/mule/gameplay/WorldMap.html#selectRightWrap--">selectRightWrap</a></span>()</code>&nbsp;</td>
 </tr>
-<tr id="i15" class="rowColor">
+<tr id="i17" class="rowColor">
 <td class="colFirst"><code>boolean</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../io/github/mountainrange/mule/gameplay/WorldMap.html#selectUp--">selectUp</a></span>()</code>&nbsp;</td>
 </tr>
-<tr id="i16" class="altColor">
+<tr id="i18" class="altColor">
 <td class="colFirst"><code>boolean</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../io/github/mountainrange/mule/gameplay/WorldMap.html#sellTile-io.github.mountainrange.mule.gameplay.Player-">sellTile</a></span>(<a href="../../../../../io/github/mountainrange/mule/gameplay/Player.html" title="class in io.github.mountainrange.mule.gameplay">Player</a>&nbsp;player)</code>
 <div class="block">Sell the tile at the cursor location to the given player.</div>
 </td>
 </tr>
-<tr id="i17" class="rowColor">
+<tr id="i19" class="rowColor">
 <td class="colFirst"><code>boolean</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../io/github/mountainrange/mule/gameplay/WorldMap.html#sellTile-io.github.mountainrange.mule.gameplay.Player-io.github.mountainrange.mule.gameplay.javafx.VisualTile-">sellTile</a></span>(<a href="../../../../../io/github/mountainrange/mule/gameplay/Player.html" title="class in io.github.mountainrange.mule.gameplay">Player</a>&nbsp;player,
         <a href="../../../../../io/github/mountainrange/mule/gameplay/javafx/VisualTile.html" title="class in io.github.mountainrange.mule.gameplay.javafx">VisualTile</a>&nbsp;tile)</code>
 <div class="block">Sell the given tile to the given player.</div>
-</td>
-</tr>
-<tr id="i18" class="altColor">
-<td class="colFirst"><code>boolean</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../io/github/mountainrange/mule/gameplay/WorldMap.html#setMule-io.github.mountainrange.mule.gameplay.Player-">setMule</a></span>(<a href="../../../../../io/github/mountainrange/mule/gameplay/Player.html" title="class in io.github.mountainrange.mule.gameplay">Player</a>&nbsp;player)</code>
-<div class="block">Set the mule at the current location</div>
-</td>
-</tr>
-<tr id="i19" class="rowColor">
-<td class="colFirst"><code>boolean</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../io/github/mountainrange/mule/gameplay/WorldMap.html#setMule-io.github.mountainrange.mule.gameplay.Player-io.github.mountainrange.mule.gameplay.javafx.VisualTile-">setMule</a></span>(<a href="../../../../../io/github/mountainrange/mule/gameplay/Player.html" title="class in io.github.mountainrange.mule.gameplay">Player</a>&nbsp;player,
-       <a href="../../../../../io/github/mountainrange/mule/gameplay/javafx/VisualTile.html" title="class in io.github.mountainrange.mule.gameplay.javafx">VisualTile</a>&nbsp;tile)</code>
-<div class="block">Set the player's mule at a given tile</div>
 </td>
 </tr>
 </table>
@@ -299,7 +299,7 @@ implements java.lang.Iterable&lt;<a href="../../../../../io/github/mountainrange
 <ul class="blockList">
 <li class="blockList">
 <h4>WorldMap</h4>
-<pre>public&nbsp;WorldMap(<a href="../../../../../io/github/mountainrange/mule/gameplay/Grid.html" title="class in io.github.mountainrange.mule.gameplay">Grid</a>&nbsp;g,
+<pre>public&nbsp;WorldMap(<a href="../../../../../io/github/mountainrange/mule/gameplay/Grid.html" title="class in io.github.mountainrange.mule.gameplay">Grid</a>&lt;<a href="../../../../../io/github/mountainrange/mule/gameplay/javafx/VisualTile.html" title="class in io.github.mountainrange.mule.gameplay.javafx">VisualTile</a>&gt;&nbsp;g,
                 <a href="../../../../../io/github/mountainrange/mule/enums/MapType.html" title="enum in io.github.mountainrange.mule.enums">MapType</a>&nbsp;mType)</pre>
 </li>
 </ul>
@@ -344,7 +344,7 @@ implements java.lang.Iterable&lt;<a href="../../../../../io/github/mountainrange
 <ul class="blockList">
 <li class="blockList">
 <h4>landOwnedBy</h4>
-<pre>public&nbsp;java.util.Set&lt;<a href="../../../../../io/github/mountainrange/mule/gameplay/javafx/VisualTile.html" title="class in io.github.mountainrange.mule.gameplay.javafx">VisualTile</a>&gt;&nbsp;landOwnedBy(<a href="../../../../../io/github/mountainrange/mule/gameplay/Player.html" title="class in io.github.mountainrange.mule.gameplay">Player</a>&nbsp;player)</pre>
+<pre>public&nbsp;java.util.Set&lt;<a href="../../../../../io/github/mountainrange/mule/gameplay/Tile.html" title="interface in io.github.mountainrange.mule.gameplay">Tile</a>&gt;&nbsp;landOwnedBy(<a href="../../../../../io/github/mountainrange/mule/gameplay/Player.html" title="class in io.github.mountainrange.mule.gameplay">Player</a>&nbsp;player)</pre>
 <div class="block">Return an unmodifiable set with the grid owned by the given player, or an empty set if the given player owns no
  grid.</div>
 <dl>
@@ -373,15 +373,16 @@ implements java.lang.Iterable&lt;<a href="../../../../../io/github/mountainrange
 </dl>
 </li>
 </ul>
-<a name="setMule-io.github.mountainrange.mule.gameplay.Player-io.github.mountainrange.mule.gameplay.javafx.VisualTile-">
+<a name="placeMule-io.github.mountainrange.mule.gameplay.Player-io.github.mountainrange.mule.gameplay.Tile-">
 <!--   -->
 </a>
 <ul class="blockList">
 <li class="blockList">
-<h4>setMule</h4>
-<pre>public&nbsp;boolean&nbsp;setMule(<a href="../../../../../io/github/mountainrange/mule/gameplay/Player.html" title="class in io.github.mountainrange.mule.gameplay">Player</a>&nbsp;player,
-                       <a href="../../../../../io/github/mountainrange/mule/gameplay/javafx/VisualTile.html" title="class in io.github.mountainrange.mule.gameplay.javafx">VisualTile</a>&nbsp;tile)</pre>
-<div class="block">Set the player's mule at a given tile</div>
+<h4>placeMule</h4>
+<pre>public&nbsp;boolean&nbsp;placeMule(<a href="../../../../../io/github/mountainrange/mule/gameplay/Player.html" title="class in io.github.mountainrange.mule.gameplay">Player</a>&nbsp;player,
+                         <a href="../../../../../io/github/mountainrange/mule/gameplay/Tile.html" title="interface in io.github.mountainrange.mule.gameplay">Tile</a>&nbsp;tile)</pre>
+<div class="block">Places a MULE for the given player on the given tile. Placing fails if the given player does not actually own the
+ given tile, the player is not carrying a MULE, or the player is carrying a MULE that has not been outfitted.</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
 <dd><code>player</code> - player to get mule from</dd>
@@ -463,19 +464,21 @@ implements java.lang.Iterable&lt;<a href="../../../../../io/github/mountainrange
 </dl>
 </li>
 </ul>
-<a name="setMule-io.github.mountainrange.mule.gameplay.Player-">
+<a name="placeMule-io.github.mountainrange.mule.gameplay.Player-">
 <!--   -->
 </a>
 <ul class="blockList">
 <li class="blockList">
-<h4>setMule</h4>
-<pre>public&nbsp;boolean&nbsp;setMule(<a href="../../../../../io/github/mountainrange/mule/gameplay/Player.html" title="class in io.github.mountainrange.mule.gameplay">Player</a>&nbsp;player)</pre>
-<div class="block">Set the mule at the current location</div>
+<h4>placeMule</h4>
+<pre>public&nbsp;boolean&nbsp;placeMule(<a href="../../../../../io/github/mountainrange/mule/gameplay/Player.html" title="class in io.github.mountainrange.mule.gameplay">Player</a>&nbsp;player)</pre>
+<div class="block">Places a MULE for the given player on the currently selected tile. Placing fails if the given player does not
+ actually own the given tile, the player is not carrying a MULE, or the player is carrying a MULE that has not
+ been outfitted.</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
 <dd><code>player</code> - player to get mule from</dd>
 <dt><span class="returnLabel">Returns:</span></dt>
-<dd>whether the mule was set</dd>
+<dd>whether the mule was placed</dd>
 </dl>
 </li>
 </ul>

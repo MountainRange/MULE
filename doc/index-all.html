@@ -154,13 +154,13 @@
 <dl>
 <dt><span class="memberNameLink"><a href="io/github/mountainrange/mule/gameplay/Shop.html#buy-io.github.mountainrange.mule.gameplay.Player-io.github.mountainrange.mule.enums.ResourceType-">buy(Player, ResourceType)</a></span> - Method in class io.github.mountainrange.mule.gameplay.<a href="io/github/mountainrange/mule/gameplay/Shop.html" title="class in io.github.mountainrange.mule.gameplay">Shop</a></dt>
 <dd>
-<div class="block">Handles players buying stuff</div>
+<div class="block">Buy a single unit of the given resource from the given player to this shop.</div>
 </dd>
 <dt><span class="memberNameLink"><a href="io/github/mountainrange/mule/Config.html#buyers">buyers</a></span> - Variable in class io.github.mountainrange.mule.<a href="io/github/mountainrange/mule/Config.html" title="class in io.github.mountainrange.mule">Config</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="io/github/mountainrange/mule/GameManager.html#buyTile-io.github.mountainrange.mule.gameplay.Player-">buyTile(Player)</a></span> - Method in class io.github.mountainrange.mule.<a href="io/github/mountainrange/mule/GameManager.html" title="class in io.github.mountainrange.mule">GameManager</a></dt>
 <dd>
-<div class="block">Attempt to buy the currently selected tile for the given player.</div>
+<div class="block">Attempt to buy the currently selected tile for the given player, or place a MULE.</div>
 </dd>
 <dt><span class="memberNameLink"><a href="io/github/mountainrange/mule/GameManager.html#buyTile--">buyTile()</a></span> - Method in class io.github.mountainrange.mule.<a href="io/github/mountainrange/mule/GameManager.html" title="class in io.github.mountainrange.mule">GameManager</a></dt>
 <dd>
@@ -333,8 +333,6 @@
 <dd>
 <div class="block">Gets the number of columns in this map</div>
 </dd>
-<dt><span class="memberNameLink"><a href="io/github/mountainrange/mule/gameplay/Player.html#getCurrentMuleType--">getCurrentMuleType()</a></span> - Method in class io.github.mountainrange.mule.gameplay.<a href="io/github/mountainrange/mule/gameplay/Player.html" title="class in io.github.mountainrange.mule.gameplay">Player</a></dt>
-<dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="io/github/mountainrange/mule/GameManager.html#getCurrentPlayer--">getCurrentPlayer()</a></span> - Method in class io.github.mountainrange.mule.<a href="io/github/mountainrange/mule/GameManager.html" title="class in io.github.mountainrange.mule">GameManager</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="io/github/mountainrange/mule/GameManager.html#getCurrentPlayerNum--">getCurrentPlayerNum()</a></span> - Method in class io.github.mountainrange.mule.<a href="io/github/mountainrange/mule/GameManager.html" title="class in io.github.mountainrange.mule">GameManager</a></dt>
@@ -357,6 +355,10 @@
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="io/github/mountainrange/mule/gameplay/PlainTile.html#getMule--">getMule()</a></span> - Method in class io.github.mountainrange.mule.gameplay.<a href="io/github/mountainrange/mule/gameplay/PlainTile.html" title="class in io.github.mountainrange.mule.gameplay">PlainTile</a></dt>
 <dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="io/github/mountainrange/mule/gameplay/Player.html#getMule--">getMule()</a></span> - Method in class io.github.mountainrange.mule.gameplay.<a href="io/github/mountainrange/mule/gameplay/Player.html" title="class in io.github.mountainrange.mule.gameplay">Player</a></dt>
+<dd>
+<div class="block">Get the type of MULE this player is carrying, or null if they are not carrying a MULE.</div>
+</dd>
 <dt><span class="memberNameLink"><a href="io/github/mountainrange/mule/gameplay/Tile.html#getMule--">getMule()</a></span> - Method in interface io.github.mountainrange.mule.gameplay.<a href="io/github/mountainrange/mule/gameplay/Tile.html" title="interface in io.github.mountainrange.mule.gameplay">Tile</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="io/github/mountainrange/mule/gameplay/Player.html#getName--">getName()</a></span> - Method in class io.github.mountainrange.mule.gameplay.<a href="io/github/mountainrange/mule/gameplay/Player.html" title="class in io.github.mountainrange.mule.gameplay">Player</a></dt>
@@ -433,6 +435,10 @@
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="io/github/mountainrange/mule/managers/GameView.html#hashCode--">hashCode()</a></span> - Method in class io.github.mountainrange.mule.managers.<a href="io/github/mountainrange/mule/managers/GameView.html" title="class in io.github.mountainrange.mule.managers">GameView</a></dt>
 <dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="io/github/mountainrange/mule/gameplay/Player.html#hasMule--">hasMule()</a></span> - Method in class io.github.mountainrange.mule.gameplay.<a href="io/github/mountainrange/mule/gameplay/Player.html" title="class in io.github.mountainrange.mule.gameplay">Player</a></dt>
+<dd>
+<div class="block">Whether this player is carrying a MULE with them or not.</div>
+</dd>
 <dt><span class="memberNameLink"><a href="io/github/mountainrange/mule/gameplay/Tile.html#hasOwner--">hasOwner()</a></span> - Method in interface io.github.mountainrange.mule.gameplay.<a href="io/github/mountainrange/mule/gameplay/Tile.html" title="interface in io.github.mountainrange.mule.gameplay">Tile</a></dt>
 <dd>
 <div class="block">Returns if this tile has been claimed by a player yet.</div>
@@ -612,6 +618,14 @@
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="io/github/mountainrange/mule/MULE.html#MULE--">MULE()</a></span> - Constructor for class io.github.mountainrange.mule.<a href="io/github/mountainrange/mule/MULE.html" title="class in io.github.mountainrange.mule">MULE</a></dt>
 <dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="io/github/mountainrange/mule/gameplay/Shop.html#mulePrice--">mulePrice()</a></span> - Method in class io.github.mountainrange.mule.gameplay.<a href="io/github/mountainrange/mule/gameplay/Shop.html" title="class in io.github.mountainrange.mule.gameplay">Shop</a></dt>
+<dd>
+<div class="block">Get the price of MULEs in the shop</div>
+</dd>
+<dt><span class="memberNameLink"><a href="io/github/mountainrange/mule/gameplay/Shop.html#muleStock--">muleStock()</a></span> - Method in class io.github.mountainrange.mule.gameplay.<a href="io/github/mountainrange/mule/gameplay/Shop.html" title="class in io.github.mountainrange.mule.gameplay">Shop</a></dt>
+<dd>
+<div class="block">Get the number of MULEs available in the shop.</div>
+</dd>
 <dt><a href="io/github/mountainrange/mule/enums/MuleType.html" title="enum in io.github.mountainrange.mule.enums"><span class="typeNameLink">MuleType</span></a> - Enum in <a href="io/github/mountainrange/mule/enums/package-summary.html">io.github.mountainrange.mule.enums</a></dt>
 <dd>
 <div class="block">Describes the type of MULE installed on a given plot.</div>
@@ -680,6 +694,14 @@
 </a>
 <h2 class="title">P</h2>
 <dl>
+<dt><span class="memberNameLink"><a href="io/github/mountainrange/mule/gameplay/WorldMap.html#placeMule-io.github.mountainrange.mule.gameplay.Player-io.github.mountainrange.mule.gameplay.Tile-">placeMule(Player, Tile)</a></span> - Method in class io.github.mountainrange.mule.gameplay.<a href="io/github/mountainrange/mule/gameplay/WorldMap.html" title="class in io.github.mountainrange.mule.gameplay">WorldMap</a></dt>
+<dd>
+<div class="block">Places a MULE for the given player on the given tile.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="io/github/mountainrange/mule/gameplay/WorldMap.html#placeMule-io.github.mountainrange.mule.gameplay.Player-">placeMule(Player)</a></span> - Method in class io.github.mountainrange.mule.gameplay.<a href="io/github/mountainrange/mule/gameplay/WorldMap.html" title="class in io.github.mountainrange.mule.gameplay">WorldMap</a></dt>
+<dd>
+<div class="block">Places a MULE for the given player on the currently selected tile.</div>
+</dd>
 <dt><a href="io/github/mountainrange/mule/gameplay/PlainTile.html" title="class in io.github.mountainrange.mule.gameplay"><span class="typeNameLink">PlainTile</span></a> - Class in <a href="io/github/mountainrange/mule/gameplay/package-summary.html">io.github.mountainrange.mule.gameplay</a></dt>
 <dd>
 <div class="block">An alternate Tile implementation, which does not use JavaFX.</div>
@@ -841,7 +863,11 @@ s</span></div>
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="io/github/mountainrange/mule/gameplay/Shop.html#sell-io.github.mountainrange.mule.gameplay.Player-io.github.mountainrange.mule.enums.ResourceType-">sell(Player, ResourceType)</a></span> - Method in class io.github.mountainrange.mule.gameplay.<a href="io/github/mountainrange/mule/gameplay/Shop.html" title="class in io.github.mountainrange.mule.gameplay">Shop</a></dt>
 <dd>
-<div class="block">Handles players selling stuff</div>
+<div class="block">Sell a single unit of the given resource to the given player from this shop.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="io/github/mountainrange/mule/gameplay/Shop.html#sellMule-io.github.mountainrange.mule.gameplay.Player-io.github.mountainrange.mule.enums.MuleType-">sellMule(Player, MuleType)</a></span> - Method in class io.github.mountainrange.mule.gameplay.<a href="io/github/mountainrange/mule/gameplay/Shop.html" title="class in io.github.mountainrange.mule.gameplay">Shop</a></dt>
+<dd>
+<div class="block">Sell a MULE of the given type to the given player.</div>
 </dd>
 <dt><span class="memberNameLink"><a href="io/github/mountainrange/mule/gameplay/WorldMap.html#sellTile-io.github.mountainrange.mule.gameplay.Player-io.github.mountainrange.mule.gameplay.javafx.VisualTile-">sellTile(Player, VisualTile)</a></span> - Method in class io.github.mountainrange.mule.gameplay.<a href="io/github/mountainrange/mule/gameplay/WorldMap.html" title="class in io.github.mountainrange.mule.gameplay">WorldMap</a></dt>
 <dd>
@@ -854,8 +880,6 @@ s</span></div>
 <dt><span class="memberNameLink"><a href="io/github/mountainrange/mule/MULE.html#setCenterScene-java.lang.String-">setCenterScene(String)</a></span> - Method in class io.github.mountainrange.mule.<a href="io/github/mountainrange/mule/MULE.html" title="class in io.github.mountainrange.mule">MULE</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="io/github/mountainrange/mule/gameplay/Player.html#setColor-javafx.scene.paint.Color-">setColor(Color)</a></span> - Method in class io.github.mountainrange.mule.gameplay.<a href="io/github/mountainrange/mule/gameplay/Player.html" title="class in io.github.mountainrange.mule.gameplay">Player</a></dt>
-<dd>&nbsp;</dd>
-<dt><span class="memberNameLink"><a href="io/github/mountainrange/mule/gameplay/Player.html#setCurrentMuleType-io.github.mountainrange.mule.enums.MuleType-">setCurrentMuleType(MuleType)</a></span> - Method in class io.github.mountainrange.mule.gameplay.<a href="io/github/mountainrange/mule/gameplay/Player.html" title="class in io.github.mountainrange.mule.gameplay">Player</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="io/github/mountainrange/mule/MULE.html#setFullscreen-java.lang.Boolean-">setFullscreen(Boolean)</a></span> - Method in class io.github.mountainrange.mule.<a href="io/github/mountainrange/mule/MULE.html" title="class in io.github.mountainrange.mule">MULE</a></dt>
 <dd>&nbsp;</dd>
@@ -879,16 +903,12 @@ s</span></div>
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="io/github/mountainrange/mule/gameplay/PlainTile.html#setMule-io.github.mountainrange.mule.enums.MuleType-">setMule(MuleType)</a></span> - Method in class io.github.mountainrange.mule.gameplay.<a href="io/github/mountainrange/mule/gameplay/PlainTile.html" title="class in io.github.mountainrange.mule.gameplay">PlainTile</a></dt>
 <dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="io/github/mountainrange/mule/gameplay/Player.html#setMule-io.github.mountainrange.mule.enums.MuleType-">setMule(MuleType)</a></span> - Method in class io.github.mountainrange.mule.gameplay.<a href="io/github/mountainrange/mule/gameplay/Player.html" title="class in io.github.mountainrange.mule.gameplay">Player</a></dt>
+<dd>
+<div class="block">Set the type of MULE this player is carrying.</div>
+</dd>
 <dt><span class="memberNameLink"><a href="io/github/mountainrange/mule/gameplay/Tile.html#setMule-io.github.mountainrange.mule.enums.MuleType-">setMule(MuleType)</a></span> - Method in interface io.github.mountainrange.mule.gameplay.<a href="io/github/mountainrange/mule/gameplay/Tile.html" title="interface in io.github.mountainrange.mule.gameplay">Tile</a></dt>
 <dd>&nbsp;</dd>
-<dt><span class="memberNameLink"><a href="io/github/mountainrange/mule/gameplay/WorldMap.html#setMule-io.github.mountainrange.mule.gameplay.Player-io.github.mountainrange.mule.gameplay.javafx.VisualTile-">setMule(Player, VisualTile)</a></span> - Method in class io.github.mountainrange.mule.gameplay.<a href="io/github/mountainrange/mule/gameplay/WorldMap.html" title="class in io.github.mountainrange.mule.gameplay">WorldMap</a></dt>
-<dd>
-<div class="block">Set the player's mule at a given tile</div>
-</dd>
-<dt><span class="memberNameLink"><a href="io/github/mountainrange/mule/gameplay/WorldMap.html#setMule-io.github.mountainrange.mule.gameplay.Player-">setMule(Player)</a></span> - Method in class io.github.mountainrange.mule.gameplay.<a href="io/github/mountainrange/mule/gameplay/WorldMap.html" title="class in io.github.mountainrange.mule.gameplay">WorldMap</a></dt>
-<dd>
-<div class="block">Set the mule at the current location</div>
-</dd>
 <dt><span class="memberNameLink"><a href="io/github/mountainrange/mule/gameplay/javafx/VisualTile.html#setMuleDraw-io.github.mountainrange.mule.enums.MuleType-">setMuleDraw(MuleType)</a></span> - Method in class io.github.mountainrange.mule.gameplay.javafx.<a href="io/github/mountainrange/mule/gameplay/javafx/VisualTile.html" title="class in io.github.mountainrange.mule.gameplay.javafx">VisualTile</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="io/github/mountainrange/mule/gameplay/PlainTile.html#setMuleDraw-io.github.mountainrange.mule.enums.MuleType-">setMuleDraw(MuleType)</a></span> - Method in class io.github.mountainrange.mule.gameplay.<a href="io/github/mountainrange/mule/gameplay/PlainTile.html" title="class in io.github.mountainrange.mule.gameplay">PlainTile</a></dt>
@@ -1116,7 +1136,7 @@ the order they are declared.</div>
 <div class="block">A class to represent the map and facilitates interactions
  between the actual data store and the rest of the program</div>
 </dd>
-<dt><span class="memberNameLink"><a href="io/github/mountainrange/mule/gameplay/WorldMap.html#WorldMap-io.github.mountainrange.mule.gameplay.Grid-io.github.mountainrange.mule.enums.MapType-">WorldMap(Grid, MapType)</a></span> - Constructor for class io.github.mountainrange.mule.gameplay.<a href="io/github/mountainrange/mule/gameplay/WorldMap.html" title="class in io.github.mountainrange.mule.gameplay">WorldMap</a></dt>
+<dt><span class="memberNameLink"><a href="io/github/mountainrange/mule/gameplay/WorldMap.html#WorldMap-io.github.mountainrange.mule.gameplay.Grid-io.github.mountainrange.mule.enums.MapType-">WorldMap(Grid&lt;VisualTile&gt;, MapType)</a></span> - Constructor for class io.github.mountainrange.mule.gameplay.<a href="io/github/mountainrange/mule/gameplay/WorldMap.html" title="class in io.github.mountainrange.mule.gameplay">WorldMap</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="io/github/mountainrange/mule/gameplay/WorldMap.html#WorldMap-io.github.mountainrange.mule.gameplay.Grid-io.github.mountainrange.mule.enums.MapType-java.util.List-">WorldMap(Grid, MapType, List&lt;Player&gt;)</a></span> - Constructor for class io.github.mountainrange.mule.gameplay.<a href="io/github/mountainrange/mule/gameplay/WorldMap.html" title="class in io.github.mountainrange.mule.gameplay">WorldMap</a></dt>
 <dd>&nbsp;</dd>

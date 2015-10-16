@@ -17,7 +17,7 @@
     catch(err) {
     }
 //-->
-var methods = {"i0":10,"i1":9,"i2":9,"i3":9,"i4":10,"i5":10,"i6":9,"i7":10};
+var methods = {"i0":10,"i1":9,"i2":9,"i3":10,"i4":10,"i5":9,"i6":10,"i7":10,"i8":10,"i9":9,"i10":10};
 var tabs = {65535:["t0","All Methods"],1:["t1","Static Methods"],2:["t2","Instance Methods"],8:["t4","Concrete Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
@@ -146,10 +146,10 @@ extends java.lang.Object</pre>
 <th class="colLast" scope="col">Method and Description</th>
 </tr>
 <tr id="i0" class="altColor">
-<td class="colFirst"><code>void</code></td>
+<td class="colFirst"><code>boolean</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../io/github/mountainrange/mule/gameplay/Shop.html#buy-io.github.mountainrange.mule.gameplay.Player-io.github.mountainrange.mule.enums.ResourceType-">buy</a></span>(<a href="../../../../../io/github/mountainrange/mule/gameplay/Player.html" title="class in io.github.mountainrange.mule.gameplay">Player</a>&nbsp;player,
    <a href="../../../../../io/github/mountainrange/mule/enums/ResourceType.html" title="enum in io.github.mountainrange.mule.enums">ResourceType</a>&nbsp;resource)</code>
-<div class="block">Handles players buying stuff</div>
+<div class="block">Buy a single unit of the given resource from the given player to this shop.</div>
 </td>
 </tr>
 <tr id="i1" class="rowColor">
@@ -166,31 +166,50 @@ extends java.lang.Object</pre>
 </td>
 </tr>
 <tr id="i3" class="rowColor">
+<td class="colFirst"><code>int</code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../io/github/mountainrange/mule/gameplay/Shop.html#mulePrice--">mulePrice</a></span>()</code>
+<div class="block">Get the price of MULEs in the shop</div>
+</td>
+</tr>
+<tr id="i4" class="altColor">
+<td class="colFirst"><code>int</code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../io/github/mountainrange/mule/gameplay/Shop.html#muleStock--">muleStock</a></span>()</code>
+<div class="block">Get the number of MULEs available in the shop.</div>
+</td>
+</tr>
+<tr id="i5" class="rowColor">
 <td class="colFirst"><code>static int</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../io/github/mountainrange/mule/gameplay/Shop.html#outfitPriceOf-io.github.mountainrange.mule.enums.MuleType-">outfitPriceOf</a></span>(<a href="../../../../../io/github/mountainrange/mule/enums/MuleType.html" title="enum in io.github.mountainrange.mule.enums">MuleType</a>&nbsp;mule)</code>
 <div class="block">Gets the price of outfitting a MULE of the given type.</div>
 </td>
 </tr>
-<tr id="i4" class="altColor">
+<tr id="i6" class="altColor">
 <td class="colFirst"><code>int</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../io/github/mountainrange/mule/gameplay/Shop.html#priceOf-io.github.mountainrange.mule.enums.ResourceType-">priceOf</a></span>(<a href="../../../../../io/github/mountainrange/mule/enums/ResourceType.html" title="enum in io.github.mountainrange.mule.enums">ResourceType</a>&nbsp;resource)</code>
 <div class="block">Get the current stock in this shop of the given resource.</div>
 </td>
 </tr>
-<tr id="i5" class="rowColor">
-<td class="colFirst"><code>void</code></td>
+<tr id="i7" class="rowColor">
+<td class="colFirst"><code>boolean</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../io/github/mountainrange/mule/gameplay/Shop.html#sell-io.github.mountainrange.mule.gameplay.Player-io.github.mountainrange.mule.enums.ResourceType-">sell</a></span>(<a href="../../../../../io/github/mountainrange/mule/gameplay/Player.html" title="class in io.github.mountainrange.mule.gameplay">Player</a>&nbsp;player,
     <a href="../../../../../io/github/mountainrange/mule/enums/ResourceType.html" title="enum in io.github.mountainrange.mule.enums">ResourceType</a>&nbsp;resource)</code>
-<div class="block">Handles players selling stuff</div>
+<div class="block">Sell a single unit of the given resource to the given player from this shop.</div>
 </td>
 </tr>
-<tr id="i6" class="altColor">
+<tr id="i8" class="altColor">
+<td class="colFirst"><code>boolean</code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../io/github/mountainrange/mule/gameplay/Shop.html#sellMule-io.github.mountainrange.mule.gameplay.Player-io.github.mountainrange.mule.enums.MuleType-">sellMule</a></span>(<a href="../../../../../io/github/mountainrange/mule/gameplay/Player.html" title="class in io.github.mountainrange.mule.gameplay">Player</a>&nbsp;player,
+        <a href="../../../../../io/github/mountainrange/mule/enums/MuleType.html" title="enum in io.github.mountainrange.mule.enums">MuleType</a>&nbsp;muleType)</code>
+<div class="block">Sell a MULE of the given type to the given player.</div>
+</td>
+</tr>
+<tr id="i9" class="rowColor">
 <td class="colFirst"><code>static double</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../io/github/mountainrange/mule/gameplay/Shop.html#spoilageRatioOf-io.github.mountainrange.mule.enums.ResourceType-">spoilageRatioOf</a></span>(<a href="../../../../../io/github/mountainrange/mule/enums/ResourceType.html" title="enum in io.github.mountainrange.mule.enums">ResourceType</a>&nbsp;resource)</code>
 <div class="block">Get the percentage of a player's stock of a given resource that <em>doesn't</em> spoil each turn.</div>
 </td>
 </tr>
-<tr id="i7" class="rowColor">
+<tr id="i10" class="altColor">
 <td class="colFirst"><code>int</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../io/github/mountainrange/mule/gameplay/Shop.html#stockOf-io.github.mountainrange.mule.enums.ResourceType-">stockOf</a></span>(<a href="../../../../../io/github/mountainrange/mule/enums/ResourceType.html" title="enum in io.github.mountainrange.mule.enums">ResourceType</a>&nbsp;resource)</code>
 <div class="block">Get the current stock in this shop of the given resource.</div>
@@ -264,6 +283,34 @@ extends java.lang.Object</pre>
 <dd><code>resource</code> - resource to check the price of</dd>
 <dt><span class="returnLabel">Returns:</span></dt>
 <dd>price of the given resource</dd>
+</dl>
+</li>
+</ul>
+<a name="muleStock--">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>muleStock</h4>
+<pre>public&nbsp;int&nbsp;muleStock()</pre>
+<div class="block">Get the number of MULEs available in the shop.</div>
+<dl>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>number of MULEs for sale in the shop</dd>
+</dl>
+</li>
+</ul>
+<a name="mulePrice--">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>mulePrice</h4>
+<pre>public&nbsp;int&nbsp;mulePrice()</pre>
+<div class="block">Get the price of MULEs in the shop</div>
+<dl>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>price of MULEs in the shop</dd>
 </dl>
 </li>
 </ul>
@@ -342,29 +389,53 @@ extends java.lang.Object</pre>
 <ul class="blockList">
 <li class="blockList">
 <h4>buy</h4>
-<pre>public&nbsp;void&nbsp;buy(<a href="../../../../../io/github/mountainrange/mule/gameplay/Player.html" title="class in io.github.mountainrange.mule.gameplay">Player</a>&nbsp;player,
-                <a href="../../../../../io/github/mountainrange/mule/enums/ResourceType.html" title="enum in io.github.mountainrange.mule.enums">ResourceType</a>&nbsp;resource)</pre>
-<div class="block">Handles players buying stuff</div>
+<pre>public&nbsp;boolean&nbsp;buy(<a href="../../../../../io/github/mountainrange/mule/gameplay/Player.html" title="class in io.github.mountainrange.mule.gameplay">Player</a>&nbsp;player,
+                   <a href="../../../../../io/github/mountainrange/mule/enums/ResourceType.html" title="enum in io.github.mountainrange.mule.enums">ResourceType</a>&nbsp;resource)</pre>
+<div class="block">Buy a single unit of the given resource from the given player to this shop. Buying fails if the shop doesn't have
+ any of the given resource, or the player doesn't have enough money.</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
 <dd><code>player</code> - player who is buying</dd>
 <dd><code>resource</code> - resource being bought</dd>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>whether the resource was successfully sold</dd>
 </dl>
 </li>
 </ul>
 <a name="sell-io.github.mountainrange.mule.gameplay.Player-io.github.mountainrange.mule.enums.ResourceType-">
 <!--   -->
 </a>
-<ul class="blockListLast">
+<ul class="blockList">
 <li class="blockList">
 <h4>sell</h4>
-<pre>public&nbsp;void&nbsp;sell(<a href="../../../../../io/github/mountainrange/mule/gameplay/Player.html" title="class in io.github.mountainrange.mule.gameplay">Player</a>&nbsp;player,
-                 <a href="../../../../../io/github/mountainrange/mule/enums/ResourceType.html" title="enum in io.github.mountainrange.mule.enums">ResourceType</a>&nbsp;resource)</pre>
-<div class="block">Handles players selling stuff</div>
+<pre>public&nbsp;boolean&nbsp;sell(<a href="../../../../../io/github/mountainrange/mule/gameplay/Player.html" title="class in io.github.mountainrange.mule.gameplay">Player</a>&nbsp;player,
+                    <a href="../../../../../io/github/mountainrange/mule/enums/ResourceType.html" title="enum in io.github.mountainrange.mule.enums">ResourceType</a>&nbsp;resource)</pre>
+<div class="block">Sell a single unit of the given resource to the given player from this shop. Selling fails if the given player
+ doesn't have any of the given resource.</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
 <dd><code>player</code> - player who is selling</dd>
 <dd><code>resource</code> - resource being sold</dd>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>whether the resource was successfully sold</dd>
+</dl>
+</li>
+</ul>
+<a name="sellMule-io.github.mountainrange.mule.gameplay.Player-io.github.mountainrange.mule.enums.MuleType-">
+<!--   -->
+</a>
+<ul class="blockListLast">
+<li class="blockList">
+<h4>sellMule</h4>
+<pre>public&nbsp;boolean&nbsp;sellMule(<a href="../../../../../io/github/mountainrange/mule/gameplay/Player.html" title="class in io.github.mountainrange.mule.gameplay">Player</a>&nbsp;player,
+                        <a href="../../../../../io/github/mountainrange/mule/enums/MuleType.html" title="enum in io.github.mountainrange.mule.enums">MuleType</a>&nbsp;muleType)</pre>
+<div class="block">Sell a MULE of the given type to the given player. Selling fails if the player is already carrying a MULE, or
+ there are no mules in the shop.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>player</code> - player to buy MULE for</dd>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>whether a MULE was successfully bought</dd>
 </dl>
 </li>
 </ul>

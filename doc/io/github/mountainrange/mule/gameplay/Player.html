@@ -17,7 +17,7 @@
     catch(err) {
     }
 //-->
-var methods = {"i0":10,"i1":10,"i2":10,"i3":10,"i4":10,"i5":10,"i6":10,"i7":10,"i8":10,"i9":10,"i10":10,"i11":10,"i12":10,"i13":10,"i14":10,"i15":10};
+var methods = {"i0":10,"i1":10,"i2":10,"i3":10,"i4":10,"i5":10,"i6":10,"i7":10,"i8":10,"i9":10,"i10":10,"i11":10,"i12":10,"i13":10,"i14":10,"i15":10,"i16":10};
 var tabs = {65535:["t0","All Methods"],2:["t2","Instance Methods"],8:["t4","Concrete Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
@@ -192,16 +192,18 @@ extends java.lang.Object</pre>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../io/github/mountainrange/mule/gameplay/Player.html#getColor--">getColor</a></span>()</code>&nbsp;</td>
 </tr>
 <tr id="i4" class="altColor">
-<td class="colFirst"><code><a href="../../../../../io/github/mountainrange/mule/enums/MuleType.html" title="enum in io.github.mountainrange.mule.enums">MuleType</a></code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../io/github/mountainrange/mule/gameplay/Player.html#getCurrentMuleType--">getCurrentMuleType</a></span>()</code>&nbsp;</td>
-</tr>
-<tr id="i5" class="rowColor">
 <td class="colFirst"><code>int</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../io/github/mountainrange/mule/gameplay/Player.html#getId--">getId</a></span>()</code>&nbsp;</td>
 </tr>
-<tr id="i6" class="altColor">
+<tr id="i5" class="rowColor">
 <td class="colFirst"><code>int</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../io/github/mountainrange/mule/gameplay/Player.html#getMoney--">getMoney</a></span>()</code>&nbsp;</td>
+</tr>
+<tr id="i6" class="altColor">
+<td class="colFirst"><code><a href="../../../../../io/github/mountainrange/mule/enums/MuleType.html" title="enum in io.github.mountainrange.mule.enums">MuleType</a></code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../io/github/mountainrange/mule/gameplay/Player.html#getMule--">getMule</a></span>()</code>
+<div class="block">Get the type of MULE this player is carrying, or null if they are not carrying a MULE.</div>
+</td>
 </tr>
 <tr id="i7" class="rowColor">
 <td class="colFirst"><code>java.lang.String</code></td>
@@ -216,12 +218,14 @@ extends java.lang.Object</pre>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../io/github/mountainrange/mule/gameplay/Player.html#hashCode--">hashCode</a></span>()</code>&nbsp;</td>
 </tr>
 <tr id="i10" class="altColor">
-<td class="colFirst"><code>void</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../io/github/mountainrange/mule/gameplay/Player.html#setColor-javafx.scene.paint.Color-">setColor</a></span>(javafx.scene.paint.Color&nbsp;color)</code>&nbsp;</td>
+<td class="colFirst"><code>boolean</code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../io/github/mountainrange/mule/gameplay/Player.html#hasMule--">hasMule</a></span>()</code>
+<div class="block">Whether this player is carrying a MULE with them or not.</div>
+</td>
 </tr>
 <tr id="i11" class="rowColor">
 <td class="colFirst"><code>void</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../io/github/mountainrange/mule/gameplay/Player.html#setCurrentMuleType-io.github.mountainrange.mule.enums.MuleType-">setCurrentMuleType</a></span>(<a href="../../../../../io/github/mountainrange/mule/enums/MuleType.html" title="enum in io.github.mountainrange.mule.enums">MuleType</a>&nbsp;currentMuleType)</code>&nbsp;</td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../io/github/mountainrange/mule/gameplay/Player.html#setColor-javafx.scene.paint.Color-">setColor</a></span>(javafx.scene.paint.Color&nbsp;color)</code>&nbsp;</td>
 </tr>
 <tr id="i12" class="altColor">
 <td class="colFirst"><code>void</code></td>
@@ -229,13 +233,19 @@ extends java.lang.Object</pre>
 </tr>
 <tr id="i13" class="rowColor">
 <td class="colFirst"><code>void</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../io/github/mountainrange/mule/gameplay/Player.html#setName-java.lang.String-">setName</a></span>(java.lang.String&nbsp;name)</code>&nbsp;</td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../io/github/mountainrange/mule/gameplay/Player.html#setMule-io.github.mountainrange.mule.enums.MuleType-">setMule</a></span>(<a href="../../../../../io/github/mountainrange/mule/enums/MuleType.html" title="enum in io.github.mountainrange.mule.enums">MuleType</a>&nbsp;muleType)</code>
+<div class="block">Set the type of MULE this player is carrying.</div>
+</td>
 </tr>
 <tr id="i14" class="altColor">
 <td class="colFirst"><code>void</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../io/github/mountainrange/mule/gameplay/Player.html#setRace-io.github.mountainrange.mule.enums.Race-">setRace</a></span>(<a href="../../../../../io/github/mountainrange/mule/enums/Race.html" title="enum in io.github.mountainrange.mule.enums">Race</a>&nbsp;race)</code>&nbsp;</td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../io/github/mountainrange/mule/gameplay/Player.html#setName-java.lang.String-">setName</a></span>(java.lang.String&nbsp;name)</code>&nbsp;</td>
 </tr>
 <tr id="i15" class="rowColor">
+<td class="colFirst"><code>void</code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../io/github/mountainrange/mule/gameplay/Player.html#setRace-io.github.mountainrange.mule.enums.Race-">setRace</a></span>(<a href="../../../../../io/github/mountainrange/mule/enums/Race.html" title="enum in io.github.mountainrange.mule.enums">Race</a>&nbsp;race)</code>&nbsp;</td>
+</tr>
+<tr id="i16" class="altColor">
 <td class="colFirst"><code>int</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../io/github/mountainrange/mule/gameplay/Player.html#stockOf-io.github.mountainrange.mule.enums.ResourceType-">stockOf</a></span>(<a href="../../../../../io/github/mountainrange/mule/enums/ResourceType.html" title="enum in io.github.mountainrange.mule.enums">ResourceType</a>&nbsp;resource)</code>
 <div class="block">Get the amount of the given resource the player owns.</div>
@@ -438,22 +448,46 @@ extends java.lang.Object</pre>
 <pre>public&nbsp;void&nbsp;setColor(javafx.scene.paint.Color&nbsp;color)</pre>
 </li>
 </ul>
-<a name="getCurrentMuleType--">
+<a name="hasMule--">
 <!--   -->
 </a>
 <ul class="blockList">
 <li class="blockList">
-<h4>getCurrentMuleType</h4>
-<pre>public&nbsp;<a href="../../../../../io/github/mountainrange/mule/enums/MuleType.html" title="enum in io.github.mountainrange.mule.enums">MuleType</a>&nbsp;getCurrentMuleType()</pre>
+<h4>hasMule</h4>
+<pre>public&nbsp;boolean&nbsp;hasMule()</pre>
+<div class="block">Whether this player is carrying a MULE with them or not.</div>
+<dl>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>whether this player has a MULE</dd>
+</dl>
 </li>
 </ul>
-<a name="setCurrentMuleType-io.github.mountainrange.mule.enums.MuleType-">
+<a name="getMule--">
 <!--   -->
 </a>
 <ul class="blockList">
 <li class="blockList">
-<h4>setCurrentMuleType</h4>
-<pre>public&nbsp;void&nbsp;setCurrentMuleType(<a href="../../../../../io/github/mountainrange/mule/enums/MuleType.html" title="enum in io.github.mountainrange.mule.enums">MuleType</a>&nbsp;currentMuleType)</pre>
+<h4>getMule</h4>
+<pre>public&nbsp;<a href="../../../../../io/github/mountainrange/mule/enums/MuleType.html" title="enum in io.github.mountainrange.mule.enums">MuleType</a>&nbsp;getMule()</pre>
+<div class="block">Get the type of MULE this player is carrying, or null if they are not carrying a MULE.</div>
+<dl>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>the type of MULE this player is carrying</dd>
+</dl>
+</li>
+</ul>
+<a name="setMule-io.github.mountainrange.mule.enums.MuleType-">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>setMule</h4>
+<pre>public&nbsp;void&nbsp;setMule(<a href="../../../../../io/github/mountainrange/mule/enums/MuleType.html" title="enum in io.github.mountainrange.mule.enums">MuleType</a>&nbsp;muleType)</pre>
+<div class="block">Set the type of MULE this player is carrying.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>muleType</code> - type of MULE this player should carry</dd>
+</dl>
 </li>
 </ul>
 <a name="equals-java.lang.Object-">
