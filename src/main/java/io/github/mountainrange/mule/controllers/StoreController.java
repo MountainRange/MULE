@@ -104,28 +104,29 @@ public class StoreController implements Initializable, SceneAgent {
 
 	@FXML
 	private void handleExchangeFoodMuleAction(ActionEvent e) {
-		doMule(MuleType.FOOD_MULE);
+		muleAction(MuleType.FOOD_MULE);
 	}
 
 	@FXML
 	private void handleExchangeEnergyMuleAction(ActionEvent e) {
-		doMule(MuleType.ENERGY_MULE);
+		muleAction(MuleType.ENERGY_MULE);
 	}
 
 	@FXML
 	private void handleExchangeSmithoreMuleAction(ActionEvent e) {
-		doMule(MuleType.SMITHORE_MULE);
+		muleAction(MuleType.SMITHORE_MULE);
 	}
 
-	private void doMule(MuleType muleType) {
+	/**
+	 * Attempt to sell the given MuleType to the current player.
+	 * @param muleType MuleType to sell
+	 */
+	private void muleAction(MuleType muleType) {
 		shop = mule.getGameManager().getShop();
 		player = mule.getGameManager().getCurrentPlayer();
-		if (buyMode) {
-			player.setCurrentMuleType(muleType);
-			shop.buy(player, ResourceType.MULE);
-		} else {
-			shop.sell(player, ResourceType.MULE);
-		}
+
+		// Shop can only sell MULEs to the player, not buy them back
+		shop.sellMule(player, muleType);
 		mule.getGameManager().setLabels();
 	}
 
