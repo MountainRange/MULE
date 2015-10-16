@@ -14,9 +14,12 @@ import java.util.stream.Collectors;
  */
 public class WorldMap implements Iterable<Tile> {
 
+	/** An unmodifiable, empty set of tiles. */
+	private static final Set<Tile> EMPTY_SET = Collections.unmodifiableSet(new HashSet<>(0));
+
 	private Grid<VisualTile> map;
 
-	// List of tiles owned by a given player, sorted by the MULE installed on them
+	/** List of tiles owned by each player, sorted by the MULE installed on them */
 	private Map<Player, EnumMap<MuleType, Set<Tile>>> productionTiles;
 
 	public WorldMap(Grid<VisualTile> g, MapType mType) {
@@ -45,8 +48,8 @@ public class WorldMap implements Iterable<Tile> {
 	// ----------------------------Logical methods-------------------------------
 
 	/**
-	 * Count the number of grid owned by the given player, or zero if the given player owns no grid.
-	 * @param player player to count owned grid
+	 * Count the number of grid owned by the given player, or zero if the given player owns no tiles.
+	 * @param player player to count owned tiles
 	 * @return number of grid owned by the given player
 	 */
 	public int countLandOwnedBy(Player player) {
@@ -60,13 +63,13 @@ public class WorldMap implements Iterable<Tile> {
 
 	/**
 	 * Return an unmodifiable set with the grid owned by the given player, or an empty set if the given player owns no
-	 * grid.
-	 * @param player player to get owned grid
+	 * tiles.
+	 * @param player player to get owned tiles
 	 * @return unmodifiable set with grid owned by the given player
 	 */
 	public Set<Tile> landOwnedBy(Player player) {
 		if (!productionTiles.containsKey(player)) {
-			return new HashSet<>(0);
+			return EMPTY_SET;
 		}
 
 		// Construct a flat Set of all the Tiles a given player owns
@@ -82,6 +85,9 @@ public class WorldMap implements Iterable<Tile> {
 	 * @return number of tiles that the player owns with the mule installed
 	 */
 	public int countTilesWithMule(Player player, MuleType mule) {
+		if (!productionTiles.containsKey(player)) {
+			return 0;
+		}
 		return productionTiles.get(player).get(mule).size();
 	}
 
@@ -92,6 +98,9 @@ public class WorldMap implements Iterable<Tile> {
 	 * @return unmodifiable set of tiles with the given mule installed and owned by the given player
 	 */
 	public Set<Tile> tilesWithMule(Player player, MuleType mule) {
+		if (!productionTiles.containsKey(player)) {
+			return EMPTY_SET;
+		}
 		return Collections.unmodifiableSet(productionTiles.get(player).get(mule));
 	}
 
@@ -138,8 +147,10 @@ public class WorldMap implements Iterable<Tile> {
 		MuleType previousMule = tile.getMule();
 		MuleType newMule = player.getMule();
 
+		// Place the MULE in the actual tile
 		tile.setMule(newMule);
 		tile.setMuleDraw(newMule);
+		// Take the MULE away from the player
 		player.setMule(null);
 
 		// Take tile out of its old set into its new one, based on MULE installed
