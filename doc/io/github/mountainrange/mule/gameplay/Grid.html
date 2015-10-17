@@ -17,7 +17,7 @@
     catch(err) {
     }
 //-->
-var methods = {"i0":10,"i1":6,"i2":42,"i3":42,"i4":10,"i5":10,"i6":10,"i7":10,"i8":10,"i9":6,"i10":10,"i11":10,"i12":10,"i13":10,"i14":10,"i15":10,"i16":10};
+var methods = {"i0":10,"i1":6,"i2":10,"i3":42,"i4":42,"i5":10,"i6":10,"i7":10,"i8":10,"i9":10,"i10":6,"i11":10,"i12":10,"i13":10,"i14":10,"i15":10,"i16":10,"i17":10};
 var tabs = {65535:["t0","All Methods"],2:["t2","Instance Methods"],4:["t3","Abstract Methods"],8:["t4","Concrete Methods"],32:["t6","Deprecated Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
@@ -211,13 +211,19 @@ implements java.lang.Iterable&lt;<a href="../../../../../io/github/mountainrange
 </td>
 </tr>
 <tr id="i2" class="altColor">
+<td class="colFirst"><code>void</code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../io/github/mountainrange/mule/gameplay/Grid.html#clear--">clear</a></span>()</code>
+<div class="block">Clears this grid completely</div>
+</td>
+</tr>
+<tr id="i3" class="rowColor">
 <td class="colFirst"><code><a href="../../../../../io/github/mountainrange/mule/gameplay/Grid.html" title="type parameter in Grid">T</a></code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../io/github/mountainrange/mule/gameplay/Grid.html#get-int-int-">get</a></span>(int&nbsp;column,
    int&nbsp;row)</code>
 <div class="block"><span class="deprecatedLabel">Deprecated.</span>&nbsp;&nbsp;</div>
 </td>
 </tr>
-<tr id="i3" class="rowColor">
+<tr id="i4" class="altColor">
 <td class="colFirst"><code><a href="../../../../../io/github/mountainrange/mule/gameplay/Grid.html" title="type parameter in Grid">T</a>[][]</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../io/github/mountainrange/mule/gameplay/Grid.html#getBackingArray--">getBackingArray</a></span>()</code>
 <div class="block"><span class="deprecatedLabel">Deprecated.</span>&nbsp;
@@ -225,29 +231,29 @@ implements java.lang.Iterable&lt;<a href="../../../../../io/github/mountainrange
 </div>
 </td>
 </tr>
-<tr id="i4" class="altColor">
+<tr id="i5" class="rowColor">
 <td class="colFirst"><code>int</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../io/github/mountainrange/mule/gameplay/Grid.html#getCols--">getCols</a></span>()</code>&nbsp;</td>
 </tr>
-<tr id="i5" class="rowColor">
+<tr id="i6" class="altColor">
 <td class="colFirst"><code>int</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../io/github/mountainrange/mule/gameplay/Grid.html#getCursorX--">getCursorX</a></span>()</code>&nbsp;</td>
 </tr>
-<tr id="i6" class="altColor">
+<tr id="i7" class="rowColor">
 <td class="colFirst"><code>int</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../io/github/mountainrange/mule/gameplay/Grid.html#getCursorY--">getCursorY</a></span>()</code>&nbsp;</td>
 </tr>
-<tr id="i7" class="rowColor">
+<tr id="i8" class="altColor">
 <td class="colFirst"><code>javafx.geometry.Point2D</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../io/github/mountainrange/mule/gameplay/Grid.html#getPlayerPosition--">getPlayerPosition</a></span>()</code>
 <div class="block">Returns the player position.</div>
 </td>
 </tr>
-<tr id="i8" class="altColor">
+<tr id="i9" class="rowColor">
 <td class="colFirst"><code>int</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../io/github/mountainrange/mule/gameplay/Grid.html#getRows--">getRows</a></span>()</code>&nbsp;</td>
 </tr>
-<tr id="i9" class="rowColor">
+<tr id="i10" class="altColor">
 <td class="colFirst"><code>abstract boolean</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../io/github/mountainrange/mule/gameplay/Grid.html#isInside-javafx.geometry.Point2D-int-int-">isInside</a></span>(javafx.geometry.Point2D&nbsp;toCheck,
         int&nbsp;column,
@@ -255,13 +261,13 @@ implements java.lang.Iterable&lt;<a href="../../../../../io/github/mountainrange
 <div class="block">Checks if toCheck is inside column or row</div>
 </td>
 </tr>
-<tr id="i10" class="altColor">
+<tr id="i11" class="rowColor">
 <td class="colFirst"><code>java.util.Iterator&lt;<a href="../../../../../io/github/mountainrange/mule/gameplay/Tile.html" title="interface in io.github.mountainrange.mule.gameplay">Tile</a>&gt;</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../io/github/mountainrange/mule/gameplay/Grid.html#iterator--">iterator</a></span>()</code>
 <div class="block">Return an iterator for all the Tile objects in the grid.</div>
 </td>
 </tr>
-<tr id="i11" class="rowColor">
+<tr id="i12" class="altColor">
 <td class="colFirst"><code>void</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../io/github/mountainrange/mule/gameplay/Grid.html#move-int-int-int-int-">move</a></span>(int&nbsp;columnFrom,
     int&nbsp;rowFrom,
@@ -270,33 +276,33 @@ implements java.lang.Iterable&lt;<a href="../../../../../io/github/mountainrange
 <div class="block">Moves an object from one area to another.</div>
 </td>
 </tr>
-<tr id="i12" class="altColor">
+<tr id="i13" class="rowColor">
 <td class="colFirst"><code>void</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../io/github/mountainrange/mule/gameplay/Grid.html#movePlayer-double-double-">movePlayer</a></span>(double&nbsp;newX,
           double&nbsp;newY)</code>
 <div class="block">Moves the player to a specified point.</div>
 </td>
 </tr>
-<tr id="i13" class="rowColor">
+<tr id="i14" class="altColor">
 <td class="colFirst"><code><a href="../../../../../io/github/mountainrange/mule/gameplay/Grid.html" title="type parameter in Grid">T</a></code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../io/github/mountainrange/mule/gameplay/Grid.html#remove-int-int-">remove</a></span>(int&nbsp;column,
       int&nbsp;row)</code>
 <div class="block">Removes a node from a selected row/column</div>
 </td>
 </tr>
-<tr id="i14" class="altColor">
+<tr id="i15" class="rowColor">
 <td class="colFirst"><code>void</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../io/github/mountainrange/mule/gameplay/Grid.html#removePlayer--">removePlayer</a></span>()</code>
 <div class="block">Removes the player from this grid.</div>
 </td>
 </tr>
-<tr id="i15" class="rowColor">
+<tr id="i16" class="altColor">
 <td class="colFirst"><code>void</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../io/github/mountainrange/mule/gameplay/Grid.html#removeSelection--">removeSelection</a></span>()</code>
 <div class="block">Removes the current selection.</div>
 </td>
 </tr>
-<tr id="i16" class="altColor">
+<tr id="i17" class="rowColor">
 <td class="colFirst"><code>void</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../io/github/mountainrange/mule/gameplay/Grid.html#select-int-int-">select</a></span>(int&nbsp;column,
       int&nbsp;row)</code>
@@ -615,6 +621,16 @@ implements java.lang.Iterable&lt;<a href="../../../../../io/github/mountainrange
 <dt><span class="returnLabel">Returns:</span></dt>
 <dd>The player position. Null if no player is on the field.</dd>
 </dl>
+</li>
+</ul>
+<a name="clear--">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>clear</h4>
+<pre>public&nbsp;void&nbsp;clear()</pre>
+<div class="block">Clears this grid completely</div>
 </li>
 </ul>
 <a name="iterator--">
