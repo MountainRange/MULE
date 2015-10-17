@@ -13,7 +13,7 @@ sourceCompatibility = 1.8;
 mainClassName = "io.github.mountainrange.mule.MULE";
 
 wrapper {
-	gradleVersion = '2.8-rc-1';
+	gradleVersion = '2.8-rc-2';
 }
 
 repositories {
