@@ -14,7 +14,7 @@
             <Button mnemonicParsing="false" onAction="#handlePubAction" prefWidth="200.0" text="Pub" />
             <Button mnemonicParsing="false" onAction="#handleLandOfficeAction" prefWidth="200.0" text="Land Office" />
             <Button layoutX="210.0" layoutY="253.0" mnemonicParsing="false" onAction="#handleAssayOfficeAction" prefWidth="200.0" text="Assay Office" />
-            <Button layoutX="210.0" layoutY="281.0" mnemonicParsing="false" onAction="#handleLeaveAction" prefWidth="200.0" text="Leave Town" />
+            <Button fx:id="leaveButton" layoutX="210.0" layoutY="281.0" mnemonicParsing="false" onAction="#handleLeaveAction" prefWidth="200.0" text="Leave Town" />
          </children>
       </VBox>
    </center>

@@ -3,12 +3,12 @@ package io.github.mountainrange.mule.controllers;
 import io.github.mountainrange.mule.Config;
 import io.github.mountainrange.mule.MULE;
 import io.github.mountainrange.mule.SceneLoader;
-import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 
 import java.net.URL;
@@ -25,8 +25,12 @@ public class OptionsController implements Initializable, SceneAgent {
 	@FXML
 	private ComboBox<String> fadeCombo;
 
+	@FXML
+	private Button backButton;
+
 	@Override
 	public void initialize(URL url, ResourceBundle rb) {
+		backButton.setCancelButton(true);
 		assert fadeCombo != null : "fx:id=\"myChoices\" was not injected: check your FXML file 'foo.fxml'.";
 		fadeCombo.setItems(FXCollections.observableArrayList());
 		fadeCombo.getItems().add("TRUE");

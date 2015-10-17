@@ -2,11 +2,10 @@ package io.github.mountainrange.mule.controllers;
 
 import io.github.mountainrange.mule.MULE;
 import io.github.mountainrange.mule.SceneLoader;
-import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-
+import javafx.scene.control.Button;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -18,9 +17,12 @@ public class CreditsController implements Initializable, SceneAgent {
 	private SceneLoader sceneLoader;
 	private MULE mule;
 
+	@FXML
+	private Button backButton;
+
 	@Override
 	public void initialize(URL url, ResourceBundle rb) {
-		// TODO
+		backButton.setCancelButton(true);
 	}
 
 	public void setSceneParent(SceneLoader sceneLoader, MULE mule){

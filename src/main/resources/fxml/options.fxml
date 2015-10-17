@@ -43,7 +43,7 @@
                   <Slider GridPane.columnIndex="1" GridPane.rowIndex="1" />
                </children>
             </GridPane>
-            <Button mnemonicParsing="false" onAction="#handleBackAction" prefWidth="200.0" text="Back" />
+            <Button fx:id="backButton" mnemonicParsing="false" onAction="#handleBackAction" prefWidth="200.0" text="Back" />
          </children>
       </VBox>
    </center>

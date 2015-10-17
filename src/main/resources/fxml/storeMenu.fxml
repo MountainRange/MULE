@@ -45,7 +45,7 @@
                   <Insets />
                </opaqueInsets>
             </HBox>
-            <Button mnemonicParsing="false" onAction="#handleLeaveAction" prefWidth="200.0" text="Leave" />
+            <Button fx:id="leaveButton" mnemonicParsing="false" onAction="#handleLeaveAction" prefWidth="200.0" text="Leave" />
          </children>
       </VBox>
    </center>
