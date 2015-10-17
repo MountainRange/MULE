@@ -56,8 +56,12 @@ public class AuctionController implements Initializable, SceneAgent {
 	@FXML
 	private Button p4button;
 
+	@FXML
+	private Button backButton;
+
 	@Override
 	public void initialize(URL url, ResourceBundle rb) {
+		backButton.setCancelButton(true);
 		offers = new ArrayList<>();
 		labels = new ArrayList<>();
 		labels.add(p1offer);

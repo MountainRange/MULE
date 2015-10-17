@@ -66,7 +66,7 @@
                </children>
             </GridPane>
             <Button mnemonicParsing="false" onAction="#handleContinueAction" prefWidth="200.0" text="Continue" />
-            <Button mnemonicParsing="false" onAction="#handleBackAction" prefWidth="200.0" text="Back" />
+            <Button fx:id="backButton" mnemonicParsing="false" onAction="#handleBackAction" prefWidth="200.0" text="Back" />
          </children>
       </VBox>
    </center>

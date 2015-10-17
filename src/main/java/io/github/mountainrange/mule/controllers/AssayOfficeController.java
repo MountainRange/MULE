@@ -5,7 +5,7 @@ import io.github.mountainrange.mule.SceneLoader;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-
+import javafx.scene.control.Button;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -17,9 +17,12 @@ public class AssayOfficeController implements Initializable, SceneAgent {
 	private SceneLoader sceneLoader;
 	private MULE mule;
 
+	@FXML
+	private Button leaveButton;
+
 	@Override
 	public void initialize(URL url, ResourceBundle rb) {
-		// TODO
+		leaveButton.setCancelButton(true);
 	}
 
 	public void setSceneParent(SceneLoader sceneLoader, MULE mule){

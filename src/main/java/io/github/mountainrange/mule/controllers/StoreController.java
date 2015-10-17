@@ -9,6 +9,7 @@ import io.github.mountainrange.mule.enums.ResourceType;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.collections.FXCollections;
 
@@ -29,8 +30,12 @@ public class StoreController implements Initializable, SceneAgent {
 	@FXML
 	private ComboBox buySellCombo;
 
+	@FXML
+	private Button leaveButton;
+
 	@Override
 	public void initialize(URL url, ResourceBundle rb) {
+		leaveButton.setCancelButton(true);
 		buySellCombo.setItems(FXCollections.observableArrayList());
 		buySellCombo.getItems().add("Buy");
 		buySellCombo.getItems().add("Sell");
