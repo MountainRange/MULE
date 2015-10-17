@@ -13,6 +13,7 @@ import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
 import javafx.scene.control.ColorPicker;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Slider;
@@ -53,8 +54,15 @@ public class PlayerConfigController implements Initializable, SceneAgent {
 	@FXML
 	private TextField nameField;
 
+	@FXML
+	private Button startButton;
+
+	@FXML
+	private Button backButton;
+
 	@Override
 	public void initialize(URL url, ResourceBundle rb) {
+		backButton.setCancelButton(true);
 		Config.getInstance().playerList = new Player[Config.getInstance().maxPlayers];
 		adjustPlayerCount();
 		assert raceCombo != null : "fx:id=\"myChoices\" was not injected: check your FXML file 'foo.fxml'.";
@@ -97,8 +105,10 @@ public class PlayerConfigController implements Initializable, SceneAgent {
 		}
 		if (emptyName) {
 			nameLabel.setTextFill(Color.RED); // disallow empty name
+			startButton.setDisable(true);
 		} else {
 			nameLabel.setTextFill(Color.BLACK);
+			startButton.setDisable(false);
 		}
 		Config.getInstance().playerList[Config.getInstance().currentPlayer].setName(nameField.getText());
 	}
