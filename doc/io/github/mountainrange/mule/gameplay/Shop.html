@@ -17,7 +17,7 @@
     catch(err) {
     }
 //-->
-var methods = {"i0":10,"i1":9,"i2":9,"i3":10,"i4":10,"i5":9,"i6":10,"i7":10,"i8":10,"i9":9,"i10":10};
+var methods = {"i0":10,"i1":9,"i2":10,"i3":10,"i4":9,"i5":10,"i6":10,"i7":10,"i8":10};
 var tabs = {65535:["t0","All Methods"],1:["t1","Static Methods"],2:["t2","Instance Methods"],8:["t4","Concrete Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
@@ -47,7 +47,7 @@ var activeTableTab = "activeTableTab";
 </div>
 <div class="subNav">
 <ul class="navList">
-<li><a href="../../../../../io/github/mountainrange/mule/gameplay/Player.html" title="class in io.github.mountainrange.mule.gameplay"><span class="typeNameLink">Prev&nbsp;Class</span></a></li>
+<li><a href="../../../../../io/github/mountainrange/mule/gameplay/ProductionResult.html" title="class in io.github.mountainrange.mule.gameplay"><span class="typeNameLink">Prev&nbsp;Class</span></a></li>
 <li><a href="../../../../../io/github/mountainrange/mule/gameplay/Tile.html" title="interface in io.github.mountainrange.mule.gameplay"><span class="typeNameLink">Next&nbsp;Class</span></a></li>
 </ul>
 <ul class="navList">
@@ -154,62 +154,50 @@ extends java.lang.Object</pre>
 </tr>
 <tr id="i1" class="rowColor">
 <td class="colFirst"><code>static int</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../io/github/mountainrange/mule/gameplay/Shop.html#foodUsage-int-">foodUsage</a></span>(int&nbsp;turn)</code>
-<div class="block">Get the amount of food required for each player on the given turn.</div>
-</td>
-</tr>
-<tr id="i2" class="altColor">
-<td class="colFirst"><code>static int</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../io/github/mountainrange/mule/gameplay/Shop.html#gamblingProfit-int-int-">gamblingProfit</a></span>(int&nbsp;round,
               int&nbsp;timeLeft)</code>
 <div class="block">Randomly generate an amount of money earned gambling on the given round with the given time left.</div>
 </td>
 </tr>
-<tr id="i3" class="rowColor">
+<tr id="i2" class="altColor">
 <td class="colFirst"><code>int</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../io/github/mountainrange/mule/gameplay/Shop.html#mulePrice--">mulePrice</a></span>()</code>
 <div class="block">Get the price of MULEs in the shop</div>
 </td>
 </tr>
-<tr id="i4" class="altColor">
+<tr id="i3" class="rowColor">
 <td class="colFirst"><code>int</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../io/github/mountainrange/mule/gameplay/Shop.html#muleStock--">muleStock</a></span>()</code>
 <div class="block">Get the number of MULEs available in the shop.</div>
 </td>
 </tr>
-<tr id="i5" class="rowColor">
+<tr id="i4" class="altColor">
 <td class="colFirst"><code>static int</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../io/github/mountainrange/mule/gameplay/Shop.html#outfitPriceOf-io.github.mountainrange.mule.enums.MuleType-">outfitPriceOf</a></span>(<a href="../../../../../io/github/mountainrange/mule/enums/MuleType.html" title="enum in io.github.mountainrange.mule.enums">MuleType</a>&nbsp;mule)</code>
 <div class="block">Gets the price of outfitting a MULE of the given type.</div>
 </td>
 </tr>
-<tr id="i6" class="altColor">
+<tr id="i5" class="rowColor">
 <td class="colFirst"><code>int</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../io/github/mountainrange/mule/gameplay/Shop.html#priceOf-io.github.mountainrange.mule.enums.ResourceType-">priceOf</a></span>(<a href="../../../../../io/github/mountainrange/mule/enums/ResourceType.html" title="enum in io.github.mountainrange.mule.enums">ResourceType</a>&nbsp;resource)</code>
 <div class="block">Get the current stock in this shop of the given resource.</div>
 </td>
 </tr>
-<tr id="i7" class="rowColor">
+<tr id="i6" class="altColor">
 <td class="colFirst"><code>boolean</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../io/github/mountainrange/mule/gameplay/Shop.html#sell-io.github.mountainrange.mule.gameplay.Player-io.github.mountainrange.mule.enums.ResourceType-">sell</a></span>(<a href="../../../../../io/github/mountainrange/mule/gameplay/Player.html" title="class in io.github.mountainrange.mule.gameplay">Player</a>&nbsp;player,
     <a href="../../../../../io/github/mountainrange/mule/enums/ResourceType.html" title="enum in io.github.mountainrange.mule.enums">ResourceType</a>&nbsp;resource)</code>
 <div class="block">Sell a single unit of the given resource to the given player from this shop.</div>
 </td>
 </tr>
-<tr id="i8" class="altColor">
+<tr id="i7" class="rowColor">
 <td class="colFirst"><code>boolean</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../io/github/mountainrange/mule/gameplay/Shop.html#sellMule-io.github.mountainrange.mule.gameplay.Player-io.github.mountainrange.mule.enums.MuleType-">sellMule</a></span>(<a href="../../../../../io/github/mountainrange/mule/gameplay/Player.html" title="class in io.github.mountainrange.mule.gameplay">Player</a>&nbsp;player,
         <a href="../../../../../io/github/mountainrange/mule/enums/MuleType.html" title="enum in io.github.mountainrange.mule.enums">MuleType</a>&nbsp;muleType)</code>
 <div class="block">Sell a MULE of the given type to the given player.</div>
 </td>
 </tr>
-<tr id="i9" class="rowColor">
-<td class="colFirst"><code>static double</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../io/github/mountainrange/mule/gameplay/Shop.html#spoilageRatioOf-io.github.mountainrange.mule.enums.ResourceType-">spoilageRatioOf</a></span>(<a href="../../../../../io/github/mountainrange/mule/enums/ResourceType.html" title="enum in io.github.mountainrange.mule.enums">ResourceType</a>&nbsp;resource)</code>
-<div class="block">Get the percentage of a player's stock of a given resource that <em>doesn't</em> spoil each turn.</div>
-</td>
-</tr>
-<tr id="i10" class="altColor">
+<tr id="i8" class="altColor">
 <td class="colFirst"><code>int</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../io/github/mountainrange/mule/gameplay/Shop.html#stockOf-io.github.mountainrange.mule.enums.ResourceType-">stockOf</a></span>(<a href="../../../../../io/github/mountainrange/mule/enums/ResourceType.html" title="enum in io.github.mountainrange.mule.enums">ResourceType</a>&nbsp;resource)</code>
 <div class="block">Get the current stock in this shop of the given resource.</div>
@@ -330,39 +318,6 @@ extends java.lang.Object</pre>
 </dl>
 </li>
 </ul>
-<a name="spoilageRatioOf-io.github.mountainrange.mule.enums.ResourceType-">
-<!--   -->
-</a>
-<ul class="blockList">
-<li class="blockList">
-<h4>spoilageRatioOf</h4>
-<pre>public static&nbsp;double&nbsp;spoilageRatioOf(<a href="../../../../../io/github/mountainrange/mule/enums/ResourceType.html" title="enum in io.github.mountainrange.mule.enums">ResourceType</a>&nbsp;resource)</pre>
-<div class="block">Get the percentage of a player's stock of a given resource that <em>doesn't</em> spoil each turn.</div>
-<dl>
-<dt><span class="paramLabel">Parameters:</span></dt>
-<dd><code>resource</code> - resource to get the spoilage ratio of</dd>
-<dt><span class="returnLabel">Returns:</span></dt>
-<dd>spoilage ratio of the given resource</dd>
-</dl>
-</li>
-</ul>
-<a name="foodUsage-int-">
-<!--   -->
-</a>
-<ul class="blockList">
-<li class="blockList">
-<h4>foodUsage</h4>
-<pre>public static&nbsp;int&nbsp;foodUsage(int&nbsp;turn)</pre>
-<div class="block">Get the amount of food required for each player on the given turn. Food usage starts at 3 on turn 0 and increases
- by 1 every 4 turns.</div>
-<dl>
-<dt><span class="paramLabel">Parameters:</span></dt>
-<dd><code>turn</code> - turn to calculate food usage</dd>
-<dt><span class="returnLabel">Returns:</span></dt>
-<dd>food usage on the given turn</dd>
-</dl>
-</li>
-</ul>
 <a name="gamblingProfit-int-int-">
 <!--   -->
 </a>
@@ -466,7 +421,7 @@ extends java.lang.Object</pre>
 </div>
 <div class="subNav">
 <ul class="navList">
-<li><a href="../../../../../io/github/mountainrange/mule/gameplay/Player.html" title="class in io.github.mountainrange.mule.gameplay"><span class="typeNameLink">Prev&nbsp;Class</span></a></li>
+<li><a href="../../../../../io/github/mountainrange/mule/gameplay/ProductionResult.html" title="class in io.github.mountainrange.mule.gameplay"><span class="typeNameLink">Prev&nbsp;Class</span></a></li>
 <li><a href="../../../../../io/github/mountainrange/mule/gameplay/Tile.html" title="interface in io.github.mountainrange.mule.gameplay"><span class="typeNameLink">Next&nbsp;Class</span></a></li>
 </ul>
 <ul class="navList">
