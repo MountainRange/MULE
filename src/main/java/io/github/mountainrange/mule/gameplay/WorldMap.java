@@ -18,13 +18,12 @@ public class WorldMap implements Iterable<Tile> {
 
 	public WorldMap(Grid<VisualTile> g, MapType mType) {
 		this.map = g;
-
 		ownedTiles = new HashMap<>();
 
-		for (int i = 0; i < mType.map.length; i++) {
-			for (int j = 0; j < mType.map[0].length; j++) {
-				if (mType.map[i][j] != null) {
-					map.add(new VisualTile(mType.map[i][j]), j, i);
+		for (int i = 0; i < mType.getMap().length; i++) {
+			for (int j = 0; j < mType.getMap()[0].length; j++) {
+				if (mType.getMap()[i][j] != null) {
+					map.add(new VisualTile(mType.getMap()[i][j]), j, i);
 				}
 			}
 		}
