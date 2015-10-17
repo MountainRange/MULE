@@ -3,14 +3,12 @@ package io.github.mountainrange.mule;
 import io.github.mountainrange.mule.enums.GameType;
 import io.github.mountainrange.mule.enums.MuleType;
 import io.github.mountainrange.mule.enums.ResourceType;
-import io.github.mountainrange.mule.gameplay.Player;
-import io.github.mountainrange.mule.gameplay.Shop;
-import io.github.mountainrange.mule.gameplay.Tile;
-import io.github.mountainrange.mule.gameplay.WorldMap;
+import io.github.mountainrange.mule.gameplay.*;
 import io.github.mountainrange.mule.managers.GameState;
 import io.github.mountainrange.mule.managers.GameView;
 import io.github.mountainrange.mule.managers.KeyBindManager;
 
+import io.github.mountainrange.mule.managers.ProductionManager;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
@@ -71,7 +69,7 @@ public class GameManager {
 		currentPlayerNum = 0;
 		passCounter = 0;
 		phaseCount = 0;
-		roundCount = 0;
+		roundCount = -2;
 		timeLeft = 0;
 
 		freeLand = true;
@@ -99,9 +97,9 @@ public class GameManager {
 	}
 
 	/*
-	 * Someone tell me what this does
+	 * Passes player turn during land-grab phase for HOTSEAT only
 	 */
-	public void commentYourCodeGuys() {
+	public void pass() {
 		if (!freeLand) {
 			passCounter++;
 			currentPlayerNum = (currentPlayerNum + 1) % config.numOfPlayers;
@@ -137,7 +135,7 @@ public class GameManager {
 	public void buyTile(Player player) {
 		if (player.hasMule()) {
 			map.placeMule(player);
-		} else if (!freeLand || map.countLandOwnedBy(player) < roundCount) {
+		} else {
 			if (map.getOwner() == null) {
 				int cost = (int) (300 + (roundCount * Math.random() * 100));
 				if (cost > player.getMoney()) {
@@ -146,6 +144,7 @@ public class GameManager {
 				}
 				if (phaseCount == 0) {
 					if (config.gameType == GameType.HOTSEAT) {
+						cost = (int) (300 + (Math.random() * 100));
 						map.sellTile(player);
 						currentPlayerNum = (currentPlayerNum + 1) % config.numOfPlayers;
 						setLabels();
@@ -164,7 +163,9 @@ public class GameManager {
 							}
 						}
 					} else if (config.gameType == GameType.SIMULTANEOUS) {
-						buyers.add(player);
+						if (map.countLandOwnedBy(player) < roundCount + 3) {
+							buyers.add(player);
+						}
 					}
 				} else if (phaseCount == 1) {
 					player.setMoney(player.getMoney() - cost);
@@ -224,17 +225,22 @@ public class GameManager {
 	}
 
 	/**
-	 * Advance the game to the next round, and perform any associated actions.
+	 * Advance the game to the next round, and perform any associated actions. Specifically, calculate and apply
+	 * production, increment the round counter, and reorder players by increasing score.
 	 */
 	private void nextRound() {
+
+		// Reorder players based on score
 		calculateTurnOrder();
+		// Increment roundCount to the next round
 		roundCount++;
+
 		passCounter = 0;
 		setLabels();
-		if (roundCount == 3) {
+		if (roundCount == 0) {
 			freeLand = false;
 		}
-		if (roundCount == 4) {
+		if (roundCount == 1) {
 			phaseCount = 1;
 		}
 		if (phaseCount == 0) {
@@ -242,9 +248,6 @@ public class GameManager {
 		} else if (phaseCount == 1) {
 			normalPhase();
 		}
-
-		foodRequired = Shop.foodUsage(roundCount);
-		System.out.println("Food required: " + foodRequired);
 	}
 
 	/**
@@ -281,9 +284,32 @@ public class GameManager {
 	}
 
 	private void normalPhase() {
+		if (roundCount > 1) {
+			calculateProduction();
+		}
 		map.select(4, 2);
 		setLabels();
 		turnTimer();
+	}
+
+	private void calculateProduction() {
+		// Calculate production for all players on the given round
+		Map<Player, EnumMap<ResourceType, ProductionResult>> production = ProductionManager.calculateProduction(map,
+				playerList, roundCount);
+
+		// Apply production results
+		for (Map.Entry<Player, EnumMap<ResourceType, ProductionResult>> playerEntry : production.entrySet()) {
+			Player player = playerEntry.getKey();
+			EnumMap<ResourceType, ProductionResult> resourceResults = playerEntry.getValue();
+
+			for (Map.Entry<ResourceType, ProductionResult> resourceEntry : resourceResults.entrySet()) {
+				ResourceType resource = resourceEntry.getKey();
+				ProductionResult productionResult = resourceEntry.getValue();
+
+				// For each resource, change the player's stock by the appropriate amount
+				player.changeStockOf(resource, productionResult.delta());
+			}
+		}
 	}
 
 	private void enterAuction(List<Player> buyers) {
@@ -370,7 +396,7 @@ public class GameManager {
 	public Map<Player, Integer> scoreGame() {
 		Map<Player, Integer> scores = new HashMap<>();
 
-		// Add score from total number of mules in store
+		// Compute score from total number of mules in store
 		int muleScore = shop.muleStock() * 35;
 		for (Player player : playerList) {
 			// Add score from money and mules

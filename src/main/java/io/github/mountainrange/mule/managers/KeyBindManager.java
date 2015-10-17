@@ -185,7 +185,7 @@ public class KeyBindManager {
 
 		toBind.add(new GameView(GameType.HOTSEAT, MULE.PLAY_SCENE, 0), KeyCode.X,
 				(a) -> {
-					a.manager.commentYourCodeGuys();
+					a.manager.pass();
 					return "Bought land for Player 4"; });
 
 

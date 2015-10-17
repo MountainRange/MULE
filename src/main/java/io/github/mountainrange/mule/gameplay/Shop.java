@@ -18,7 +18,6 @@ public class Shop {
 	private static final EnumMap<Difficulty, Integer> INITIAL_MULE_PRICE;
 
 	private static final EnumMap<MuleType, Integer> OUTFIT_PRICES;
-	private static final EnumMap<ResourceType, Double> SPOILAGE_RATIOS;
 
 	private EnumMap<ResourceType, Integer> stocks;
 	private EnumMap<ResourceType, Integer> prices;
@@ -78,28 +77,6 @@ public class Shop {
 	}
 
 	/**
-	 * Get the percentage of a player's stock of a given resource that <em>doesn't</em> spoil each turn.
-	 * @param resource resource to get the spoilage ratio of
-	 * @return spoilage ratio of the given resource
-	 */
-	public static double spoilageRatioOf(ResourceType resource) {
-		return SPOILAGE_RATIOS.get(resource);
-	}
-
-	/**
-	 * Get the amount of food required for each player on the given turn. Food usage starts at 3 on turn 0 and increases
-	 * by 1 every 4 turns.
-	 * @param turn turn to calculate food usage
-	 * @return food usage on the given turn
-	 */
-	public static int foodUsage(int turn) {
-		if (turn < 0) {
-			throw new IllegalArgumentException(String.format("Can't get food usage for turn %d: negative turn", turn));
-		}
-		return turn / 4 + 3;
-	}
-
-	/**
 	 * Randomly generate an amount of money earned gambling on the given round with the given time left. The value is
 	 * the base gambling profit plus a random percentage of the amount of time left. Also see
 	 * <a href="http://bringerp.free.fr/RE/Mule/reverseEngineering.php5#GamblingAtThePub">Gambling at the Pub</a>.
@@ -150,7 +127,7 @@ public class Shop {
 
 		addResource(resource, -1);
 		player.addMoney(-priceOf(resource));
-		player.addStock(resource, 1);
+		player.changeStockOf(resource, 1);
 		return true;
 	}
 
@@ -169,7 +146,7 @@ public class Shop {
 
 		addResource(resource, 1);
 		player.addMoney(priceOf(resource));
-		player.addStock(resource, -1);
+		player.changeStockOf(resource, -1);
 		return true;
 	}
 
@@ -196,7 +173,7 @@ public class Shop {
 	}
 
 	static {
-		// Hard-coded initial shop prices and stocks at the beginning of the game
+		// Hard-coded shop stocks at the beginning of the game
 		INITIAL_STOCKS = new EnumMap<>(Difficulty.class);
 
 		EnumMap<ResourceType, Integer> beginnerStocks = new EnumMap<>(ResourceType.class);
@@ -216,6 +193,7 @@ public class Shop {
 		INITIAL_STOCKS.put(Difficulty.PLATEAU, otherStocks);
 		INITIAL_STOCKS.put(Difficulty.MOUNTAIN, otherStocks);
 
+		// Hard-coded shop prices at the beginning of the game
 		INITIAL_PRICES = new EnumMap<>(Difficulty.class);
 
 		EnumMap<ResourceType, Integer> startPrices = new EnumMap<>(ResourceType.class);
@@ -253,13 +231,6 @@ public class Shop {
 		OUTFIT_PRICES.put(MuleType.SMITHORE_MULE, 75);
 		OUTFIT_PRICES.put(MuleType.CRYSTITE_MULE, 100);
 
-		// Hard-coded spoilage ratios from turn to turn
-		SPOILAGE_RATIOS = new EnumMap<>(ResourceType.class);
-
-		SPOILAGE_RATIOS.put(ResourceType.FOOD, 0.5);
-		SPOILAGE_RATIOS.put(ResourceType.ENERGY, 0.75);
-		SPOILAGE_RATIOS.put(ResourceType.SMITHORE, 0.0);
-		SPOILAGE_RATIOS.put(ResourceType.CRYSTITE, 0.0);
 	}
 
 }
