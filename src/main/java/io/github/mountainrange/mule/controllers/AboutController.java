@@ -10,7 +10,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.text.*;
 import javafx.scene.text.Font;
-
+import javafx.scene.control.Button;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -28,8 +28,12 @@ public class AboutController implements Initializable, SceneAgent {
 	@FXML
 	private ScrollPane scrollPane;
 
+	@FXML
+	private Button backButton;
+
 	@Override
 	public void initialize(URL url, ResourceBundle rb) {
+		backButton.setCancelButton(true);
 		Text h1 = new Text("About MULE\n\n");
 		h1.setFont(Font.font("Verdana", FontWeight.BOLD, 24));
 		textFlow.getChildren().add(h1);

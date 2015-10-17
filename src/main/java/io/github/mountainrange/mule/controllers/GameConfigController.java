@@ -13,6 +13,7 @@ import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Slider;
 import javafx.util.StringConverter;
@@ -40,8 +41,12 @@ public class GameConfigController implements Initializable, SceneAgent {
 	@FXML
 	private ComboBox<String> mapTypeCombo;
 
+	@FXML
+	private Button backButton;
+
 	@Override
 	public void initialize(URL url, ResourceBundle rb) {
+		backButton.setCancelButton(true);
 		diffSlider.setLabelFormatter(new StringConverter<Double>() {
 			@Override
 			public String toString(Double n) {
