@@ -97,14 +97,13 @@ public class GameManager {
 	}
 
 	/*
-	 * Someone tell me what this does
+	 * Passes player turn during land-grab phase for HOTSEAT only
 	 */
-	public void commentYourCodeGuys() {
+	public void pass() {
 		if (!freeLand) {
 			passCounter++;
 			currentPlayerNum = (currentPlayerNum + 1) % config.numOfPlayers;
 			setLabels();
-			System.out.println(passCounter);
 			if (config.numOfPlayers == passCounter) {
 				nextRound();
 			}
