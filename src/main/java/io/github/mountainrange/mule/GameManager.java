@@ -68,7 +68,7 @@ public class GameManager {
 		currentPlayerNum = 0;
 		passCounter = 0;
 		phaseCount = 0;
-		roundCount = 0;
+		roundCount = -2;
 		timeLeft = 0;
 
 		freeLand = true;
@@ -135,7 +135,7 @@ public class GameManager {
 	public void buyTile(Player player) {
 		if (player.hasMule()) {
 			map.placeMule(player);
-		} else if (!freeLand || map.countLandOwnedBy(player) < roundCount) {
+		} else {
 			if (map.getOwner() == null) {
 				int cost = (int) (300 + (roundCount * Math.random() * 100));
 				if (cost > player.getMoney()) {
@@ -144,6 +144,7 @@ public class GameManager {
 				}
 				if (phaseCount == 0) {
 					if (config.gameType == GameType.HOTSEAT) {
+						cost = (int) (300 + (Math.random() * 100));
 						map.sellTile(player);
 						currentPlayerNum = (currentPlayerNum + 1) % config.numOfPlayers;
 						setLabels();
@@ -162,7 +163,9 @@ public class GameManager {
 							}
 						}
 					} else if (config.gameType == GameType.SIMULTANEOUS) {
-						buyers.add(player);
+						if (map.countLandOwnedBy(player) < roundCount + 3) {
+							buyers.add(player);
+						}
 					}
 				} else if (phaseCount == 1) {
 					player.setMoney(player.getMoney() - cost);
@@ -226,23 +229,6 @@ public class GameManager {
 	 * production, increment the round counter, and reorder players by increasing score.
 	 */
 	private void nextRound() {
-		// Calculate production for all players on the given round
-		Map<Player, EnumMap<ResourceType, ProductionResult>> production = ProductionManager.calculateProduction(map,
-				playerList, roundCount);
-
-		// Apply production results
-		for (Map.Entry<Player, EnumMap<ResourceType, ProductionResult>> playerEntry : production.entrySet()) {
-			Player player = playerEntry.getKey();
-			EnumMap<ResourceType, ProductionResult> resourceResults = playerEntry.getValue();
-
-			for (Map.Entry<ResourceType, ProductionResult> resourceEntry : resourceResults.entrySet()) {
-				ResourceType resource = resourceEntry.getKey();
-				ProductionResult productionResult = resourceEntry.getValue();
-
-				// For each resource, change the player's stock by the appropriate amount
-				player.changeStockOf(resource, productionResult.delta());
-			}
-		}
 
 		// Reorder players based on score
 		calculateTurnOrder();
@@ -251,10 +237,10 @@ public class GameManager {
 
 		passCounter = 0;
 		setLabels();
-		if (roundCount == 3) {
+		if (roundCount == 0) {
 			freeLand = false;
 		}
-		if (roundCount == 4) {
+		if (roundCount == 1) {
 			phaseCount = 1;
 		}
 		if (phaseCount == 0) {
@@ -277,7 +263,7 @@ public class GameManager {
 		turnOrder.get(currentPlayerNum).setMule(null);
 		currentPlayerNum = (currentPlayerNum + 1) % config.numOfPlayers;
 
-		resetTimer();
+		turnTimer();
 		setLabels();
 
 		if (currentPlayerNum == 0) {
@@ -298,9 +284,32 @@ public class GameManager {
 	}
 
 	private void normalPhase() {
+		if (roundCount > 1) {
+			calculateProduction();
+		}
 		map.select(4, 2);
 		setLabels();
 		turnTimer();
+	}
+
+	private void calculateProduction() {
+		// Calculate production for all players on the given round
+		Map<Player, EnumMap<ResourceType, ProductionResult>> production = ProductionManager.calculateProduction(map,
+				playerList, roundCount);
+
+		// Apply production results
+		for (Map.Entry<Player, EnumMap<ResourceType, ProductionResult>> playerEntry : production.entrySet()) {
+			Player player = playerEntry.getKey();
+			EnumMap<ResourceType, ProductionResult> resourceResults = playerEntry.getValue();
+
+			for (Map.Entry<ResourceType, ProductionResult> resourceEntry : resourceResults.entrySet()) {
+				ResourceType resource = resourceEntry.getKey();
+				ProductionResult productionResult = resourceEntry.getValue();
+
+				// For each resource, change the player's stock by the appropriate amount
+				player.changeStockOf(resource, productionResult.delta());
+			}
+		}
 	}
 
 	private void enterAuction(List<Player> buyers) {
