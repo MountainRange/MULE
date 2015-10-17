@@ -281,7 +281,6 @@ public class GameManager {
 	}
 
 	private void normalPhase() {
-		map.calculateProduction();
 		map.select(4, 2);
 		setLabels();
 		turnTimer();

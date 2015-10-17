@@ -42,7 +42,6 @@ public interface Tile {
 	void setTerrain(TerrainType terrain);
 	MuleType getMule();
 	void setMule(MuleType mule);
-	void produce();
 
 	/**
 	 * Check if a Tile has the same data as another tile, that is, if it has the same owner, terrain, and mule

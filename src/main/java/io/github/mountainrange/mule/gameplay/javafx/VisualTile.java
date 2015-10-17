@@ -1,7 +1,6 @@
 package io.github.mountainrange.mule.gameplay.javafx;
 
 import io.github.mountainrange.mule.enums.MuleType;
-import io.github.mountainrange.mule.enums.ResourceType;
 import io.github.mountainrange.mule.enums.TerrainType;
 import io.github.mountainrange.mule.gameplay.Player;
 import io.github.mountainrange.mule.gameplay.Tile;
@@ -122,13 +121,5 @@ public class VisualTile extends Group implements Tile {
 		hash = (hash << 8) ^ terrain.ordinal();
 		hash = (hash << 8) ^ mule.ordinal();
 		return hash;
-	}
-
-	@Override
-	public void produce() {
-		if (mule != MuleType.EMPTY && owner.stockOf(ResourceType.ENERGY) > 0) {
-			owner.addStock(mule.getResourceType(), terrain.getProduction(mule.getResourceType()));
-			owner.addStock(ResourceType.ENERGY, -1);
-		}
 	}
 }

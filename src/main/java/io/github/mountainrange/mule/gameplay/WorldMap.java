@@ -104,12 +104,7 @@ public class WorldMap implements Iterable<Tile> {
 	public Iterator<Tile> iterator() {
 		return map.iterator();
 	}
-
-	public void calculateProduction() {
-		ownedTiles.keySet().stream().forEach(
-				(player) -> ownedTiles.get(player).stream().forEach((tile) -> tile.produce()));
-	}
-
+	
 	/**
 	 * Gets the number of columns in this map
 	 * @return cols the number of columns in this map

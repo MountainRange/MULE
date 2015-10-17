@@ -6,25 +6,19 @@ import javafx.scene.paint.Color;
  * Describes the type of MULE installed on a given plot.
  */
 public enum MuleType {
-	EMPTY(Color.BLACK, null),
-	FOOD_MULE(Color.GREEN, ResourceType.FOOD),
-	ENERGY_MULE(Color.YELLOW, ResourceType.ENERGY),
-	SMITHORE_MULE(Color.PURPLE, ResourceType.SMITHORE),
-	CRYSTITE_MULE(Color.SILVER, ResourceType.CRYSTITE);
+	EMPTY(Color.BLACK),
+	FOOD_MULE(Color.GREEN),
+	ENERGY_MULE(Color.YELLOW),
+	SMITHORE_MULE(Color.PURPLE),
+	CRYSTITE_MULE(Color.SILVER);
 
 	private Color color;
-	private ResourceType type;
 
-	MuleType(Color color, ResourceType type) {
+	MuleType(Color color) {
 		this.color = color;
-		this.type = type;
 	}
 
 	public Color getColor() {
 		return color;
-	}
-
-	public ResourceType getResourceType() {
-		return type;
 	}
 }
