@@ -16,7 +16,7 @@
       </Label>
    </center>
 	<bottom>
-		<Button mnemonicParsing="false" onAction="#handleBackAction" text="Leave" BorderPane.alignment="CENTER">
+		<Button fx:id="leaveButton" mnemonicParsing="false" onAction="#handleBackAction" text="Leave" BorderPane.alignment="CENTER">
 			<BorderPane.margin>
 				<Insets bottom="20.0" />
 			</BorderPane.margin>

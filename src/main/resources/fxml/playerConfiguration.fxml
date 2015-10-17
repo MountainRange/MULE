@@ -70,8 +70,8 @@
                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                </rowConstraints>
             </GridPane>
-            <Button mnemonicParsing="false" onAction="#handleStartAction" prefWidth="200.0" text="Start Game" />
-            <Button mnemonicParsing="false" onAction="#handleBackAction" prefWidth="200.0" text="Back" />
+            <Button fx:id="startButton" mnemonicParsing="false" onAction="#handleStartAction" prefWidth="200.0" text="Start Game" />
+            <Button fx:id="backButton" mnemonicParsing="false" onAction="#handleBackAction" prefWidth="200.0" text="Back" />
          </children>
       </VBox>
    </center>

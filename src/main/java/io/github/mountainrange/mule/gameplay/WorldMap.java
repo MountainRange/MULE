@@ -164,7 +164,7 @@ public class WorldMap implements Iterable<Tile> {
 	public Iterator<Tile> iterator() {
 		return map.iterator();
 	}
-
+	
 	/**
 	 * Gets the number of columns in this map
 	 * @return cols the number of columns in this map
