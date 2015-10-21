@@ -17,7 +17,7 @@
     catch(err) {
     }
 //-->
-var methods = {"i0":9,"i1":10,"i2":10,"i3":10,"i4":10};
+var methods = {"i0":9,"i1":10,"i2":10,"i3":10,"i4":10,"i5":10};
 var tabs = {65535:["t0","All Methods"],1:["t1","Static Methods"],2:["t2","Instance Methods"],8:["t4","Concrete Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
@@ -163,19 +163,27 @@ extends java.lang.Object</pre>
 </tr>
 <tr id="i2" class="altColor">
 <td class="colFirst"><code>void</code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../io/github/mountainrange/mule/managers/RandomEventManager.html#addGoodEvent-java.util.function.Function-">addGoodEvent</a></span>(java.util.function.Function&lt;<a href="../../../../../io/github/mountainrange/mule/managers/GameState.html" title="class in io.github.mountainrange.mule.managers">GameState</a>,java.lang.String&gt;&nbsp;toAdd)</code>
+<div class="block">Adds an event to this RandomEventManager
+ Events added by this method are deemed 'good' and will be exclusively be selected for the lowest player.</div>
+</td>
+</tr>
+<tr id="i3" class="rowColor">
+<td class="colFirst"><code>void</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../io/github/mountainrange/mule/managers/RandomEventManager.html#clear--">clear</a></span>()</code>
 <div class="block">Clears all bindings from this manager</div>
 </td>
 </tr>
-<tr id="i3" class="rowColor">
+<tr id="i4" class="altColor">
 <td class="colFirst"><code>java.util.List&lt;java.util.function.Function&lt;<a href="../../../../../io/github/mountainrange/mule/managers/GameState.html" title="class in io.github.mountainrange.mule.managers">GameState</a>,java.lang.String&gt;&gt;</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../io/github/mountainrange/mule/managers/RandomEventManager.html#getBindings--">getBindings</a></span>()</code>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../io/github/mountainrange/mule/managers/RandomEventManager.html#getBindings-boolean-">getBindings</a></span>(boolean&nbsp;onlyGood)</code>
 <div class="block">Gets the lambda function associated with this keybinding if one is available</div>
 </td>
 </tr>
-<tr id="i4" class="altColor">
+<tr id="i5" class="rowColor">
 <td class="colFirst"><code>void</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../io/github/mountainrange/mule/managers/RandomEventManager.html#runRandomEvent-io.github.mountainrange.mule.managers.GameState-">runRandomEvent</a></span>(<a href="../../../../../io/github/mountainrange/mule/managers/GameState.html" title="class in io.github.mountainrange.mule.managers">GameState</a>&nbsp;datapacket)</code>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../io/github/mountainrange/mule/managers/RandomEventManager.html#runRandomEvent-io.github.mountainrange.mule.managers.GameState-boolean-">runRandomEvent</a></span>(<a href="../../../../../io/github/mountainrange/mule/managers/GameState.html" title="class in io.github.mountainrange.mule.managers">GameState</a>&nbsp;datapacket,
+              boolean&nbsp;lowestPlayer)</code>
 <div class="block">Runs a random event that is in this manager</div>
 </td>
 </tr>
@@ -246,13 +254,29 @@ extends java.lang.Object</pre>
 </dl>
 </li>
 </ul>
-<a name="getBindings--">
+<a name="addGoodEvent-java.util.function.Function-">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>addGoodEvent</h4>
+<pre>public&nbsp;void&nbsp;addGoodEvent(java.util.function.Function&lt;<a href="../../../../../io/github/mountainrange/mule/managers/GameState.html" title="class in io.github.mountainrange.mule.managers">GameState</a>,java.lang.String&gt;&nbsp;toAdd)</pre>
+<div class="block">Adds an event to this RandomEventManager
+ Events added by this method are deemed 'good' and will be exclusively be selected for the lowest player.
+ Other players will still get these events, though.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>toAdd</code> - the lambda expression to add</dd>
+</dl>
+</li>
+</ul>
+<a name="getBindings-boolean-">
 <!--   -->
 </a>
 <ul class="blockList">
 <li class="blockList">
 <h4>getBindings</h4>
-<pre>public&nbsp;java.util.List&lt;java.util.function.Function&lt;<a href="../../../../../io/github/mountainrange/mule/managers/GameState.html" title="class in io.github.mountainrange.mule.managers">GameState</a>,java.lang.String&gt;&gt;&nbsp;getBindings()</pre>
+<pre>public&nbsp;java.util.List&lt;java.util.function.Function&lt;<a href="../../../../../io/github/mountainrange/mule/managers/GameState.html" title="class in io.github.mountainrange.mule.managers">GameState</a>,java.lang.String&gt;&gt;&nbsp;getBindings(boolean&nbsp;onlyGood)</pre>
 <div class="block">Gets the lambda function associated with this keybinding if one is available</div>
 <dl>
 <dt><span class="returnLabel">Returns:</span></dt>
@@ -260,13 +284,14 @@ extends java.lang.Object</pre>
 </dl>
 </li>
 </ul>
-<a name="runRandomEvent-io.github.mountainrange.mule.managers.GameState-">
+<a name="runRandomEvent-io.github.mountainrange.mule.managers.GameState-boolean-">
 <!--   -->
 </a>
 <ul class="blockList">
 <li class="blockList">
 <h4>runRandomEvent</h4>
-<pre>public&nbsp;void&nbsp;runRandomEvent(<a href="../../../../../io/github/mountainrange/mule/managers/GameState.html" title="class in io.github.mountainrange.mule.managers">GameState</a>&nbsp;datapacket)</pre>
+<pre>public&nbsp;void&nbsp;runRandomEvent(<a href="../../../../../io/github/mountainrange/mule/managers/GameState.html" title="class in io.github.mountainrange.mule.managers">GameState</a>&nbsp;datapacket,
+                           boolean&nbsp;lowestPlayer)</pre>
 <div class="block">Runs a random event that is in this manager</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>

@@ -124,6 +124,11 @@
 <dd>
 <div class="block">Adds an event to this RandomEventManager</div>
 </dd>
+<dt><span class="memberNameLink"><a href="io/github/mountainrange/mule/managers/RandomEventManager.html#addGoodEvent-java.util.function.Function-">addGoodEvent(Function&lt;GameState, String&gt;)</a></span> - Method in class io.github.mountainrange.mule.managers.<a href="io/github/mountainrange/mule/managers/RandomEventManager.html" title="class in io.github.mountainrange.mule.managers">RandomEventManager</a></dt>
+<dd>
+<div class="block">Adds an event to this RandomEventManager
+ Events added by this method are deemed 'good' and will be exclusively be selected for the lowest player.</div>
+</dd>
 <dt><span class="memberNameLink"><a href="io/github/mountainrange/mule/gameplay/Player.html#addMoney-int-">addMoney(int)</a></span> - Method in class io.github.mountainrange.mule.gameplay.<a href="io/github/mountainrange/mule/gameplay/Player.html" title="class in io.github.mountainrange.mule.gameplay">Player</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="io/github/mountainrange/mule/gameplay/Grid.html#addToTile-java.lang.Object-int-int-">addToTile(Object, int, int)</a></span> - Method in class io.github.mountainrange.mule.gameplay.<a href="io/github/mountainrange/mule/gameplay/Grid.html" title="class in io.github.mountainrange.mule.gameplay">Grid</a></dt>
@@ -210,6 +215,22 @@
 <dd>
 <div class="block">Clears all bindings from this manager</div>
 </dd>
+<dt><span class="memberNameLink"><a href="io/github/mountainrange/mule/gameplay/Grid.html#clearHeadline--">clearHeadline()</a></span> - Method in class io.github.mountainrange.mule.gameplay.<a href="io/github/mountainrange/mule/gameplay/Grid.html" title="class in io.github.mountainrange.mule.gameplay">Grid</a></dt>
+<dd>
+<div class="block">Clears any printed headlines, if any.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="io/github/mountainrange/mule/gameplay/javafx/VisualGrid.html#clearHeadline--">clearHeadline()</a></span> - Method in class io.github.mountainrange.mule.gameplay.javafx.<a href="io/github/mountainrange/mule/gameplay/javafx/VisualGrid.html" title="class in io.github.mountainrange.mule.gameplay.javafx">VisualGrid</a></dt>
+<dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="io/github/mountainrange/mule/gameplay/Grid.html#clearText--">clearText()</a></span> - Method in class io.github.mountainrange.mule.gameplay.<a href="io/github/mountainrange/mule/gameplay/Grid.html" title="class in io.github.mountainrange.mule.gameplay">Grid</a></dt>
+<dd>
+<div class="block">Clears any printed text, if any.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="io/github/mountainrange/mule/gameplay/javafx/VisualGrid.html#clearText--">clearText()</a></span> - Method in class io.github.mountainrange.mule.gameplay.javafx.<a href="io/github/mountainrange/mule/gameplay/javafx/VisualGrid.html" title="class in io.github.mountainrange.mule.gameplay.javafx">VisualGrid</a></dt>
+<dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="io/github/mountainrange/mule/gameplay/WorldMap.html#clearText--">clearText()</a></span> - Method in class io.github.mountainrange.mule.gameplay.<a href="io/github/mountainrange/mule/gameplay/WorldMap.html" title="class in io.github.mountainrange.mule.gameplay">WorldMap</a></dt>
+<dd>
+<div class="block">Calls World Map to clear display text</div>
+</dd>
 <dt><span class="memberNameLink"><a href="io/github/mountainrange/mule/MULE.html#close--">close()</a></span> - Method in class io.github.mountainrange.mule.<a href="io/github/mountainrange/mule/MULE.html" title="class in io.github.mountainrange.mule">MULE</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="io/github/mountainrange/mule/enums/MuleType.html#color">color</a></span> - Variable in enum io.github.mountainrange.mule.enums.<a href="io/github/mountainrange/mule/enums/MuleType.html" title="enum in io.github.mountainrange.mule.enums">MuleType</a></dt>
@@ -256,6 +277,8 @@
 </a>
 <h2 class="title">D</h2>
 <dl>
+<dt><span class="memberNameLink"><a href="io/github/mountainrange/mule/GameManager.html#decreaseFood-io.github.mountainrange.mule.enums.MessageType-">decreaseFood(MessageType)</a></span> - Method in class io.github.mountainrange.mule.<a href="io/github/mountainrange/mule/GameManager.html" title="class in io.github.mountainrange.mule">GameManager</a></dt>
+<dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="io/github/mountainrange/mule/gameplay/Tile.html#deepEquals-java.lang.Object-">deepEquals(Object)</a></span> - Method in interface io.github.mountainrange.mule.gameplay.<a href="io/github/mountainrange/mule/gameplay/Tile.html" title="interface in io.github.mountainrange.mule.gameplay">Tile</a></dt>
 <dd>
 <div class="block">Check if a Tile has the same data as another tile, that is, if it has the same owner, terrain, and mule
@@ -357,7 +380,7 @@
 <dd>
 <div class="block">Gets the lambda function associated with this keybinding if one is available</div>
 </dd>
-<dt><span class="memberNameLink"><a href="io/github/mountainrange/mule/managers/RandomEventManager.html#getBindings--">getBindings()</a></span> - Method in class io.github.mountainrange.mule.managers.<a href="io/github/mountainrange/mule/managers/RandomEventManager.html" title="class in io.github.mountainrange.mule.managers">RandomEventManager</a></dt>
+<dt><span class="memberNameLink"><a href="io/github/mountainrange/mule/managers/RandomEventManager.html#getBindings-boolean-">getBindings(boolean)</a></span> - Method in class io.github.mountainrange.mule.managers.<a href="io/github/mountainrange/mule/managers/RandomEventManager.html" title="class in io.github.mountainrange.mule.managers">RandomEventManager</a></dt>
 <dd>
 <div class="block">Gets the lambda function associated with this keybinding if one is available</div>
 </dd>
@@ -391,6 +414,8 @@
 </dd>
 <dt><span class="memberNameLink"><a href="io/github/mountainrange/mule/gameplay/Player.html#getMoney--">getMoney()</a></span> - Method in class io.github.mountainrange.mule.gameplay.<a href="io/github/mountainrange/mule/gameplay/Player.html" title="class in io.github.mountainrange.mule.gameplay">Player</a></dt>
 <dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="io/github/mountainrange/mule/enums/MessageType.html#getMsg--">getMsg()</a></span> - Method in enum io.github.mountainrange.mule.enums.<a href="io/github/mountainrange/mule/enums/MessageType.html" title="enum in io.github.mountainrange.mule.enums">MessageType</a></dt>
+<dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="io/github/mountainrange/mule/gameplay/javafx/VisualTile.html#getMule--">getMule()</a></span> - Method in class io.github.mountainrange.mule.gameplay.javafx.<a href="io/github/mountainrange/mule/gameplay/javafx/VisualTile.html" title="class in io.github.mountainrange.mule.gameplay.javafx">VisualTile</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="io/github/mountainrange/mule/gameplay/PlainTile.html#getMule--">getMule()</a></span> - Method in class io.github.mountainrange.mule.gameplay.<a href="io/github/mountainrange/mule/gameplay/PlainTile.html" title="class in io.github.mountainrange.mule.gameplay">PlainTile</a></dt>
@@ -421,6 +446,8 @@
 <dd>
 <div class="block">Returns the player position.</div>
 </dd>
+<dt><span class="memberNameLink"><a href="io/github/mountainrange/mule/enums/MessageType.html#getPlayerTurnMessage-int-">getPlayerTurnMessage(int)</a></span> - Method in enum io.github.mountainrange.mule.enums.<a href="io/github/mountainrange/mule/enums/MessageType.html" title="enum in io.github.mountainrange.mule.enums">MessageType</a></dt>
+<dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="io/github/mountainrange/mule/gameplay/Player.html#getRace--">getRace()</a></span> - Method in class io.github.mountainrange.mule.gameplay.<a href="io/github/mountainrange/mule/gameplay/Player.html" title="class in io.github.mountainrange.mule.gameplay">Player</a></dt>
 <dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="io/github/mountainrange/mule/enums/TerrainType.html#getRect--">getRect()</a></span> - Method in enum io.github.mountainrange.mule.enums.<a href="io/github/mountainrange/mule/enums/TerrainType.html" title="enum in io.github.mountainrange.mule.enums">TerrainType</a></dt>
@@ -485,6 +512,8 @@
 <dd>
 <div class="block">Returns if this tile has been claimed by a player yet.</div>
 </dd>
+<dt><span class="memberNameLink"><a href="io/github/mountainrange/mule/gameplay/javafx/VisualGrid.html#HEADLINE_DISPLAY_RATIO">HEADLINE_DISPLAY_RATIO</a></span> - Static variable in class io.github.mountainrange.mule.gameplay.javafx.<a href="io/github/mountainrange/mule/gameplay/javafx/VisualGrid.html" title="class in io.github.mountainrange.mule.gameplay.javafx">VisualGrid</a></dt>
+<dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="io/github/mountainrange/mule/MULE.html#HSIZE">HSIZE</a></span> - Static variable in class io.github.mountainrange.mule.<a href="io/github/mountainrange/mule/MULE.html" title="class in io.github.mountainrange.mule">MULE</a></dt>
 <dd>&nbsp;</dd>
 </dl>
@@ -640,6 +669,12 @@
 </dd>
 <dt><span class="memberNameLink"><a href="io/github/mountainrange/mule/controllers/MenuBarController.html#MenuBarController--">MenuBarController()</a></span> - Constructor for class io.github.mountainrange.mule.controllers.<a href="io/github/mountainrange/mule/controllers/MenuBarController.html" title="class in io.github.mountainrange.mule.controllers">MenuBarController</a></dt>
 <dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="io/github/mountainrange/mule/Config.html#MESSAGE_DURATION">MESSAGE_DURATION</a></span> - Static variable in class io.github.mountainrange.mule.<a href="io/github/mountainrange/mule/Config.html" title="class in io.github.mountainrange.mule">Config</a></dt>
+<dd>&nbsp;</dd>
+<dt><a href="io/github/mountainrange/mule/enums/MessageType.html" title="enum in io.github.mountainrange.mule.enums"><span class="typeNameLink">MessageType</span></a> - Enum in <a href="io/github/mountainrange/mule/enums/package-summary.html">io.github.mountainrange.mule.enums</a></dt>
+<dd>
+<div class="block">List of valid difficulties.</div>
+</dd>
 <dt><span class="memberNameLink"><a href="io/github/mountainrange/mule/gameplay/Grid.html#move-int-int-int-int-">move(int, int, int, int)</a></span> - Method in class io.github.mountainrange.mule.gameplay.<a href="io/github/mountainrange/mule/gameplay/Grid.html" title="class in io.github.mountainrange.mule.gameplay">Grid</a></dt>
 <dd>
 <div class="block">Moves an object from one area to another.</div>
@@ -803,6 +838,18 @@ s</span></div>
 <dd>
 <div class="block">Get the current stock in this shop of the given resource.</div>
 </dd>
+<dt><span class="memberNameLink"><a href="io/github/mountainrange/mule/gameplay/Grid.html#printHeadline-java.lang.String-">printHeadline(String)</a></span> - Method in class io.github.mountainrange.mule.gameplay.<a href="io/github/mountainrange/mule/gameplay/Grid.html" title="class in io.github.mountainrange.mule.gameplay">Grid</a></dt>
+<dd>
+<div class="block">Prints the supplied text to the headline area</div>
+</dd>
+<dt><span class="memberNameLink"><a href="io/github/mountainrange/mule/gameplay/javafx/VisualGrid.html#printHeadline-java.lang.String-">printHeadline(String)</a></span> - Method in class io.github.mountainrange.mule.gameplay.javafx.<a href="io/github/mountainrange/mule/gameplay/javafx/VisualGrid.html" title="class in io.github.mountainrange.mule.gameplay.javafx">VisualGrid</a></dt>
+<dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="io/github/mountainrange/mule/gameplay/Grid.html#printText-java.lang.String-">printText(String)</a></span> - Method in class io.github.mountainrange.mule.gameplay.<a href="io/github/mountainrange/mule/gameplay/Grid.html" title="class in io.github.mountainrange.mule.gameplay">Grid</a></dt>
+<dd>
+<div class="block">Prints the supplied text to the screen</div>
+</dd>
+<dt><span class="memberNameLink"><a href="io/github/mountainrange/mule/gameplay/javafx/VisualGrid.html#printText-java.lang.String-">printText(String)</a></span> - Method in class io.github.mountainrange.mule.gameplay.javafx.<a href="io/github/mountainrange/mule/gameplay/javafx/VisualGrid.html" title="class in io.github.mountainrange.mule.gameplay.javafx">VisualGrid</a></dt>
+<dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="io/github/mountainrange/mule/managers/ProductionManager.html#producesResource-io.github.mountainrange.mule.enums.MuleType-">producesResource(MuleType)</a></span> - Static method in class io.github.mountainrange.mule.managers.<a href="io/github/mountainrange/mule/managers/ProductionManager.html" title="class in io.github.mountainrange.mule.managers">ProductionManager</a></dt>
 <dd>
 <div class="block">Get the corresponding type of resource that this type of MULE produces.</div>
@@ -889,7 +936,7 @@ s</span></div>
 </dd>
 <dt><span class="memberNameLink"><a href="io/github/mountainrange/mule/gameplay/Grid.html#rows">rows</a></span> - Variable in class io.github.mountainrange.mule.gameplay.<a href="io/github/mountainrange/mule/gameplay/Grid.html" title="class in io.github.mountainrange.mule.gameplay">Grid</a></dt>
 <dd>&nbsp;</dd>
-<dt><span class="memberNameLink"><a href="io/github/mountainrange/mule/managers/RandomEventManager.html#runRandomEvent-io.github.mountainrange.mule.managers.GameState-">runRandomEvent(GameState)</a></span> - Method in class io.github.mountainrange.mule.managers.<a href="io/github/mountainrange/mule/managers/RandomEventManager.html" title="class in io.github.mountainrange.mule.managers">RandomEventManager</a></dt>
+<dt><span class="memberNameLink"><a href="io/github/mountainrange/mule/managers/RandomEventManager.html#runRandomEvent-io.github.mountainrange.mule.managers.GameState-boolean-">runRandomEvent(GameState, boolean)</a></span> - Method in class io.github.mountainrange.mule.managers.<a href="io/github/mountainrange/mule/managers/RandomEventManager.html" title="class in io.github.mountainrange.mule.managers">RandomEventManager</a></dt>
 <dd>
 <div class="block">Runs a random event that is in this manager</div>
 </dd>
@@ -1055,6 +1102,22 @@ s</span></div>
 </dd>
 <dt><span class="memberNameLink"><a href="io/github/mountainrange/mule/gameplay/Shop.html#Shop-io.github.mountainrange.mule.enums.Difficulty-">Shop(Difficulty)</a></span> - Constructor for class io.github.mountainrange.mule.gameplay.<a href="io/github/mountainrange/mule/gameplay/Shop.html" title="class in io.github.mountainrange.mule.gameplay">Shop</a></dt>
 <dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="io/github/mountainrange/mule/GameManager.html#showCustomText-java.lang.String-">showCustomText(String)</a></span> - Method in class io.github.mountainrange.mule.<a href="io/github/mountainrange/mule/GameManager.html" title="class in io.github.mountainrange.mule">GameManager</a></dt>
+<dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="io/github/mountainrange/mule/gameplay/WorldMap.html#showCustomText-java.lang.String-">showCustomText(String)</a></span> - Method in class io.github.mountainrange.mule.gameplay.<a href="io/github/mountainrange/mule/gameplay/WorldMap.html" title="class in io.github.mountainrange.mule.gameplay">WorldMap</a></dt>
+<dd>
+<div class="block">Calls World Map to display a custom message on screen</div>
+</dd>
+<dt><span class="memberNameLink"><a href="io/github/mountainrange/mule/GameManager.html#showTempText-io.github.mountainrange.mule.enums.MessageType-">showTempText(MessageType)</a></span> - Method in class io.github.mountainrange.mule.<a href="io/github/mountainrange/mule/GameManager.html" title="class in io.github.mountainrange.mule">GameManager</a></dt>
+<dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="io/github/mountainrange/mule/GameManager.html#showText-io.github.mountainrange.mule.enums.MessageType-">showText(MessageType)</a></span> - Method in class io.github.mountainrange.mule.<a href="io/github/mountainrange/mule/GameManager.html" title="class in io.github.mountainrange.mule">GameManager</a></dt>
+<dd>
+<div class="block">Calls WorldMap to display a normal, custom, or temporary message</div>
+</dd>
+<dt><span class="memberNameLink"><a href="io/github/mountainrange/mule/gameplay/WorldMap.html#showText-io.github.mountainrange.mule.enums.MessageType-">showText(MessageType)</a></span> - Method in class io.github.mountainrange.mule.gameplay.<a href="io/github/mountainrange/mule/gameplay/WorldMap.html" title="class in io.github.mountainrange.mule.gameplay">WorldMap</a></dt>
+<dd>
+<div class="block">Calls World Map to display a message on screen</div>
+</dd>
 <dt><span class="memberNameLink"><a href="io/github/mountainrange/mule/gameplay/ProductionResult.html#spoilage">spoilage</a></span> - Variable in class io.github.mountainrange.mule.gameplay.<a href="io/github/mountainrange/mule/gameplay/ProductionResult.html" title="class in io.github.mountainrange.mule.gameplay">ProductionResult</a></dt>
 <dd>
 <div class="block">The number of units of a resource that spoiled.</div>
@@ -1089,6 +1152,10 @@ s</span></div>
 <dd>
 <div class="block">Describes the kind of terrain found on a given tile.</div>
 </dd>
+<dt><span class="memberNameLink"><a href="io/github/mountainrange/mule/gameplay/javafx/VisualGrid.html#TEXT_BUFFER">TEXT_BUFFER</a></span> - Static variable in class io.github.mountainrange.mule.gameplay.javafx.<a href="io/github/mountainrange/mule/gameplay/javafx/VisualGrid.html" title="class in io.github.mountainrange.mule.gameplay.javafx">VisualGrid</a></dt>
+<dd>&nbsp;</dd>
+<dt><span class="memberNameLink"><a href="io/github/mountainrange/mule/gameplay/javafx/VisualGrid.html#TEXT_DISPLAY_RATIO">TEXT_DISPLAY_RATIO</a></span> - Static variable in class io.github.mountainrange.mule.gameplay.javafx.<a href="io/github/mountainrange/mule/gameplay/javafx/VisualGrid.html" title="class in io.github.mountainrange.mule.gameplay.javafx">VisualGrid</a></dt>
+<dd>&nbsp;</dd>
 <dt><span class="memberNameLink"><a href="io/github/mountainrange/mule/gameplay/javafx/VisualGrid.html#THICKNESS">THICKNESS</a></span> - Static variable in class io.github.mountainrange.mule.gameplay.javafx.<a href="io/github/mountainrange/mule/gameplay/javafx/VisualGrid.html" title="class in io.github.mountainrange.mule.gameplay.javafx">VisualGrid</a></dt>
 <dd>&nbsp;</dd>
 <dt><a href="io/github/mountainrange/mule/gameplay/Tile.html" title="interface in io.github.mountainrange.mule.gameplay"><span class="typeNameLink">Tile</span></a> - Interface in <a href="io/github/mountainrange/mule/gameplay/package-summary.html">io.github.mountainrange.mule.gameplay</a></dt>
@@ -1143,6 +1210,10 @@ s</span></div>
 <dd>
 <div class="block">Returns the enum constant of this type with the specified name.</div>
 </dd>
+<dt><span class="memberNameLink"><a href="io/github/mountainrange/mule/enums/MessageType.html#valueOf-java.lang.String-">valueOf(String)</a></span> - Static method in enum io.github.mountainrange.mule.enums.<a href="io/github/mountainrange/mule/enums/MessageType.html" title="enum in io.github.mountainrange.mule.enums">MessageType</a></dt>
+<dd>
+<div class="block">Returns the enum constant of this type with the specified name.</div>
+</dd>
 <dt><span class="memberNameLink"><a href="io/github/mountainrange/mule/enums/MuleType.html#valueOf-java.lang.String-">valueOf(String)</a></span> - Static method in enum io.github.mountainrange.mule.enums.<a href="io/github/mountainrange/mule/enums/MuleType.html" title="enum in io.github.mountainrange.mule.enums">MuleType</a></dt>
 <dd>
 <div class="block">Returns the enum constant of this type with the specified name.</div>
@@ -1175,6 +1246,11 @@ the order they are declared.</div>
 the order they are declared.</div>
 </dd>
 <dt><span class="memberNameLink"><a href="io/github/mountainrange/mule/enums/MapType.html#values--">values()</a></span> - Static method in enum io.github.mountainrange.mule.enums.<a href="io/github/mountainrange/mule/enums/MapType.html" title="enum in io.github.mountainrange.mule.enums">MapType</a></dt>
+<dd>
+<div class="block">Returns an array containing the constants of this enum type, in
+the order they are declared.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="io/github/mountainrange/mule/enums/MessageType.html#values--">values()</a></span> - Static method in enum io.github.mountainrange.mule.enums.<a href="io/github/mountainrange/mule/enums/MessageType.html" title="enum in io.github.mountainrange.mule.enums">MessageType</a></dt>
 <dd>
 <div class="block">Returns an array containing the constants of this enum type, in
 the order they are declared.</div>
