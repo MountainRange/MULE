@@ -133,8 +133,27 @@ public class WorldMap implements Iterable<Tile> {
 		return true;
 	}
 
+	/**
+	 * Calls World Map to display a custom message on screen
+	 * @param msg
+	 */
+	public void showCustomText(String msg) {
+		map.printText(msg);
+	}
+
+	/**
+	 * Calls World Map to display a message on screen
+	 * @param msg
+	 */
 	public void showText(MessageType msg) {
 		map.printText(msg.getMsg());
+	}
+
+	/**
+	 * Calls World Map to clear display text
+	 */
+	public void clearText() {
+		map.clearText();
 	}
 
 	/**

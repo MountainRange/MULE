@@ -76,8 +76,12 @@ public class RandomEventManager {
 	 */
 	public static void addDefaultEvents(RandomEventManager toBind) {
 		toBind.addEvent((state) -> {
-			state.map.showText(MessageType.BUY);
-			return "Show's Mule text";
+			state.map.showText(MessageType.SOMEEVENT);
+			return "Some events";
+		});
+		toBind.addEvent((state) -> {
+			state.map.showText(MessageType.OTHER);
+			return "Other events";
 		});
 	}
 }
