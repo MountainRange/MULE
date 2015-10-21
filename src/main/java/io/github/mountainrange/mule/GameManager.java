@@ -239,9 +239,13 @@ public class GameManager {
 		setLabels();
 		if (roundCount == 0) {
 			freeLand = false;
-		}
-		if (roundCount == 1) {
+			foodRequired = 3;
+		} else if (roundCount == 1) {
 			phaseCount = 1;
+		} else if (roundCount == 5) {
+			foodRequired++;
+		} else if (roundCount == 9) {
+			foodRequired++;
 		}
 		if (phaseCount == 0) {
 			landGrabPhase();
@@ -309,6 +313,8 @@ public class GameManager {
 				// For each resource, change the player's stock by the appropriate amount
 				player.changeStockOf(resource, productionResult.delta());
 			}
+
+			player.changeStockOf(ResourceType.FOOD, -foodRequired);
 		}
 	}
 
