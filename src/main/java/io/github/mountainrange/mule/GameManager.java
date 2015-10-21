@@ -376,8 +376,6 @@ public class GameManager {
 				// For each resource, change the player's stock by the appropriate amount
 				player.changeStockOf(resource, productionResult.delta());
 			}
-
-			player.changeStockOf(ResourceType.FOOD, -foodRequired);
 		}
 	}
 
