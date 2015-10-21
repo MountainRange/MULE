@@ -14,7 +14,7 @@ public class Config {
 
 	public static final String DEFAULT_PACK = "fancy";
 	public static final int SELECTOR_SPEED = 1;
-	public static final int MESSAGE_DURATION = 1;
+	public static final int MESSAGE_DURATION = 3;
 
 	public Difficulty difficulty;
 	public GameType gameType;

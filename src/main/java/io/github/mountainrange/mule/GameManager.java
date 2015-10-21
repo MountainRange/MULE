@@ -272,7 +272,7 @@ public class GameManager {
 		turnOrder.get(currentPlayerNum).setMule(null);
 		currentPlayerNum = (currentPlayerNum + 1) % config.numOfPlayers;
 		// Display message annoucning the start of the new player's turn
-		showCustomText(MessageType.TURN.getPlayerTurnMessage(currentPlayerNum));
+		//showCustomText(MessageType.TURN.getPlayerTurnMessage(currentPlayerNum));
 		// Get Random Event that occured
 		randManager.runRandomEvent(new GameState(this, map), currentPlayerNum == 0);
 
@@ -289,13 +289,13 @@ public class GameManager {
 	 * Calls WorldMap to display a normal, custom, or temporary message
 	 * @param msg
 	 */
-	private void showText(MessageType msg) {
+	public void showText(MessageType msg) {
 		map.showText(msg);
 	}
-	private void showCustomText(String msg) {
+	public void showCustomText(String msg) {
 		map.showCustomText(msg);
 	}
-	private void showTempText(MessageType msg) {
+	public void showTempText(MessageType msg) {
 		showText(msg);
 		messageTimeline.playFromStart();
 	}
@@ -306,6 +306,28 @@ public class GameManager {
 	 */
 	private void messageAction(ActionEvent e) {
 		showText(MessageType.NONE);
+	}
+
+	public void decreaseFood(MessageType msg) {
+		if (msg == MessageType.LOSEFOOD) {
+			Player player = playerList.get(currentPlayerNum);
+			player.changeStockOf(ResourceType.FOOD, -1);
+		} else if (msg == MessageType.LOSESOMEFOOD) {
+			Player player = playerList.get(currentPlayerNum);
+			player.changeStockOf(ResourceType.FOOD, -(player.stockOf(ResourceType.FOOD) / 4));
+		} else if (msg == MessageType.LOSEHALFFOOD) {
+			Player player = playerList.get(currentPlayerNum);
+			player.changeStockOf(ResourceType.FOOD, -(player.stockOf(ResourceType.FOOD) / 2));
+		} else if (msg == MessageType.GAINFOOD) {
+			Player player = playerList.get(currentPlayerNum);
+			player.changeStockOf(ResourceType.FOOD, 1);
+		} else if (msg == MessageType.GAINSOMEFOOD) {
+			Player player = playerList.get(currentPlayerNum);
+			player.changeStockOf(ResourceType.FOOD, (player.stockOf(ResourceType.FOOD) / 2));
+		} else if (msg == MessageType.GAINDOUBLEFOOD) {
+			Player player = playerList.get(currentPlayerNum);
+			player.changeStockOf(ResourceType.FOOD, player.stockOf(ResourceType.FOOD));
+		}
 	}
 
 	private void landGrabPhase() {
@@ -322,6 +344,9 @@ public class GameManager {
 	}
 
 	private void normalPhase() {
+		if (roundCount == 1) {
+			randManager.runRandomEvent(new GameState(this, map), currentPlayerNum == 0);
+		}
 		if (roundCount > 1) {
 			calculateProduction();
 		}

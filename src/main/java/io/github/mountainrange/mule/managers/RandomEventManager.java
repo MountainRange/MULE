@@ -75,6 +75,8 @@ public class RandomEventManager {
 	public void runRandomEvent(GameState datapacket, boolean lowestPlayer) {
 		if (!lowestPlayer) {
 			events.get(r.nextInt(events.size())).apply(datapacket);
+		} else {
+			goodEvents.get(r.nextInt(goodEvents.size())).apply(datapacket);
 		}
 	}
 
@@ -90,18 +92,62 @@ public class RandomEventManager {
 	 * A method to initialize the defaults.
 	 */
 	public static void addDefaultEvents(RandomEventManager toBind) {
+		// Add all events
 		toBind.addEvent((state) -> {
-				state.map.showText(MessageType.SOMEEVENT);
-				return "Some events";
+				MessageType msg = MessageType.LOSEFOOD;
+				state.manager.showTempText(msg);
+				state.manager.decreaseFood(msg);
+				return "Lose 1 food";
 			});
 		toBind.addEvent((state) -> {
-				state.map.showText(MessageType.OTHER);
-				return "Other events";
+				MessageType msg = MessageType.LOSESOMEFOOD;
+				state.manager.showTempText(msg);
+				state.manager.decreaseFood(msg);
+				return "Lose 25% of your food";
+			});
+		toBind.addEvent((state) -> {
+				MessageType msg = MessageType.LOSEHALFFOOD;
+				state.manager.showTempText(msg);
+				state.manager.decreaseFood(msg);
+				return "Lose half of your food";
+			});
+		toBind.addEvent((state) -> {
+				MessageType msg = MessageType.GAINFOOD;
+				state.manager.showTempText(msg);
+				state.manager.decreaseFood(msg);
+				return "Gain 1 food";
+			});
+		toBind.addEvent((state) -> {
+				MessageType msg = MessageType.GAINSOMEFOOD;
+				state.manager.showTempText(msg);
+				state.manager.decreaseFood(msg);
+				return "Gain 50% of your food";
+			});
+		toBind.addEvent((state) -> {
+				MessageType msg = MessageType.GAINDOUBLEFOOD;
+				state.manager.showTempText(msg);
+				state.manager.decreaseFood(msg);
+				return "Gain 100% of your food";
 			});
 
+		// Add good events
 		toBind.addGoodEvent((state) -> {
-				state.map.showText(MessageType.OTHER);
-				return "Other events";
+				MessageType msg = MessageType.GAINFOOD;
+				state.manager.showTempText(msg);
+				state.manager.decreaseFood(msg);
+				return "Gain 1 food";
+			});
+		toBind.addGoodEvent((state) -> {
+				MessageType msg = MessageType.GAINSOMEFOOD;
+				state.manager.showTempText(msg);
+				state.manager.decreaseFood(msg);
+				return "Gain 50% of your food";
+			});
+		toBind.addGoodEvent((state) -> {
+				MessageType msg = MessageType.GAINDOUBLEFOOD;
+				state.manager.showTempText(msg);
+				state.manager.decreaseFood(msg);
+				return "Gain 100% of your food";
 			});
 	}
 }

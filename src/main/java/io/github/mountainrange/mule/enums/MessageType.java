@@ -12,8 +12,24 @@ public enum MessageType {
 	LANDGRAB("Land Selection Phase"),
 	BUY("You have purchased a promising plot of land."),
 	GOTMULE("You have purchased an eager MULE ready for work."),
-	SOMEEVENT(new String[] {"TEST EVENT TEXT 1", "TEST EVENT TEXT 2", "TEST EVENT TEXT 3"}),
-	OTHER(new String[] {"OTHER EVENT TEXT 1", "OTHER EVENT TEXT 2", "OTHER EVENT TEXT 3"});
+	LOSEFOOD(new String[] {"A bird stole your sandwich. You lose 1 food.",
+			"You breakfast combusted. You lose 1 food.",
+			"You left the eggs out on the counter. You lose 1 food."}),
+	LOSESOMEFOOD(new String[] {"You dropped some food into a crevasse. You lose some food.",
+			"A fire broke out in food storage. You lose some food.",
+			"You misread the expiration date and threw out some food. You lose some food."}),
+	LOSEHALFFOOD(new String[] {"A meteorite has struck your food reserves. You lose half your food!",
+			"A dust storm has blown away a portion of your food. You lose half your food!",
+			"One of your food silos has exploded inexplicably. You lose half your food!"}),
+	GAINFOOD(new String[] {"You found an extra box of cereal in the cabinet. You gain 1 food.",
+			"A bird carrying a sandwich fell out of the sky. You gain 1 food.",
+			"You forget to eat breakfast. You gain 1 food."}),
+	GAINSOMEFOOD(new String[] {"You have more food for some reason. You gain some food.",
+			"You went on a diet. You gain some food.",
+			"You won a lifetime supply of triskets. You gain some food."}),
+	GAINDOUBLEFOOD(new String[] {"You decide to use AVL trees to grow your food. You doubled your food!",
+			"Something happened. Something happened.",
+			"Your food discovered Mitosis. You doubled your food!"});
 
 	private String msg;
 	private String[] msgs;
