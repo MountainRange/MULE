@@ -87,7 +87,8 @@ public class PlayController implements Initializable, SceneAgent {
 
 	@FXML
 	private void handleBackAction(ActionEvent e) {
-		sceneLoader.goBack();
+		g.randomize();
+		// sceneLoader.goBack();
 	}
 
 	@FXML

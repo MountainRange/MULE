@@ -193,11 +193,12 @@ public class VisualGrid<T extends Group & Tile> extends Grid<T> {
 		upperPane.getChildren().add(selectionRect);
 	}
 
-	public void move(int columnFrom, int rowFrom, int columnTo, int rowTo) {
-		super.move(columnFrom, rowFrom, columnTo, rowTo);
+	@Override
+	public void move(int columnFrom, int rowFrom, int columnTo, int rowTo, T[][] fromGrid, T[][] toGrid) {
+		// Find the node to animate (not moved yet)
+		T toAnimate = grid[columnFrom][rowFrom];
 
-		// Find the node to animate (has already been moved)
-		T toAnimate = grid[columnTo][rowTo];
+		super.move(columnFrom, rowFrom, columnTo, rowTo, fromGrid, toGrid);
 
 		toAnimate.layoutXProperty().unbind();
 		toAnimate.layoutYProperty().unbind();
@@ -212,6 +213,7 @@ public class VisualGrid<T extends Group & Tile> extends Grid<T> {
 		start.yProperty().bind(upperPane.heightProperty().divide(rows).divide(2.0).multiply(1 + rowFrom * 2.0));
 		end.xProperty().bind(upperPane.widthProperty().divide(cols).divide(2.0).multiply(1 + columnTo * 2.0));
 		end.yProperty().bind(upperPane.heightProperty().divide(rows).divide(2.0).multiply(1 + rowTo * 2.0));
+
 
 		path.getElements().add(start);
 		path.getElements().add(end);
