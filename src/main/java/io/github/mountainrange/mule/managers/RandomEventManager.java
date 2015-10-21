@@ -15,6 +15,7 @@ import java.util.Random;
 
 public class RandomEventManager {
 	private ArrayList<Function<GameState, String>> events;
+	private ArrayList<Function<GameState, String>> goodEvents;
 
 	private static final Random r = new Random();
 
@@ -29,6 +30,7 @@ public class RandomEventManager {
 	 */
 	public RandomEventManager(boolean useDefaults) {
 		events = new ArrayList<>();
+		goodEvents = new ArrayList<>();
 
 		if (useDefaults) {
 			RandomEventManager.addDefaultEvents(this);
@@ -44,13 +46,25 @@ public class RandomEventManager {
 		events.add(toAdd);
 	}
 
+	/**
+	 * Adds an event to this RandomEventManager
+	 * Events added by this method are deemed 'good' and will be exclusively be selected for the lowest player.
+	 * Other players will still get these events, though.
+	 *
+	 * @param toAdd the lambda expression to add
+	 */
+	public void addGoodEvent(Function<GameState, String> toAdd) {
+		events.add(toAdd);
+		goodEvents.add(toAdd);
+	}
+
 
 	/**
 	 * Gets the lambda function associated with this keybinding if one is available
 	 * @return The binding if is available, null if no binding was found
 	 */
-	public List<Function<GameState, String>> getBindings() {
-		return Collections.unmodifiableList(events);
+	public List<Function<GameState, String>> getBindings(boolean onlyGood) {
+		return (onlyGood ? Collections.unmodifiableList(goodEvents) : Collections.unmodifiableList(events));
 	}
 
 	/**
@@ -69,6 +83,7 @@ public class RandomEventManager {
 	 */
 	public void clear() {
 		this.events.clear();
+		this.goodEvents.clear();
 	}
 
 	/**
@@ -76,12 +91,17 @@ public class RandomEventManager {
 	 */
 	public static void addDefaultEvents(RandomEventManager toBind) {
 		toBind.addEvent((state) -> {
-			state.map.showText(MessageType.SOMEEVENT);
-			return "Some events";
-		});
+				state.map.showText(MessageType.SOMEEVENT);
+				return "Some events";
+			});
 		toBind.addEvent((state) -> {
-			state.map.showText(MessageType.OTHER);
-			return "Other events";
-		});
+				state.map.showText(MessageType.OTHER);
+				return "Other events";
+			});
+
+		toBind.addGoodEvent((state) -> {
+				state.map.showText(MessageType.OTHER);
+				return "Other events";
+			});
 	}
 }
