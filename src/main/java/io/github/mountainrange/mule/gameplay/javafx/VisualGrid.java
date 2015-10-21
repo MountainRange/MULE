@@ -16,6 +16,11 @@ import javafx.scene.shape.LineTo;
 import javafx.scene.shape.MoveTo;
 import javafx.scene.shape.Path;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.text.Text;
+import javafx.scene.text.Font;
+import javafx.scene.text.TextAlignment;
+import javafx.scene.text.FontPosture;
+import javafx.scene.text.FontWeight;
 import javafx.util.Duration;
 
 /**
@@ -34,9 +39,16 @@ public class VisualGrid<T extends Group & Tile> extends Grid<T> {
 	public static final Color COLOR = Color.BLACK;
 	public static final Rectangle SELECTION_TEMPLATE;
 
+	private Text overlayText;
+	private Text overlayHeadline;
+
 	// TODO make the player not a rectangle
 	public static final Rectangle PLAYER_TEMPLATE;
 	private Rectangle player;
+
+	public static final double TEXT_DISPLAY_RATIO = 3.0 / 4.0;
+	public static final double HEADLINE_DISPLAY_RATIO = 1.0 / 4.0;
+	public static final double TEXT_BUFFER = 20;
 
 	static {
 		SELECTION_TEMPLATE = new Rectangle(1, 1, Color.TRANSPARENT);
@@ -258,6 +270,59 @@ public class VisualGrid<T extends Group & Tile> extends Grid<T> {
 			this.player = null;
 		}
 	}
+
+	@Override
+	public void printText(String toPrint) {
+		if (overlayText != null) {
+			clearText();
+		}
+
+		overlayText = new Text(0, 0, toPrint);
+		overlayText.setFont(Font.font("monospaced", FontWeight.BOLD, FontPosture.REGULAR, 25));
+		overlayText.yProperty().bind(
+			this.upperPane.heightProperty().multiply(TEXT_DISPLAY_RATIO));
+
+		overlayText.xProperty().bind(this.upperPane.widthProperty().multiply(0).add(TEXT_BUFFER));
+		overlayText.wrappingWidthProperty().bind(this.upperPane.widthProperty().subtract(TEXT_BUFFER * 2));
+		overlayText.setTextAlignment(TextAlignment.CENTER);
+
+		this.upperPane.getChildren().add(overlayText);
+	}
+
+	@Override
+	public void clearText() {
+		if (overlayText != null) {
+			this.upperPane.getChildren().remove(overlayText);
+			overlayText = null;
+		}
+	}
+
+	@Override
+	public void printHeadline(String toPrint) {
+		if (overlayHeadline != null) {
+			clearText();
+		}
+
+		overlayHeadline = new Text(0, 0, toPrint);
+		overlayHeadline.setFont(Font.font("monospaced", FontWeight.BOLD, FontPosture.REGULAR, 25));
+		overlayHeadline.yProperty().bind(
+			this.upperPane.heightProperty().multiply(HEADLINE_DISPLAY_RATIO));
+
+		overlayHeadline.xProperty().bind(this.upperPane.widthProperty().multiply(0).add(TEXT_BUFFER));
+		overlayHeadline.wrappingWidthProperty().bind(this.upperPane.widthProperty().subtract(TEXT_BUFFER * 2));
+		overlayHeadline.setTextAlignment(TextAlignment.CENTER);
+
+		this.upperPane.getChildren().add(overlayHeadline);
+	}
+
+	@Override
+	public void clearHeadline() {
+		if (overlayHeadline != null) {
+			this.upperPane.getChildren().remove(overlayHeadline);
+			overlayHeadline = null;
+		}
+	}
+
 
 	@Override
 	public void clear() {

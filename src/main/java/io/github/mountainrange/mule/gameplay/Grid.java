@@ -205,6 +205,29 @@ public abstract class Grid<T extends Tile> implements Iterable<Tile> {
 	}
 
 	/**
+	 * Prints the supplied text to the screen
+	 * @param toPrint the text to print
+	 */
+	public abstract void printText(String toPrint);
+
+	/**
+	 * Clears any printed text, if any.
+	 */
+	public abstract void clearText();
+
+	/**
+	 * Prints the supplied text to the headline area
+	 * @param toPrint the text to print
+	 */
+	public abstract void printHeadline(String toPrint);
+
+	/**
+	 * Clears any printed headlines, if any.
+	 */
+	public abstract void clearHeadline();
+
+
+	/**
 	 * Return an iterator for all the Tile objects in the grid.
 	 * @return an iterator for Tiles
 	 */

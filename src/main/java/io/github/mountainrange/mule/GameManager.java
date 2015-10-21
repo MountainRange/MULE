@@ -1,14 +1,12 @@
 package io.github.mountainrange.mule;
 
 import io.github.mountainrange.mule.enums.GameType;
+import io.github.mountainrange.mule.enums.MessageType;
 import io.github.mountainrange.mule.enums.MuleType;
 import io.github.mountainrange.mule.enums.ResourceType;
 import io.github.mountainrange.mule.gameplay.*;
-import io.github.mountainrange.mule.managers.GameState;
-import io.github.mountainrange.mule.managers.GameView;
-import io.github.mountainrange.mule.managers.KeyBindManager;
+import io.github.mountainrange.mule.managers.*;
 
-import io.github.mountainrange.mule.managers.ProductionManager;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
@@ -36,8 +34,10 @@ public class GameManager {
 
 	private KeyBindManager keyManager;
 	private MouseHandler mouseHandler;
+	private RandomEventManager randManager;
 	private Timeline selectorTimeline;
 	private Timeline timerTimeline;
+	private Timeline messageTimeline;
 
 	private Label resourceLabel;
 	private Label turnLabel;
@@ -76,6 +76,7 @@ public class GameManager {
 
 		keyManager = new KeyBindManager();
 		mouseHandler = new MouseHandler();
+		randManager = new RandomEventManager();
 
 		selectorTimeline = new Timeline(
 				new KeyFrame(
@@ -92,6 +93,14 @@ public class GameManager {
 				)
 		);
 		timerTimeline.setCycleCount(Timeline.INDEFINITE);
+
+		messageTimeline = new Timeline(
+				new KeyFrame(
+						Duration.seconds(Config.MESSAGE_DURATION),
+						this::messageAction
+				)
+		);
+		messageTimeline.setCycleCount(1);
 
 		nextRound();
 	}
@@ -266,6 +275,11 @@ public class GameManager {
 		// Clear the player's MULE, if the player is carrying one
 		turnOrder.get(currentPlayerNum).setMule(null);
 		currentPlayerNum = (currentPlayerNum + 1) % config.numOfPlayers;
+		// Display message annoucning the start of the new player's turn
+		//showCustomText(MessageType.TURN.getPlayerTurnMessage(currentPlayerNum));
+		// Get Random Event that occured
+		randManager.runRandomEvent(new GameState(this, map), currentPlayerNum == 0);
+
 
 		turnTimer();
 		setLabels();
@@ -275,7 +289,53 @@ public class GameManager {
 		}
 	}
 
+	/**
+	 * Calls WorldMap to display a normal, custom, or temporary message
+	 * @param msg
+	 */
+	public void showText(MessageType msg) {
+		map.showText(msg);
+	}
+	public void showCustomText(String msg) {
+		map.showCustomText(msg);
+	}
+	public void showTempText(MessageType msg) {
+		showText(msg);
+		messageTimeline.playFromStart();
+	}
+
+	/**
+	 * Method called at the end of messageTimeline, clears display
+	 * @param e
+	 */
+	private void messageAction(ActionEvent e) {
+		showText(MessageType.NONE);
+	}
+
+	public void decreaseFood(MessageType msg) {
+		if (msg == MessageType.LOSEFOOD) {
+			Player player = playerList.get(currentPlayerNum);
+			player.changeStockOf(ResourceType.FOOD, -1);
+		} else if (msg == MessageType.LOSESOMEFOOD) {
+			Player player = playerList.get(currentPlayerNum);
+			player.changeStockOf(ResourceType.FOOD, -(player.stockOf(ResourceType.FOOD) / 4));
+		} else if (msg == MessageType.LOSEHALFFOOD) {
+			Player player = playerList.get(currentPlayerNum);
+			player.changeStockOf(ResourceType.FOOD, -(player.stockOf(ResourceType.FOOD) / 2));
+		} else if (msg == MessageType.GAINFOOD) {
+			Player player = playerList.get(currentPlayerNum);
+			player.changeStockOf(ResourceType.FOOD, 1);
+		} else if (msg == MessageType.GAINSOMEFOOD) {
+			Player player = playerList.get(currentPlayerNum);
+			player.changeStockOf(ResourceType.FOOD, (player.stockOf(ResourceType.FOOD) / 2));
+		} else if (msg == MessageType.GAINDOUBLEFOOD) {
+			Player player = playerList.get(currentPlayerNum);
+			player.changeStockOf(ResourceType.FOOD, player.stockOf(ResourceType.FOOD));
+		}
+	}
+
 	private void landGrabPhase() {
+		showTempText(MessageType.LANDGRAB);
 		map.select(0, 0);
 		if (config.gameType == GameType.HOTSEAT) {
 			if (config.selectEnabled) {
@@ -288,6 +348,9 @@ public class GameManager {
 	}
 
 	private void normalPhase() {
+		if (roundCount == 1) {
+			randManager.runRandomEvent(new GameState(this, map), currentPlayerNum == 0);
+		}
 		if (roundCount > 1) {
 			calculateProduction();
 		}
