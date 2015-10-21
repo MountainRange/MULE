@@ -495,7 +495,7 @@ public class GameManager {
 	 */
 	public void calculateTurnOrder() {
 		Map<Player, Integer> scores = scoreGame();
-		turnOrder.sort((p1, p2) -> scores.get(p2) - scores.get(p1));
+		turnOrder.sort((p1, p2) -> scores.get(p1) - scores.get(p2));
 	}
 
 	/**
