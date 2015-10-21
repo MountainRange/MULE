@@ -3,6 +3,7 @@ package io.github.mountainrange.mule.managers;
 import io.github.mountainrange.mule.Config;
 import io.github.mountainrange.mule.MULE;
 import io.github.mountainrange.mule.enums.GameType;
+import io.github.mountainrange.mule.enums.MessageType;
 import javafx.scene.input.KeyCode;
 
 import java.util.Arrays;
@@ -40,7 +41,7 @@ public class RandomEventManager {
 	 * @param toAdd the lambda expression to add
 	 */
 	public void addEvent(Function<GameState, String> toAdd) {
-
+		events.add(toAdd);
 	}
 
 
@@ -57,9 +58,10 @@ public class RandomEventManager {
 	 *
 	 * @param datapacket the Datapacket to use on the lambda
 	 */
-	public void runRandomEvent(GameState datapacket) {
-
-		events.get(r.nextInt(events.size())).apply(datapacket);
+	public void runRandomEvent(GameState datapacket, boolean lowestPlayer) {
+		if (!lowestPlayer) {
+			events.get(r.nextInt(events.size())).apply(datapacket);
+		}
 	}
 
 	/**
@@ -73,5 +75,9 @@ public class RandomEventManager {
 	 * A method to initialize the defaults.
 	 */
 	public static void addDefaultEvents(RandomEventManager toBind) {
+		toBind.addEvent((state) -> {
+			state.map.showText(MessageType.BUY);
+			return "Show's Mule text";
+		});
 	}
 }

@@ -1,6 +1,7 @@
 package io.github.mountainrange.mule.gameplay;
 
 import io.github.mountainrange.mule.enums.MapType;
+import io.github.mountainrange.mule.enums.MessageType;
 import io.github.mountainrange.mule.enums.MuleType;
 import io.github.mountainrange.mule.gameplay.javafx.VisualTile;
 import javafx.geometry.Point2D;
@@ -132,6 +133,10 @@ public class WorldMap implements Iterable<Tile> {
 		return true;
 	}
 
+	public void showText(MessageType msg) {
+		map.printText(msg.getMsg());
+	}
+
 	/**
 	 * Places a MULE for the given player on the given tile. Placing fails if the given player does not actually own the
 	 * given tile, the player is not carrying a MULE, or the player is carrying a MULE that has not been outfitted.
@@ -164,7 +169,7 @@ public class WorldMap implements Iterable<Tile> {
 	public Iterator<Tile> iterator() {
 		return map.iterator();
 	}
-	
+
 	/**
 	 * Gets the number of columns in this map
 	 * @return cols the number of columns in this map
