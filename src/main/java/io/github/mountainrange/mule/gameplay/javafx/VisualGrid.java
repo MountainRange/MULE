@@ -200,35 +200,43 @@ public class VisualGrid<T extends Group & Tile> extends Grid<T> {
 
 		super.move(columnFrom, rowFrom, columnTo, rowTo, fromGrid, toGrid);
 
-		toAnimate.layoutXProperty().unbind();
-		toAnimate.layoutYProperty().unbind();
-		toAnimate.layoutXProperty().bind(upperPane.widthProperty().multiply(0)); // effectively zero out the bind
-		toAnimate.layoutYProperty().bind(upperPane.widthProperty().multiply(0)); // effectively zero out the bind
+		if (!(columnFrom == columnTo && rowFrom == rowTo)) {
+			// toAnimate.layoutXProperty().unbind();
+			// toAnimate.layoutYProperty().unbind();
+			// toAnimate.layoutXProperty().bind(upperPane.widthProperty().multiply(0)); // effectively zero out the bind
+			// toAnimate.layoutYProperty().bind(upperPane.widthProperty().multiply(0)); // effectively zero out the bind
+			bindToGrid(toAnimate, columnTo, rowTo);
 
-		Path path = new Path();
+			Path path = new Path();
 
-		MoveTo start = new MoveTo(1, 1);
-		LineTo end = new LineTo(1, 1);
-		start.xProperty().bind(upperPane.widthProperty().divide(cols).divide(2.0).multiply(1 + columnFrom * 2.0));
-		start.yProperty().bind(upperPane.heightProperty().divide(rows).divide(2.0).multiply(1 + rowFrom * 2.0));
-		end.xProperty().bind(upperPane.widthProperty().divide(cols).divide(2.0).multiply(1 + columnTo * 2.0));
-		end.yProperty().bind(upperPane.heightProperty().divide(rows).divide(2.0).multiply(1 + rowTo * 2.0));
+			MoveTo start = new MoveTo(1, 1);
+			LineTo end = new LineTo(1, 1);
 
 
-		path.getElements().add(start);
-		path.getElements().add(end);
-		path.setStroke(Color.BLACK);
-		path.setStrokeWidth(2);
+			start.xProperty().bind(upperPane.widthProperty().divide(cols).multiply(columnFrom - columnTo));
+			start.yProperty().bind(upperPane.heightProperty().divide(rows).multiply(rowFrom - rowTo));
 
-		// upperPane.getChildren().add(path); // For debug purposes
+			end.xProperty().bind(upperPane.widthProperty().multiply(0));
+			end.yProperty().bind(upperPane.heightProperty().multiply(0));
 
-		PathTransition animation = new PathTransition();
-		animation.setDuration(Duration.seconds(1.0));
-		animation.setPath(path);
-		animation.setNode(toAnimate);
-		animation.setAutoReverse(false);
-		animation.setInterpolator(Interpolator.LINEAR);
-		animation.play();
+			path.getElements().add(start);
+			path.getElements().add(end);
+			path.setStroke(Color.BLACK);
+			path.setStrokeWidth(2);
+
+			// upperPane.getChildren().add(path); // For debug purposes
+
+			PathTransition animation = new PathTransition();
+			animation.setDuration(Duration.seconds(1.0));
+			animation.setPath(path);
+			animation.setNode(toAnimate);
+			animation.setAutoReverse(false);
+			animation.setInterpolator(Interpolator.LINEAR);
+			animation.play();
+		} else {
+			// TODO add log here instead.
+			// System.out.println(columnFrom + " " + rowTo);
+		}
 	}
 
 	@Override
