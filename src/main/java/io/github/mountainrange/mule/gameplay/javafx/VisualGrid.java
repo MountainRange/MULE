@@ -201,10 +201,6 @@ public class VisualGrid<T extends Group & Tile> extends Grid<T> {
 		super.move(columnFrom, rowFrom, columnTo, rowTo, fromGrid, toGrid);
 
 		if (!(columnFrom == columnTo && rowFrom == rowTo)) {
-			// toAnimate.layoutXProperty().unbind();
-			// toAnimate.layoutYProperty().unbind();
-			// toAnimate.layoutXProperty().bind(upperPane.widthProperty().multiply(0)); // effectively zero out the bind
-			// toAnimate.layoutYProperty().bind(upperPane.widthProperty().multiply(0)); // effectively zero out the bind
 			bindToGrid(toAnimate, columnTo, rowTo);
 
 			Path path = new Path();
