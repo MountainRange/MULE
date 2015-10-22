@@ -153,7 +153,7 @@ public abstract class Grid<T extends Tile> implements Iterable<Tile> {
 	 * @param rowTo end row
 	 */
 	public void move(int columnFrom, int rowFrom, int columnTo, int rowTo) {
-		this.move(columnFrom, rowFrom, columnTo, columnTo, grid, grid);
+		this.move(columnFrom, rowFrom, columnTo, rowTo, grid, grid);
 	}
 
 	/**
@@ -161,11 +161,11 @@ public abstract class Grid<T extends Tile> implements Iterable<Tile> {
 	 */
 	protected void move(int columnFrom, int rowFrom, int columnTo, int rowTo, T[][] sourceGrid, T[][] targetGrid) {
 		if (columnFrom < 0 || rowFrom < 0 || columnFrom >= sourceGrid.length || rowFrom >= sourceGrid[0].length) {
-			throw new IllegalArgumentException("Invalid row or column!");
+			throw new IllegalArgumentException("Invalid row or column! X: " + columnFrom + " Y: " + rowFrom);
 		}
 
 		if (columnTo < 0 || rowTo < 0 || columnTo >= targetGrid.length || rowTo >= targetGrid[0].length) {
-			throw new IllegalArgumentException("Invalid row or column!");
+			throw new IllegalArgumentException("Invalid row or column. X: " + columnTo + " Y: " + rowTo);
 		}
 
 		// Create the animation object to move the item to the destination and keep it there.
