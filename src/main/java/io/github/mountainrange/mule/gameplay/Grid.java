@@ -9,6 +9,12 @@ import java.awt.*;
 import java.lang.reflect.Array;
 import java.util.Arrays;
 import java.util.Iterator;
+import java.util.Queue;
+import java.util.List;
+import java.util.Collections;
+import java.util.stream.Stream;
+import java.util.stream.Collectors;
+import java.util.Random;
 
 /**
  * A class to represent location of things on the board.
@@ -23,6 +29,8 @@ public abstract class Grid<T extends Tile> implements Iterable<Tile> {
 	protected Point selection = null;
 
 	protected Point2D playerPosition = null;
+
+	public static final Random r = new Random();
 
 	public Grid (int columns, int rows, MapType m, MapSize s) {
 		this.rows = rows;
@@ -145,23 +153,53 @@ public abstract class Grid<T extends Tile> implements Iterable<Tile> {
 	 * @param rowTo end row
 	 */
 	public void move(int columnFrom, int rowFrom, int columnTo, int rowTo) {
-		if (columnFrom < 0 || rowFrom < 0 || columnFrom >= grid.length || rowFrom >= grid[0].length) {
-			throw new IllegalArgumentException("Invalid row or column!");
+		this.move(columnFrom, rowFrom, columnTo, rowTo, grid, grid);
+	}
+
+	/**
+	 * A more precise version of move
+	 */
+	protected void move(int columnFrom, int rowFrom, int columnTo, int rowTo, T[][] sourceGrid, T[][] targetGrid) {
+		if (columnFrom < 0 || rowFrom < 0 || columnFrom >= sourceGrid.length || rowFrom >= sourceGrid[0].length) {
+			throw new IllegalArgumentException("Invalid row or column! X: " + columnFrom + " Y: " + rowFrom);
 		}
 
-		if (columnTo < 0 || rowTo < 0 || columnTo >= grid.length || rowTo >= grid[0].length) {
-			throw new IllegalArgumentException("Invalid row or column!");
+		if (columnTo < 0 || rowTo < 0 || columnTo >= targetGrid.length || rowTo >= targetGrid[0].length) {
+			throw new IllegalArgumentException("Invalid row or column. X: " + columnTo + " Y: " + rowTo);
 		}
 
 		// Create the animation object to move the item to the destination and keep it there.
-		T toMove = grid[columnFrom][rowFrom];
+		T toMove = sourceGrid[columnFrom][rowFrom];
 
 		if (toMove == null) {
 			throw new IllegalArgumentException("You tried to move a tile that was non existent");
 		}
 
-		grid[columnFrom][rowFrom] = null;
-		grid[columnTo][rowTo] = toMove;
+		sourceGrid[columnFrom][rowFrom] = null;
+		targetGrid[columnTo][rowTo] = toMove;
+	}
+
+	/**
+	 * Randomizes the grid tiles in this grid
+	 */
+	public void randomize() {
+		T[][] newGrid = (T[][]) Array.newInstance(VisualTile.class, this.cols, this.rows);
+
+		int count2 = 0;
+
+
+		List<Integer> mapping = Stream.iterate(0, i -> ++i)
+			.limit(rows * cols)
+			.collect(Collectors.toList());
+
+		Collections.shuffle(mapping);
+
+		// System.out.println(mapping);
+		for (int i : mapping) {
+			this.move(count2 % cols, count2 / cols, i % cols, i / cols, grid, newGrid);
+			count2++;
+		}
+		grid = newGrid;
 	}
 
 	/**
