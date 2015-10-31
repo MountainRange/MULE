@@ -12,10 +12,10 @@ import javafx.scene.shape.Rectangle;
 import java.util.Objects;
 
 /**
- * A tile which is drawin onto the screen.
+ * A tile which is drawn onto the screen.
  *
- * This tile is for use with the VisualGrid class, and javafx in general.
- * As so, it extends the group object, so other JavaFX objects can be
+ * This tile is for use with the VisualGrid class, and JavaFX in general.
+ * As such, it extends the group object, so other JavaFX objects can be added to it as children.
  */
 public class VisualTile extends Group implements Tile {
 

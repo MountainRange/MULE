@@ -109,7 +109,7 @@ public class VisualGrid<T extends Group & Tile> extends Grid<T> {
 	}
 
 	/**
-	 * Binds the specified node to the coord
+	 * Binds the specified node to the coordinates
 	 * @param toBind Node to bind
 	 * @param column Column to bind
 	 * @param row Row to bind
