@@ -172,7 +172,7 @@ extends <a href="../../../../../../io/github/mountainrange/mule/gameplay/Grid.ht
 <!--   -->
 </a>
 <h3>Fields inherited from class&nbsp;io.github.mountainrange.mule.gameplay.<a href="../../../../../../io/github/mountainrange/mule/gameplay/Grid.html" title="class in io.github.mountainrange.mule.gameplay">Grid</a></h3>
-<code><a href="../../../../../../io/github/mountainrange/mule/gameplay/Grid.html#cols">cols</a>, <a href="../../../../../../io/github/mountainrange/mule/gameplay/Grid.html#grid">grid</a>, <a href="../../../../../../io/github/mountainrange/mule/gameplay/Grid.html#playerPosition">playerPosition</a>, <a href="../../../../../../io/github/mountainrange/mule/gameplay/Grid.html#rows">rows</a>, <a href="../../../../../../io/github/mountainrange/mule/gameplay/Grid.html#selection">selection</a></code></li>
+<code><a href="../../../../../../io/github/mountainrange/mule/gameplay/Grid.html#cols">cols</a>, <a href="../../../../../../io/github/mountainrange/mule/gameplay/Grid.html#grid">grid</a>, <a href="../../../../../../io/github/mountainrange/mule/gameplay/Grid.html#playerPosition">playerPosition</a>, <a href="../../../../../../io/github/mountainrange/mule/gameplay/Grid.html#r">r</a>, <a href="../../../../../../io/github/mountainrange/mule/gameplay/Grid.html#rows">rows</a>, <a href="../../../../../../io/github/mountainrange/mule/gameplay/Grid.html#selection">selection</a></code></li>
 </ul>
 </li>
 </ul>
@@ -253,11 +253,13 @@ extends <a href="../../../../../../io/github/mountainrange/mule/gameplay/Grid.ht
 </tr>
 <tr id="i6" class="altColor">
 <td class="colFirst"><code>void</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../io/github/mountainrange/mule/gameplay/javafx/VisualGrid.html#move-int-int-int-int-">move</a></span>(int&nbsp;columnFrom,
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../io/github/mountainrange/mule/gameplay/javafx/VisualGrid.html#move-int-int-int-int-T:A:A-T:A:A-">move</a></span>(int&nbsp;columnFrom,
     int&nbsp;rowFrom,
     int&nbsp;columnTo,
-    int&nbsp;rowTo)</code>
-<div class="block">Moves an object from one area to another.</div>
+    int&nbsp;rowTo,
+    <a href="../../../../../../io/github/mountainrange/mule/gameplay/javafx/VisualGrid.html" title="type parameter in VisualGrid">T</a>[][]&nbsp;fromGrid,
+    <a href="../../../../../../io/github/mountainrange/mule/gameplay/javafx/VisualGrid.html" title="type parameter in VisualGrid">T</a>[][]&nbsp;toGrid)</code>
+<div class="block">A more precise version of move</div>
 </td>
 </tr>
 <tr id="i7" class="rowColor">
@@ -311,7 +313,7 @@ extends <a href="../../../../../../io/github/mountainrange/mule/gameplay/Grid.ht
 <!--   -->
 </a>
 <h3>Methods inherited from class&nbsp;io.github.mountainrange.mule.gameplay.<a href="../../../../../../io/github/mountainrange/mule/gameplay/Grid.html" title="class in io.github.mountainrange.mule.gameplay">Grid</a></h3>
-<code><a href="../../../../../../io/github/mountainrange/mule/gameplay/Grid.html#get-int-int-">get</a>, <a href="../../../../../../io/github/mountainrange/mule/gameplay/Grid.html#getBackingArray--">getBackingArray</a>, <a href="../../../../../../io/github/mountainrange/mule/gameplay/Grid.html#getCols--">getCols</a>, <a href="../../../../../../io/github/mountainrange/mule/gameplay/Grid.html#getCursorX--">getCursorX</a>, <a href="../../../../../../io/github/mountainrange/mule/gameplay/Grid.html#getCursorY--">getCursorY</a>, <a href="../../../../../../io/github/mountainrange/mule/gameplay/Grid.html#getPlayerPosition--">getPlayerPosition</a>, <a href="../../../../../../io/github/mountainrange/mule/gameplay/Grid.html#getRows--">getRows</a>, <a href="../../../../../../io/github/mountainrange/mule/gameplay/Grid.html#iterator--">iterator</a></code></li>
+<code><a href="../../../../../../io/github/mountainrange/mule/gameplay/Grid.html#get-int-int-">get</a>, <a href="../../../../../../io/github/mountainrange/mule/gameplay/Grid.html#getBackingArray--">getBackingArray</a>, <a href="../../../../../../io/github/mountainrange/mule/gameplay/Grid.html#getCols--">getCols</a>, <a href="../../../../../../io/github/mountainrange/mule/gameplay/Grid.html#getCursorX--">getCursorX</a>, <a href="../../../../../../io/github/mountainrange/mule/gameplay/Grid.html#getCursorY--">getCursorY</a>, <a href="../../../../../../io/github/mountainrange/mule/gameplay/Grid.html#getPlayerPosition--">getPlayerPosition</a>, <a href="../../../../../../io/github/mountainrange/mule/gameplay/Grid.html#getRows--">getRows</a>, <a href="../../../../../../io/github/mountainrange/mule/gameplay/Grid.html#iterator--">iterator</a>, <a href="../../../../../../io/github/mountainrange/mule/gameplay/Grid.html#move-int-int-int-int-">move</a>, <a href="../../../../../../io/github/mountainrange/mule/gameplay/Grid.html#randomize--">randomize</a></code></li>
 </ul>
 <ul class="blockList">
 <li class="blockList"><a name="methods.inherited.from.class.java.lang.Object">
@@ -533,7 +535,9 @@ extends <a href="../../../../../../io/github/mountainrange/mule/gameplay/Grid.ht
 </dl>
 </li>
 </ul>
-<a name="move-int-int-int-int-">
+<a name="move-int-int-int-int-javafx.scene.Group:A:A-javafx.scene.Group:A:A-">
+<!--   -->
+</a><a name="move-int-int-int-int-T:A:A-T:A:A-">
 <!--   -->
 </a>
 <ul class="blockList">
@@ -542,17 +546,14 @@ extends <a href="../../../../../../io/github/mountainrange/mule/gameplay/Grid.ht
 <pre>public&nbsp;void&nbsp;move(int&nbsp;columnFrom,
                  int&nbsp;rowFrom,
                  int&nbsp;columnTo,
-                 int&nbsp;rowTo)</pre>
-<div class="block"><span class="descfrmTypeLabel">Description copied from class:&nbsp;<code><a href="../../../../../../io/github/mountainrange/mule/gameplay/Grid.html#move-int-int-int-int-">Grid</a></code></span></div>
-<div class="block">Moves an object from one area to another.</div>
+                 int&nbsp;rowTo,
+                 <a href="../../../../../../io/github/mountainrange/mule/gameplay/javafx/VisualGrid.html" title="type parameter in VisualGrid">T</a>[][]&nbsp;fromGrid,
+                 <a href="../../../../../../io/github/mountainrange/mule/gameplay/javafx/VisualGrid.html" title="type parameter in VisualGrid">T</a>[][]&nbsp;toGrid)</pre>
+<div class="block"><span class="descfrmTypeLabel">Description copied from class:&nbsp;<code><a href="../../../../../../io/github/mountainrange/mule/gameplay/Grid.html#move-int-int-int-int-T:A:A-T:A:A-">Grid</a></code></span></div>
+<div class="block">A more precise version of move</div>
 <dl>
 <dt><span class="overrideSpecifyLabel">Overrides:</span></dt>
-<dd><code><a href="../../../../../../io/github/mountainrange/mule/gameplay/Grid.html#move-int-int-int-int-">move</a></code>&nbsp;in class&nbsp;<code><a href="../../../../../../io/github/mountainrange/mule/gameplay/Grid.html" title="class in io.github.mountainrange.mule.gameplay">Grid</a>&lt;<a href="../../../../../../io/github/mountainrange/mule/gameplay/javafx/VisualGrid.html" title="type parameter in VisualGrid">T</a> extends javafx.scene.Group &amp; <a href="../../../../../../io/github/mountainrange/mule/gameplay/Tile.html" title="interface in io.github.mountainrange.mule.gameplay">Tile</a>&gt;</code></dd>
-<dt><span class="paramLabel">Parameters:</span></dt>
-<dd><code>columnFrom</code> - start col</dd>
-<dd><code>rowFrom</code> - start row</dd>
-<dd><code>columnTo</code> - end column</dd>
-<dd><code>rowTo</code> - end row</dd>
+<dd><code><a href="../../../../../../io/github/mountainrange/mule/gameplay/Grid.html#move-int-int-int-int-T:A:A-T:A:A-">move</a></code>&nbsp;in class&nbsp;<code><a href="../../../../../../io/github/mountainrange/mule/gameplay/Grid.html" title="class in io.github.mountainrange.mule.gameplay">Grid</a>&lt;<a href="../../../../../../io/github/mountainrange/mule/gameplay/javafx/VisualGrid.html" title="type parameter in VisualGrid">T</a> extends javafx.scene.Group &amp; <a href="../../../../../../io/github/mountainrange/mule/gameplay/Tile.html" title="interface in io.github.mountainrange.mule.gameplay">Tile</a>&gt;</code></dd>
 </dl>
 </li>
 </ul>
