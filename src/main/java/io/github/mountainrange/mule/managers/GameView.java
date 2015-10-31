@@ -3,7 +3,7 @@ package io.github.mountainrange.mule.managers;
 import io.github.mountainrange.mule.enums.GameType;
 
 /**
- * Represents a state of the game where keybindings may be different.
+ * Represents a state of the game where key bindings may be different.
  */
 public class GameView {
 	private GameType gameType;

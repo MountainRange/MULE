@@ -19,7 +19,7 @@ public class KeyBindManager {
 	/**
 	 * Creates a KeyBindManager object
 	 *
-	 * @param useDefaults whether to use default keybindings or not
+	 * @param useDefaults whether to use default key bindings or not
 	 */
 	public KeyBindManager(boolean useDefaults) {
 		keyMap = new HashMap<>();
@@ -77,7 +77,7 @@ public class KeyBindManager {
 	}
 
 	/**
-	 * Gets the lambda function associated with this keybinding if one is available
+	 * Gets the lambda function associated with this key binding if one is available
 	 * @return The binding if is available, null if no binding was found
 	 */
 	public KeyFunction getBinding(GameView state, KeyCode key) {
