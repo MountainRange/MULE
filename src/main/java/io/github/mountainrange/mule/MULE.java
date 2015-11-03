@@ -1,9 +1,12 @@
 package io.github.mountainrange.mule;
 
 import javafx.application.Application;
+import javafx.application.Platform;
+import javafx.event.EventHandler;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 
 public class MULE extends Application {
 
@@ -80,6 +83,12 @@ public class MULE extends Application {
 		primaryStage.setScene(mainScene);
 		primaryStage.setMinHeight(600);
 		primaryStage.setMinWidth(600);
+
+		primaryStage.setOnCloseRequest(event -> {
+            Platform.exit();
+            System.exit(0);
+        });
+
 		primaryStage.show();
 	}
 
