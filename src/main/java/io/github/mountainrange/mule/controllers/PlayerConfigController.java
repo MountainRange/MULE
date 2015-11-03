@@ -139,7 +139,8 @@ public class PlayerConfigController implements Initializable, SceneAgent {
 	private void handleColorAction(ActionEvent e) {
 		invalidColor = false;
 		for (Player player : Config.getInstance().playerList) {
-			if (colorPicker.getValue().equals(player.getColor())) {
+			java.awt.Color c = player.getColor();
+			if (colorPicker.getValue().equals(new Color(c.getRed() / 255.0, c.getGreen() / 255.0, c.getBlue() / 255.0, c.getAlpha() / 255.0))) {
 				invalidColor = true;
 			}
 		}
@@ -148,12 +149,18 @@ public class PlayerConfigController implements Initializable, SceneAgent {
 		} else {
 			colorLabel.setTextFill(Color.BLACK);
 		}
-		Config.getInstance().playerList[Config.getInstance().currentPlayer].setColor(colorPicker.getValue());
+		Color c = colorPicker.getValue();
+		Config.getInstance().playerList[Config.getInstance().currentPlayer].setColor(new java.awt.Color((float) c.getRed(), (float) c.getGreen(), (float) c.getBlue()));
 	}
 
 	private void updateValues() {
 		raceCombo.getSelectionModel().select(Config.getInstance().playerList[Config.getInstance().currentPlayer].getRace().ordinal());
-		colorPicker.setValue(Config.getInstance().playerList[Config.getInstance().currentPlayer].getColor());
+		try {
+			java.awt.Color temp = Config.getInstance().playerList[Config.getInstance().currentPlayer].getColor();
+			colorPicker.setValue(new Color(temp.getRed() / 255.0, temp.getGreen() / 255.0, temp.getBlue() / 255.0, temp.getAlpha() / 255.0));
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
 		nameField.setText(Config.getInstance().playerList[Config.getInstance().currentPlayer].getName());
 		playerSlider.setValue(Config.getInstance().currentPlayer + 1);
 	}

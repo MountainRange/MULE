@@ -4,14 +4,15 @@ import io.github.mountainrange.mule.enums.MuleType;
 import io.github.mountainrange.mule.enums.Race;
 import io.github.mountainrange.mule.enums.ResourceType;
 
+import java.io.Serializable;
 import java.util.EnumMap;
 
-import javafx.scene.paint.Color;
+import java.awt.Color;
 
 /**
  * Container that holds information about a particular player.
  */
-public class Player {
+public class Player implements Serializable {
 
 	public static final Color[] DEFAULT_COLORS = { Color.RED, Color.BLUE, Color.GREEN, Color.ORANGE };
 

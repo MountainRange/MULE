@@ -17,6 +17,9 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -94,6 +97,23 @@ public class PlayController implements Initializable, SceneAgent {
 	@FXML
 	private void handlePassAction(ActionEvent e) {
 		manager.incrementTurn();
+	}
+
+	@FXML
+	private void handleSave() {
+		try
+		{
+			FileOutputStream fileOut =
+					new FileOutputStream("employee.ser");
+			ObjectOutputStream out = new ObjectOutputStream(fileOut);
+			out.writeObject(manager);
+			out.close();
+			fileOut.close();
+			System.out.printf("Serialized data is saved in /tmp/employee.ser");
+		}catch(IOException i)
+		{
+			i.printStackTrace();
+		}
 	}
 
 }

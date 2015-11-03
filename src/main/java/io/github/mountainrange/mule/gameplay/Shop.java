@@ -4,12 +4,13 @@ import io.github.mountainrange.mule.enums.Difficulty;
 import io.github.mountainrange.mule.enums.MuleType;
 import io.github.mountainrange.mule.enums.ResourceType;
 
+import java.io.Serializable;
 import java.util.EnumMap;
 
 /**
  * Hold information about current prices and inventories.
  */
-public class Shop {
+public class Shop implements Serializable {
 
 	private static final EnumMap<Difficulty, EnumMap<ResourceType, Integer>> INITIAL_STOCKS;
 	private static final EnumMap<Difficulty, EnumMap<ResourceType, Integer>> INITIAL_PRICES;

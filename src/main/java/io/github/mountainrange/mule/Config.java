@@ -3,12 +3,13 @@ package io.github.mountainrange.mule;
 import io.github.mountainrange.mule.enums.*;
 import io.github.mountainrange.mule.gameplay.Player;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
  * Simple config class
  */
-public class Config {
+public class Config implements Serializable {
 
 	private static Config instance = null;
 

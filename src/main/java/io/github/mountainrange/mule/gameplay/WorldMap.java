@@ -6,6 +6,7 @@ import io.github.mountainrange.mule.enums.MuleType;
 import io.github.mountainrange.mule.gameplay.javafx.VisualTile;
 import javafx.geometry.Point2D;
 
+import java.io.Serializable;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -13,12 +14,12 @@ import java.util.stream.Collectors;
  * A class to represent the map and facilitates interactions
  * between the actual data store and the rest of the program
  */
-public class WorldMap implements Iterable<Tile> {
+public class WorldMap implements Iterable<Tile>, Serializable {
 
 	/* An unmodifiable, empty set of tiles. */
 	private static final Set<Tile> EMPTY_SET = Collections.unmodifiableSet(new HashSet<>(0));
 
-	private Grid<VisualTile> map;
+	private transient Grid<VisualTile> map;
 
 	/* List of tiles owned by each player, sorted by the MULE installed on them */
 	private Map<Player, EnumMap<MuleType, Set<Tile>>> productionTiles;

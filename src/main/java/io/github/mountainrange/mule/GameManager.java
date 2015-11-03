@@ -16,31 +16,32 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.util.Duration;
 
+import java.io.Serializable;
 import java.util.*;
 
 /**
  * Holds key information about the state of the game, and drives turns.
  */
-public class GameManager {
+public class GameManager implements Serializable {
 
 	private List<Player> playerList;
 	private List<Player> buyers;
 	private List<Player> turnOrder;
 
-	private Config config;
-	private SceneLoader sceneLoader;
+	private transient Config config;
+	private transient SceneLoader sceneLoader;
 	private Shop shop;
 	private WorldMap map;
 
-	private KeyBindManager keyManager;
-	private MouseHandler mouseHandler;
-	private RandomEventManager randManager;
-	private Timeline selectorTimeline;
-	private Timeline timerTimeline;
-	private Timeline messageTimeline;
+	private transient KeyBindManager keyManager;
+	private transient MouseHandler mouseHandler;
+	private transient RandomEventManager randManager;
+	private transient Timeline selectorTimeline;
+	private transient Timeline timerTimeline;
+	private transient Timeline messageTimeline;
 
-	private Label resourceLabel;
-	private Label turnLabel;
+	private transient Label resourceLabel;
+	private transient Label turnLabel;
 
 	private boolean freeLand;
 	private boolean gambleFlag;

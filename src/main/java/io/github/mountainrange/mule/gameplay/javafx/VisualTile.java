@@ -69,7 +69,8 @@ public class VisualTile extends Group implements Tile {
 			}
 			ownerRect = new Rectangle(0.05, 0.05, 1, 1);
 			ownerRect.setFill(Color.TRANSPARENT);
-			ownerRect.setStroke(owner.getColor());
+			java.awt.Color c = owner.getColor();
+			ownerRect.setStroke(new Color(c.getRed() / 255.0, c.getGreen() / 255.0, c.getBlue() / 255.0, c.getAlpha() / 255.0));
 			ownerRect.setStrokeWidth(0.05);
 
 			ownerRect.setHeight(1 - ownerRect.getStrokeWidth() * 2);

@@ -25,6 +25,7 @@
                <children>
                 <Button focusTraversable="false" mnemonicParsing="false" onAction="#handleBackAction" text="Go Back" />
                   <Button focusTraversable="false" mnemonicParsing="false" onAction="#handlePassAction" text="End Turn" />
+                  <Button mnemonicParsing="false" onAction="#handleSave" text="Save" />
                </children>
             </HBox>
          </left>
