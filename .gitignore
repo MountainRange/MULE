@@ -21,3 +21,6 @@ build/
 .idea/
 tags
 TAGS
+
+# serials
+*.ser

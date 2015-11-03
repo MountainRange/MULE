@@ -21,11 +21,12 @@
             </Label>
          </center>
          <left>
-            <HBox alignment="CENTER_LEFT" prefWidth="200.0" BorderPane.alignment="CENTER">
+            <HBox alignment="CENTER_LEFT" prefHeight="27.0" prefWidth="207.0" BorderPane.alignment="CENTER">
                <children>
                 <Button focusTraversable="false" mnemonicParsing="false" onAction="#handleBackAction" text="Go Back" />
                   <Button focusTraversable="false" mnemonicParsing="false" onAction="#handlePassAction" text="End Turn" />
                   <Button mnemonicParsing="false" onAction="#handleSave" text="Save" />
+                  <Button mnemonicParsing="false" onAction="#handleLoad" text="Load" />
                </children>
             </HBox>
          </left>

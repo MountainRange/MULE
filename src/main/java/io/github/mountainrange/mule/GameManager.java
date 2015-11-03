@@ -16,6 +16,7 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.util.Duration;
 
+import java.io.IOException;
 import java.io.Serializable;
 import java.util.*;
 
@@ -31,7 +32,7 @@ public class GameManager implements Serializable {
 	private transient Config config;
 	private transient SceneLoader sceneLoader;
 	private Shop shop;
-	private WorldMap map;
+	private transient WorldMap map;
 
 	private transient KeyBindManager keyManager;
 	private transient MouseHandler mouseHandler;
@@ -53,6 +54,82 @@ public class GameManager implements Serializable {
 	private int phaseCount;
 	private int roundCount;
 	private int timeLeft;
+
+	private void writeObject(java.io.ObjectOutputStream stream)
+			throws IOException {
+		stream.writeObject(playerList);
+		stream.writeObject(buyers);
+		stream.writeObject(turnOrder);
+		stream.writeObject(shop);
+		stream.writeObject(map);
+		stream.writeBoolean(freeLand);
+		stream.writeBoolean(gambleFlag);
+		stream.writeBoolean(inAuction);
+		stream.writeInt(currentPlayerNum);
+		stream.writeInt(foodRequired);
+		stream.writeInt(passCounter);
+		stream.writeInt(phaseCount);
+		stream.writeInt(roundCount);
+		stream.writeInt(timeLeft);
+	}
+
+	private void readObject(java.io.ObjectInputStream stream)
+			throws IOException, ClassNotFoundException {
+		playerList = (ArrayList<Player>) stream.readObject();
+		buyers = (ArrayList<Player>) stream.readObject();
+		turnOrder = (ArrayList<Player>) stream.readObject();
+		shop = (Shop) stream.readObject();
+		map = (WorldMap) stream.readObject();
+		freeLand = stream.readBoolean();
+		gambleFlag = stream.readBoolean();
+		inAuction = stream.readBoolean();
+		currentPlayerNum = stream.readInt();
+		foodRequired = stream.readInt();
+		passCounter = stream.readInt();
+		phaseCount = stream.readInt();
+		roundCount = stream.readInt();
+		timeLeft = stream.readInt();
+	}
+
+	public void initialize(WorldMap map, Label turnLabel, Label resourceLabel, SceneLoader sceneLoader) {
+
+		this.map = map;
+		this.resourceLabel = resourceLabel;
+		this.sceneLoader = sceneLoader;
+		this.turnLabel = turnLabel;
+
+		config = Config.getInstance();
+
+		keyManager = new KeyBindManager();
+		mouseHandler = new MouseHandler();
+		randManager = new RandomEventManager();
+
+		selectorTimeline = new Timeline(
+				new KeyFrame(
+						Duration.seconds(Config.SELECTOR_SPEED),
+						this::selectorAction
+				)
+		);
+		selectorTimeline.setCycleCount(Timeline.INDEFINITE);
+
+		timerTimeline = new Timeline(
+				new KeyFrame(
+						Duration.seconds(Config.SELECTOR_SPEED),
+						this::turnTimerAction
+				)
+		);
+		timerTimeline.setCycleCount(Timeline.INDEFINITE);
+
+		messageTimeline = new Timeline(
+				new KeyFrame(
+						Duration.seconds(Config.MESSAGE_DURATION),
+						this::messageAction
+				)
+		);
+		messageTimeline.setCycleCount(1);
+
+		nextRound();
+	}
 
 	public GameManager(WorldMap map, Label turnLabel, Label resourceLabel, SceneLoader sceneLoader) {
 		this.map = map;
@@ -556,5 +633,11 @@ public class GameManager implements Serializable {
 				}
 			}
 		}
+	}
+
+	public void endTimers() {
+		selectorTimeline.stop();
+		timerTimeline.stop();
+		messageTimeline.stop();
 	}
 }

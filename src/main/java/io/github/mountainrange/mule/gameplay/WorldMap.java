@@ -22,7 +22,7 @@ public class WorldMap implements Iterable<Tile>, Serializable {
 	private transient Grid<VisualTile> map;
 
 	/* List of tiles owned by each player, sorted by the MULE installed on them */
-	private Map<Player, EnumMap<MuleType, Set<Tile>>> productionTiles;
+	private transient Map<Player, EnumMap<MuleType, Set<Tile>>> productionTiles;
 
 	public WorldMap(Grid<VisualTile> g, MapType mType) {
 		this.map = g;

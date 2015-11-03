@@ -17,9 +17,7 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.ObjectOutputStream;
+import java.io.*;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -104,16 +102,41 @@ public class PlayController implements Initializable, SceneAgent {
 		try
 		{
 			FileOutputStream fileOut =
-					new FileOutputStream("employee.ser");
+					new FileOutputStream("manager.ser");
 			ObjectOutputStream out = new ObjectOutputStream(fileOut);
 			out.writeObject(manager);
 			out.close();
 			fileOut.close();
-			System.out.printf("Serialized data is saved in /tmp/employee.ser");
+			System.out.printf("Serialized data is saved in manager.ser");
 		}catch(IOException i)
 		{
 			i.printStackTrace();
 		}
+	}
+
+	@FXML
+	private void handleLoad() {
+		try
+		{
+			FileInputStream fileIn = new FileInputStream("manager.ser");
+			ObjectInputStream in = new ObjectInputStream(fileIn);
+			manager.endTimers();
+			manager = (GameManager) in.readObject();
+			manager.initialize(map, turnLabel, resourceLabel, sceneLoader);
+			mule.setGameManager(manager);
+			in.close();
+			fileIn.close();
+		}catch(IOException i)
+		{
+			i.printStackTrace();
+			return;
+		}catch(ClassNotFoundException c)
+		{
+			System.out.println("Employee class not found");
+			c.printStackTrace();
+			return;
+		}
+		System.out.println("Deserialized Employee...");
 	}
 
 }
