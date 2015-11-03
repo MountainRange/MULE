@@ -1,5 +1,6 @@
 package io.github.mountainrange.mule;
 
+import io.github.jgkamat.JayLayer.JayLayer;
 import io.github.mountainrange.mule.enums.GameType;
 import io.github.mountainrange.mule.enums.MessageType;
 import io.github.mountainrange.mule.enums.MuleType;
@@ -54,6 +55,11 @@ public class GameManager {
 	private int timeLeft;
 
 	public GameManager(WorldMap map, Label turnLabel, Label resourceLabel, SceneLoader sceneLoader) {
+		JayLayer test = new JayLayer("/audio/", "/audio/");
+		int play1 = test.createPlaylist(false);
+		test.addToPlaylist(play1, "funkychunk.mp3");
+		test.startPlaylist(play1);
+
 		this.map = map;
 		this.resourceLabel = resourceLabel;
 		this.sceneLoader = sceneLoader;
