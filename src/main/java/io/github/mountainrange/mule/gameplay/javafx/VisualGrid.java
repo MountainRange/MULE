@@ -32,19 +32,19 @@ import javafx.util.Duration;
  *
  */
 public class VisualGrid<T extends Group & Tile> extends Grid<T> {
-	private Pane upperPane;
-	private Rectangle selectionRect;
+	private transient Pane upperPane;
+	private transient Rectangle selectionRect;
 
 	public static final double THICKNESS = 1;
 	public static final Color COLOR = Color.BLACK;
-	public static final Rectangle SELECTION_TEMPLATE;
+	public transient static final Rectangle SELECTION_TEMPLATE;
 
-	private Text overlayText;
-	private Text overlayHeadline;
+	private transient Text overlayText;
+	private transient Text overlayHeadline;
 
 	// TODO make the player not a rectangle
-	public static final Rectangle PLAYER_TEMPLATE;
-	private Rectangle player;
+	public static transient final Rectangle PLAYER_TEMPLATE;
+	private transient Rectangle player;
 
 	public static final double TEXT_DISPLAY_RATIO = 3.0 / 4.0;
 	public static final double HEADLINE_DISPLAY_RATIO = 1.0 / 4.0;
@@ -73,7 +73,8 @@ public class VisualGrid<T extends Group & Tile> extends Grid<T> {
 	/**
 	 * Resets the grid to the state of the superclass
 	 */
-	private void resetGrid() {
+	protected void resetGrid() {
+		super.resetGrid();
 		// Remove everything from upper pane
 		upperPane.getChildren().clear();
 
@@ -333,7 +334,18 @@ public class VisualGrid<T extends Group & Tile> extends Grid<T> {
 	@Override
 	public void clear() {
 		// Remove all visual items.
-		upperPane.getChildren().clear();
+		if (upperPane != null)
+			upperPane.getChildren().clear();
 		super.clear();
+	}
+
+	/**
+	 * Sets the upper pane of this grid.
+	 * For serialization loading.
+	 * @param p The pane to set
+     */
+	public void setUpperPane(Pane p) {
+		upperPane = p;
+		this.resetGrid();
 	}
 }

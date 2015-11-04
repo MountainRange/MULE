@@ -16,24 +16,36 @@
          <center>
             <Label fx:id="resourceLabel" prefHeight="27.0" text="Money: $$$$ Energy: ####" BorderPane.alignment="CENTER">
                <font>
-                  <Font size="16.0" />
+                  <Font name="Lucida Sans Regular" size="16.0" />
                </font>
             </Label>
          </center>
          <left>
             <HBox alignment="CENTER_LEFT" prefHeight="27.0" prefWidth="207.0" BorderPane.alignment="CENTER">
                <children>
-                <Button focusTraversable="false" mnemonicParsing="false" onAction="#handleBackAction" text="Go Back" />
-                  <Button focusTraversable="false" mnemonicParsing="false" onAction="#handlePassAction" text="End Turn" />
-                  <Button mnemonicParsing="false" onAction="#handleSave" text="Save" />
-                  <Button mnemonicParsing="false" onAction="#handleLoad" text="Load" />
+                <Button focusTraversable="false" minWidth="-Infinity" mnemonicParsing="false" onAction="#handleBackAction" pickOnBounds="false" text="Go Back">
+                     <font>
+                        <Font name="Lucida Sans Regular" size="13.0" />
+                     </font></Button>
+                  <Button focusTraversable="false" minWidth="-Infinity" mnemonicParsing="false" onAction="#handlePassAction" text="End Turn">
+                     <font>
+                        <Font name="Lucida Sans Regular" size="13.0" />
+                     </font></Button>
+                  <Button focusTraversable="false" minWidth="-Infinity" mnemonicParsing="false" onAction="#handleSave" text="Save">
+                     <font>
+                        <Font name="Lucida Sans Regular" size="13.0" />
+                     </font></Button>
+                  <Button focusTraversable="false" minWidth="-Infinity" mnemonicParsing="false" onAction="#handleLoad" text="Load">
+                     <font>
+                        <Font name="Lucida Sans Regular" size="13.0" />
+                     </font></Button>
                </children>
             </HBox>
          </left>
          <right>
             <Label fx:id="turnLabel" alignment="CENTER_RIGHT" prefHeight="27.0" text="Player 1's Turn" textAlignment="RIGHT" BorderPane.alignment="CENTER">
                <font>
-                  <Font size="18.0" />
+                  <Font name="Lucida Sans Regular" size="16.0" />
                </font>
             </Label>
          </right>

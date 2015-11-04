@@ -99,39 +99,34 @@ public class PlayController implements Initializable, SceneAgent {
 
 	@FXML
 	private void handleSave() {
-		try
-		{
+		try {
 			FileOutputStream fileOut =
 					new FileOutputStream("manager.ser");
 			ObjectOutputStream out = new ObjectOutputStream(fileOut);
 			out.writeObject(manager);
 			out.close();
 			fileOut.close();
-			System.out.printf("Serialized data is saved in manager.ser");
-		}catch(IOException i)
-		{
+			System.out.println("Serialized data is saved in manager.ser");
+		} catch(IOException i) {
 			i.printStackTrace();
 		}
 	}
 
 	@FXML
 	private void handleLoad() {
-		try
-		{
+		try {
 			FileInputStream fileIn = new FileInputStream("manager.ser");
 			ObjectInputStream in = new ObjectInputStream(fileIn);
 			manager.endTimers();
 			manager = (GameManager) in.readObject();
-			manager.initialize(map, turnLabel, resourceLabel, sceneLoader);
 			mule.setGameManager(manager);
 			in.close();
 			fileIn.close();
-		}catch(IOException i)
-		{
+			manager.initialize(turnLabel, resourceLabel, sceneLoader, mapPane);
+		} catch(IOException i) {
 			i.printStackTrace();
 			return;
-		}catch(ClassNotFoundException c)
-		{
+		} catch(ClassNotFoundException c) {
 			System.out.println("Employee class not found");
 			c.printStackTrace();
 			return;

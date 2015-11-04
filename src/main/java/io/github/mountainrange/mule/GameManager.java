@@ -5,6 +5,8 @@ import io.github.mountainrange.mule.enums.MessageType;
 import io.github.mountainrange.mule.enums.MuleType;
 import io.github.mountainrange.mule.enums.ResourceType;
 import io.github.mountainrange.mule.gameplay.*;
+import io.github.mountainrange.mule.gameplay.javafx.VisualGrid;
+import io.github.mountainrange.mule.gameplay.javafx.VisualTile;
 import io.github.mountainrange.mule.managers.*;
 
 import javafx.animation.KeyFrame;
@@ -14,6 +16,7 @@ import javafx.geometry.Point2D;
 import javafx.scene.control.Label;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.Pane;
 import javafx.util.Duration;
 
 import java.io.IOException;
@@ -61,6 +64,7 @@ public class GameManager implements Serializable {
 		stream.writeObject(buyers);
 		stream.writeObject(turnOrder);
 		stream.writeObject(shop);
+		map.getGrid().backup();
 		stream.writeObject(map);
 		stream.writeBoolean(freeLand);
 		stream.writeBoolean(gambleFlag);
@@ -80,6 +84,7 @@ public class GameManager implements Serializable {
 		turnOrder = (ArrayList<Player>) stream.readObject();
 		shop = (Shop) stream.readObject();
 		map = (WorldMap) stream.readObject();
+		map.getGrid().restore();
 		freeLand = stream.readBoolean();
 		gambleFlag = stream.readBoolean();
 		inAuction = stream.readBoolean();
@@ -91,9 +96,9 @@ public class GameManager implements Serializable {
 		timeLeft = stream.readInt();
 	}
 
-	public void initialize(WorldMap map, Label turnLabel, Label resourceLabel, SceneLoader sceneLoader) {
-
-		this.map = map;
+	@SuppressWarnings("deprecated")
+	public void initialize(Label turnLabel, Label resourceLabel, SceneLoader sceneLoader, Pane mapPane) {
+		((VisualGrid) map.getGrid()).setUpperPane(mapPane);
 		this.resourceLabel = resourceLabel;
 		this.sceneLoader = sceneLoader;
 		this.turnLabel = turnLabel;

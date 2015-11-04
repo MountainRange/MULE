@@ -6,10 +6,11 @@ import io.github.mountainrange.mule.gameplay.javafx.VisualTile;
 import javafx.geometry.Point2D;
 
 import java.awt.*;
+import java.io.IOException;
+import java.io.Serializable;
 import java.lang.reflect.Array;
 import java.util.Arrays;
 import java.util.Iterator;
-import java.util.Queue;
 import java.util.List;
 import java.util.Collections;
 import java.util.stream.Stream;
@@ -22,15 +23,16 @@ import java.util.Random;
  * Visualization classes can extend this to actually show things!
  */
 @SuppressWarnings("unchecked")
-public abstract class Grid<T extends Tile> implements Iterable<Tile> {
-
-	protected T[][] grid;
+public abstract class Grid<T extends Tile> implements Iterable<Tile>, Serializable {
+	protected transient T[][] grid;
 	protected int rows, cols;
 	protected Point selection = null;
 
-	protected Point2D playerPosition = null;
-
+	protected transient Point2D playerPosition = null;
 	public static final Random r = new Random();
+
+	// Workaround for Serialization
+	protected PlainTile[][] backup;
 
 	public Grid (int columns, int rows, MapType m, MapSize s) {
 		this.rows = rows;
@@ -239,7 +241,7 @@ public abstract class Grid<T extends Tile> implements Iterable<Tile> {
 	 * Clears this grid completely
 	 */
 	public void clear() {
-		grid = (T[][]) Array.newInstance(VisualTile.class, this.cols, this.rows);
+		//grid = (T[][]) Array.newInstance(VisualTile.class, this.cols, this.rows);
 	}
 
 	/**
@@ -266,6 +268,25 @@ public abstract class Grid<T extends Tile> implements Iterable<Tile> {
 
 
 	/**
+	 * A backup method to save our tiles -> plaintiles internally.
+	 * Preperation for serialization.
+	 */
+	public void backup() {
+		// =)
+		backup = Arrays.stream(grid).map(Arrays::stream)
+				.map((a) -> a.map(PlainTile::new).toArray(PlainTile[]::new)).toArray(PlainTile[][]::new);
+	}
+
+	/**
+	 * A restore method to restore a backed up serialized tile.
+	 */
+	public void restore() {
+		// =)
+		grid = (T[][]) Arrays.stream(backup).map(Arrays::stream)
+				.map((a) -> a.map(VisualTile::new).toArray(VisualTile[]::new)).toArray(VisualTile[][]::new);
+	}
+
+	/**
 	 * Return an iterator for all the Tile objects in the grid.
 	 * @return an iterator for Tiles
 	 */
@@ -273,4 +294,13 @@ public abstract class Grid<T extends Tile> implements Iterable<Tile> {
 	public Iterator<Tile> iterator() {
 		return (Iterator<Tile>) Arrays.stream(grid).flatMap(Arrays::stream).iterator();
 	}
+
+
+	/**
+	 * Resets the grid to the state of the backing array
+	 */
+	protected void resetGrid() {
+	}
+
+
 }

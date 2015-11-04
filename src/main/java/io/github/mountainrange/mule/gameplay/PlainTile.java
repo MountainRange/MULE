@@ -3,6 +3,7 @@ package io.github.mountainrange.mule.gameplay;
 import io.github.mountainrange.mule.enums.MuleType;
 import io.github.mountainrange.mule.enums.TerrainType;
 
+import java.io.Serializable;
 import java.util.Objects;
 
 /**
@@ -13,7 +14,7 @@ import java.util.Objects;
  *
  * This is useful for Junit Tests.
  */
-public class PlainTile implements Tile {
+public class PlainTile implements Tile, Serializable {
 	private Player owner;
 	private TerrainType terrain;
 	private MuleType mule;
@@ -21,7 +22,6 @@ public class PlainTile implements Tile {
 	/**
 	 * Construct a tile with the given terrain with no mule installed and no owner.
 	 * @param terrain type of terrain on the tile
-	 * @deprecated Use VisualTile or copy this class into a different view.
 s	 */
 	public PlainTile(TerrainType terrain) {
 		this(Objects.requireNonNull(terrain), MuleType.EMPTY, null);
@@ -35,6 +35,14 @@ s	 */
 		if (terrain == TerrainType.TOWN) {
 			this.owner = new Player(-1, "GAME", null, null);
 		}
+	}
+
+	/**
+	 * Copy constructor from another type of Tile.
+	 * @param toCopy
+     */
+	public PlainTile(Tile toCopy) {
+		this(toCopy.getTerrain(), toCopy.getMule(), toCopy.getOwner());
 	}
 
 	@Override

@@ -54,6 +54,10 @@ public class VisualTile extends Group implements Tile {
 		}
 	}
 
+	public VisualTile(Tile toCopy) {
+		this(toCopy.getTerrain(), toCopy.getMule(), toCopy.getOwner());
+	}
+
 	@Override
 	public Player getOwner() {
 		return owner;

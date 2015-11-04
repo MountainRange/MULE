@@ -19,10 +19,10 @@ public class WorldMap implements Iterable<Tile>, Serializable {
 	/* An unmodifiable, empty set of tiles. */
 	private static final Set<Tile> EMPTY_SET = Collections.unmodifiableSet(new HashSet<>(0));
 
-	private transient Grid<VisualTile> map;
+	private Grid<VisualTile> map;
 
 	/* List of tiles owned by each player, sorted by the MULE installed on them */
-	private transient Map<Player, EnumMap<MuleType, Set<Tile>>> productionTiles;
+	private Map<Player, EnumMap<MuleType, Set<Tile>>> productionTiles;
 
 	public WorldMap(Grid<VisualTile> g, MapType mType) {
 		this.map = g;
@@ -307,6 +307,14 @@ public class WorldMap implements Iterable<Tile>, Serializable {
 
 	public boolean isInside(Point2D toCheck, int column, int row) {
 		return map.isInside(toCheck, column, row);
+	}
+
+	/**
+	 * @deprecated
+	 * @return
+     */
+	public Grid<VisualTile> getGrid() {
+		return map;
 	}
 
 }
