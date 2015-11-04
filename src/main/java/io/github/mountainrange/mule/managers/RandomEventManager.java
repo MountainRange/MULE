@@ -61,6 +61,7 @@ public class RandomEventManager {
 
 	/**
 	 * Gets the lambda function associated with this keybinding if one is available
+	 *
 	 * @return The binding if is available, null if no binding was found
 	 */
 	public List<Function<GameState, String>> getBindings(boolean onlyGood) {

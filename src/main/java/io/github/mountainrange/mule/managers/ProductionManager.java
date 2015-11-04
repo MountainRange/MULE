@@ -13,7 +13,7 @@ import java.util.*;
 /**
  * Responsible for computing production, spoilage, etc.
  */
-public class ProductionManager {
+public final class ProductionManager {
 
 	/** Base production of each resource on each terrain type. */
 	private static final EnumMap<TerrainType, EnumMap<ResourceType, Integer>> BASE_PRODUCTION;
@@ -197,5 +197,8 @@ public class ProductionManager {
 		PRODUCES_RESOURCE.put(MuleType.SMITHORE_MULE, ResourceType.SMITHORE);
 		PRODUCES_RESOURCE.put(MuleType.CRYSTITE_MULE, ResourceType.CRYSTITE);
 	}
+
+	// This is a utility class; disallow instantiation
+	private ProductionManager() {}
 
 }
