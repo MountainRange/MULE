@@ -31,9 +31,7 @@ public class MainController implements Initializable, SceneAgent {
 
 	public void onSetScene() {
 		Config.getInstance().soundManager
-				.stopPlaylist(Config.getInstance().gamePlaylist);
-		Config.getInstance().soundManager
-				.startPlaylist(Config.getInstance().titlePlaylist);
+				.changePlaylist(Config.getInstance().titlePlaylist);
 	}
 
 	@FXML
