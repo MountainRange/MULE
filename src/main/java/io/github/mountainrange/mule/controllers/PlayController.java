@@ -45,7 +45,6 @@ public class PlayController implements Initializable, SceneAgent {
 	}
 
 	public void setSceneParent(SceneLoader sceneLoader, MULE mule){
-		System.out.println("help");
 		this.sceneLoader = sceneLoader;
 		this.mule = mule;
 	}
@@ -62,9 +61,7 @@ public class PlayController implements Initializable, SceneAgent {
 		mule.setGameManager(manager);
 
 		Config.getInstance().soundManager
-				.stopPlaylist(Config.getInstance().titlePlaylist);
-		Config.getInstance().soundManager
-				.startPlaylist(Config.getInstance().gamePlaylist);
+				.changePlaylist(Config.getInstance().gamePlaylist);
 	}
 	@FXML
 	private void handleMouseMoved(MouseEvent e) {
