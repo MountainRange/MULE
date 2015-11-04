@@ -1,5 +1,6 @@
 package io.github.mountainrange.mule;
 
+import io.github.jgkamat.JayLayer.JayLayer;
 import io.github.mountainrange.mule.controllers.SceneAgent;
 
 import javafx.animation.KeyFrame;
@@ -30,6 +31,7 @@ public class SceneLoader extends AnchorPane {
 	public SceneLoader(MULE mule) {
 		this.mule = mule; // application reference for frame, other sceneloaders, etc.
 		sceneHistory = new Stack<>();
+
 	}
 
 	private void addScene(String name, Node scene) {
@@ -49,11 +51,13 @@ public class SceneLoader extends AnchorPane {
 			sceneControl.setSceneParent(this, mule);
 			addScene(name, loadScreen);
 			addController(name, sceneControl);
+
 			return true;
 		} catch(Exception e) {
 			System.err.println(e.getMessage());
 			return false;
 		}
+
 	}
 
 	// swaps the current scene to another loaded scene
@@ -92,7 +96,6 @@ public class SceneLoader extends AnchorPane {
 		}
 
 		controllers.get(name).onSetScene();
-
 		sceneHistory.push(name);
 		return true;
 	}

@@ -55,10 +55,6 @@ public class GameManager {
 	private int timeLeft;
 
 	public GameManager(WorldMap map, Label turnLabel, Label resourceLabel, SceneLoader sceneLoader) {
-		JayLayer test = new JayLayer("/audio/", "/audio/");
-		int play1 = test.createPlaylist(false);
-		test.addToPlaylist(play1, "funkychunk.mp3");
-		test.startPlaylist(play1);
 
 		this.map = map;
 		this.resourceLabel = resourceLabel;

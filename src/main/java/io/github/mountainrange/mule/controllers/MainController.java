@@ -1,5 +1,6 @@
 package io.github.mountainrange.mule.controllers;
 
+import io.github.mountainrange.mule.Config;
 import io.github.mountainrange.mule.MULE;
 import io.github.mountainrange.mule.SceneLoader;
 import javafx.application.Application;
@@ -11,7 +12,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 /**
- * Created by Matthew Keezer on 9/9/2015.
+ * Controller to manage the first pane we see
  */
 public class MainController implements Initializable, SceneAgent {
 
@@ -29,6 +30,10 @@ public class MainController implements Initializable, SceneAgent {
 	}
 
 	public void onSetScene() {
+		Config.getInstance().soundManager
+				.stopPlaylist(Config.getInstance().gamePlaylist);
+		Config.getInstance().soundManager
+				.startPlaylist(Config.getInstance().titlePlaylist);
 	}
 
 	@FXML
