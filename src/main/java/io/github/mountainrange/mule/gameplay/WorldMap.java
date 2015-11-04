@@ -205,6 +205,14 @@ public class WorldMap implements Iterable<Tile> {
 		return map.getRows();
 	}
 
+	/**
+	 * Returns the tile with the town in it.
+	 * @return town The town tile
+	 */
+	public Tile getTown() {
+		return null;
+	}
+
 	// ----------------------------Graphical methods-----------------------------
 
 	/**
