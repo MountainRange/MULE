@@ -131,7 +131,7 @@ public class PlayController implements Initializable, SceneAgent {
 			c.printStackTrace();
 			return;
 		}
-		System.out.println("Deserialized Employee...");
+		System.out.println("Deserialized GameManager...");
 	}
 
 }

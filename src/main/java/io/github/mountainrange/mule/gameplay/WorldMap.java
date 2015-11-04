@@ -6,8 +6,10 @@ import io.github.mountainrange.mule.enums.MuleType;
 import io.github.mountainrange.mule.gameplay.javafx.VisualTile;
 import javafx.geometry.Point2D;
 
+import java.awt.*;
 import java.io.Serializable;
 import java.util.*;
+import java.util.List;
 import java.util.stream.Collectors;
 
 /**
@@ -22,7 +24,7 @@ public class WorldMap implements Iterable<Tile>, Serializable {
 	private Grid<VisualTile> map;
 
 	/* List of tiles owned by each player, sorted by the MULE installed on them */
-	private Map<Player, EnumMap<MuleType, Set<Tile>>> productionTiles;
+	private Map<Player, EnumMap<MuleType, Set<Point>>> productionTiles;
 
 	public WorldMap(Grid<VisualTile> g, MapType mType) {
 		this.map = g;
@@ -77,7 +79,8 @@ public class WorldMap implements Iterable<Tile>, Serializable {
 		// Construct a flat Set of all the Tiles a given player owns
 		return productionTiles.get(player).values().stream()
 				.flatMap(Set::stream)
-				.collect(Collectors.toCollection(HashSet::new));
+				.map((a) -> map.get(a.x, a.y))
+				.collect(Collectors.toSet());
 	}
 
 	/**
@@ -103,7 +106,8 @@ public class WorldMap implements Iterable<Tile>, Serializable {
 		if (!productionTiles.containsKey(player)) {
 			return EMPTY_SET;
 		}
-		return Collections.unmodifiableSet(productionTiles.get(player).get(mule));
+		return Collections.unmodifiableSet(productionTiles.get(player).get(mule)).stream()
+				.map(map::get).collect(Collectors.toSet());
 	}
 
 	/**
@@ -119,7 +123,7 @@ public class WorldMap implements Iterable<Tile>, Serializable {
 
 		if (!productionTiles.containsKey(player)) {
 			// Adding a new player
-			EnumMap<MuleType, Set<Tile>> playerProductionTiles = new EnumMap<>(MuleType.class);
+			EnumMap<MuleType, Set<Point>> playerProductionTiles = new EnumMap<>(MuleType.class);
 
 			for (MuleType muleType : MuleType.values()) {
 				playerProductionTiles.put(muleType, new HashSet<>());
@@ -130,8 +134,12 @@ public class WorldMap implements Iterable<Tile>, Serializable {
 
 		tile.setOwner(player);
 
-		productionTiles.get(player).get(MuleType.EMPTY).add(tile);
+		productionTiles.get(player).get(MuleType.EMPTY).add(map.get(tile));
 		return true;
+	}
+
+	public void refreshTiles() {
+		map.refresh();
 	}
 
 	/**
@@ -164,7 +172,7 @@ public class WorldMap implements Iterable<Tile>, Serializable {
 	 * @param tile tile to set mule
 	 * @return whether the mule was placed
 	 */
-	public boolean placeMule(Player player, Tile tile) {
+	public boolean placeMule(Player player, VisualTile tile) {
 		if (tile.getOwner() != player || !player.hasMule() || player.getMule() == MuleType.EMPTY) {
 			return false;
 		}
@@ -179,9 +187,9 @@ public class WorldMap implements Iterable<Tile>, Serializable {
 		player.setMule(null);
 
 		// Take tile out of its old set into its new one, based on MULE installed
-		Map<MuleType, Set<Tile>> playerProductionTiles = productionTiles.get(player);
+		Map<MuleType, Set<Point>> playerProductionTiles = productionTiles.get(player);
 		playerProductionTiles.get(previousMule).remove(tile);
-		playerProductionTiles.get(newMule).add(tile);
+		playerProductionTiles.get(newMule).add(map.get(tile));
 		return true;
 	}
 
@@ -238,7 +246,7 @@ public class WorldMap implements Iterable<Tile>, Serializable {
 	 * @return whether the mule was placed
 	 */
 	public boolean placeMule(Player player) {
-		Tile tile = cursorTile();
+		VisualTile tile = cursorTile();
 		return placeMule(player, tile);
 	}
 

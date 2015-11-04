@@ -65,6 +65,9 @@ public class VisualTile extends Group implements Tile {
 
 	@Override
 	public void setOwner(Player owner) {
+		if (owner == null || owner.getId() == -1) {
+			return;
+		}
 		this.owner = owner;
 
 		if (terrain != TerrainType.NULL) {

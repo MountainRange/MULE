@@ -6,7 +6,6 @@ import io.github.mountainrange.mule.enums.MuleType;
 import io.github.mountainrange.mule.enums.ResourceType;
 import io.github.mountainrange.mule.gameplay.*;
 import io.github.mountainrange.mule.gameplay.javafx.VisualGrid;
-import io.github.mountainrange.mule.gameplay.javafx.VisualTile;
 import io.github.mountainrange.mule.managers.*;
 
 import javafx.animation.KeyFrame;
@@ -98,6 +97,8 @@ public class GameManager implements Serializable {
 
 	@SuppressWarnings("deprecated")
 	public void initialize(Label turnLabel, Label resourceLabel, SceneLoader sceneLoader, Pane mapPane) {
+		map.refreshTiles();
+
 		((VisualGrid) map.getGrid()).setUpperPane(mapPane);
 		this.resourceLabel = resourceLabel;
 		this.sceneLoader = sceneLoader;
@@ -133,7 +134,21 @@ public class GameManager implements Serializable {
 		);
 		messageTimeline.setCycleCount(1);
 
-		nextRound();
+		if (phaseCount == 0) {
+			map.select(0, 0);
+			if (config.gameType == GameType.HOTSEAT) {
+				if (config.selectEnabled) {
+					runSelector();
+				}
+			} else if (config.gameType == GameType.SIMULTANEOUS) {
+				turnLabel.setText("Land grab Phase");
+				runSelector();
+			}
+		} else {
+			map.select(4, 2);
+			setLabels();
+			timerTimeline.play();
+		}
 	}
 
 	public GameManager(WorldMap map, Label turnLabel, Label resourceLabel, SceneLoader sceneLoader) {

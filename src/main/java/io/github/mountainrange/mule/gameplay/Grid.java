@@ -69,17 +69,53 @@ public abstract class Grid<T extends Tile> implements Iterable<Tile>, Serializab
 
 	/**
 	 * A method to get a tile.
-	 * DO NOT USE UNLESS ABSOLUTELY NECESSARY.
 	 *
 	 * @param column column to get
 	 * @param row row to get
-	 * @deprecated
 	 */
 	public T get(int column, int row) {
 		if (column < 0 || row < 0 || column >= grid.length || row >= grid[0].length) {
 			throw new IllegalArgumentException("Invalid row or column!");
 		}
 		return grid[column][row];
+	}
+
+	/**
+	 * A method to get a tile.
+	 *
+	 * @param p Point to pass in
+	 */
+	public T get(Point p) {
+		return this.get(p.x, p.y);
+	}
+
+	/**
+	 * A method to get a tile's position
+	 *
+	 * @param p Point to pass in
+	 */
+	public Point get(T t) {
+		for (int i = 0; i < grid.length; i++) {
+			for (int j = 0; j < grid[0].length; j++) {
+				if (grid[i][j].equals(t)) {
+					return new Point(i, j);
+				}
+			}
+		}
+		return new Point(0, 0);
+	}
+
+	/**
+	 * A method to get a tile's position
+	 *
+	 * @param p Point to pass in
+	 */
+	public void refresh() {
+		for (int i = 0; i < grid.length; i++) {
+			for (int j = 0; j < grid[0].length; j++) {
+				grid[i][j].setOwner(grid[i][j].getOwner());
+			}
+		}
 	}
 
 	/**
