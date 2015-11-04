@@ -24,7 +24,7 @@ public class GameView {
 
 	@Override
 	public boolean equals(Object other) {
-		if (other == null || !(other instanceof GameView)) {
+		if (!(other instanceof GameView)) {
 			return false;
 		} else if (other == this) {
 			return true;

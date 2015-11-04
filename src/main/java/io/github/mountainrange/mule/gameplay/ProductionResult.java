@@ -31,7 +31,7 @@ public class ProductionResult {
 
 	@Override
 	public boolean equals(Object other) {
-		if (other == null || !(other instanceof ProductionResult)) {
+		if (!(other instanceof ProductionResult)) {
 			return false;
 		}
 		if (other == this) {
