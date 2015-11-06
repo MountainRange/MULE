@@ -19,7 +19,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 /**
- * Controller for the options dialog
+ * Controller for the options dialog.
  */
 public class OptionsController implements Initializable, SceneAgent {
 
@@ -45,11 +45,9 @@ public class OptionsController implements Initializable, SceneAgent {
 
 		volumeSlider.valueProperty().addListener((observableValue, number, t1) -> {
 			float volume = (float) (volumeSlider.getValue() / volumeSlider.getMax());
-            Config.getInstance().soundManager
-                    .setMasterVolume(volume);
-			Config.getInstance().soundManager
-					.setPlayingVolume(volume);
-        });
+			Config.getInstance().soundManager.setMasterVolume(volume);
+			Config.getInstance().soundManager.setPlayingVolume(volume);
+		});
 	}
 
 	public void setSceneParent(SceneLoader sceneLoader, MULE mule){

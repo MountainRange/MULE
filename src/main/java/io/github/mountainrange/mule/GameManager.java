@@ -55,7 +55,6 @@ public class GameManager {
 	private int timeLeft;
 
 	public GameManager(WorldMap map, Label turnLabel, Label resourceLabel, SceneLoader sceneLoader) {
-
 		this.map = map;
 		this.resourceLabel = resourceLabel;
 		this.sceneLoader = sceneLoader;
@@ -66,7 +65,6 @@ public class GameManager {
 		buyers = new ArrayList<>();
 		turnOrder = new ArrayList<>(playerList);
 		shop = new Shop(config.difficulty);
-
 
 		currentPlayerNum = 0;
 		passCounter = 0;
@@ -107,7 +105,7 @@ public class GameManager {
 		nextRound();
 	}
 
-	/*
+	/**
 	 * Passes player turn during land-grab phase for HOTSEAT only
 	 */
 	public void pass() {
