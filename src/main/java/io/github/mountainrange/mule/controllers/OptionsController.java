@@ -3,6 +3,8 @@ package io.github.mountainrange.mule.controllers;
 import io.github.mountainrange.mule.Config;
 import io.github.mountainrange.mule.MULE;
 import io.github.mountainrange.mule.SceneLoader;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
@@ -10,12 +12,14 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.Slider;
+import javafx.scene.input.DragEvent;
 
 import java.net.URL;
 import java.util.ResourceBundle;
 
 /**
- * Created by Matthew Keezer on 9/9/2015.
+ * Controller for the options dialog.
  */
 public class OptionsController implements Initializable, SceneAgent {
 
@@ -28,6 +32,9 @@ public class OptionsController implements Initializable, SceneAgent {
 	@FXML
 	private Button backButton;
 
+	@FXML
+	private Slider volumeSlider;
+
 	@Override
 	public void initialize(URL url, ResourceBundle rb) {
 		backButton.setCancelButton(true);
@@ -35,6 +42,12 @@ public class OptionsController implements Initializable, SceneAgent {
 		fadeCombo.setItems(FXCollections.observableArrayList());
 		fadeCombo.getItems().add("TRUE");
 		fadeCombo.getItems().add("FALSE");
+
+		volumeSlider.valueProperty().addListener((observableValue, number, t1) -> {
+			float volume = (float) (volumeSlider.getValue() / volumeSlider.getMax());
+			Config.getInstance().soundManager.setMasterVolume(volume);
+			Config.getInstance().soundManager.setPlayingVolume(volume);
+		});
 	}
 
 	public void setSceneParent(SceneLoader sceneLoader, MULE mule){

@@ -1,5 +1,6 @@
 package io.github.mountainrange.mule.controllers;
 
+import io.github.jgkamat.JayLayer.JayLayer;
 import io.github.mountainrange.mule.Config;
 import io.github.mountainrange.mule.GameManager;
 import io.github.mountainrange.mule.MULE;
@@ -58,8 +59,10 @@ public class PlayController implements Initializable, SceneAgent {
 		}
 		manager.setInAuction(false);
 		mule.setGameManager(manager);
-	}
 
+		Config.getInstance().soundManager
+				.changePlaylist(Config.getInstance().gamePlaylist);
+	}
 	@FXML
 	private void handleMouseMoved(MouseEvent e) {
 	}

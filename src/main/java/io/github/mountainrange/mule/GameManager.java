@@ -1,5 +1,6 @@
 package io.github.mountainrange.mule;
 
+import io.github.jgkamat.JayLayer.JayLayer;
 import io.github.mountainrange.mule.enums.GameType;
 import io.github.mountainrange.mule.enums.MessageType;
 import io.github.mountainrange.mule.enums.MuleType;
@@ -65,7 +66,6 @@ public class GameManager {
 		turnOrder = new ArrayList<>(playerList);
 		shop = new Shop(config.difficulty);
 
-
 		currentPlayerNum = 0;
 		passCounter = 0;
 		phaseCount = 0;
@@ -105,7 +105,7 @@ public class GameManager {
 		nextRound();
 	}
 
-	/*
+	/**
 	 * Passes player turn during land-grab phase for HOTSEAT only
 	 */
 	public void pass() {
