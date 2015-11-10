@@ -23,7 +23,9 @@ public final class ProductionManager {
 	private static final EnumMap<MuleType, ResourceType> PRODUCES_RESOURCE;
 
 	/**
-	 * Calculate production for the given players on the given map on the given round number.
+	 * Calculate production for the given players on the given map on the given round number. For each player, it
+	 * returns a mapping from each of their resources to a {@code ProductionResult}, which describes changes in quantity
+	 * due to requirement, spoilage, and production.
 	 * @param map map to calculate production on
 	 * @param playerList list of players to calculate production for
 	 * @param round round number (affects food requirement)

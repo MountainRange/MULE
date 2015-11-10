@@ -32,7 +32,7 @@ public abstract class Grid<T extends Tile> implements Iterable<Tile> {
 
 	public static final Random r = new Random();
 
-	public Grid (int columns, int rows, MapType m, MapSize s) {
+	public Grid(int columns, int rows, MapType m, MapSize s) {
 		this.rows = rows;
 		this.cols = columns;
 
@@ -157,7 +157,7 @@ public abstract class Grid<T extends Tile> implements Iterable<Tile> {
 	}
 
 	/**
-	 * A more precise version of move
+	 * A more precise version of move.
 	 */
 	protected void move(int columnFrom, int rowFrom, int columnTo, int rowTo, T[][] sourceGrid, T[][] targetGrid) {
 		if (columnFrom < 0 || rowFrom < 0 || columnFrom >= sourceGrid.length || rowFrom >= sourceGrid[0].length) {
@@ -186,7 +186,6 @@ public abstract class Grid<T extends Tile> implements Iterable<Tile> {
 		T[][] newGrid = (T[][]) Array.newInstance(VisualTile.class, this.cols, this.rows);
 
 		int count2 = 0;
-
 
 		List<Integer> mapping = Stream.iterate(0, i -> ++i)
 			.limit(rows * cols)
@@ -236,14 +235,14 @@ public abstract class Grid<T extends Tile> implements Iterable<Tile> {
 	}
 
 	/**
-	 * Clears this grid completely
+	 * Clears this grid completely.
 	 */
 	public void clear() {
 		grid = (T[][]) Array.newInstance(VisualTile.class, this.cols, this.rows);
 	}
 
 	/**
-	 * Prints the supplied text to the screen
+	 * Prints the supplied text to the screen.
 	 * @param toPrint the text to print
 	 */
 	public abstract void printText(String toPrint);
@@ -254,7 +253,7 @@ public abstract class Grid<T extends Tile> implements Iterable<Tile> {
 	public abstract void clearText();
 
 	/**
-	 * Prints the supplied text to the headline area
+	 * Prints the supplied text to the headline area.
 	 * @param toPrint the text to print
 	 */
 	public abstract void printHeadline(String toPrint);

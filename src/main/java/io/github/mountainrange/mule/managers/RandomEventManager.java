@@ -24,7 +24,7 @@ public class RandomEventManager {
 	}
 
 	/**
-	 * Creates a RandomEventManager object
+	 * Creates a RandomEventManager object.
 	 *
 	 * @param useDefaults whether to use default key bindings or not
 	 */
@@ -38,9 +38,9 @@ public class RandomEventManager {
 	}
 
 	/**
-	 * Adds an event to this RandomEventManager
+	 * Adds an event to this RandomEventManager.
 	 *
-	 * @param toAdd the lambda expression to add
+	 * @param toAdd lambda expression to add
 	 */
 	public void addEvent(Function<GameState, String> toAdd) {
 		events.add(toAdd);
@@ -62,7 +62,7 @@ public class RandomEventManager {
 	/**
 	 * Gets the lambda function associated with this keybinding if one is available
 	 *
-	 * @return The binding if is available, null if no binding was found
+	 * @return binding if is available, or null if no binding was found
 	 */
 	public List<Function<GameState, String>> getBindings(boolean onlyGood) {
 		return (onlyGood ? Collections.unmodifiableList(goodEvents) : Collections.unmodifiableList(events));
@@ -71,7 +71,7 @@ public class RandomEventManager {
 	/**
 	 * Runs a random event that is in this manager
 	 *
-	 * @param datapacket the Datapacket to use on the lambda
+	 * @param datapacket game state to give to the lambda
 	 */
 	public void runRandomEvent(GameState datapacket, boolean lowestPlayer) {
 		if (!lowestPlayer) {
@@ -82,7 +82,7 @@ public class RandomEventManager {
 	}
 
 	/**
-	 * Clears all bindings from this manager
+	 * Clears all bindings from this manager.
 	 */
 	public void clear() {
 		this.events.clear();
