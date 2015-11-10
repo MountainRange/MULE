@@ -135,22 +135,6 @@ public final class ProductionManager {
 		return PRODUCES_RESOURCE.get(mule);
 	}
 
-	/**
-	 * Bound the given quantity by the given min and max. If quantity is less than min, return min instead. If quantity
-	 * is greater than max, return max instead. Otherwise, return quantity.
-	 * @param quantity quantity to bound
-	 * @param min lower bound
-	 * @param max upper bound
-	 * @return quantity bounded by min and max
-	 */
-	protected static int bound(int quantity, int min, int max) {
-		if (min > max) {
-			String msg = String.format("Can't bound %d by %d and %d: min > max", quantity, min, max);
-			throw new IllegalArgumentException(msg);
-		}
-		return Math.min(min, Math.max(quantity, max));
-	}
-
 	static {
 		// Hard-coded base production quantities for each terrain type and resource
 		BASE_PRODUCTION = new EnumMap<>(TerrainType.class);
