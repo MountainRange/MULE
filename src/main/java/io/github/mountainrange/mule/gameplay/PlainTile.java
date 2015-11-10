@@ -8,8 +8,7 @@ import java.util.Objects;
 /**
  * An alternate Tile implementation, which does not use JavaFX.
  *
- * This tile does not actually draw anything to the screen, it is only
- * a sample implementation of Tile.
+ * This tile does not actually draw anything to the screen; it is only a sample implementation of Tile.
  *
  * This is useful for Junit Tests.
  */

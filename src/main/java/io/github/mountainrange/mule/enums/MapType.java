@@ -1,6 +1,5 @@
 package io.github.mountainrange.mule.enums;
 
-import java.util.Arrays;
 import java.util.Random;
 
 /**
@@ -10,7 +9,7 @@ public enum MapType {
 	CLASSIC, RANDOM_MED, EXPERIMENTAL, EMPTY;
 
 	private TerrainType[][] map;
-	private static final Random r = new Random();
+	private static final Random RANDOM = new Random();
 
 	private static final TerrainType[][] EMPTY_MAP;
 	private static final TerrainType[][] DEFAULT_MAP;
@@ -73,7 +72,6 @@ public enum MapType {
 	}
 
 	private static TerrainType[][] randomMapGeneratorBeta(int cols, int rows, Integer riverLength, Integer numRivers) {
-
 		// Defaults
 		if (riverLength == null) {
 			riverLength = 5;
@@ -107,15 +105,15 @@ public enum MapType {
 			// Now we generate rivers on top of it!
 
 			// 1. Find a point on the edge.
-			if (r.nextBoolean()) {
+			if (RANDOM.nextBoolean()) {
 				// Top/bottom
-				riverX = r.nextInt(cols);
-				riverY = r.nextBoolean() ? 0 : rows - 1;
+				riverX = RANDOM.nextInt(cols);
+				riverY = RANDOM.nextBoolean() ? 0 : rows - 1;
 
 			} else {
 				// Left/Right
-				riverX = r.nextBoolean() ? 0 : cols - 1;
-				riverY = r.nextInt(rows);
+				riverX = RANDOM.nextBoolean() ? 0 : cols - 1;
+				riverY = RANDOM.nextInt(rows);
 			}
 
 			// System.out.println(riverX + " " + riverY);
@@ -126,7 +124,7 @@ public enum MapType {
 
 			// 2. Generate a river!
 			for (int i = 0; i < riverLength; i++) {
-				int direction = r.nextInt(4); // 0 = Up, 1 = Right, 2 = down, 3 = left
+				int direction = RANDOM.nextInt(4); // 0 = Up, 1 = Right, 2 = down, 3 = left
 				if (direction == ((lastDir + 2) % 4)) {
 					i--;
 					continue;

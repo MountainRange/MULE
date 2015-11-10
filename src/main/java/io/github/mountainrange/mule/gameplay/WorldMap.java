@@ -15,12 +15,12 @@ import java.util.stream.Collectors;
  */
 public class WorldMap implements Iterable<Tile> {
 
-	/** An unmodifiable, empty set of tiles. */
+	/* An unmodifiable, empty set of tiles. */
 	private static final Set<Tile> EMPTY_SET = Collections.unmodifiableSet(new HashSet<>(0));
 
 	private Grid<VisualTile> map;
 
-	/** List of tiles owned by each player, sorted by the MULE installed on them */
+	/* List of tiles owned by each player, sorted by the MULE installed on them */
 	private Map<Player, EnumMap<MuleType, Set<Tile>>> productionTiles;
 
 	public WorldMap(Grid<VisualTile> g, MapType mType) {

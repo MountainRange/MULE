@@ -3,7 +3,6 @@ package io.github.mountainrange.mule.controllers;
 import io.github.mountainrange.mule.Config;
 import io.github.mountainrange.mule.MULE;
 import io.github.mountainrange.mule.SceneLoader;
-import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;

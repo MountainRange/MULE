@@ -3,7 +3,7 @@ package io.github.mountainrange.mule.managers;
 import io.github.mountainrange.mule.enums.GameType;
 
 /**
- * Represents a state of the game where keybindings may be different.
+ * Represents a state of the game where key bindings may be different.
  */
 public class GameView {
 	private GameType gameType;
@@ -24,7 +24,7 @@ public class GameView {
 
 	@Override
 	public boolean equals(Object other) {
-		if (other == null || !(other instanceof GameView)) {
+		if (!(other instanceof GameView)) {
 			return false;
 		} else if (other == this) {
 			return true;

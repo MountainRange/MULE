@@ -7,7 +7,6 @@ import io.github.mountainrange.mule.MULE;
 import io.github.mountainrange.mule.SceneLoader;
 import io.github.mountainrange.mule.gameplay.WorldMap;
 import io.github.mountainrange.mule.enums.MapSize;
-import io.github.mountainrange.mule.enums.MapType;
 import io.github.mountainrange.mule.gameplay.javafx.VisualGrid;
 import io.github.mountainrange.mule.gameplay.javafx.VisualTile;
 import javafx.event.ActionEvent;
@@ -90,6 +89,7 @@ public class PlayController implements Initializable, SceneAgent {
 
 	@FXML
 	private void handleBackAction(ActionEvent e) {
+		// g.randomize();
 		sceneLoader.goBack();
 	}
 

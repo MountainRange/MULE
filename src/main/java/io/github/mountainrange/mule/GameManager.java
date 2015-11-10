@@ -67,7 +67,6 @@ public class GameManager {
 		turnOrder = new ArrayList<>(playerList);
 		shop = new Shop(config.difficulty);
 
-
 		currentPlayerNum = 0;
 		passCounter = 0;
 		phaseCount = 0;
@@ -107,7 +106,7 @@ public class GameManager {
 		nextRound();
 	}
 
-	/*
+	/**
 	 * Passes player turn during land-grab phase for HOTSEAT only
 	 */
 	public void pass() {
@@ -277,9 +276,9 @@ public class GameManager {
 		// Clear the player's MULE, if the player is carrying one
 		turnOrder.get(currentPlayerNum).setMule(null);
 		currentPlayerNum = (currentPlayerNum + 1) % config.numOfPlayers;
-		// Display message annoucning the start of the new player's turn
+		// Display message announcing the start of the new player's turn
 		//showCustomText(MessageType.TURN.getPlayerTurnMessage(currentPlayerNum));
-		// Get Random Event that occured
+		// Get Random Event that occurred
 		randManager.runRandomEvent(new GameState(this, map), currentPlayerNum == 0);
 
 

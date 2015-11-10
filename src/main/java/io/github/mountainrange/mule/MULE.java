@@ -92,7 +92,6 @@ public class MULE extends Application {
             Platform.exit();
             System.exit(0);
         });
-
 		primaryStage.show();
 	}
 

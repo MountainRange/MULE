@@ -26,7 +26,7 @@ public class RandomEventManager {
 	/**
 	 * Creates a RandomEventManager object
 	 *
-	 * @param useDefaults whether to use default keybindings or not
+	 * @param useDefaults whether to use default key bindings or not
 	 */
 	public RandomEventManager(boolean useDefaults) {
 		events = new ArrayList<>();
@@ -61,6 +61,7 @@ public class RandomEventManager {
 
 	/**
 	 * Gets the lambda function associated with this keybinding if one is available
+	 *
 	 * @return The binding if is available, null if no binding was found
 	 */
 	public List<Function<GameState, String>> getBindings(boolean onlyGood) {

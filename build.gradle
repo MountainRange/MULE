@@ -1,4 +1,3 @@
-
 plugins {
 	id "com.github.kt3k.coveralls" version "2.4.0x";
 }
@@ -13,7 +12,7 @@ sourceCompatibility = 1.8;
 mainClassName = "io.github.mountainrange.mule.MULE";
 
 wrapper {
-	gradleVersion = '2.8-rc-2';
+	gradleVersion = '2.8';
 }
 
 repositories {

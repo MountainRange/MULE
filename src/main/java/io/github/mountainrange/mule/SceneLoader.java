@@ -42,7 +42,9 @@ public class SceneLoader extends AnchorPane {
 		controllers.put(name, scene);
 	}
 
-	// Loads the scene once so it never has to reload
+	/**
+	 * Loads the scene once so it never has to reload.
+	 */
 	public boolean loadScene(String name, String resource) {
 		try {
 			FXMLLoader loader = new FXMLLoader(getClass().getResource(resource));
@@ -55,12 +57,15 @@ public class SceneLoader extends AnchorPane {
 			return true;
 		} catch(Exception e) {
 			System.err.println(e.getMessage());
+
 			return false;
 		}
 
 	}
 
-	// swaps the current scene to another loaded scene
+	/**
+	 * Swaps the current scene to another loaded scene.
+	 */
 	public boolean setScene(final String name) {
 		if (settingScene) {
 			System.err.println("Cannot load scene while already loading another!\n");
@@ -113,7 +118,9 @@ public class SceneLoader extends AnchorPane {
 		}
 	}
 
-	// fills the anchorpane
+	/**
+	 * Fills the anchorpane.
+	 */
 	private void setAnchors(Node node) {
 		setTopAnchor(node, 0.0);
 		setBottomAnchor(node, 0.0);
@@ -121,7 +128,9 @@ public class SceneLoader extends AnchorPane {
 		setLeftAnchor(node, 0.0);
 	}
 
-	// fade animation
+	/**
+	 * Perform a fade animation.
+	 */
 	private void fade(String name, DoubleProperty opacity) {
 		Timeline fade = new Timeline(
 				new KeyFrame(Duration.ZERO, new KeyValue(opacity, 1.0)),
@@ -138,21 +147,28 @@ public class SceneLoader extends AnchorPane {
 		fade.play();
 	}
 
-	// fade for first menu (Only fires if fade is enabled before the program starts, currently never)
+	/**
+	 * Fade in the first menu. Only fires if fade is enabled before the program starts, currently never.
+	 */
 	private void fadeIn(String name, DoubleProperty opacity) {
 		setOpacity(0.0);
 		getChildren().add(scenes.get(name));
 		setAnchors(scenes.get(name));
+
 		Timeline fadeIn = new Timeline(
 				new KeyFrame(Duration.ZERO,
 						new KeyValue(opacity, 0.0)),
 				new KeyFrame(new Duration(200),
-						new KeyValue(opacity, 1.0)));
+						new KeyValue(opacity, 1.0))
+		);
 		fadeIn.play();
+
 		settingScene = false;
 	}
 
-	// Go to previous scene
+	/**
+	 * Go to previous scene.
+	 */
 	public void goBack() {
 		if (!settingScene) {
 			sceneHistory.pop();

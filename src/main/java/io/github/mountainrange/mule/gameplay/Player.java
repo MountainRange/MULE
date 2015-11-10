@@ -148,7 +148,7 @@ public class Player {
 	}
 
 	public boolean equals(Object other) {
-		if (other == null || !(other instanceof Player)) {
+		if (!(other instanceof Player)) {
 			return false;
 		}
 
