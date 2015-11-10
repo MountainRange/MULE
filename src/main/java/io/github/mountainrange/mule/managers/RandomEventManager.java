@@ -14,8 +14,8 @@ import java.util.ArrayList;
 import java.util.Random;
 
 public class RandomEventManager {
-	private ArrayList<Function<GameState, String>> events;
-	private ArrayList<Function<GameState, String>> goodEvents;
+	private List<Function<GameState, String>> events;
+	private List<Function<GameState, String>> goodEvents;
 
 	private static final Random r = new Random();
 
@@ -97,37 +97,37 @@ public class RandomEventManager {
 		toBind.addEvent((state) -> {
 				MessageType msg = MessageType.LOSEFOOD;
 				state.manager.showTempText(msg);
-				state.manager.decreaseFood(msg);
+				state.manager.changeFood(msg);
 				return "Lose 1 food";
 			});
 		toBind.addEvent((state) -> {
 				MessageType msg = MessageType.LOSESOMEFOOD;
 				state.manager.showTempText(msg);
-				state.manager.decreaseFood(msg);
+				state.manager.changeFood(msg);
 				return "Lose 25% of your food";
 			});
 		toBind.addEvent((state) -> {
 				MessageType msg = MessageType.LOSEHALFFOOD;
 				state.manager.showTempText(msg);
-				state.manager.decreaseFood(msg);
+				state.manager.changeFood(msg);
 				return "Lose half of your food";
 			});
 		toBind.addEvent((state) -> {
 				MessageType msg = MessageType.GAINFOOD;
 				state.manager.showTempText(msg);
-				state.manager.decreaseFood(msg);
+				state.manager.changeFood(msg);
 				return "Gain 1 food";
 			});
 		toBind.addEvent((state) -> {
 				MessageType msg = MessageType.GAINSOMEFOOD;
 				state.manager.showTempText(msg);
-				state.manager.decreaseFood(msg);
+				state.manager.changeFood(msg);
 				return "Gain 50% of your food";
 			});
 		toBind.addEvent((state) -> {
 				MessageType msg = MessageType.GAINDOUBLEFOOD;
 				state.manager.showTempText(msg);
-				state.manager.decreaseFood(msg);
+				state.manager.changeFood(msg);
 				return "Gain 100% of your food";
 			});
 
@@ -135,19 +135,19 @@ public class RandomEventManager {
 		toBind.addGoodEvent((state) -> {
 				MessageType msg = MessageType.GAINFOOD;
 				state.manager.showTempText(msg);
-				state.manager.decreaseFood(msg);
+				state.manager.changeFood(msg);
 				return "Gain 1 food";
 			});
 		toBind.addGoodEvent((state) -> {
 				MessageType msg = MessageType.GAINSOMEFOOD;
 				state.manager.showTempText(msg);
-				state.manager.decreaseFood(msg);
+				state.manager.changeFood(msg);
 				return "Gain 50% of your food";
 			});
 		toBind.addGoodEvent((state) -> {
 				MessageType msg = MessageType.GAINDOUBLEFOOD;
 				state.manager.showTempText(msg);
-				state.manager.decreaseFood(msg);
+				state.manager.changeFood(msg);
 				return "Gain 100% of your food";
 			});
 	}

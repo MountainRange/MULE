@@ -312,7 +312,11 @@ public class GameManager {
 		showText(MessageType.NONE);
 	}
 
-	public void decreaseFood(MessageType msg) {
+	/**
+	 * Apply a food-related event to the current player.
+	 * @param msg message to apply
+	 */
+	public void changeFood(MessageType msg) {
 		if (msg == MessageType.LOSEFOOD) {
 			Player player = playerList.get(currentPlayerNum);
 			player.changeStockOf(ResourceType.FOOD, -1);
