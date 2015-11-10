@@ -10,28 +10,25 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 /**
- * A class to represent the map and facilitates interactions
- * between the actual data store and the rest of the program
+ * A class to represent the map and facilitates interactions between the actual data store and the rest of the program.
  */
 public class WorldMap implements Iterable<Tile> {
 
-	/* An unmodifiable, empty set of tiles. */
-	private static final Set<Tile> EMPTY_SET = Collections.unmodifiableSet(new HashSet<>(0));
+	/** Backing instance of Grid. */
+	private Grid<VisualTile> baseGrid;
 
-	private Grid<VisualTile> map;
-
-	/* List of tiles owned by each player, sorted by the MULE installed on them */
+	/** List of tiles owned by each player, sorted by the MULE installed on them. */
 	private Map<Player, EnumMap<MuleType, Set<Tile>>> productionTiles;
 
 	public WorldMap(Grid<VisualTile> g, MapType mType) {
-		this.map = g;
+		this.baseGrid = g;
 
 		productionTiles = new HashMap<>();
 
 		for (int i = 0; i < mType.getMap().length; i++) {
 			for (int j = 0; j < mType.getMap()[0].length; j++) {
 				if (mType.getMap()[i][j] != null) {
-					map.add(new VisualTile(mType.getMap()[i][j]), j, i);
+					baseGrid.add(new VisualTile(mType.getMap()[i][j]), j, i);
 				}
 			}
 		}
@@ -70,7 +67,7 @@ public class WorldMap implements Iterable<Tile> {
 	 */
 	public Set<Tile> landOwnedBy(Player player) {
 		if (!productionTiles.containsKey(player)) {
-			return EMPTY_SET;
+			return Collections.emptySet();
 		}
 
 		// Construct a flat Set of all the Tiles a given player owns
@@ -100,7 +97,7 @@ public class WorldMap implements Iterable<Tile> {
 	 */
 	public Set<Tile> tilesWithMule(Player player, MuleType mule) {
 		if (!productionTiles.containsKey(player)) {
-			return EMPTY_SET;
+			return Collections.emptySet();
 		}
 		return Collections.unmodifiableSet(productionTiles.get(player).get(mule));
 	}
@@ -134,26 +131,26 @@ public class WorldMap implements Iterable<Tile> {
 	}
 
 	/**
-	 * Calls World Map to display a custom message on screen
-	 * @param msg
+	 * Calls the backing {@code Grid} to display a custom message on screen.
+	 * @param msg message to display
 	 */
 	public void showCustomText(String msg) {
-		map.printText(msg);
+		baseGrid.printText(msg);
 	}
 
 	/**
-	 * Calls World Map to display a message on screen
-	 * @param msg
+	 * Calls the backing {@code Grid} to display a message on screen.
+	 * @param msg message to display
 	 */
 	public void showText(MessageType msg) {
-		map.printText(msg.getMsg());
+		baseGrid.printText(msg.getMsg());
 	}
 
 	/**
-	 * Calls World Map to clear display text
+	 * Calls the backing {@code Grid} to clear the displayed text.
 	 */
 	public void clearText() {
-		map.clearText();
+		baseGrid.clearText();
 	}
 
 	/**
@@ -186,23 +183,23 @@ public class WorldMap implements Iterable<Tile> {
 
 	@Override
 	public Iterator<Tile> iterator() {
-		return map.iterator();
+		return baseGrid.iterator();
 	}
 
 	/**
-	 * Gets the number of columns in this map
-	 * @return cols the number of columns in this map
+	 * Gets the number of columns in this baseGrid
+	 * @return cols the number of columns in this baseGrid
 	 */
 	public int getColumns() {
-		return map.getCols();
+		return baseGrid.getCols();
 	}
 
 	/**
-	 * Gets the number of rows in this map
-	 * @return rows the number of rows in this map
+	 * Gets the number of rows in this baseGrid
+	 * @return rows the number of rows in this baseGrid
 	 */
 	public int getRows() {
-		return map.getRows();
+		return baseGrid.getRows();
 	}
 
 	// ----------------------------Graphical methods-----------------------------
@@ -214,9 +211,9 @@ public class WorldMap implements Iterable<Tile> {
 	 */
 	@SuppressWarnings("deprecated")
 	public VisualTile cursorTile() {
-		int x = map.getCursorX();
-		int y = map.getCursorY();
-		return map.get(x, y);
+		int x = baseGrid.getCursorX();
+		int y = baseGrid.getCursorY();
+		return baseGrid.get(x, y);
 	}
 
 	/**
@@ -242,27 +239,27 @@ public class WorldMap implements Iterable<Tile> {
 	}
 
 	public boolean select(int x, int y) {
-		if (x < 0 || y < 0 || x >= map.getCols() || y >= map.getRows()) {
-			System.out.println("Cannot select off map");
+		if (x < 0 || y < 0 || x >= baseGrid.getCols() || y >= baseGrid.getRows()) {
+			System.out.println("Cannot select off baseGrid");
 			return false;
 		}
-		map.select(x, y);
+		baseGrid.select(x, y);
 		return true;
 	}
 
 	public boolean selectRel(int xmove, int ymove) {
-		int newposx = map.getCursorX() + xmove;
-		int newposy = map.getCursorY() + ymove;
+		int newposx = baseGrid.getCursorX() + xmove;
+		int newposy = baseGrid.getCursorY() + ymove;
 		if (newposx < 0) {
-			newposx = map.getCols() - 1;
+			newposx = baseGrid.getCols() - 1;
 		} else if (newposy < 0) {
-			newposy = map.getRows() - 1;
-		} else if (newposx >= map.getCols()) {
+			newposy = baseGrid.getRows() - 1;
+		} else if (newposx >= baseGrid.getCols()) {
 			newposx = 0;
-		} else if (newposy >= map.getRows()) {
+		} else if (newposy >= baseGrid.getRows()) {
 			newposy = 0;
 		}
-		map.select(newposx, newposy);
+		baseGrid.select(newposx, newposy);
 		return true;
 	}
 
@@ -279,19 +276,19 @@ public class WorldMap implements Iterable<Tile> {
 	}
 
 	public boolean selectLeftWrap() {
-		int newposx = map.getCursorX() - 1;
-		int newposy = map.getCursorY() - 1;
+		int newposx = baseGrid.getCursorX() - 1;
+		int newposy = baseGrid.getCursorY() - 1;
 		if (newposx < 0 && newposy < 0) {
-			return select(map.getCols() - 1, newposy);
+			return select(baseGrid.getCols() - 1, newposy);
 		}
 		return selectRel(1, 0);
 	}
 
 	public boolean selectRightWrap() {
-		int newposx = map.getCursorX() + 1;
-		int newposy = map.getCursorY() + 1;
-		if (newposx >= map.getCols()) {
-			return select(0, newposy % map.getRows());
+		int newposx = baseGrid.getCursorX() + 1;
+		int newposy = baseGrid.getCursorY() + 1;
+		if (newposx >= baseGrid.getCols()) {
+			return select(0, newposy % baseGrid.getRows());
 		}
 		return selectRel(1, 0);
 	}
@@ -305,7 +302,7 @@ public class WorldMap implements Iterable<Tile> {
 	}
 
 	public boolean isInside(Point2D toCheck, int column, int row) {
-		return map.isInside(toCheck, column, row);
+		return baseGrid.isInside(toCheck, column, row);
 	}
 
 }
