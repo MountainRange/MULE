@@ -13,10 +13,8 @@ import org.junit.*;
 import static org.junit.Assert.*;
 import org.junit.rules.Timeout;
 
-import javafx.scene.layout.Pane;
-
 /**
- * A class to test the visual Grid
+ * A class to test VisualGrid.
  */
 public class VisualGridTest {
 
@@ -24,13 +22,11 @@ public class VisualGridTest {
 	public Timeout timeout = Timeout.seconds(10);
 
 	private VisualGrid grid;
-	private Pane upperPane;
 
 	@Before
 	public void setup() {
-		// Run for every test.
-		this.upperPane = new TestPane();
-		this.grid = new VisualGrid(9, 5, MapType.EMPTY, MapSize.ALPS, upperPane);
+		// Set up a dummy TestPane for every test
+		this.grid = new VisualGrid(9, 5, MapType.EMPTY, MapSize.ALPS, new TestPane());
 	}
 
 	@Test @SuppressWarnings("deprecated") // We need this for tests

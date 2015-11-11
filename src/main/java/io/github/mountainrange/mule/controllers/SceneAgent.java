@@ -4,7 +4,7 @@ import io.github.mountainrange.mule.MULE;
 import io.github.mountainrange.mule.SceneLoader;
 
 /**
- * Created by Matthew Keezer on 9/9/2015.
+ * Interface for controllers to work with {@code SceneLoader}.
  */
 public interface SceneAgent {
 	void setSceneParent(SceneLoader scenes, MULE mule);

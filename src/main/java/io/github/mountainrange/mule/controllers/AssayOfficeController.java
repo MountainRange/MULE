@@ -10,7 +10,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 /**
- * Created by Josh Ting on 9/14/2015.
+ * Controller for the Assay Office (currently unimplemented).
  */
 public class AssayOfficeController implements Initializable, SceneAgent {
 

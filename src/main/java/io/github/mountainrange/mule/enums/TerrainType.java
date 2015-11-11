@@ -20,9 +20,10 @@ public enum TerrainType {
 	private static final int TILE_SIZE = 40;
 
 	private final Rectangle rect;
-	private String dir;
+	private final String dir;
+	private final String fn;
+
 	private String pack;
-	private String fn;
 
 	TerrainType(Color c) {
 		this.dir = "pictures/";

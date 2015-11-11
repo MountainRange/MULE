@@ -42,10 +42,6 @@ public abstract class Grid<T extends Tile> implements Iterable<Tile> {
 		if (this.rows < 2 || this.cols < 2) {
 			throw new IllegalArgumentException("Grid can only be constructed with more than 2 rows and columns");
 		}
-
-		if (mapType.getMap().length <= 0) {
-			throw new IllegalArgumentException("Mismatch detected betwen grid size and m.map size!");
-		}
 	}
 
 	/**

@@ -62,9 +62,9 @@ public class PlayController implements Initializable, SceneAgent {
 		Config.getInstance().soundManager
 				.changePlaylist(Config.getInstance().gamePlaylist);
 	}
+
 	@FXML
-	private void handleMouseMoved(MouseEvent e) {
-	}
+	private void handleMouseMoved(MouseEvent e) {}
 
 	@FXML
 	private void handleMousePressed(MouseEvent e) {
@@ -82,9 +82,7 @@ public class PlayController implements Initializable, SceneAgent {
 	}
 
 	@FXML
-	private void handleKeyRelease(KeyEvent e) {
-
-	}
+	private void handleKeyRelease(KeyEvent e) {}
 
 	@FXML
 	private void handleBackAction(ActionEvent e) {
