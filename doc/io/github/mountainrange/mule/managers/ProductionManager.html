@@ -17,7 +17,7 @@
     catch(err) {
     }
 //-->
-var methods = {"i0":9,"i1":9,"i2":9,"i3":9};
+var methods = {"i0":9,"i1":9,"i2":9};
 var tabs = {65535:["t0","All Methods"],1:["t1","Static Methods"],8:["t4","Concrete Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
@@ -129,30 +129,22 @@ extends java.lang.Object</pre>
 <th class="colLast" scope="col">Method and Description</th>
 </tr>
 <tr id="i0" class="altColor">
-<td class="colFirst"><code>protected static int</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../io/github/mountainrange/mule/managers/ProductionManager.html#bound-int-int-int-">bound</a></span>(int&nbsp;quantity,
-     int&nbsp;min,
-     int&nbsp;max)</code>
-<div class="block">Bound the given quantity by the given min and max.</div>
-</td>
-</tr>
-<tr id="i1" class="rowColor">
-<td class="colFirst"><code>static java.util.Map&lt;<a href="../../../../../io/github/mountainrange/mule/gameplay/Player.html" title="class in io.github.mountainrange.mule.gameplay">Player</a>,java.util.EnumMap&lt;<a href="../../../../../io/github/mountainrange/mule/enums/ResourceType.html" title="enum in io.github.mountainrange.mule.enums">ResourceType</a>,<a href="../../../../../io/github/mountainrange/mule/gameplay/ProductionResult.html" title="class in io.github.mountainrange.mule.gameplay">ProductionResult</a>&gt;&gt;</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../io/github/mountainrange/mule/managers/ProductionManager.html#calculateProduction-io.github.mountainrange.mule.gameplay.WorldMap-java.util.List-int-">calculateProduction</a></span>(<a href="../../../../../io/github/mountainrange/mule/gameplay/WorldMap.html" title="class in io.github.mountainrange.mule.gameplay">WorldMap</a>&nbsp;map,
+<td class="colFirst"><code>static &lt;T extends <a href="../../../../../io/github/mountainrange/mule/gameplay/Tile.html" title="interface in io.github.mountainrange.mule.gameplay">Tile</a>&gt;<br>java.util.Map&lt;<a href="../../../../../io/github/mountainrange/mule/gameplay/Player.html" title="class in io.github.mountainrange.mule.gameplay">Player</a>,java.util.EnumMap&lt;<a href="../../../../../io/github/mountainrange/mule/enums/ResourceType.html" title="enum in io.github.mountainrange.mule.enums">ResourceType</a>,<a href="../../../../../io/github/mountainrange/mule/gameplay/ProductionResult.html" title="class in io.github.mountainrange.mule.gameplay">ProductionResult</a>&gt;&gt;</code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../io/github/mountainrange/mule/managers/ProductionManager.html#calculateProduction-io.github.mountainrange.mule.gameplay.WorldMap-java.util.List-int-">calculateProduction</a></span>(<a href="../../../../../io/github/mountainrange/mule/gameplay/WorldMap.html" title="class in io.github.mountainrange.mule.gameplay">WorldMap</a>&lt;T&gt;&nbsp;map,
                    java.util.List&lt;<a href="../../../../../io/github/mountainrange/mule/gameplay/Player.html" title="class in io.github.mountainrange.mule.gameplay">Player</a>&gt;&nbsp;playerList,
                    int&nbsp;round)</code>
 <div class="block">Calculate production for the given players on the given map on the given round number.</div>
 </td>
 </tr>
-<tr id="i2" class="altColor">
+<tr id="i1" class="rowColor">
 <td class="colFirst"><code>static <a href="../../../../../io/github/mountainrange/mule/enums/MuleType.html" title="enum in io.github.mountainrange.mule.enums">MuleType</a></code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../io/github/mountainrange/mule/managers/ProductionManager.html#muleProducedBy-io.github.mountainrange.mule.enums.ResourceType-">muleProducedBy</a></span>(<a href="../../../../../io/github/mountainrange/mule/enums/ResourceType.html" title="enum in io.github.mountainrange.mule.enums">ResourceType</a>&nbsp;resource)</code>
 <div class="block">Get the corresponding type of mule that produces this resource.</div>
 </td>
 </tr>
-<tr id="i3" class="rowColor">
+<tr id="i2" class="altColor">
 <td class="colFirst"><code>static <a href="../../../../../io/github/mountainrange/mule/enums/ResourceType.html" title="enum in io.github.mountainrange.mule.enums">ResourceType</a></code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../io/github/mountainrange/mule/managers/ProductionManager.html#producesResource-io.github.mountainrange.mule.enums.MuleType-">producesResource</a></span>(<a href="../../../../../io/github/mountainrange/mule/enums/MuleType.html" title="enum in io.github.mountainrange.mule.enums">MuleType</a>&nbsp;mule)</code>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../io/github/mountainrange/mule/managers/ProductionManager.html#resourceProduced-io.github.mountainrange.mule.enums.MuleType-">resourceProduced</a></span>(<a href="../../../../../io/github/mountainrange/mule/enums/MuleType.html" title="enum in io.github.mountainrange.mule.enums">MuleType</a>&nbsp;mule)</code>
 <div class="block">Get the corresponding type of resource that this type of MULE produces.</div>
 </td>
 </tr>
@@ -184,10 +176,12 @@ extends java.lang.Object</pre>
 <ul class="blockList">
 <li class="blockList">
 <h4>calculateProduction</h4>
-<pre>public static&nbsp;java.util.Map&lt;<a href="../../../../../io/github/mountainrange/mule/gameplay/Player.html" title="class in io.github.mountainrange.mule.gameplay">Player</a>,java.util.EnumMap&lt;<a href="../../../../../io/github/mountainrange/mule/enums/ResourceType.html" title="enum in io.github.mountainrange.mule.enums">ResourceType</a>,<a href="../../../../../io/github/mountainrange/mule/gameplay/ProductionResult.html" title="class in io.github.mountainrange.mule.gameplay">ProductionResult</a>&gt;&gt;&nbsp;calculateProduction(<a href="../../../../../io/github/mountainrange/mule/gameplay/WorldMap.html" title="class in io.github.mountainrange.mule.gameplay">WorldMap</a>&nbsp;map,
-                                                                                                         java.util.List&lt;<a href="../../../../../io/github/mountainrange/mule/gameplay/Player.html" title="class in io.github.mountainrange.mule.gameplay">Player</a>&gt;&nbsp;playerList,
-                                                                                                         int&nbsp;round)</pre>
-<div class="block">Calculate production for the given players on the given map on the given round number.</div>
+<pre>public static&nbsp;&lt;T extends <a href="../../../../../io/github/mountainrange/mule/gameplay/Tile.html" title="interface in io.github.mountainrange.mule.gameplay">Tile</a>&gt;&nbsp;java.util.Map&lt;<a href="../../../../../io/github/mountainrange/mule/gameplay/Player.html" title="class in io.github.mountainrange.mule.gameplay">Player</a>,java.util.EnumMap&lt;<a href="../../../../../io/github/mountainrange/mule/enums/ResourceType.html" title="enum in io.github.mountainrange.mule.enums">ResourceType</a>,<a href="../../../../../io/github/mountainrange/mule/gameplay/ProductionResult.html" title="class in io.github.mountainrange.mule.gameplay">ProductionResult</a>&gt;&gt;&nbsp;calculateProduction(<a href="../../../../../io/github/mountainrange/mule/gameplay/WorldMap.html" title="class in io.github.mountainrange.mule.gameplay">WorldMap</a>&lt;T&gt;&nbsp;map,
+                                                                                                                          java.util.List&lt;<a href="../../../../../io/github/mountainrange/mule/gameplay/Player.html" title="class in io.github.mountainrange.mule.gameplay">Player</a>&gt;&nbsp;playerList,
+                                                                                                                          int&nbsp;round)</pre>
+<div class="block">Calculate production for the given players on the given map on the given round number. For each player, it
+ returns a mapping from each of their resources to a <code>ProductionResult</code>, which describes changes in quantity
+ due to requirement, spoilage, and production.</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
 <dd><code>map</code> - map to calculate production on</dd>
@@ -214,40 +208,19 @@ extends java.lang.Object</pre>
 </dl>
 </li>
 </ul>
-<a name="producesResource-io.github.mountainrange.mule.enums.MuleType-">
+<a name="resourceProduced-io.github.mountainrange.mule.enums.MuleType-">
 <!--   -->
 </a>
-<ul class="blockList">
+<ul class="blockListLast">
 <li class="blockList">
-<h4>producesResource</h4>
-<pre>public static&nbsp;<a href="../../../../../io/github/mountainrange/mule/enums/ResourceType.html" title="enum in io.github.mountainrange.mule.enums">ResourceType</a>&nbsp;producesResource(<a href="../../../../../io/github/mountainrange/mule/enums/MuleType.html" title="enum in io.github.mountainrange.mule.enums">MuleType</a>&nbsp;mule)</pre>
+<h4>resourceProduced</h4>
+<pre>public static&nbsp;<a href="../../../../../io/github/mountainrange/mule/enums/ResourceType.html" title="enum in io.github.mountainrange.mule.enums">ResourceType</a>&nbsp;resourceProduced(<a href="../../../../../io/github/mountainrange/mule/enums/MuleType.html" title="enum in io.github.mountainrange.mule.enums">MuleType</a>&nbsp;mule)</pre>
 <div class="block">Get the corresponding type of resource that this type of MULE produces.</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
 <dd><code>mule</code> - MuleType to get type of resource for</dd>
 <dt><span class="returnLabel">Returns:</span></dt>
 <dd>ResourceType for the given MULE</dd>
-</dl>
-</li>
-</ul>
-<a name="bound-int-int-int-">
-<!--   -->
-</a>
-<ul class="blockListLast">
-<li class="blockList">
-<h4>bound</h4>
-<pre>protected static&nbsp;int&nbsp;bound(int&nbsp;quantity,
-                           int&nbsp;min,
-                           int&nbsp;max)</pre>
-<div class="block">Bound the given quantity by the given min and max. If quantity is less than min, return min instead. If quantity
- is greater than max, return max instead. Otherwise, return quantity.</div>
-<dl>
-<dt><span class="paramLabel">Parameters:</span></dt>
-<dd><code>quantity</code> - quantity to bound</dd>
-<dd><code>min</code> - lower bound</dd>
-<dd><code>max</code> - upper bound</dd>
-<dt><span class="returnLabel">Returns:</span></dt>
-<dd>quantity bounded by min and max</dd>
 </dl>
 </li>
 </ul>

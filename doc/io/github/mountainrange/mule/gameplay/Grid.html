@@ -48,7 +48,7 @@ var activeTableTab = "activeTableTab";
 <div class="subNav">
 <ul class="navList">
 <li>Prev&nbsp;Class</li>
-<li><a href="../../../../../io/github/mountainrange/mule/gameplay/PlainTile.html" title="class in io.github.mountainrange.mule.gameplay"><span class="typeNameLink">Next&nbsp;Class</span></a></li>
+<li><a href="../../../../../io/github/mountainrange/mule/gameplay/PlainGrid.html" title="class in io.github.mountainrange.mule.gameplay"><span class="typeNameLink">Next&nbsp;Class</span></a></li>
 </ul>
 <ul class="navList">
 <li><a href="../../../../../index.html?io/github/mountainrange/mule/gameplay/Grid.html" target="_top">Frames</a></li>
@@ -111,7 +111,7 @@ var activeTableTab = "activeTableTab";
 </dl>
 <dl>
 <dt>Direct Known Subclasses:</dt>
-<dd><a href="../../../../../io/github/mountainrange/mule/gameplay/javafx/VisualGrid.html" title="class in io.github.mountainrange.mule.gameplay.javafx">VisualGrid</a></dd>
+<dd><a href="../../../../../io/github/mountainrange/mule/gameplay/PlainGrid.html" title="class in io.github.mountainrange.mule.gameplay">PlainGrid</a>, <a href="../../../../../io/github/mountainrange/mule/gameplay/javafx/VisualGrid.html" title="class in io.github.mountainrange.mule.gameplay.javafx">VisualGrid</a></dd>
 </dl>
 <hr>
 <br>
@@ -120,7 +120,9 @@ extends java.lang.Object
 implements java.lang.Iterable&lt;<a href="../../../../../io/github/mountainrange/mule/gameplay/Tile.html" title="interface in io.github.mountainrange.mule.gameplay">Tile</a>&gt;</pre>
 <div class="block">A class to represent location of things on the board.
 
- Visualization classes can extend this to actually show things!</div>
+ Visualization classes can extend this to actually show things!
+
+ Implementations of this class are responsible for filling <code>grid</code> with their chosen implementation of <code>Tile</code>.</div>
 </li>
 </ul>
 </div>
@@ -180,7 +182,7 @@ implements java.lang.Iterable&lt;<a href="../../../../../io/github/mountainrange
 <tr class="altColor">
 <td class="colOne"><code><span class="memberNameLink"><a href="../../../../../io/github/mountainrange/mule/gameplay/Grid.html#Grid-int-int-io.github.mountainrange.mule.enums.MapType-io.github.mountainrange.mule.enums.MapSize-">Grid</a></span>(int&nbsp;columns,
     int&nbsp;rows,
-    <a href="../../../../../io/github/mountainrange/mule/enums/MapType.html" title="enum in io.github.mountainrange.mule.enums">MapType</a>&nbsp;m,
+    <a href="../../../../../io/github/mountainrange/mule/enums/MapType.html" title="enum in io.github.mountainrange.mule.enums">MapType</a>&nbsp;mapType,
     <a href="../../../../../io/github/mountainrange/mule/enums/MapSize.html" title="enum in io.github.mountainrange.mule.enums">MapSize</a>&nbsp;s)</code>&nbsp;</td>
 </tr>
 </table>
@@ -217,7 +219,7 @@ implements java.lang.Iterable&lt;<a href="../../../../../io/github/mountainrange
 <tr id="i2" class="altColor">
 <td class="colFirst"><code>void</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../io/github/mountainrange/mule/gameplay/Grid.html#clear--">clear</a></span>()</code>
-<div class="block">Clears this grid completely</div>
+<div class="block">Clears this grid completely.</div>
 </td>
 </tr>
 <tr id="i3" class="rowColor">
@@ -300,7 +302,7 @@ implements java.lang.Iterable&lt;<a href="../../../../../io/github/mountainrange
     int&nbsp;rowTo,
     <a href="../../../../../io/github/mountainrange/mule/gameplay/Grid.html" title="type parameter in Grid">T</a>[][]&nbsp;sourceGrid,
     <a href="../../../../../io/github/mountainrange/mule/gameplay/Grid.html" title="type parameter in Grid">T</a>[][]&nbsp;targetGrid)</code>
-<div class="block">A more precise version of move</div>
+<div class="block">A more precise version of move.</div>
 </td>
 </tr>
 <tr id="i16" class="altColor">
@@ -313,13 +315,13 @@ implements java.lang.Iterable&lt;<a href="../../../../../io/github/mountainrange
 <tr id="i17" class="rowColor">
 <td class="colFirst"><code>abstract void</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../io/github/mountainrange/mule/gameplay/Grid.html#printHeadline-java.lang.String-">printHeadline</a></span>(java.lang.String&nbsp;toPrint)</code>
-<div class="block">Prints the supplied text to the headline area</div>
+<div class="block">Prints the supplied text to the headline area.</div>
 </td>
 </tr>
 <tr id="i18" class="altColor">
 <td class="colFirst"><code>abstract void</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../io/github/mountainrange/mule/gameplay/Grid.html#printText-java.lang.String-">printText</a></span>(java.lang.String&nbsp;toPrint)</code>
-<div class="block">Prints the supplied text to the screen</div>
+<div class="block">Prints the supplied text to the screen.</div>
 </td>
 </tr>
 <tr id="i19" class="rowColor">
@@ -453,7 +455,7 @@ implements java.lang.Iterable&lt;<a href="../../../../../io/github/mountainrange
 <h4>Grid</h4>
 <pre>public&nbsp;Grid(int&nbsp;columns,
             int&nbsp;rows,
-            <a href="../../../../../io/github/mountainrange/mule/enums/MapType.html" title="enum in io.github.mountainrange.mule.enums">MapType</a>&nbsp;m,
+            <a href="../../../../../io/github/mountainrange/mule/enums/MapType.html" title="enum in io.github.mountainrange.mule.enums">MapType</a>&nbsp;mapType,
             <a href="../../../../../io/github/mountainrange/mule/enums/MapSize.html" title="enum in io.github.mountainrange.mule.enums">MapSize</a>&nbsp;s)</pre>
 </li>
 </ul>
@@ -631,7 +633,7 @@ implements java.lang.Iterable&lt;<a href="../../../../../io/github/mountainrange
                     int&nbsp;rowTo,
                     <a href="../../../../../io/github/mountainrange/mule/gameplay/Grid.html" title="type parameter in Grid">T</a>[][]&nbsp;sourceGrid,
                     <a href="../../../../../io/github/mountainrange/mule/gameplay/Grid.html" title="type parameter in Grid">T</a>[][]&nbsp;targetGrid)</pre>
-<div class="block">A more precise version of move</div>
+<div class="block">A more precise version of move.</div>
 </li>
 </ul>
 <a name="randomize--">
@@ -711,7 +713,7 @@ implements java.lang.Iterable&lt;<a href="../../../../../io/github/mountainrange
 <li class="blockList">
 <h4>clear</h4>
 <pre>public&nbsp;void&nbsp;clear()</pre>
-<div class="block">Clears this grid completely</div>
+<div class="block">Clears this grid completely.</div>
 </li>
 </ul>
 <a name="printText-java.lang.String-">
@@ -721,7 +723,7 @@ implements java.lang.Iterable&lt;<a href="../../../../../io/github/mountainrange
 <li class="blockList">
 <h4>printText</h4>
 <pre>public abstract&nbsp;void&nbsp;printText(java.lang.String&nbsp;toPrint)</pre>
-<div class="block">Prints the supplied text to the screen</div>
+<div class="block">Prints the supplied text to the screen.</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
 <dd><code>toPrint</code> - the text to print</dd>
@@ -745,7 +747,7 @@ implements java.lang.Iterable&lt;<a href="../../../../../io/github/mountainrange
 <li class="blockList">
 <h4>printHeadline</h4>
 <pre>public abstract&nbsp;void&nbsp;printHeadline(java.lang.String&nbsp;toPrint)</pre>
-<div class="block">Prints the supplied text to the headline area</div>
+<div class="block">Prints the supplied text to the headline area.</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
 <dd><code>toPrint</code> - the text to print</dd>
@@ -806,7 +808,7 @@ implements java.lang.Iterable&lt;<a href="../../../../../io/github/mountainrange
 <div class="subNav">
 <ul class="navList">
 <li>Prev&nbsp;Class</li>
-<li><a href="../../../../../io/github/mountainrange/mule/gameplay/PlainTile.html" title="class in io.github.mountainrange.mule.gameplay"><span class="typeNameLink">Next&nbsp;Class</span></a></li>
+<li><a href="../../../../../io/github/mountainrange/mule/gameplay/PlainGrid.html" title="class in io.github.mountainrange.mule.gameplay"><span class="typeNameLink">Next&nbsp;Class</span></a></li>
 </ul>
 <ul class="navList">
 <li><a href="../../../../../index.html?io/github/mountainrange/mule/gameplay/Grid.html" target="_top">Frames</a></li>

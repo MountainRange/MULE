@@ -91,17 +91,17 @@ var activeTableTab = "activeTableTab";
 <!-- ======== START OF CLASS DATA ======== -->
 <div class="header">
 <div class="subTitle">io.github.mountainrange.mule.gameplay.javafx</div>
-<h2 title="Class VisualGrid" class="title">Class VisualGrid&lt;T extends javafx.scene.Group &amp; <a href="../../../../../../io/github/mountainrange/mule/gameplay/Tile.html" title="interface in io.github.mountainrange.mule.gameplay">Tile</a>&gt;</h2>
+<h2 title="Class VisualGrid" class="title">Class VisualGrid</h2>
 </div>
 <div class="contentContainer">
 <ul class="inheritance">
 <li>java.lang.Object</li>
 <li>
 <ul class="inheritance">
-<li><a href="../../../../../../io/github/mountainrange/mule/gameplay/Grid.html" title="class in io.github.mountainrange.mule.gameplay">io.github.mountainrange.mule.gameplay.Grid</a>&lt;T&gt;</li>
+<li><a href="../../../../../../io/github/mountainrange/mule/gameplay/Grid.html" title="class in io.github.mountainrange.mule.gameplay">io.github.mountainrange.mule.gameplay.Grid</a>&lt;<a href="../../../../../../io/github/mountainrange/mule/gameplay/javafx/VisualTile.html" title="class in io.github.mountainrange.mule.gameplay.javafx">VisualTile</a>&gt;</li>
 <li>
 <ul class="inheritance">
-<li>io.github.mountainrange.mule.gameplay.javafx.VisualGrid&lt;T&gt;</li>
+<li>io.github.mountainrange.mule.gameplay.javafx.VisualGrid</li>
 </ul>
 </li>
 </ul>
@@ -116,8 +116,8 @@ var activeTableTab = "activeTableTab";
 </dl>
 <hr>
 <br>
-<pre>public class <span class="typeNameLabel">VisualGrid&lt;T extends javafx.scene.Group &amp; <a href="../../../../../../io/github/mountainrange/mule/gameplay/Tile.html" title="interface in io.github.mountainrange.mule.gameplay">Tile</a>&gt;</span>
-extends <a href="../../../../../../io/github/mountainrange/mule/gameplay/Grid.html" title="class in io.github.mountainrange.mule.gameplay">Grid</a>&lt;T&gt;</pre>
+<pre>public class <span class="typeNameLabel">VisualGrid</span>
+extends <a href="../../../../../../io/github/mountainrange/mule/gameplay/Grid.html" title="class in io.github.mountainrange.mule.gameplay">Grid</a>&lt;<a href="../../../../../../io/github/mountainrange/mule/gameplay/javafx/VisualTile.html" title="class in io.github.mountainrange.mule.gameplay.javafx">VisualTile</a>&gt;</pre>
 <div class="block">A class to represent a scalable Grid in javafx.
  Needs a pane to draw the grid to.</div>
 </li>
@@ -211,7 +211,7 @@ extends <a href="../../../../../../io/github/mountainrange/mule/gameplay/Grid.ht
 </tr>
 <tr id="i0" class="altColor">
 <td class="colFirst"><code>void</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../io/github/mountainrange/mule/gameplay/javafx/VisualGrid.html#add-T-int-int-">add</a></span>(<a href="../../../../../../io/github/mountainrange/mule/gameplay/javafx/VisualGrid.html" title="type parameter in VisualGrid">T</a>&nbsp;toAdd,
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../io/github/mountainrange/mule/gameplay/javafx/VisualGrid.html#add-io.github.mountainrange.mule.gameplay.javafx.VisualTile-int-int-">add</a></span>(<a href="../../../../../../io/github/mountainrange/mule/gameplay/javafx/VisualTile.html" title="class in io.github.mountainrange.mule.gameplay.javafx">VisualTile</a>&nbsp;toAdd,
    int&nbsp;column,
    int&nbsp;row)</code>
 <div class="block">Adds a node to this grid.</div>
@@ -228,7 +228,7 @@ extends <a href="../../../../../../io/github/mountainrange/mule/gameplay/Grid.ht
 <tr id="i2" class="altColor">
 <td class="colFirst"><code>void</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../io/github/mountainrange/mule/gameplay/javafx/VisualGrid.html#clear--">clear</a></span>()</code>
-<div class="block">Clears this grid completely</div>
+<div class="block">Clears this grid completely.</div>
 </td>
 </tr>
 <tr id="i3" class="rowColor">
@@ -253,13 +253,13 @@ extends <a href="../../../../../../io/github/mountainrange/mule/gameplay/Grid.ht
 </tr>
 <tr id="i6" class="altColor">
 <td class="colFirst"><code>void</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../io/github/mountainrange/mule/gameplay/javafx/VisualGrid.html#move-int-int-int-int-T:A:A-T:A:A-">move</a></span>(int&nbsp;columnFrom,
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../io/github/mountainrange/mule/gameplay/javafx/VisualGrid.html#move-int-int-int-int-io.github.mountainrange.mule.gameplay.javafx.VisualTile:A:A-io.github.mountainrange.mule.gameplay.javafx.VisualTile:A:A-">move</a></span>(int&nbsp;columnFrom,
     int&nbsp;rowFrom,
     int&nbsp;columnTo,
     int&nbsp;rowTo,
-    <a href="../../../../../../io/github/mountainrange/mule/gameplay/javafx/VisualGrid.html" title="type parameter in VisualGrid">T</a>[][]&nbsp;fromGrid,
-    <a href="../../../../../../io/github/mountainrange/mule/gameplay/javafx/VisualGrid.html" title="type parameter in VisualGrid">T</a>[][]&nbsp;toGrid)</code>
-<div class="block">A more precise version of move</div>
+    <a href="../../../../../../io/github/mountainrange/mule/gameplay/javafx/VisualTile.html" title="class in io.github.mountainrange.mule.gameplay.javafx">VisualTile</a>[][]&nbsp;fromGrid,
+    <a href="../../../../../../io/github/mountainrange/mule/gameplay/javafx/VisualTile.html" title="class in io.github.mountainrange.mule.gameplay.javafx">VisualTile</a>[][]&nbsp;toGrid)</code>
+<div class="block">A more precise version of move.</div>
 </td>
 </tr>
 <tr id="i7" class="rowColor">
@@ -272,17 +272,17 @@ extends <a href="../../../../../../io/github/mountainrange/mule/gameplay/Grid.ht
 <tr id="i8" class="altColor">
 <td class="colFirst"><code>void</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../io/github/mountainrange/mule/gameplay/javafx/VisualGrid.html#printHeadline-java.lang.String-">printHeadline</a></span>(java.lang.String&nbsp;toPrint)</code>
-<div class="block">Prints the supplied text to the headline area</div>
+<div class="block">Prints the supplied text to the headline area.</div>
 </td>
 </tr>
 <tr id="i9" class="rowColor">
 <td class="colFirst"><code>void</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../io/github/mountainrange/mule/gameplay/javafx/VisualGrid.html#printText-java.lang.String-">printText</a></span>(java.lang.String&nbsp;toPrint)</code>
-<div class="block">Prints the supplied text to the screen</div>
+<div class="block">Prints the supplied text to the screen.</div>
 </td>
 </tr>
 <tr id="i10" class="altColor">
-<td class="colFirst"><code><a href="../../../../../../io/github/mountainrange/mule/gameplay/javafx/VisualGrid.html" title="type parameter in VisualGrid">T</a></code></td>
+<td class="colFirst"><code><a href="../../../../../../io/github/mountainrange/mule/gameplay/javafx/VisualTile.html" title="class in io.github.mountainrange.mule.gameplay.javafx">VisualTile</a></code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../io/github/mountainrange/mule/gameplay/javafx/VisualGrid.html#remove-int-int-">remove</a></span>(int&nbsp;column,
       int&nbsp;row)</code>
 <div class="block">Removes a node from a selected row/column</div>
@@ -451,15 +451,13 @@ extends <a href="../../../../../../io/github/mountainrange/mule/gameplay/Grid.ht
 <!--   -->
 </a>
 <h3>Method Detail</h3>
-<a name="add-javafx.scene.Group-int-int-">
-<!--   -->
-</a><a name="add-T-int-int-">
+<a name="add-io.github.mountainrange.mule.gameplay.javafx.VisualTile-int-int-">
 <!--   -->
 </a>
 <ul class="blockList">
 <li class="blockList">
 <h4>add</h4>
-<pre>public&nbsp;void&nbsp;add(<a href="../../../../../../io/github/mountainrange/mule/gameplay/javafx/VisualGrid.html" title="type parameter in VisualGrid">T</a>&nbsp;toAdd,
+<pre>public&nbsp;void&nbsp;add(<a href="../../../../../../io/github/mountainrange/mule/gameplay/javafx/VisualTile.html" title="class in io.github.mountainrange.mule.gameplay.javafx">VisualTile</a>&nbsp;toAdd,
                 int&nbsp;column,
                 int&nbsp;row)</pre>
 <div class="block">Adds a node to this grid.
@@ -467,7 +465,7 @@ extends <a href="../../../../../../io/github/mountainrange/mule/gameplay/Grid.ht
  Will overwrite any existing element in the grid.</div>
 <dl>
 <dt><span class="overrideSpecifyLabel">Overrides:</span></dt>
-<dd><code><a href="../../../../../../io/github/mountainrange/mule/gameplay/Grid.html#add-T-int-int-">add</a></code>&nbsp;in class&nbsp;<code><a href="../../../../../../io/github/mountainrange/mule/gameplay/Grid.html" title="class in io.github.mountainrange.mule.gameplay">Grid</a>&lt;<a href="../../../../../../io/github/mountainrange/mule/gameplay/javafx/VisualGrid.html" title="type parameter in VisualGrid">T</a> extends javafx.scene.Group &amp; <a href="../../../../../../io/github/mountainrange/mule/gameplay/Tile.html" title="interface in io.github.mountainrange.mule.gameplay">Tile</a>&gt;</code></dd>
+<dd><code><a href="../../../../../../io/github/mountainrange/mule/gameplay/Grid.html#add-T-int-int-">add</a></code>&nbsp;in class&nbsp;<code><a href="../../../../../../io/github/mountainrange/mule/gameplay/Grid.html" title="class in io.github.mountainrange.mule.gameplay">Grid</a>&lt;<a href="../../../../../../io/github/mountainrange/mule/gameplay/javafx/VisualTile.html" title="class in io.github.mountainrange.mule.gameplay.javafx">VisualTile</a>&gt;</code></dd>
 </dl>
 </li>
 </ul>
@@ -477,12 +475,12 @@ extends <a href="../../../../../../io/github/mountainrange/mule/gameplay/Grid.ht
 <ul class="blockList">
 <li class="blockList">
 <h4>remove</h4>
-<pre>public&nbsp;<a href="../../../../../../io/github/mountainrange/mule/gameplay/javafx/VisualGrid.html" title="type parameter in VisualGrid">T</a>&nbsp;remove(int&nbsp;column,
-                int&nbsp;row)</pre>
+<pre>public&nbsp;<a href="../../../../../../io/github/mountainrange/mule/gameplay/javafx/VisualTile.html" title="class in io.github.mountainrange.mule.gameplay.javafx">VisualTile</a>&nbsp;remove(int&nbsp;column,
+                         int&nbsp;row)</pre>
 <div class="block">Removes a node from a selected row/column</div>
 <dl>
 <dt><span class="overrideSpecifyLabel">Overrides:</span></dt>
-<dd><code><a href="../../../../../../io/github/mountainrange/mule/gameplay/Grid.html#remove-int-int-">remove</a></code>&nbsp;in class&nbsp;<code><a href="../../../../../../io/github/mountainrange/mule/gameplay/Grid.html" title="class in io.github.mountainrange.mule.gameplay">Grid</a>&lt;<a href="../../../../../../io/github/mountainrange/mule/gameplay/javafx/VisualGrid.html" title="type parameter in VisualGrid">T</a> extends javafx.scene.Group &amp; <a href="../../../../../../io/github/mountainrange/mule/gameplay/Tile.html" title="interface in io.github.mountainrange.mule.gameplay">Tile</a>&gt;</code></dd>
+<dd><code><a href="../../../../../../io/github/mountainrange/mule/gameplay/Grid.html#remove-int-int-">remove</a></code>&nbsp;in class&nbsp;<code><a href="../../../../../../io/github/mountainrange/mule/gameplay/Grid.html" title="class in io.github.mountainrange.mule.gameplay">Grid</a>&lt;<a href="../../../../../../io/github/mountainrange/mule/gameplay/javafx/VisualTile.html" title="class in io.github.mountainrange.mule.gameplay.javafx">VisualTile</a>&gt;</code></dd>
 </dl>
 </li>
 </ul>
@@ -496,7 +494,7 @@ extends <a href="../../../../../../io/github/mountainrange/mule/gameplay/Grid.ht
 <div class="block">Removes the current selection</div>
 <dl>
 <dt><span class="overrideSpecifyLabel">Overrides:</span></dt>
-<dd><code><a href="../../../../../../io/github/mountainrange/mule/gameplay/Grid.html#removeSelection--">removeSelection</a></code>&nbsp;in class&nbsp;<code><a href="../../../../../../io/github/mountainrange/mule/gameplay/Grid.html" title="class in io.github.mountainrange.mule.gameplay">Grid</a>&lt;<a href="../../../../../../io/github/mountainrange/mule/gameplay/javafx/VisualGrid.html" title="type parameter in VisualGrid">T</a> extends javafx.scene.Group &amp; <a href="../../../../../../io/github/mountainrange/mule/gameplay/Tile.html" title="interface in io.github.mountainrange.mule.gameplay">Tile</a>&gt;</code></dd>
+<dd><code><a href="../../../../../../io/github/mountainrange/mule/gameplay/Grid.html#removeSelection--">removeSelection</a></code>&nbsp;in class&nbsp;<code><a href="../../../../../../io/github/mountainrange/mule/gameplay/Grid.html" title="class in io.github.mountainrange.mule.gameplay">Grid</a>&lt;<a href="../../../../../../io/github/mountainrange/mule/gameplay/javafx/VisualTile.html" title="class in io.github.mountainrange.mule.gameplay.javafx">VisualTile</a>&gt;</code></dd>
 </dl>
 </li>
 </ul>
@@ -514,7 +512,7 @@ extends <a href="../../../../../../io/github/mountainrange/mule/gameplay/Grid.ht
  Will overwrite any existing element in the grid.</div>
 <dl>
 <dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
-<dd><code><a href="../../../../../../io/github/mountainrange/mule/gameplay/Grid.html#addToTile-java.lang.Object-int-int-">addToTile</a></code>&nbsp;in class&nbsp;<code><a href="../../../../../../io/github/mountainrange/mule/gameplay/Grid.html" title="class in io.github.mountainrange.mule.gameplay">Grid</a>&lt;<a href="../../../../../../io/github/mountainrange/mule/gameplay/javafx/VisualGrid.html" title="type parameter in VisualGrid">T</a> extends javafx.scene.Group &amp; <a href="../../../../../../io/github/mountainrange/mule/gameplay/Tile.html" title="interface in io.github.mountainrange.mule.gameplay">Tile</a>&gt;</code></dd>
+<dd><code><a href="../../../../../../io/github/mountainrange/mule/gameplay/Grid.html#addToTile-java.lang.Object-int-int-">addToTile</a></code>&nbsp;in class&nbsp;<code><a href="../../../../../../io/github/mountainrange/mule/gameplay/Grid.html" title="class in io.github.mountainrange.mule.gameplay">Grid</a>&lt;<a href="../../../../../../io/github/mountainrange/mule/gameplay/javafx/VisualTile.html" title="class in io.github.mountainrange.mule.gameplay.javafx">VisualTile</a>&gt;</code></dd>
 </dl>
 </li>
 </ul>
@@ -531,13 +529,11 @@ extends <a href="../../../../../../io/github/mountainrange/mule/gameplay/Grid.ht
  Will overwrite previous calls to select.</div>
 <dl>
 <dt><span class="overrideSpecifyLabel">Overrides:</span></dt>
-<dd><code><a href="../../../../../../io/github/mountainrange/mule/gameplay/Grid.html#select-int-int-">select</a></code>&nbsp;in class&nbsp;<code><a href="../../../../../../io/github/mountainrange/mule/gameplay/Grid.html" title="class in io.github.mountainrange.mule.gameplay">Grid</a>&lt;<a href="../../../../../../io/github/mountainrange/mule/gameplay/javafx/VisualGrid.html" title="type parameter in VisualGrid">T</a> extends javafx.scene.Group &amp; <a href="../../../../../../io/github/mountainrange/mule/gameplay/Tile.html" title="interface in io.github.mountainrange.mule.gameplay">Tile</a>&gt;</code></dd>
+<dd><code><a href="../../../../../../io/github/mountainrange/mule/gameplay/Grid.html#select-int-int-">select</a></code>&nbsp;in class&nbsp;<code><a href="../../../../../../io/github/mountainrange/mule/gameplay/Grid.html" title="class in io.github.mountainrange.mule.gameplay">Grid</a>&lt;<a href="../../../../../../io/github/mountainrange/mule/gameplay/javafx/VisualTile.html" title="class in io.github.mountainrange.mule.gameplay.javafx">VisualTile</a>&gt;</code></dd>
 </dl>
 </li>
 </ul>
-<a name="move-int-int-int-int-javafx.scene.Group:A:A-javafx.scene.Group:A:A-">
-<!--   -->
-</a><a name="move-int-int-int-int-T:A:A-T:A:A-">
+<a name="move-int-int-int-int-io.github.mountainrange.mule.gameplay.javafx.VisualTile:A:A-io.github.mountainrange.mule.gameplay.javafx.VisualTile:A:A-">
 <!--   -->
 </a>
 <ul class="blockList">
@@ -547,13 +543,13 @@ extends <a href="../../../../../../io/github/mountainrange/mule/gameplay/Grid.ht
                  int&nbsp;rowFrom,
                  int&nbsp;columnTo,
                  int&nbsp;rowTo,
-                 <a href="../../../../../../io/github/mountainrange/mule/gameplay/javafx/VisualGrid.html" title="type parameter in VisualGrid">T</a>[][]&nbsp;fromGrid,
-                 <a href="../../../../../../io/github/mountainrange/mule/gameplay/javafx/VisualGrid.html" title="type parameter in VisualGrid">T</a>[][]&nbsp;toGrid)</pre>
+                 <a href="../../../../../../io/github/mountainrange/mule/gameplay/javafx/VisualTile.html" title="class in io.github.mountainrange.mule.gameplay.javafx">VisualTile</a>[][]&nbsp;fromGrid,
+                 <a href="../../../../../../io/github/mountainrange/mule/gameplay/javafx/VisualTile.html" title="class in io.github.mountainrange.mule.gameplay.javafx">VisualTile</a>[][]&nbsp;toGrid)</pre>
 <div class="block"><span class="descfrmTypeLabel">Description copied from class:&nbsp;<code><a href="../../../../../../io/github/mountainrange/mule/gameplay/Grid.html#move-int-int-int-int-T:A:A-T:A:A-">Grid</a></code></span></div>
-<div class="block">A more precise version of move</div>
+<div class="block">A more precise version of move.</div>
 <dl>
 <dt><span class="overrideSpecifyLabel">Overrides:</span></dt>
-<dd><code><a href="../../../../../../io/github/mountainrange/mule/gameplay/Grid.html#move-int-int-int-int-T:A:A-T:A:A-">move</a></code>&nbsp;in class&nbsp;<code><a href="../../../../../../io/github/mountainrange/mule/gameplay/Grid.html" title="class in io.github.mountainrange.mule.gameplay">Grid</a>&lt;<a href="../../../../../../io/github/mountainrange/mule/gameplay/javafx/VisualGrid.html" title="type parameter in VisualGrid">T</a> extends javafx.scene.Group &amp; <a href="../../../../../../io/github/mountainrange/mule/gameplay/Tile.html" title="interface in io.github.mountainrange.mule.gameplay">Tile</a>&gt;</code></dd>
+<dd><code><a href="../../../../../../io/github/mountainrange/mule/gameplay/Grid.html#move-int-int-int-int-T:A:A-T:A:A-">move</a></code>&nbsp;in class&nbsp;<code><a href="../../../../../../io/github/mountainrange/mule/gameplay/Grid.html" title="class in io.github.mountainrange.mule.gameplay">Grid</a>&lt;<a href="../../../../../../io/github/mountainrange/mule/gameplay/javafx/VisualTile.html" title="class in io.github.mountainrange.mule.gameplay.javafx">VisualTile</a>&gt;</code></dd>
 </dl>
 </li>
 </ul>
@@ -570,7 +566,7 @@ extends <a href="../../../../../../io/github/mountainrange/mule/gameplay/Grid.ht
 <div class="block">Checks if toCheck is inside column or row</div>
 <dl>
 <dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
-<dd><code><a href="../../../../../../io/github/mountainrange/mule/gameplay/Grid.html#isInside-javafx.geometry.Point2D-int-int-">isInside</a></code>&nbsp;in class&nbsp;<code><a href="../../../../../../io/github/mountainrange/mule/gameplay/Grid.html" title="class in io.github.mountainrange.mule.gameplay">Grid</a>&lt;<a href="../../../../../../io/github/mountainrange/mule/gameplay/javafx/VisualGrid.html" title="type parameter in VisualGrid">T</a> extends javafx.scene.Group &amp; <a href="../../../../../../io/github/mountainrange/mule/gameplay/Tile.html" title="interface in io.github.mountainrange.mule.gameplay">Tile</a>&gt;</code></dd>
+<dd><code><a href="../../../../../../io/github/mountainrange/mule/gameplay/Grid.html#isInside-javafx.geometry.Point2D-int-int-">isInside</a></code>&nbsp;in class&nbsp;<code><a href="../../../../../../io/github/mountainrange/mule/gameplay/Grid.html" title="class in io.github.mountainrange.mule.gameplay">Grid</a>&lt;<a href="../../../../../../io/github/mountainrange/mule/gameplay/javafx/VisualTile.html" title="class in io.github.mountainrange.mule.gameplay.javafx">VisualTile</a>&gt;</code></dd>
 <dt><span class="paramLabel">Parameters:</span></dt>
 <dd><code>toCheck</code> - Point to check</dd>
 <dd><code>column</code> - Column to check</dd>
@@ -592,7 +588,7 @@ extends <a href="../../../../../../io/github/mountainrange/mule/gameplay/Grid.ht
  Creates a player if not already present.</div>
 <dl>
 <dt><span class="overrideSpecifyLabel">Overrides:</span></dt>
-<dd><code><a href="../../../../../../io/github/mountainrange/mule/gameplay/Grid.html#movePlayer-double-double-">movePlayer</a></code>&nbsp;in class&nbsp;<code><a href="../../../../../../io/github/mountainrange/mule/gameplay/Grid.html" title="class in io.github.mountainrange.mule.gameplay">Grid</a>&lt;<a href="../../../../../../io/github/mountainrange/mule/gameplay/javafx/VisualGrid.html" title="type parameter in VisualGrid">T</a> extends javafx.scene.Group &amp; <a href="../../../../../../io/github/mountainrange/mule/gameplay/Tile.html" title="interface in io.github.mountainrange.mule.gameplay">Tile</a>&gt;</code></dd>
+<dd><code><a href="../../../../../../io/github/mountainrange/mule/gameplay/Grid.html#movePlayer-double-double-">movePlayer</a></code>&nbsp;in class&nbsp;<code><a href="../../../../../../io/github/mountainrange/mule/gameplay/Grid.html" title="class in io.github.mountainrange.mule.gameplay">Grid</a>&lt;<a href="../../../../../../io/github/mountainrange/mule/gameplay/javafx/VisualTile.html" title="class in io.github.mountainrange.mule.gameplay.javafx">VisualTile</a>&gt;</code></dd>
 <dt><span class="paramLabel">Parameters:</span></dt>
 <dd><code>newX</code> - New player x point</dd>
 <dd><code>newY</code> - New player y point</dd>
@@ -609,7 +605,7 @@ extends <a href="../../../../../../io/github/mountainrange/mule/gameplay/Grid.ht
 <div class="block">Removes the player from this grid.</div>
 <dl>
 <dt><span class="overrideSpecifyLabel">Overrides:</span></dt>
-<dd><code><a href="../../../../../../io/github/mountainrange/mule/gameplay/Grid.html#removePlayer--">removePlayer</a></code>&nbsp;in class&nbsp;<code><a href="../../../../../../io/github/mountainrange/mule/gameplay/Grid.html" title="class in io.github.mountainrange.mule.gameplay">Grid</a>&lt;<a href="../../../../../../io/github/mountainrange/mule/gameplay/javafx/VisualGrid.html" title="type parameter in VisualGrid">T</a> extends javafx.scene.Group &amp; <a href="../../../../../../io/github/mountainrange/mule/gameplay/Tile.html" title="interface in io.github.mountainrange.mule.gameplay">Tile</a>&gt;</code></dd>
+<dd><code><a href="../../../../../../io/github/mountainrange/mule/gameplay/Grid.html#removePlayer--">removePlayer</a></code>&nbsp;in class&nbsp;<code><a href="../../../../../../io/github/mountainrange/mule/gameplay/Grid.html" title="class in io.github.mountainrange.mule.gameplay">Grid</a>&lt;<a href="../../../../../../io/github/mountainrange/mule/gameplay/javafx/VisualTile.html" title="class in io.github.mountainrange.mule.gameplay.javafx">VisualTile</a>&gt;</code></dd>
 </dl>
 </li>
 </ul>
@@ -621,10 +617,10 @@ extends <a href="../../../../../../io/github/mountainrange/mule/gameplay/Grid.ht
 <h4>printText</h4>
 <pre>public&nbsp;void&nbsp;printText(java.lang.String&nbsp;toPrint)</pre>
 <div class="block"><span class="descfrmTypeLabel">Description copied from class:&nbsp;<code><a href="../../../../../../io/github/mountainrange/mule/gameplay/Grid.html#printText-java.lang.String-">Grid</a></code></span></div>
-<div class="block">Prints the supplied text to the screen</div>
+<div class="block">Prints the supplied text to the screen.</div>
 <dl>
 <dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
-<dd><code><a href="../../../../../../io/github/mountainrange/mule/gameplay/Grid.html#printText-java.lang.String-">printText</a></code>&nbsp;in class&nbsp;<code><a href="../../../../../../io/github/mountainrange/mule/gameplay/Grid.html" title="class in io.github.mountainrange.mule.gameplay">Grid</a>&lt;<a href="../../../../../../io/github/mountainrange/mule/gameplay/javafx/VisualGrid.html" title="type parameter in VisualGrid">T</a> extends javafx.scene.Group &amp; <a href="../../../../../../io/github/mountainrange/mule/gameplay/Tile.html" title="interface in io.github.mountainrange.mule.gameplay">Tile</a>&gt;</code></dd>
+<dd><code><a href="../../../../../../io/github/mountainrange/mule/gameplay/Grid.html#printText-java.lang.String-">printText</a></code>&nbsp;in class&nbsp;<code><a href="../../../../../../io/github/mountainrange/mule/gameplay/Grid.html" title="class in io.github.mountainrange.mule.gameplay">Grid</a>&lt;<a href="../../../../../../io/github/mountainrange/mule/gameplay/javafx/VisualTile.html" title="class in io.github.mountainrange.mule.gameplay.javafx">VisualTile</a>&gt;</code></dd>
 <dt><span class="paramLabel">Parameters:</span></dt>
 <dd><code>toPrint</code> - the text to print</dd>
 </dl>
@@ -641,7 +637,7 @@ extends <a href="../../../../../../io/github/mountainrange/mule/gameplay/Grid.ht
 <div class="block">Clears any printed text, if any.</div>
 <dl>
 <dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
-<dd><code><a href="../../../../../../io/github/mountainrange/mule/gameplay/Grid.html#clearText--">clearText</a></code>&nbsp;in class&nbsp;<code><a href="../../../../../../io/github/mountainrange/mule/gameplay/Grid.html" title="class in io.github.mountainrange.mule.gameplay">Grid</a>&lt;<a href="../../../../../../io/github/mountainrange/mule/gameplay/javafx/VisualGrid.html" title="type parameter in VisualGrid">T</a> extends javafx.scene.Group &amp; <a href="../../../../../../io/github/mountainrange/mule/gameplay/Tile.html" title="interface in io.github.mountainrange.mule.gameplay">Tile</a>&gt;</code></dd>
+<dd><code><a href="../../../../../../io/github/mountainrange/mule/gameplay/Grid.html#clearText--">clearText</a></code>&nbsp;in class&nbsp;<code><a href="../../../../../../io/github/mountainrange/mule/gameplay/Grid.html" title="class in io.github.mountainrange.mule.gameplay">Grid</a>&lt;<a href="../../../../../../io/github/mountainrange/mule/gameplay/javafx/VisualTile.html" title="class in io.github.mountainrange.mule.gameplay.javafx">VisualTile</a>&gt;</code></dd>
 </dl>
 </li>
 </ul>
@@ -653,10 +649,10 @@ extends <a href="../../../../../../io/github/mountainrange/mule/gameplay/Grid.ht
 <h4>printHeadline</h4>
 <pre>public&nbsp;void&nbsp;printHeadline(java.lang.String&nbsp;toPrint)</pre>
 <div class="block"><span class="descfrmTypeLabel">Description copied from class:&nbsp;<code><a href="../../../../../../io/github/mountainrange/mule/gameplay/Grid.html#printHeadline-java.lang.String-">Grid</a></code></span></div>
-<div class="block">Prints the supplied text to the headline area</div>
+<div class="block">Prints the supplied text to the headline area.</div>
 <dl>
 <dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
-<dd><code><a href="../../../../../../io/github/mountainrange/mule/gameplay/Grid.html#printHeadline-java.lang.String-">printHeadline</a></code>&nbsp;in class&nbsp;<code><a href="../../../../../../io/github/mountainrange/mule/gameplay/Grid.html" title="class in io.github.mountainrange.mule.gameplay">Grid</a>&lt;<a href="../../../../../../io/github/mountainrange/mule/gameplay/javafx/VisualGrid.html" title="type parameter in VisualGrid">T</a> extends javafx.scene.Group &amp; <a href="../../../../../../io/github/mountainrange/mule/gameplay/Tile.html" title="interface in io.github.mountainrange.mule.gameplay">Tile</a>&gt;</code></dd>
+<dd><code><a href="../../../../../../io/github/mountainrange/mule/gameplay/Grid.html#printHeadline-java.lang.String-">printHeadline</a></code>&nbsp;in class&nbsp;<code><a href="../../../../../../io/github/mountainrange/mule/gameplay/Grid.html" title="class in io.github.mountainrange.mule.gameplay">Grid</a>&lt;<a href="../../../../../../io/github/mountainrange/mule/gameplay/javafx/VisualTile.html" title="class in io.github.mountainrange.mule.gameplay.javafx">VisualTile</a>&gt;</code></dd>
 <dt><span class="paramLabel">Parameters:</span></dt>
 <dd><code>toPrint</code> - the text to print</dd>
 </dl>
@@ -673,7 +669,7 @@ extends <a href="../../../../../../io/github/mountainrange/mule/gameplay/Grid.ht
 <div class="block">Clears any printed headlines, if any.</div>
 <dl>
 <dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
-<dd><code><a href="../../../../../../io/github/mountainrange/mule/gameplay/Grid.html#clearHeadline--">clearHeadline</a></code>&nbsp;in class&nbsp;<code><a href="../../../../../../io/github/mountainrange/mule/gameplay/Grid.html" title="class in io.github.mountainrange.mule.gameplay">Grid</a>&lt;<a href="../../../../../../io/github/mountainrange/mule/gameplay/javafx/VisualGrid.html" title="type parameter in VisualGrid">T</a> extends javafx.scene.Group &amp; <a href="../../../../../../io/github/mountainrange/mule/gameplay/Tile.html" title="interface in io.github.mountainrange.mule.gameplay">Tile</a>&gt;</code></dd>
+<dd><code><a href="../../../../../../io/github/mountainrange/mule/gameplay/Grid.html#clearHeadline--">clearHeadline</a></code>&nbsp;in class&nbsp;<code><a href="../../../../../../io/github/mountainrange/mule/gameplay/Grid.html" title="class in io.github.mountainrange.mule.gameplay">Grid</a>&lt;<a href="../../../../../../io/github/mountainrange/mule/gameplay/javafx/VisualTile.html" title="class in io.github.mountainrange.mule.gameplay.javafx">VisualTile</a>&gt;</code></dd>
 </dl>
 </li>
 </ul>
@@ -685,10 +681,10 @@ extends <a href="../../../../../../io/github/mountainrange/mule/gameplay/Grid.ht
 <h4>clear</h4>
 <pre>public&nbsp;void&nbsp;clear()</pre>
 <div class="block"><span class="descfrmTypeLabel">Description copied from class:&nbsp;<code><a href="../../../../../../io/github/mountainrange/mule/gameplay/Grid.html#clear--">Grid</a></code></span></div>
-<div class="block">Clears this grid completely</div>
+<div class="block">Clears this grid completely.</div>
 <dl>
 <dt><span class="overrideSpecifyLabel">Overrides:</span></dt>
-<dd><code><a href="../../../../../../io/github/mountainrange/mule/gameplay/Grid.html#clear--">clear</a></code>&nbsp;in class&nbsp;<code><a href="../../../../../../io/github/mountainrange/mule/gameplay/Grid.html" title="class in io.github.mountainrange.mule.gameplay">Grid</a>&lt;<a href="../../../../../../io/github/mountainrange/mule/gameplay/javafx/VisualGrid.html" title="type parameter in VisualGrid">T</a> extends javafx.scene.Group &amp; <a href="../../../../../../io/github/mountainrange/mule/gameplay/Tile.html" title="interface in io.github.mountainrange.mule.gameplay">Tile</a>&gt;</code></dd>
+<dd><code><a href="../../../../../../io/github/mountainrange/mule/gameplay/Grid.html#clear--">clear</a></code>&nbsp;in class&nbsp;<code><a href="../../../../../../io/github/mountainrange/mule/gameplay/Grid.html" title="class in io.github.mountainrange.mule.gameplay">Grid</a>&lt;<a href="../../../../../../io/github/mountainrange/mule/gameplay/javafx/VisualTile.html" title="class in io.github.mountainrange.mule.gameplay.javafx">VisualTile</a>&gt;</code></dd>
 </dl>
 </li>
 </ul>

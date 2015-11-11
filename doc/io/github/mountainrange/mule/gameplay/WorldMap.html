@@ -91,14 +91,14 @@ var activeTableTab = "activeTableTab";
 <!-- ======== START OF CLASS DATA ======== -->
 <div class="header">
 <div class="subTitle">io.github.mountainrange.mule.gameplay</div>
-<h2 title="Class WorldMap" class="title">Class WorldMap</h2>
+<h2 title="Class WorldMap" class="title">Class WorldMap&lt;T extends <a href="../../../../../io/github/mountainrange/mule/gameplay/Tile.html" title="interface in io.github.mountainrange.mule.gameplay">Tile</a>&gt;</h2>
 </div>
 <div class="contentContainer">
 <ul class="inheritance">
 <li>java.lang.Object</li>
 <li>
 <ul class="inheritance">
-<li>io.github.mountainrange.mule.gameplay.WorldMap</li>
+<li>io.github.mountainrange.mule.gameplay.WorldMap&lt;T&gt;</li>
 </ul>
 </li>
 </ul>
@@ -111,11 +111,10 @@ var activeTableTab = "activeTableTab";
 </dl>
 <hr>
 <br>
-<pre>public class <span class="typeNameLabel">WorldMap</span>
+<pre>public class <span class="typeNameLabel">WorldMap&lt;T extends <a href="../../../../../io/github/mountainrange/mule/gameplay/Tile.html" title="interface in io.github.mountainrange.mule.gameplay">Tile</a>&gt;</span>
 extends java.lang.Object
 implements java.lang.Iterable&lt;<a href="../../../../../io/github/mountainrange/mule/gameplay/Tile.html" title="interface in io.github.mountainrange.mule.gameplay">Tile</a>&gt;</pre>
-<div class="block">A class to represent the map and facilitates interactions
- between the actual data store and the rest of the program</div>
+<div class="block">A class to represent the map and facilitates interactions between the actual data store and the rest of the program.</div>
 </li>
 </ul>
 </div>
@@ -134,11 +133,11 @@ implements java.lang.Iterable&lt;<a href="../../../../../io/github/mountainrange
 <th class="colOne" scope="col">Constructor and Description</th>
 </tr>
 <tr class="altColor">
-<td class="colOne"><code><span class="memberNameLink"><a href="../../../../../io/github/mountainrange/mule/gameplay/WorldMap.html#WorldMap-io.github.mountainrange.mule.gameplay.Grid-io.github.mountainrange.mule.enums.MapType-">WorldMap</a></span>(<a href="../../../../../io/github/mountainrange/mule/gameplay/Grid.html" title="class in io.github.mountainrange.mule.gameplay">Grid</a>&lt;<a href="../../../../../io/github/mountainrange/mule/gameplay/javafx/VisualTile.html" title="class in io.github.mountainrange.mule.gameplay.javafx">VisualTile</a>&gt;&nbsp;g,
+<td class="colOne"><code><span class="memberNameLink"><a href="../../../../../io/github/mountainrange/mule/gameplay/WorldMap.html#WorldMap-io.github.mountainrange.mule.gameplay.Grid-io.github.mountainrange.mule.enums.MapType-">WorldMap</a></span>(<a href="../../../../../io/github/mountainrange/mule/gameplay/Grid.html" title="class in io.github.mountainrange.mule.gameplay">Grid</a>&lt;<a href="../../../../../io/github/mountainrange/mule/gameplay/WorldMap.html" title="type parameter in WorldMap">T</a>&gt;&nbsp;g,
         <a href="../../../../../io/github/mountainrange/mule/enums/MapType.html" title="enum in io.github.mountainrange.mule.enums">MapType</a>&nbsp;mType)</code>&nbsp;</td>
 </tr>
 <tr class="rowColor">
-<td class="colOne"><code><span class="memberNameLink"><a href="../../../../../io/github/mountainrange/mule/gameplay/WorldMap.html#WorldMap-io.github.mountainrange.mule.gameplay.Grid-io.github.mountainrange.mule.enums.MapType-java.util.List-">WorldMap</a></span>(<a href="../../../../../io/github/mountainrange/mule/gameplay/Grid.html" title="class in io.github.mountainrange.mule.gameplay">Grid</a>&lt;<a href="../../../../../io/github/mountainrange/mule/gameplay/javafx/VisualTile.html" title="class in io.github.mountainrange.mule.gameplay.javafx">VisualTile</a>&gt;&nbsp;g,
+<td class="colOne"><code><span class="memberNameLink"><a href="../../../../../io/github/mountainrange/mule/gameplay/WorldMap.html#WorldMap-io.github.mountainrange.mule.gameplay.Grid-io.github.mountainrange.mule.enums.MapType-java.util.List-">WorldMap</a></span>(<a href="../../../../../io/github/mountainrange/mule/gameplay/Grid.html" title="class in io.github.mountainrange.mule.gameplay">Grid</a>&lt;<a href="../../../../../io/github/mountainrange/mule/gameplay/WorldMap.html" title="type parameter in WorldMap">T</a>&gt;&nbsp;g,
         <a href="../../../../../io/github/mountainrange/mule/enums/MapType.html" title="enum in io.github.mountainrange.mule.enums">MapType</a>&nbsp;mType,
         java.util.List&lt;<a href="../../../../../io/github/mountainrange/mule/gameplay/Player.html" title="class in io.github.mountainrange.mule.gameplay">Player</a>&gt;&nbsp;playerList)</code>&nbsp;</td>
 </tr>
@@ -160,7 +159,7 @@ implements java.lang.Iterable&lt;<a href="../../../../../io/github/mountainrange
 <tr id="i0" class="altColor">
 <td class="colFirst"><code>void</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../io/github/mountainrange/mule/gameplay/WorldMap.html#clearText--">clearText</a></span>()</code>
-<div class="block">Calls World Map to clear display text</div>
+<div class="block">Calls the backing <code>Grid</code> to clear the displayed text.</div>
 </td>
 </tr>
 <tr id="i1" class="rowColor">
@@ -177,7 +176,7 @@ implements java.lang.Iterable&lt;<a href="../../../../../io/github/mountainrange
 </td>
 </tr>
 <tr id="i3" class="rowColor">
-<td class="colFirst"><code><a href="../../../../../io/github/mountainrange/mule/gameplay/javafx/VisualTile.html" title="class in io.github.mountainrange.mule.gameplay.javafx">VisualTile</a></code></td>
+<td class="colFirst"><code><a href="../../../../../io/github/mountainrange/mule/gameplay/Tile.html" title="interface in io.github.mountainrange.mule.gameplay">Tile</a></code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../io/github/mountainrange/mule/gameplay/WorldMap.html#cursorTile--">cursorTile</a></span>()</code>
 <div class="block"><span class="deprecatedLabel">Deprecated.</span>&nbsp;
 <div class="block"><span class="deprecationComment">This is bad style.</span></div>
@@ -187,7 +186,7 @@ implements java.lang.Iterable&lt;<a href="../../../../../io/github/mountainrange
 <tr id="i4" class="altColor">
 <td class="colFirst"><code>int</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../io/github/mountainrange/mule/gameplay/WorldMap.html#getColumns--">getColumns</a></span>()</code>
-<div class="block">Gets the number of columns in this map</div>
+<div class="block">Gets the number of columns in this baseGrid</div>
 </td>
 </tr>
 <tr id="i5" class="rowColor">
@@ -197,7 +196,7 @@ implements java.lang.Iterable&lt;<a href="../../../../../io/github/mountainrange
 <tr id="i6" class="altColor">
 <td class="colFirst"><code>int</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../io/github/mountainrange/mule/gameplay/WorldMap.html#getRows--">getRows</a></span>()</code>
-<div class="block">Gets the number of rows in this map</div>
+<div class="block">Gets the number of rows in this baseGrid</div>
 </td>
 </tr>
 <tr id="i7" class="rowColor">
@@ -272,21 +271,21 @@ implements java.lang.Iterable&lt;<a href="../../../../../io/github/mountainrange
 </tr>
 <tr id="i21" class="rowColor">
 <td class="colFirst"><code>boolean</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../io/github/mountainrange/mule/gameplay/WorldMap.html#sellTile-io.github.mountainrange.mule.gameplay.Player-io.github.mountainrange.mule.gameplay.javafx.VisualTile-">sellTile</a></span>(<a href="../../../../../io/github/mountainrange/mule/gameplay/Player.html" title="class in io.github.mountainrange.mule.gameplay">Player</a>&nbsp;player,
-        <a href="../../../../../io/github/mountainrange/mule/gameplay/javafx/VisualTile.html" title="class in io.github.mountainrange.mule.gameplay.javafx">VisualTile</a>&nbsp;tile)</code>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../io/github/mountainrange/mule/gameplay/WorldMap.html#sellTile-io.github.mountainrange.mule.gameplay.Player-io.github.mountainrange.mule.gameplay.Tile-">sellTile</a></span>(<a href="../../../../../io/github/mountainrange/mule/gameplay/Player.html" title="class in io.github.mountainrange.mule.gameplay">Player</a>&nbsp;player,
+        <a href="../../../../../io/github/mountainrange/mule/gameplay/Tile.html" title="interface in io.github.mountainrange.mule.gameplay">Tile</a>&nbsp;tile)</code>
 <div class="block">Sell the given tile to the given player.</div>
 </td>
 </tr>
 <tr id="i22" class="altColor">
 <td class="colFirst"><code>void</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../io/github/mountainrange/mule/gameplay/WorldMap.html#showCustomText-java.lang.String-">showCustomText</a></span>(java.lang.String&nbsp;msg)</code>
-<div class="block">Calls World Map to display a custom message on screen</div>
+<div class="block">Calls the backing <code>Grid</code> to display a custom message on screen.</div>
 </td>
 </tr>
 <tr id="i23" class="rowColor">
 <td class="colFirst"><code>void</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../io/github/mountainrange/mule/gameplay/WorldMap.html#showText-io.github.mountainrange.mule.enums.MessageType-">showText</a></span>(<a href="../../../../../io/github/mountainrange/mule/enums/MessageType.html" title="enum in io.github.mountainrange.mule.enums">MessageType</a>&nbsp;msg)</code>
-<div class="block">Calls World Map to display a message on screen</div>
+<div class="block">Calls the backing <code>Grid</code> to display a message on screen.</div>
 </td>
 </tr>
 <tr id="i24" class="altColor">
@@ -331,7 +330,7 @@ implements java.lang.Iterable&lt;<a href="../../../../../io/github/mountainrange
 <ul class="blockList">
 <li class="blockList">
 <h4>WorldMap</h4>
-<pre>public&nbsp;WorldMap(<a href="../../../../../io/github/mountainrange/mule/gameplay/Grid.html" title="class in io.github.mountainrange.mule.gameplay">Grid</a>&lt;<a href="../../../../../io/github/mountainrange/mule/gameplay/javafx/VisualTile.html" title="class in io.github.mountainrange.mule.gameplay.javafx">VisualTile</a>&gt;&nbsp;g,
+<pre>public&nbsp;WorldMap(<a href="../../../../../io/github/mountainrange/mule/gameplay/Grid.html" title="class in io.github.mountainrange.mule.gameplay">Grid</a>&lt;<a href="../../../../../io/github/mountainrange/mule/gameplay/WorldMap.html" title="type parameter in WorldMap">T</a>&gt;&nbsp;g,
                 <a href="../../../../../io/github/mountainrange/mule/enums/MapType.html" title="enum in io.github.mountainrange.mule.enums">MapType</a>&nbsp;mType)</pre>
 </li>
 </ul>
@@ -341,7 +340,7 @@ implements java.lang.Iterable&lt;<a href="../../../../../io/github/mountainrange
 <ul class="blockListLast">
 <li class="blockList">
 <h4>WorldMap</h4>
-<pre>public&nbsp;WorldMap(<a href="../../../../../io/github/mountainrange/mule/gameplay/Grid.html" title="class in io.github.mountainrange.mule.gameplay">Grid</a>&lt;<a href="../../../../../io/github/mountainrange/mule/gameplay/javafx/VisualTile.html" title="class in io.github.mountainrange.mule.gameplay.javafx">VisualTile</a>&gt;&nbsp;g,
+<pre>public&nbsp;WorldMap(<a href="../../../../../io/github/mountainrange/mule/gameplay/Grid.html" title="class in io.github.mountainrange.mule.gameplay">Grid</a>&lt;<a href="../../../../../io/github/mountainrange/mule/gameplay/WorldMap.html" title="type parameter in WorldMap">T</a>&gt;&nbsp;g,
                 <a href="../../../../../io/github/mountainrange/mule/enums/MapType.html" title="enum in io.github.mountainrange.mule.enums">MapType</a>&nbsp;mType,
                 java.util.List&lt;<a href="../../../../../io/github/mountainrange/mule/gameplay/Player.html" title="class in io.github.mountainrange.mule.gameplay">Player</a>&gt;&nbsp;playerList)</pre>
 </li>
@@ -423,14 +422,14 @@ implements java.lang.Iterable&lt;<a href="../../../../../io/github/mountainrange
 </dl>
 </li>
 </ul>
-<a name="sellTile-io.github.mountainrange.mule.gameplay.Player-io.github.mountainrange.mule.gameplay.javafx.VisualTile-">
+<a name="sellTile-io.github.mountainrange.mule.gameplay.Player-io.github.mountainrange.mule.gameplay.Tile-">
 <!--   -->
 </a>
 <ul class="blockList">
 <li class="blockList">
 <h4>sellTile</h4>
 <pre>public&nbsp;boolean&nbsp;sellTile(<a href="../../../../../io/github/mountainrange/mule/gameplay/Player.html" title="class in io.github.mountainrange.mule.gameplay">Player</a>&nbsp;player,
-                        <a href="../../../../../io/github/mountainrange/mule/gameplay/javafx/VisualTile.html" title="class in io.github.mountainrange.mule.gameplay.javafx">VisualTile</a>&nbsp;tile)</pre>
+                        <a href="../../../../../io/github/mountainrange/mule/gameplay/Tile.html" title="interface in io.github.mountainrange.mule.gameplay">Tile</a>&nbsp;tile)</pre>
 <div class="block">Sell the given tile to the given player. Selling will fail if the tile is already owned.</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
@@ -448,10 +447,10 @@ implements java.lang.Iterable&lt;<a href="../../../../../io/github/mountainrange
 <li class="blockList">
 <h4>showCustomText</h4>
 <pre>public&nbsp;void&nbsp;showCustomText(java.lang.String&nbsp;msg)</pre>
-<div class="block">Calls World Map to display a custom message on screen</div>
+<div class="block">Calls the backing <code>Grid</code> to display a custom message on screen.</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
-<dd><code>msg</code> - </dd>
+<dd><code>msg</code> - message to display</dd>
 </dl>
 </li>
 </ul>
@@ -462,10 +461,10 @@ implements java.lang.Iterable&lt;<a href="../../../../../io/github/mountainrange
 <li class="blockList">
 <h4>showText</h4>
 <pre>public&nbsp;void&nbsp;showText(<a href="../../../../../io/github/mountainrange/mule/enums/MessageType.html" title="enum in io.github.mountainrange.mule.enums">MessageType</a>&nbsp;msg)</pre>
-<div class="block">Calls World Map to display a message on screen</div>
+<div class="block">Calls the backing <code>Grid</code> to display a message on screen.</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
-<dd><code>msg</code> - </dd>
+<dd><code>msg</code> - message to display</dd>
 </dl>
 </li>
 </ul>
@@ -476,7 +475,7 @@ implements java.lang.Iterable&lt;<a href="../../../../../io/github/mountainrange
 <li class="blockList">
 <h4>clearText</h4>
 <pre>public&nbsp;void&nbsp;clearText()</pre>
-<div class="block">Calls World Map to clear display text</div>
+<div class="block">Calls the backing <code>Grid</code> to clear the displayed text.</div>
 </li>
 </ul>
 <a name="placeMule-io.github.mountainrange.mule.gameplay.Player-io.github.mountainrange.mule.gameplay.Tile-">
@@ -518,10 +517,10 @@ implements java.lang.Iterable&lt;<a href="../../../../../io/github/mountainrange
 <li class="blockList">
 <h4>getColumns</h4>
 <pre>public&nbsp;int&nbsp;getColumns()</pre>
-<div class="block">Gets the number of columns in this map</div>
+<div class="block">Gets the number of columns in this baseGrid</div>
 <dl>
 <dt><span class="returnLabel">Returns:</span></dt>
-<dd>cols the number of columns in this map</dd>
+<dd>cols the number of columns in this baseGrid</dd>
 </dl>
 </li>
 </ul>
@@ -532,10 +531,10 @@ implements java.lang.Iterable&lt;<a href="../../../../../io/github/mountainrange
 <li class="blockList">
 <h4>getRows</h4>
 <pre>public&nbsp;int&nbsp;getRows()</pre>
-<div class="block">Gets the number of rows in this map</div>
+<div class="block">Gets the number of rows in this baseGrid</div>
 <dl>
 <dt><span class="returnLabel">Returns:</span></dt>
-<dd>rows the number of rows in this map</dd>
+<dd>rows the number of rows in this baseGrid</dd>
 </dl>
 </li>
 </ul>
@@ -545,7 +544,7 @@ implements java.lang.Iterable&lt;<a href="../../../../../io/github/mountainrange
 <ul class="blockList">
 <li class="blockList">
 <h4>cursorTile</h4>
-<pre>public&nbsp;<a href="../../../../../io/github/mountainrange/mule/gameplay/javafx/VisualTile.html" title="class in io.github.mountainrange.mule.gameplay.javafx">VisualTile</a>&nbsp;cursorTile()</pre>
+<pre>public&nbsp;<a href="../../../../../io/github/mountainrange/mule/gameplay/Tile.html" title="interface in io.github.mountainrange.mule.gameplay">Tile</a>&nbsp;cursorTile()</pre>
 <div class="block"><span class="deprecatedLabel">Deprecated.</span>&nbsp;<span class="deprecationComment">This is bad style.</span></div>
 <div class="block">Get the tile the cursor is currently on.</div>
 <dl>
