@@ -32,7 +32,6 @@ public class Config {
 	public int numOfPlayers;
 	public int maxPlayers;
 	public List<Player> buyers;
-	public Race race;
 	/** Whether fade transitions between screens are enabled. */
 	public boolean fadeEnabled;
 	public boolean selectEnabled;
@@ -50,7 +49,6 @@ public class Config {
 		currentPlayer = 0;
 		numOfPlayers = 2;
 		maxPlayers = 4;
-		race = Race.FOLD;
 		fadeEnabled = false;
 		selectEnabled = false;
 

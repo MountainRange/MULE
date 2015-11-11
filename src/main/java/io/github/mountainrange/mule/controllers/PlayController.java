@@ -8,6 +8,7 @@ import io.github.mountainrange.mule.SceneLoader;
 import io.github.mountainrange.mule.gameplay.WorldMap;
 import io.github.mountainrange.mule.enums.MapSize;
 import io.github.mountainrange.mule.gameplay.javafx.VisualGrid;
+import io.github.mountainrange.mule.gameplay.javafx.VisualTile;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -27,7 +28,7 @@ public class PlayController implements Initializable, SceneAgent {
 	private SceneLoader sceneLoader;
 	private MULE mule;
 	private VisualGrid g;
-	private WorldMap map;
+	private WorldMap<VisualTile> map;
 	private GameManager manager;
 
 	@FXML
@@ -62,9 +63,9 @@ public class PlayController implements Initializable, SceneAgent {
 		Config.getInstance().soundManager
 				.changePlaylist(Config.getInstance().gamePlaylist);
 	}
+
 	@FXML
-	private void handleMouseMoved(MouseEvent e) {
-	}
+	private void handleMouseMoved(MouseEvent e) {}
 
 	@FXML
 	private void handleMousePressed(MouseEvent e) {
@@ -82,9 +83,7 @@ public class PlayController implements Initializable, SceneAgent {
 	}
 
 	@FXML
-	private void handleKeyRelease(KeyEvent e) {
-
-	}
+	private void handleKeyRelease(KeyEvent e) {}
 
 	@FXML
 	private void handleBackAction(ActionEvent e) {

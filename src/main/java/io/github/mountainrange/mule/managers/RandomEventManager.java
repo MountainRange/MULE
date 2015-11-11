@@ -1,12 +1,7 @@
 package io.github.mountainrange.mule.managers;
 
-import io.github.mountainrange.mule.Config;
-import io.github.mountainrange.mule.MULE;
-import io.github.mountainrange.mule.enums.GameType;
 import io.github.mountainrange.mule.enums.MessageType;
-import javafx.scene.input.KeyCode;
 
-import java.util.Arrays;
 import java.util.function.Function;
 import java.util.Collections;
 import java.util.List;

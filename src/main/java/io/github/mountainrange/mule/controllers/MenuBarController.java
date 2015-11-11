@@ -13,7 +13,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 /**
- * Created by Matthew Keezer on 9/9/2015.
+ * Controller for the top menu bar.
  */
 public class MenuBarController implements Initializable, SceneAgent {
 

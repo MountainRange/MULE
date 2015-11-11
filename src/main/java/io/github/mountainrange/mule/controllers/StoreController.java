@@ -17,7 +17,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 /**
- * Created by Josh Ting on 9/12/2015.
+ * Controller for the store screen.
  */
 public class StoreController implements Initializable, SceneAgent {
 

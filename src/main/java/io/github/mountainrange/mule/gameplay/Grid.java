@@ -33,18 +33,12 @@ public abstract class Grid<T extends Tile> implements Iterable<Tile> {
 
 	protected Point2D playerPosition = null;
 
-	public static final Random r = new Random();
-
 	public Grid(int columns, int rows, MapType mapType, MapSize s) {
 		this.rows = rows;
 		this.cols = columns;
 
 		if (this.rows < 2 || this.cols < 2) {
 			throw new IllegalArgumentException("Grid can only be constructed with more than 2 rows and columns");
-		}
-
-		if (mapType.getMap().length <= 0) {
-			throw new IllegalArgumentException("Mismatch detected betwen grid size and m.map size!");
 		}
 	}
 
@@ -71,7 +65,6 @@ public abstract class Grid<T extends Tile> implements Iterable<Tile> {
 	 *
 	 * @param column column to get
 	 * @param row row to get
-	 * @deprecated
 	 */
 	public T get(int column, int row) {
 		if (column < 0 || row < 0 || column >= grid.length || row >= grid[0].length) {
