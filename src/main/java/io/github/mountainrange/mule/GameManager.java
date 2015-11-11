@@ -54,7 +54,8 @@ public class GameManager {
 	private int roundCount;
 	private int timeLeft;
 
-	public GameManager(WorldMap<Tile> map, Label turnLabel, Label resourceLabel, SceneLoader sceneLoader) {
+	public GameManager(WorldMap map, Label turnLabel, Label resourceLabel, SceneLoader sceneLoader) {
+
 		this.map = map;
 		this.resourceLabel = resourceLabel;
 		this.sceneLoader = sceneLoader;
