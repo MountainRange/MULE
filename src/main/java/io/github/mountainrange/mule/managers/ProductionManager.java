@@ -133,7 +133,7 @@ public final class ProductionManager {
 	 * @param mule MuleType to get type of resource for
 	 * @return ResourceType for the given MULE
 	 */
-	public static ResourceType producesResource(MuleType mule) {
+	public static ResourceType resourceProduced(MuleType mule) {
 		return PRODUCES_RESOURCE.get(mule);
 	}
 
