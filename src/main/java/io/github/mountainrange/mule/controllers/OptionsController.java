@@ -19,7 +19,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 /**
- * Controller for the options dialog.
+ * Controller for the options dialog
  */
 public class OptionsController implements Initializable, SceneAgent {
 

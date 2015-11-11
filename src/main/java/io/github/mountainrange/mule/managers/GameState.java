@@ -11,8 +11,8 @@ public class GameState {
 	 * We don't care too much about getters and setters here, since this is used
 	 * only once...
 	 */
-	public GameManager manager;
-	public WorldMap map;
+	public final GameManager manager;
+	public final WorldMap map;
 
 	public GameState(GameManager m, WorldMap map) {
 		this.manager = m;

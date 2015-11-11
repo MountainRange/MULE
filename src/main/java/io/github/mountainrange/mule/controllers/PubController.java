@@ -11,7 +11,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 /**
- * Created by Josh Ting on 9/14/2015.
+ * Controller for the pub screen.
  */
 public class PubController implements Initializable, SceneAgent {
 

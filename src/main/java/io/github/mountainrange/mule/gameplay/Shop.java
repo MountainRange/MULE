@@ -90,7 +90,7 @@ public class Shop {
 					round, timeLeft);
 			throw new IllegalArgumentException(msg);
 		}
-		return Math.max(0, Math.min(250, (baseGamblingProfit(round) + ((int) (Math.random() * timeLeft)))));
+		return bound(baseGamblingProfit(round) + ((int) (Math.random() * timeLeft)), 0, 255);
 	}
 
 	/**
@@ -172,6 +172,22 @@ public class Shop {
 		stocks.put(resource, stock + quantity);
 	}
 
+	/**
+	 * Bound the given quantity by the given min and max. If quantity is less than min, return min instead. If quantity
+	 * is greater than max, return max instead. Otherwise, return quantity.
+	 * @param quantity quantity to bound
+	 * @param min lower bound
+	 * @param max upper bound
+	 * @return quantity bounded by min and max
+	 */
+	protected static int bound(int quantity, int min, int max) {
+		if (min > max) {
+			String msg = String.format("Can't bound %d by %d and %d: min > max", quantity, min, max);
+			throw new IllegalArgumentException(msg);
+		}
+		return Math.max(min, Math.min(quantity, max));
+	}
+
 	static {
 		// Hard-coded shop stocks at the beginning of the game
 		INITIAL_STOCKS = new EnumMap<>(Difficulty.class);
@@ -230,7 +246,6 @@ public class Shop {
 		OUTFIT_PRICES.put(MuleType.ENERGY_MULE, 50);
 		OUTFIT_PRICES.put(MuleType.SMITHORE_MULE, 75);
 		OUTFIT_PRICES.put(MuleType.CRYSTITE_MULE, 100);
-
 	}
 
 }

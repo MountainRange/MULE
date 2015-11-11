@@ -20,8 +20,7 @@ public class PlainTile implements Tile {
 	/**
 	 * Construct a tile with the given terrain with no mule installed and no owner.
 	 * @param terrain type of terrain on the tile
-	 * @deprecated Use VisualTile or copy this class into a different view.
-s	 */
+	 */
 	public PlainTile(TerrainType terrain) {
 		this(Objects.requireNonNull(terrain), MuleType.EMPTY, null);
 	}

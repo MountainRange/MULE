@@ -27,8 +27,8 @@ public class PlayController implements Initializable, SceneAgent {
 
 	private SceneLoader sceneLoader;
 	private MULE mule;
-	private VisualGrid<VisualTile> g;
-	private WorldMap map;
+	private VisualGrid g;
+	private WorldMap<VisualTile> map;
 	private GameManager manager;
 
 	@FXML
@@ -51,8 +51,8 @@ public class PlayController implements Initializable, SceneAgent {
 
 	public void onSetScene() {
 		if (g == null || map == null) {
-			g = new VisualGrid<>(9, 5, Config.getInstance().mapType, MapSize.ALPS, mapPane);
-			map = new WorldMap(g, Config.getInstance().mapType);
+			g = new VisualGrid(9, 5, Config.getInstance().mapType, MapSize.ALPS, mapPane);
+			map = new WorldMap<>(g, Config.getInstance().mapType);
 		}
 		if (manager == null) {
 			manager = new GameManager(map, turnLabel, resourceLabel, sceneLoader);
@@ -63,9 +63,9 @@ public class PlayController implements Initializable, SceneAgent {
 		Config.getInstance().soundManager
 				.changePlaylist(Config.getInstance().gamePlaylist);
 	}
+
 	@FXML
-	private void handleMouseMoved(MouseEvent e) {
-	}
+	private void handleMouseMoved(MouseEvent e) {}
 
 	@FXML
 	private void handleMousePressed(MouseEvent e) {
@@ -83,9 +83,7 @@ public class PlayController implements Initializable, SceneAgent {
 	}
 
 	@FXML
-	private void handleKeyRelease(KeyEvent e) {
-
-	}
+	private void handleKeyRelease(KeyEvent e) {}
 
 	@FXML
 	private void handleBackAction(ActionEvent e) {

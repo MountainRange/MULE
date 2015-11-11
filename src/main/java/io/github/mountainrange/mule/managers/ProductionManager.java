@@ -23,14 +23,16 @@ public final class ProductionManager {
 	private static final EnumMap<MuleType, ResourceType> PRODUCES_RESOURCE;
 
 	/**
-	 * Calculate production for the given players on the given map on the given round number.
+	 * Calculate production for the given players on the given map on the given round number. For each player, it
+	 * returns a mapping from each of their resources to a {@code ProductionResult}, which describes changes in quantity
+	 * due to requirement, spoilage, and production.
 	 * @param map map to calculate production on
 	 * @param playerList list of players to calculate production for
 	 * @param round round number (affects food requirement)
 	 * @return map from players to production results for each resource
 	 */
-	public static Map<Player, EnumMap<ResourceType, ProductionResult>> calculateProduction(WorldMap map, List<Player>
-			playerList, int round) {
+	public static <T extends Tile> Map<Player, EnumMap<ResourceType, ProductionResult>> calculateProduction(
+			WorldMap<T> map, List<Player> playerList, int round) {
 		if (round < 0) {
 			String msg = String.format("Can't calculate production for round %d: negative round", round);
 			throw new IllegalArgumentException(msg);
@@ -131,24 +133,8 @@ public final class ProductionManager {
 	 * @param mule MuleType to get type of resource for
 	 * @return ResourceType for the given MULE
 	 */
-	public static ResourceType producesResource(MuleType mule) {
+	public static ResourceType resourceProduced(MuleType mule) {
 		return PRODUCES_RESOURCE.get(mule);
-	}
-
-	/**
-	 * Bound the given quantity by the given min and max. If quantity is less than min, return min instead. If quantity
-	 * is greater than max, return max instead. Otherwise, return quantity.
-	 * @param quantity quantity to bound
-	 * @param min lower bound
-	 * @param max upper bound
-	 * @return quantity bounded by min and max
-	 */
-	protected static int bound(int quantity, int min, int max) {
-		if (min > max) {
-			String msg = String.format("Can't bound %d by %d and %d: min > max", quantity, min, max);
-			throw new IllegalArgumentException(msg);
-		}
-		return Math.min(min, Math.max(quantity, max));
 	}
 
 	static {
