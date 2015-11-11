@@ -39,6 +39,24 @@ public class VisualGridTest {
 		assertNull(empty);
 	}
 
+	@Test(expected=IllegalArgumentException.class)
+	public void testOutOfBounds() {
+        VisualTile input = new VisualTile(TerrainType.NULL);
+        grid.add(input, 0, -1);
+	}
+
+	@Test @SuppressWarnings("deprecated") // We need this for tests
+	public void overwriteAddTest() {
+		VisualTile input = new VisualTile(TerrainType.NULL);
+		VisualTile input2 = new VisualTile(TerrainType.NULL);
+		grid.add(input2, 2, 3);
+		grid.add(input, 2, 3);
+		VisualTile output = grid.get(2, 3);
+		VisualTile empty = grid.get(2, 4);
+		assertEquals(input, output);
+		assertNull(empty);
+	}
+
 	@Test @SuppressWarnings("deprecated") // We need this for tests
 	public void testRemove() {
 		VisualTile input = new VisualTile(TerrainType.NULL);
