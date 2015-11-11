@@ -31,7 +31,7 @@ public class GameManager {
 	private Config config;
 	private SceneLoader sceneLoader;
 	private Shop shop;
-	private WorldMap map;
+	private WorldMap<Tile> map;
 
 	private KeyBindManager keyManager;
 	private MouseHandler mouseHandler;
@@ -54,7 +54,7 @@ public class GameManager {
 	private int roundCount;
 	private int timeLeft;
 
-	public GameManager(WorldMap map, Label turnLabel, Label resourceLabel, SceneLoader sceneLoader) {
+	public GameManager(WorldMap<Tile> map, Label turnLabel, Label resourceLabel, SceneLoader sceneLoader) {
 		this.map = map;
 		this.resourceLabel = resourceLabel;
 		this.sceneLoader = sceneLoader;

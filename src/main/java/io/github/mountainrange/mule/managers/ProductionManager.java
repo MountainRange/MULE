@@ -31,8 +31,8 @@ public final class ProductionManager {
 	 * @param round round number (affects food requirement)
 	 * @return map from players to production results for each resource
 	 */
-	public static Map<Player, EnumMap<ResourceType, ProductionResult>> calculateProduction(WorldMap map, List<Player>
-			playerList, int round) {
+	public static <T extends Tile> Map<Player, EnumMap<ResourceType, ProductionResult>> calculateProduction(
+			WorldMap<T> map, List<Player> playerList, int round) {
 		if (round < 0) {
 			String msg = String.format("Can't calculate production for round %d: negative round", round);
 			throw new IllegalArgumentException(msg);

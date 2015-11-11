@@ -3,7 +3,6 @@ package io.github.mountainrange.mule.gameplay;
 import io.github.mountainrange.mule.enums.MapType;
 import io.github.mountainrange.mule.enums.MessageType;
 import io.github.mountainrange.mule.enums.MuleType;
-import io.github.mountainrange.mule.gameplay.javafx.VisualTile;
 import javafx.geometry.Point2D;
 
 import java.util.*;
@@ -12,29 +11,21 @@ import java.util.stream.Collectors;
 /**
  * A class to represent the map and facilitates interactions between the actual data store and the rest of the program.
  */
-public class WorldMap implements Iterable<Tile> {
+public class WorldMap<T extends Tile> implements Iterable<Tile> {
 
 	/** Backing instance of Grid. */
-	private Grid<VisualTile> baseGrid;
+	private Grid<T> baseGrid;
 
 	/** List of tiles owned by each player, sorted by the MULE installed on them. */
 	private Map<Player, EnumMap<MuleType, Set<Tile>>> productionTiles;
 
-	public WorldMap(Grid<VisualTile> g, MapType mType) {
+	public WorldMap(Grid<T> g, MapType mType) {
 		this.baseGrid = g;
 
 		productionTiles = new HashMap<>();
-
-		for (int i = 0; i < mType.getMap().length; i++) {
-			for (int j = 0; j < mType.getMap()[0].length; j++) {
-				if (mType.getMap()[i][j] != null) {
-					baseGrid.add(new VisualTile(mType.getMap()[i][j]), j, i);
-				}
-			}
-		}
 	}
 
-	public WorldMap(Grid<VisualTile> g, MapType mType, List<Player> playerList) {
+	public WorldMap(Grid<T> g, MapType mType, List<Player> playerList) {
 		this(g, mType);
 
 		productionTiles = new HashMap<>();
@@ -108,7 +99,7 @@ public class WorldMap implements Iterable<Tile> {
 	 * @param tile tile to sell
 	 * @return whether the tile was actually sold
 	 */
-	public boolean sellTile(Player player, VisualTile tile) {
+	public boolean sellTile(Player player, Tile tile) {
 		if (tile.hasOwner()) {
 			return false;
 		}
@@ -210,7 +201,7 @@ public class WorldMap implements Iterable<Tile> {
 	 * @deprecated This is bad style.
 	 */
 	@SuppressWarnings("deprecated")
-	public VisualTile cursorTile() {
+	public Tile cursorTile() {
 		int x = baseGrid.getCursorX();
 		int y = baseGrid.getCursorY();
 		return baseGrid.get(x, y);
@@ -222,7 +213,7 @@ public class WorldMap implements Iterable<Tile> {
 	 * @return whether the tile was actually sold
 	 */
 	public boolean sellTile(Player player) {
-		VisualTile tile = cursorTile();
+		Tile tile = cursorTile();
 		return sellTile(player, tile);
 	}
 

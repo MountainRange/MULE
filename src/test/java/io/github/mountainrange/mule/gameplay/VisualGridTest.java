@@ -23,14 +23,14 @@ public class VisualGridTest {
 	@Rule
 	public Timeout timeout = Timeout.seconds(10);
 
-	private VisualGrid<VisualTile> grid;
+	private VisualGrid grid;
 	private Pane upperPane;
 
 	@Before
 	public void setup() {
 		// Run for every test.
 		this.upperPane = new TestPane();
-		this.grid = new VisualGrid<>(9, 5, MapType.EMPTY, MapSize.ALPS, upperPane);
+		this.grid = new VisualGrid(9, 5, MapType.EMPTY, MapSize.ALPS, upperPane);
 	}
 
 	@Test @SuppressWarnings("deprecated") // We need this for tests

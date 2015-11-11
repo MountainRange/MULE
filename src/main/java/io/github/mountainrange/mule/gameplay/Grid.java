@@ -20,6 +20,9 @@ import java.util.Random;
  * A class to represent location of things on the board.
  *
  * Visualization classes can extend this to actually show things!
+ *
+ * Implementations of this class are responsible for filling {@code grid} with their chosen implementation of {@code
+ * Tile}.
  */
 @SuppressWarnings("unchecked")
 public abstract class Grid<T extends Tile> implements Iterable<Tile> {
@@ -32,7 +35,7 @@ public abstract class Grid<T extends Tile> implements Iterable<Tile> {
 
 	public static final Random r = new Random();
 
-	public Grid(int columns, int rows, MapType m, MapSize s) {
+	public Grid(int columns, int rows, MapType mapType, MapSize s) {
 		this.rows = rows;
 		this.cols = columns;
 
@@ -40,12 +43,9 @@ public abstract class Grid<T extends Tile> implements Iterable<Tile> {
 			throw new IllegalArgumentException("Grid can only be constructed with more than 2 rows and columns");
 		}
 
-		grid = (T[][]) Array.newInstance(VisualTile.class, this.cols, this.rows);
-
-		if (m.getMap().length <= 0 || grid.length != m.getMap()[0].length || grid[0].length != m.getMap().length) {
+		if (mapType.getMap().length <= 0) {
 			throw new IllegalArgumentException("Mismatch detected betwen grid size and m.map size!");
 		}
-
 	}
 
 	/**
