@@ -1,26 +1,19 @@
 package io.github.mountainrange.mule.gameplay;
 
-// Junit Imports
-import io.github.mountainrange.mule.gameplay.javafx.VisualTile;
+import io.github.mountainrange.mule.TestPane;
 import io.github.mountainrange.mule.gameplay.javafx.VisualTile;
 import io.github.mountainrange.mule.gameplay.javafx.VisualGrid;
-import org.junit.*;
-import static org.junit.Assert.*;
-import org.junit.rules.Timeout;
 
 import io.github.mountainrange.mule.enums.MapSize;
 import io.github.mountainrange.mule.enums.MapType;
 import io.github.mountainrange.mule.enums.TerrainType;
 
-import javafx.scene.layout.Pane;
-import javafx.scene.Node;
-import javafx.beans.property.SimpleListProperty;
-import javafx.collections.ObservableList;
-import com.sun.javafx.collections.TrackableObservableList;
-import com.sun.javafx.collections.VetoableListDecorator;
-import javafx.collections.ListChangeListener.Change;
+// Junit Imports
+import org.junit.*;
+import static org.junit.Assert.*;
+import org.junit.rules.Timeout;
 
-import java.util.List;
+import javafx.scene.layout.Pane;
 
 /**
  * A class to test the visual Grid
@@ -28,16 +21,16 @@ import java.util.List;
 public class VisualGridTest {
 
 	@Rule
-	public Timeout timeout = new Timeout(10000);
+	public Timeout timeout = Timeout.seconds(10);
 
-	private VisualGrid<VisualTile> grid;
+	private VisualGrid grid;
 	private Pane upperPane;
 
 	@Before
 	public void setup() {
 		// Run for every test.
 		this.upperPane = new TestPane();
-		this.grid = new VisualGrid<>(9, 5, MapType.EMPTY, MapSize.ALPS, upperPane);
+		this.grid = new VisualGrid(9, 5, MapType.EMPTY, MapSize.ALPS, upperPane);
 	}
 
 	@Test @SuppressWarnings("deprecated") // We need this for tests
@@ -106,32 +99,4 @@ public class VisualGridTest {
 		assertNull(empty2);
 	}
 
-	// A pane that isn't a real pane and won't open a window
-	private class TestPane extends Pane {
-
-		private final ObservableList<Node> children = new VetoableListDecorator<Node>(new TrackableObservableList<Node>() {
-				protected void onChanged(Change<Node> c) {
-					// Do Nothing
-					// TODO add a test?
-				}
-			}) {
-				@Override
-				protected void onProposedChange(final List<Node> newNodes, int[] toBeRemoved) {
-					// Do nothing
-					// TODO add a test?
-				}
-
-				private String constructExceptionMessage(
-					String cause, Node offendingNode) {
-
-					return "This error was part of the VisualGridTest junit and should be fixed";
-				}
-			};
-
-		private ObservableList<Node> testList = new SimpleListProperty<>();
-
-		public ObservableList<Node> getChildren() {
-			return children;
-		}
-	}
 }
