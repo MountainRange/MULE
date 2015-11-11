@@ -60,6 +60,7 @@ public class SceneLoader extends AnchorPane {
 
 			return false;
 		}
+
 	}
 
 	/**
