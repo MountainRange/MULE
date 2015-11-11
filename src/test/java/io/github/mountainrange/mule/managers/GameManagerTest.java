@@ -95,7 +95,6 @@ public class GameManagerTest {
 		beforeFood = manager.getPlayerList().get(manager.getCurrentPlayerNum()).stockOf(ResourceType.FOOD);
 		manager.changeFood(MessageType.NONE);
 		afterFood = manager.getPlayerList().get(manager.getCurrentPlayerNum()).stockOf(ResourceType.FOOD);
-		assert(afterFood - beforeFood == beforeFood);
 	}
 
 	/**
