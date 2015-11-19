@@ -1,7 +1,5 @@
 package io.github.mountainrange.mule.gameplay;
 
-import io.github.mountainrange.mule.enums.MapSize;
-import io.github.mountainrange.mule.enums.MapType;
 import io.github.mountainrange.mule.gameplay.javafx.VisualTile;
 import javafx.geometry.Point2D;
 
@@ -9,12 +7,10 @@ import java.awt.*;
 import java.lang.reflect.Array;
 import java.util.Arrays;
 import java.util.Iterator;
-import java.util.Queue;
 import java.util.List;
 import java.util.Collections;
 import java.util.stream.Stream;
 import java.util.stream.Collectors;
-import java.util.Random;
 
 /**
  * A class to represent location of things on the board.
@@ -33,7 +29,7 @@ public abstract class Grid<T extends Tile> implements Iterable<Tile> {
 
 	protected Point2D playerPosition = null;
 
-	public Grid(int columns, int rows, MapType mapType, MapSize s) {
+	public Grid(int columns, int rows) {
 		this.rows = rows;
 		this.cols = columns;
 
@@ -92,6 +88,7 @@ public abstract class Grid<T extends Tile> implements Iterable<Tile> {
 
 	/**
 	 * Adds a node to this grid.
+	 *
 	 * Will overwrite any existing element in the grid.
 	 */
 	public abstract void addToTile(Object toAdd, int column, int row);

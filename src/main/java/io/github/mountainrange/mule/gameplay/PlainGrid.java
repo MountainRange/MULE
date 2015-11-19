@@ -11,7 +11,7 @@ import java.lang.reflect.Array;
  */
 public class PlainGrid extends Grid<PlainTile> {
 	public PlainGrid(int columns, int rows, MapType mapType, MapSize s) {
-		super(columns, rows, mapType, s);
+		super(columns, rows);
 
 		grid = (PlainTile[][]) Array.newInstance(PlainTile.class, this.cols, this.rows);
 
