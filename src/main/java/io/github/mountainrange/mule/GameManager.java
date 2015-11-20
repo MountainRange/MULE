@@ -1,6 +1,5 @@
 package io.github.mountainrange.mule;
 
-import io.github.jgkamat.JayLayer.JayLayer;
 import io.github.mountainrange.mule.enums.GameType;
 import io.github.mountainrange.mule.enums.MessageType;
 import io.github.mountainrange.mule.enums.MuleType;
@@ -458,7 +457,7 @@ public class GameManager {
 		setLabels();
 		if (gambleFlag) {
 			gambleFlag = false;
-			turnOrder.get(currentPlayerNum).addMoney(Shop.gamblingProfit(roundCount, timeLeft));
+			turnOrder.get(currentPlayerNum).changeMoney(Shop.gamblingProfit(roundCount, timeLeft));
 			endTurn();
 		}
 		if (timeLeft <= 0) {

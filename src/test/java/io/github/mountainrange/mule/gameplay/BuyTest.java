@@ -40,7 +40,7 @@ public class BuyTest {
 		assertFalse(store.buy(shopInspector, ResourceType.ENERGY));
 		assertFalse(store.buy(shopInspector, ResourceType.SMITHORE));
 		assertFalse(store.buy(shopInspector, ResourceType.CRYSTITE));
-		shopInspector.addMoney(store.priceOf(ResourceType.ENERGY) * 16);
+		shopInspector.changeMoney(store.priceOf(ResourceType.ENERGY) * 16);
 		for (int i = 0; i < 16; i++) {
 			assertTrue(store.buy(shopInspector, ResourceType.ENERGY));
 		}
