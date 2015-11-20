@@ -106,7 +106,7 @@ public class SceneLoader extends AnchorPane {
 	}
 
 	public String getCurrentScene() {
-		return sceneHistory.peek();
+		return sceneHistory.size() > 0 ? sceneHistory.peek() : "";
 	}
 
 	public boolean unloadScene(String name) {

@@ -8,6 +8,7 @@ import io.github.mountainrange.mule.SceneLoader;
 import io.github.mountainrange.mule.gameplay.WorldMap;
 import io.github.mountainrange.mule.enums.MapSize;
 import io.github.mountainrange.mule.gameplay.javafx.VisualGrid;
+import io.github.mountainrange.mule.managers.LabelManager;
 import io.github.mountainrange.mule.gameplay.javafx.VisualTile;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -56,7 +57,7 @@ public class PlayController implements Initializable, SceneAgent {
 			map = new WorldMap<>(g, Config.getInstance().mapType);
 		}
 		if (manager == null) {
-			manager = new GameManager(map, turnLabel, resourceLabel, sceneLoader);
+			manager = new GameManager(map, new LabelManager(turnLabel, resourceLabel), sceneLoader);
 		}
 		manager.setInAuction(false);
 		mule.setGameManager(manager);
@@ -122,7 +123,7 @@ public class PlayController implements Initializable, SceneAgent {
 			mule.setGameManager(manager);
 			in.close();
 			fileIn.close();
-			manager.initialize(turnLabel, resourceLabel, sceneLoader, mapPane);
+			manager.initialize(new LabelManager(turnLabel, resourceLabel), sceneLoader, mapPane);
 		} catch(IOException i) {
 			i.printStackTrace();
 			return;

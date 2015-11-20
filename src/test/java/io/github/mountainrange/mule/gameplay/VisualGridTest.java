@@ -11,6 +11,7 @@ import io.github.mountainrange.mule.enums.TerrainType;
 // Junit Imports
 import org.junit.*;
 import static org.junit.Assert.*;
+
 import org.junit.rules.Timeout;
 
 /**
@@ -112,5 +113,4 @@ public class VisualGridTest {
 		assertNull(empty);
 		assertNull(empty2);
 	}
-
 }

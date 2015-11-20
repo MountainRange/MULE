@@ -43,8 +43,7 @@ public class GameManager implements Serializable {
 	private transient Timeline timerTimeline;
 	private transient Timeline messageTimeline;
 
-	private transient Label resourceLabel;
-	private transient Label turnLabel;
+	private LabelManager labelManager;
 
 	private boolean freeLand;
 	private boolean gambleFlag;
@@ -96,13 +95,12 @@ public class GameManager implements Serializable {
 	}
 
 	@SuppressWarnings("deprecated")
-	public void initialize(Label turnLabel, Label resourceLabel, SceneLoader sceneLoader, Pane mapPane) {
+	public void initialize(LabelManager labelManager, SceneLoader sceneLoader, Pane mapPane) {
 		map.refreshTiles();
 
 		((VisualGrid) map.getGrid()).setUpperPane(mapPane);
-		this.resourceLabel = resourceLabel;
+		this.labelManager = labelManager;
 		this.sceneLoader = sceneLoader;
-		this.turnLabel = turnLabel;
 
 		config = Config.getInstance();
 
@@ -141,7 +139,7 @@ public class GameManager implements Serializable {
 					runSelector();
 				}
 			} else if (config.gameType == GameType.SIMULTANEOUS) {
-				turnLabel.setText("Land grab Phase");
+				labelManager.processTurnLabel("Land grab Phase");
 				runSelector();
 			}
 		} else {
@@ -151,11 +149,10 @@ public class GameManager implements Serializable {
 		}
 	}
 
-	public GameManager(WorldMap map, Label turnLabel, Label resourceLabel, SceneLoader sceneLoader) {
+	public GameManager(WorldMap map, LabelManager labelManager, SceneLoader sceneLoader) {
 		this.map = map;
-		this.resourceLabel = resourceLabel;
 		this.sceneLoader = sceneLoader;
-		this.turnLabel = turnLabel;
+		this.labelManager = labelManager;
 
 		config = Config.getInstance();
 		playerList = new ArrayList<>(Arrays.asList(config.playerList).subList(0, config.numOfPlayers));
@@ -318,14 +315,14 @@ public class GameManager implements Serializable {
 	 */
 	public void setLabels() {
 		Player currentPlayer = turnOrder.get(currentPlayerNum);
-		turnLabel.setText(turnOrder.get(currentPlayerNum).getName() + "'s Turn " + timeLeft);
+		labelManager.processTurnLabel(turnOrder.get(currentPlayerNum).getName() + "'s Turn " + timeLeft);
 		String s = String.format("%1$s's Money: %2$s F: %3$s E: %4$s S: %5$s C: %6$s",
 				currentPlayer.getName(), currentPlayer.getMoney(),
 				currentPlayer.stockOf(ResourceType.FOOD),
 				currentPlayer.stockOf(ResourceType.ENERGY),
 				currentPlayer.stockOf(ResourceType.SMITHORE),
 				currentPlayer.stockOf(ResourceType.CRYSTITE));
-		resourceLabel.setText(s);
+		labelManager.processResourceLabel(s);
 	}
 
 	/**
@@ -450,7 +447,7 @@ public class GameManager implements Serializable {
 				runSelector();
 			}
 		} else if (config.gameType == GameType.SIMULTANEOUS) {
-			turnLabel.setText("Land grab Phase");
+			labelManager.processTurnLabel("Land grab Phase");
 			runSelector();
 		}
 	}
@@ -669,5 +666,33 @@ public class GameManager implements Serializable {
 		selectorTimeline.stop();
 		timerTimeline.stop();
 		messageTimeline.stop();
+	}
+
+	public int getTimeLeft() {
+		return timeLeft;
+	}
+
+	public int getRoundCount() {
+		return roundCount;
+	}
+
+	public List<Player> getTurnOrder() {
+		return turnOrder;
+	}
+
+	public Config getConfig() {
+		return Config.getInstance();
+	}
+
+	public boolean isFreeLand() {
+		return freeLand;
+	}
+
+	public int getFoodRequired() {
+		return foodRequired;
+	}
+
+	public int getPhaseCount() {
+		return phaseCount;
 	}
 }
