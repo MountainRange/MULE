@@ -126,7 +126,7 @@ public class Shop {
 		}
 
 		addResource(resource, -1);
-		player.addMoney(-priceOf(resource));
+		player.changeMoney(-priceOf(resource));
 		player.changeStockOf(resource, 1);
 		return true;
 	}
@@ -145,7 +145,7 @@ public class Shop {
 		}
 
 		addResource(resource, 1);
-		player.addMoney(priceOf(resource));
+		player.changeMoney(priceOf(resource));
 		player.changeStockOf(resource, -1);
 		return true;
 	}
@@ -162,7 +162,7 @@ public class Shop {
 		}
 
 		muleStock--;
-		player.addMoney(-outfitPriceOf(muleType));
+		player.changeMoney(-outfitPriceOf(muleType));
 		player.setMule(muleType);
 		return true;
 	}
