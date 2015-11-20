@@ -1,6 +1,5 @@
 package io.github.mountainrange.mule;
 
-import io.github.jgkamat.JayLayer.JayLayer;
 import io.github.mountainrange.mule.enums.GameType;
 import io.github.mountainrange.mule.enums.MessageType;
 import io.github.mountainrange.mule.enums.MuleType;
@@ -31,7 +30,7 @@ public class GameManager {
 	private Config config;
 	private SceneLoader sceneLoader;
 	private Shop shop;
-	private WorldMap<Tile> map;
+	private WorldMap<? extends Tile> map;
 
 	private KeyBindManager keyManager;
 	private MouseHandler mouseHandler;
@@ -54,7 +53,6 @@ public class GameManager {
 	private int timeLeft;
 
 	public GameManager(WorldMap map, LabelManager labelManager, SceneLoader sceneLoader) {
-
 		this.map = map;
 		this.sceneLoader = sceneLoader;
 		this.labelManager = labelManager;
@@ -457,7 +455,7 @@ public class GameManager {
 		setLabels();
 		if (gambleFlag) {
 			gambleFlag = false;
-			turnOrder.get(currentPlayerNum).addMoney(Shop.gamblingProfit(roundCount, timeLeft));
+			turnOrder.get(currentPlayerNum).changeMoney(Shop.gamblingProfit(roundCount, timeLeft));
 			endTurn();
 		}
 		if (timeLeft <= 0) {

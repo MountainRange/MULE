@@ -12,11 +12,10 @@ import io.github.mountainrange.mule.enums.TerrainType;
 import org.junit.*;
 import static org.junit.Assert.*;
 
-import javafx.scene.layout.Pane;
 import org.junit.rules.Timeout;
 
 /**
- * A class to test the visual Grid
+ * A class to test VisualGrid.
  */
 public class VisualGridTest {
 
@@ -24,18 +23,34 @@ public class VisualGridTest {
 	public Timeout timeout = Timeout.seconds(10);
 
 	private VisualGrid grid;
-	private Pane upperPane;
 
 	@Before
 	public void setup() {
-		// Run for every test.
-		this.upperPane = new TestPane();
-		this.grid = new VisualGrid(9, 5, MapType.EMPTY, MapSize.ALPS, upperPane);
+		// Set up a dummy TestPane for every test
+		this.grid = new VisualGrid(9, 5, MapType.EMPTY, MapSize.ALPS, new TestPane());
 	}
 
 	@Test @SuppressWarnings("deprecated") // We need this for tests
 	public void basicAddTest() {
 		VisualTile input = new VisualTile(TerrainType.NULL);
+		grid.add(input, 2, 3);
+		VisualTile output = grid.get(2, 3);
+		VisualTile empty = grid.get(2, 4);
+		assertEquals(input, output);
+		assertNull(empty);
+	}
+
+	@Test(expected=IllegalArgumentException.class)
+	public void testOutOfBounds() {
+        VisualTile input = new VisualTile(TerrainType.NULL);
+        grid.add(input, 0, -1);
+	}
+
+	@Test @SuppressWarnings("deprecated") // We need this for tests
+	public void overwriteAddTest() {
+		VisualTile input = new VisualTile(TerrainType.NULL);
+		VisualTile input2 = new VisualTile(TerrainType.NULL);
+		grid.add(input2, 2, 3);
 		grid.add(input, 2, 3);
 		VisualTile output = grid.get(2, 3);
 		VisualTile empty = grid.get(2, 4);

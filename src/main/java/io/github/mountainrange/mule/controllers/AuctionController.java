@@ -16,7 +16,7 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 /**
- * Created by Josh Ting on 9/13/2015.
+ * Controller for auction screen.
  */
 public class AuctionController implements Initializable, SceneAgent {
 

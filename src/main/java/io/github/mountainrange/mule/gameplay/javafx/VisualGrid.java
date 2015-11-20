@@ -63,7 +63,7 @@ public class VisualGrid extends Grid<VisualTile> {
 	}
 
 	public VisualGrid(int cols, int rows, MapType mapType, MapSize mapSize, Pane upperPane) {
-		super(cols, rows, mapType, mapSize);
+		super(cols, rows);
 		this.upperPane = upperPane;
 
 		grid = (VisualTile[][]) Array.newInstance(VisualTile.class, this.cols, this.rows);

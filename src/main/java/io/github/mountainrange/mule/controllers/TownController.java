@@ -11,7 +11,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 /**
- * Created by Josh Ting on 9/13/2015.
+ * Controller for the main town screen.
  */
 public class TownController implements Initializable, SceneAgent {
 

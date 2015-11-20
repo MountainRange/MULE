@@ -1,7 +1,5 @@
 package io.github.mountainrange.mule.gameplay;
 
-import io.github.mountainrange.mule.enums.MapSize;
-import io.github.mountainrange.mule.enums.MapType;
 import io.github.mountainrange.mule.gameplay.javafx.VisualTile;
 import javafx.geometry.Point2D;
 
@@ -9,12 +7,10 @@ import java.awt.*;
 import java.lang.reflect.Array;
 import java.util.Arrays;
 import java.util.Iterator;
-import java.util.Queue;
 import java.util.List;
 import java.util.Collections;
 import java.util.stream.Stream;
 import java.util.stream.Collectors;
-import java.util.Random;
 
 /**
  * A class to represent location of things on the board.
@@ -33,18 +29,12 @@ public abstract class Grid<T extends Tile> implements Iterable<Tile> {
 
 	protected Point2D playerPosition = null;
 
-	public static final Random r = new Random();
-
-	public Grid(int columns, int rows, MapType mapType, MapSize s) {
+	public Grid(int columns, int rows) {
 		this.rows = rows;
 		this.cols = columns;
 
 		if (this.rows < 2 || this.cols < 2) {
 			throw new IllegalArgumentException("Grid can only be constructed with more than 2 rows and columns");
-		}
-
-		if (mapType.getMap().length <= 0) {
-			throw new IllegalArgumentException("Mismatch detected betwen grid size and m.map size!");
 		}
 	}
 
@@ -71,7 +61,6 @@ public abstract class Grid<T extends Tile> implements Iterable<Tile> {
 	 *
 	 * @param column column to get
 	 * @param row row to get
-	 * @deprecated
 	 */
 	public T get(int column, int row) {
 		if (column < 0 || row < 0 || column >= grid.length || row >= grid[0].length) {
@@ -99,6 +88,7 @@ public abstract class Grid<T extends Tile> implements Iterable<Tile> {
 
 	/**
 	 * Adds a node to this grid.
+	 *
 	 * Will overwrite any existing element in the grid.
 	 */
 	public abstract void addToTile(Object toAdd, int column, int row);
