@@ -88,7 +88,7 @@ public class VisualTile extends Group implements Tile {
 			}
 			muleRect = new Rectangle(0.25, 0.25, 0.5, 0.5);
 			muleRect.setFill(Color.TRANSPARENT);
-			muleRect.setStroke(mule.color);
+			muleRect.setStroke(mule.displayColor);
 			muleRect.setStrokeWidth(0.05);
 
 			getChildren().add(muleRect);

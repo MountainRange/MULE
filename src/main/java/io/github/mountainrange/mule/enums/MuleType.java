@@ -12,9 +12,9 @@ public enum MuleType {
 	SMITHORE_MULE(Color.PURPLE),
 	CRYSTITE_MULE(Color.SILVER);
 
-	public final Color color;
+	public final Color displayColor;
 
-	MuleType(Color color) {
-		this.color = color;
+	MuleType(Color displayColor) {
+		this.displayColor = displayColor;
 	}
 }
