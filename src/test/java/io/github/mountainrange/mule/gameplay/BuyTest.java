@@ -16,7 +16,7 @@ import static org.junit.Assert.*;
 public class BuyTest {
 
 	@Rule
-	public Timeout timeout = new Timeout(2000);
+	public Timeout timeout = Timeout.seconds(10);
 
 	private Shop store;
 	private Player shopInspector;
@@ -25,28 +25,39 @@ public class BuyTest {
 	public void setup() {
 		// store should have 16 food and energy, 0 smithore and crystite
 		store = new Shop(Difficulty.HILL);
+		shopInspector = new Player(0, "Bob", Race.DOME, Color.RED);
 	}
 
-//	@Test(expected = IllegalArgumentException.class)
-//	public void testGamblingProfitNegativeValues() {
-//		Shop.gamblingProfit(-1, -1);
-//	}
+	@Test
+	public void testBuyNoMoney() {
+		// Create a player with no money and attempt to buy all resources unsuccessfully
+		shopInspector.setMoney(0);
+
+		for (ResourceType resource : ResourceType.values()) {
+			assertFalse(store.buy(shopInspector, resource));
+		}
+	}
 
 	@Test
-	public void testBuy() {
-		shopInspector = new Player(0, "Bob", Race.DOME, Color.RED);
-		shopInspector.setMoney(0);
-		assertFalse(store.buy(shopInspector, ResourceType.FOOD));
-		assertFalse(store.buy(shopInspector, ResourceType.ENERGY));
-		assertFalse(store.buy(shopInspector, ResourceType.SMITHORE));
-		assertFalse(store.buy(shopInspector, ResourceType.CRYSTITE));
-		shopInspector.changeMoney(store.priceOf(ResourceType.ENERGY) * 16);
-		for (int i = 0; i < 16; i++) {
-			assertTrue(store.buy(shopInspector, ResourceType.ENERGY));
+	public void testBuyAll() {
+		for (ResourceType resource : ResourceType.values()) {
+			int startingQuantity = shopInspector.stockOf(resource);
+
+			// Give the player enough money to buy all of this resource
+			shopInspector.changeMoney(store.priceOf(resource) * startingQuantity);
+
+			for (int i = 0; i < startingQuantity; i++) {
+				// Buy all the resource from the shop possible
+				assertTrue(store.buy(shopInspector, resource));
+			}
+
+			// Player should have no money left
+			assertEquals(0, shopInspector.getMoney());
+			// Player should be unable to buy this resource now
+			assertFalse(store.buy(shopInspector, resource));
+			// Player should have the same amount of the resource as was originally in the shop
+			assertEquals(startingQuantity, shopInspector.stockOf(resource));
 		}
-		assertTrue(shopInspector.getMoney() == 0);
-		assertFalse(store.buy(shopInspector, ResourceType.ENERGY));
-		assertEquals(16, shopInspector.stockOf(ResourceType.ENERGY));
 	}
 
 }
