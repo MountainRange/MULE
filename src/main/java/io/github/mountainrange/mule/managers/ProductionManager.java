@@ -48,8 +48,10 @@ public final class ProductionManager {
 				int spoilage = spoilageOf(resource, player.stockOf(resource), requirement);
 
 				int production = 0;
-				Set<Tile> producingTiles = map.tilesWithMule(player, muleProducedBy(resource));
+				Set<Tile> producingTiles = map.tilesWithMule(player, resource.muleProducedBy());
 				for (Tile tile : producingTiles) {
+					// Loop through all the tiles with the MULE that produces this resource installed, and calculate
+					// production based on the terrain of each tile
 					production += baseProductionOf(tile.getTerrain(), resource);
 				}
 
@@ -120,18 +122,18 @@ public final class ProductionManager {
 	}
 
 	/**
-	 * Get the corresponding type of mule that produces this resource.
+	 * Get the corresponding type of mule that produces this resource. Equivalent to {@link ResourceType#muleProducedBy()}.
 	 * @param resource resource to get MuleType for
-	 * @return MuleType for the given resource
+	 * @return MULE that produces the given resource
 	 */
 	public static MuleType muleProducedBy(ResourceType resource) {
 		return MULE_PRODUCED_BY.get(resource);
 	}
 
 	/**
-	 * Get the corresponding type of resource that this type of MULE produces.
+	 * Get the corresponding type of resource that this type of MULE produces.Equivalent to {@link MuleType#produces()}.
 	 * @param mule MuleType to get type of resource for
-	 * @return ResourceType for the given MULE
+	 * @return resource that this MULE produces
 	 */
 	public static ResourceType resourceProduced(MuleType mule) {
 		return PRODUCES_RESOURCE.get(mule);
@@ -158,6 +160,7 @@ public final class ProductionManager {
 		mountain1Production.put(ResourceType.ENERGY, 1);
 		mountain1Production.put(ResourceType.CRYSTITE, 0);
 
+		// All mountains have the same production except for smithore
 		EnumMap<ResourceType, Integer> mountain2Production = new EnumMap<>(mountain1Production);
 		EnumMap<ResourceType, Integer> mountain3Production = new EnumMap<>(mountain1Production);
 

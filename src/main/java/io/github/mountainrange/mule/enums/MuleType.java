@@ -1,5 +1,7 @@
 package io.github.mountainrange.mule.enums;
 
+import io.github.mountainrange.mule.managers.ProductionManager;
+
 import javafx.scene.paint.Color;
 
 /**
@@ -16,5 +18,14 @@ public enum MuleType {
 
 	MuleType(Color displayColor) {
 		this.displayColor = displayColor;
+	}
+
+	/**
+	 * Get the corresponding type of mule that produces this resource. Equivalent to {@link
+	 * ProductionManager#resourceProduced(MuleType)}.
+	 * @return resource that this MULE produces
+	 */
+	public ResourceType produces() {
+		return ProductionManager.resourceProduced(this);
 	}
 }
