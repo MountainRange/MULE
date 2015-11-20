@@ -9,8 +9,7 @@ import java.util.Objects;
 /**
  * An alternate Tile implementation, which does not use JavaFX.
  *
- * This tile does not actually draw anything to the screen, it is only
- * a sample implementation of Tile.
+ * This tile does not actually draw anything to the screen; it is only a sample implementation of Tile.
  *
  * This is useful for Junit Tests.
  */
@@ -22,7 +21,7 @@ public class PlainTile implements Tile, Serializable {
 	/**
 	 * Construct a tile with the given terrain with no mule installed and no owner.
 	 * @param terrain type of terrain on the tile
-s	 */
+	 */
 	public PlainTile(TerrainType terrain) {
 		this(Objects.requireNonNull(terrain), MuleType.EMPTY, null);
 	}

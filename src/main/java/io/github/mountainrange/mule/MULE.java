@@ -1,9 +1,13 @@
 package io.github.mountainrange.mule;
 
+import io.github.jgkamat.JayLayer.JayLayer;
 import javafx.application.Application;
+import javafx.application.Platform;
+import javafx.event.EventHandler;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 
 public class MULE extends Application {
 
@@ -46,8 +50,11 @@ public class MULE extends Application {
 	private SceneLoader menuBar;
 	private GameManager manager;
 
+
+
 	@Override
 	public void start(Stage pStage) throws Exception {
+
 		primaryStage = pStage;
 
 		sceneLoader = new SceneLoader(this);
@@ -80,6 +87,11 @@ public class MULE extends Application {
 		primaryStage.setScene(mainScene);
 		primaryStage.setMinHeight(600);
 		primaryStage.setMinWidth(600);
+
+		primaryStage.setOnCloseRequest(event -> {
+            Platform.exit();
+            System.exit(0);
+        });
 		primaryStage.show();
 	}
 

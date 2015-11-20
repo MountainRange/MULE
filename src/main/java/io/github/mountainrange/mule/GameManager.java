@@ -34,7 +34,7 @@ public class GameManager implements Serializable {
 	private transient Config config;
 	private transient SceneLoader sceneLoader;
 	private Shop shop;
-	private transient WorldMap map;
+	private transient WorldMap<? extends Tile> map;
 
 	private transient KeyBindManager keyManager;
 	private transient MouseHandler mouseHandler;
@@ -163,7 +163,6 @@ public class GameManager implements Serializable {
 		turnOrder = new ArrayList<>(playerList);
 		shop = new Shop(config.difficulty);
 
-
 		currentPlayerNum = 0;
 		passCounter = 0;
 		phaseCount = 0;
@@ -203,8 +202,8 @@ public class GameManager implements Serializable {
 		nextRound();
 	}
 
-	/*
-	 * Passes player turn during land-grab phase for HOTSEAT only
+	/**
+	 * Passes player turn during land-grab phase for HOTSEAT only.
 	 */
 	public void pass() {
 		if (!freeLand) {
@@ -219,9 +218,7 @@ public class GameManager implements Serializable {
 	}
 
 	/**
-	 * Increments the turn
-	 *
-	 * Matthew don't copy paste code...
+	 * Increments the turn.
 	 */
 	public void incrementTurn() {
 		passCounter++;
@@ -263,7 +260,7 @@ public class GameManager implements Serializable {
 							if (config.numOfPlayers == passCounter) {
 								nextRound();
 							}
-						} else if (freeLand) {
+						} else {
 							if (currentPlayerNum == 0) {
 								passCounter = 0;
 								nextRound();
@@ -336,7 +333,6 @@ public class GameManager implements Serializable {
 	 * production, increment the round counter, and reorder players by increasing score.
 	 */
 	private void nextRound() {
-
 		// Reorder players based on score
 		calculateTurnOrder();
 		// Increment roundCount to the next round
@@ -388,29 +384,43 @@ public class GameManager implements Serializable {
 	}
 
 	/**
-	 * Calls WorldMap to display a normal, custom, or temporary message
-	 * @param msg
+	 * Calls WorldMap to display a normal message.
+	 * @param msg message to display
 	 */
 	public void showText(MessageType msg) {
 		map.showText(msg);
 	}
+
+	/**
+	 * Calls WorldMap to display a custom message.
+	 * @param msg message to display
+	 */
 	public void showCustomText(String msg) {
 		map.showCustomText(msg);
 	}
+
+	/**
+	 * Displays a temporary message.
+	 * @param msg message to display
+	 */
 	public void showTempText(MessageType msg) {
 		showText(msg);
 		messageTimeline.playFromStart();
 	}
 
 	/**
-	 * Method called at the end of messageTimeline, clears display
-	 * @param e
+	 * Clear the display after a messageTimeline expires.
+	 * @param e event to react to
 	 */
 	private void messageAction(ActionEvent e) {
 		showText(MessageType.NONE);
 	}
 
-	public void decreaseFood(MessageType msg) {
+	/**
+	 * Apply a food-related event to the current player.
+	 * @param msg message to apply
+	 */
+	public void changeFood(MessageType msg) {
 		if (msg == MessageType.LOSEFOOD) {
 			Player player = playerList.get(currentPlayerNum);
 			player.changeStockOf(ResourceType.FOOD, -1);
@@ -545,7 +555,7 @@ public class GameManager implements Serializable {
 		setLabels();
 		if (gambleFlag) {
 			gambleFlag = false;
-			turnOrder.get(currentPlayerNum).addMoney(Shop.gamblingProfit(roundCount, timeLeft));
+			turnOrder.get(currentPlayerNum).changeMoney(Shop.gamblingProfit(roundCount, timeLeft));
 			endTurn();
 		}
 		if (timeLeft <= 0) {

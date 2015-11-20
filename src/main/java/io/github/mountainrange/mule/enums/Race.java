@@ -6,7 +6,7 @@ package io.github.mountainrange.mule.enums;
 public enum Race {
 	FOLD(1600), FAULT_BLOCK(600), DOME(1000), VOLCANIC(1000), PLATEAU(1000);
 
-	private int startingMoney;
+	private final int startingMoney;
 
 	Race(int startingMoney) {
 		this.startingMoney = startingMoney;

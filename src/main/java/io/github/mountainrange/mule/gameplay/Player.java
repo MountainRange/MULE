@@ -103,7 +103,7 @@ public class Player implements Serializable {
 		this.money = money;
 	}
 
-	public void addMoney(int money) {
+	public void changeMoney(int money) {
 		this.money += money;
 	}
 
@@ -149,7 +149,7 @@ public class Player implements Serializable {
 	}
 
 	public boolean equals(Object other) {
-		if (other == null || !(other instanceof Player)) {
+		if (!(other instanceof Player)) {
 			return false;
 		}
 

@@ -1,7 +1,6 @@
 package io.github.mountainrange.mule.enums;
 
 import io.github.mountainrange.mule.Config;
-import io.github.mountainrange.mule.MULE;
 
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
@@ -18,22 +17,20 @@ public enum TerrainType {
 	TOWN("pictures/", Config.DEFAULT_PACK, "/town.png"),
 	NULL(null, null, null);
 
-	private final int tileSize = 40;
+	private static final int TILE_SIZE = 40;
 
 	private final Rectangle rect;
-	private String dir;
+	private final String dir;
+	private final String fn;
+
 	private String pack;
-	private String fn;
 
 	TerrainType(Color c) {
 		this.dir = "pictures/";
 		this.pack = "";
 		this.fn = "ViPaint.png";
 
-		double vSize = MULE.VSIZE;
-		double hSize = MULE.HSIZE;
-
-		rect = new Rectangle(tileSize, tileSize);
+		rect = new Rectangle(TILE_SIZE, TILE_SIZE);
 		rect.setFill(c);
 
 		rect.setX(0);
@@ -49,10 +46,7 @@ public enum TerrainType {
 		this.pack = pack;
 		this.fn = fn;
 
-		double vSize = MULE.VSIZE;
-		double hSize = MULE.HSIZE;
-
-		rect = new Rectangle(tileSize, tileSize);
+		rect = new Rectangle(TILE_SIZE, TILE_SIZE);
 		//rect.setFill(c);
 
 		rect.setX(0);

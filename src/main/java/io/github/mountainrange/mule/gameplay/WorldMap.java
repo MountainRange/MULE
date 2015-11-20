@@ -3,7 +3,6 @@ package io.github.mountainrange.mule.gameplay;
 import io.github.mountainrange.mule.enums.MapType;
 import io.github.mountainrange.mule.enums.MessageType;
 import io.github.mountainrange.mule.enums.MuleType;
-import io.github.mountainrange.mule.gameplay.javafx.VisualTile;
 import javafx.geometry.Point2D;
 
 import java.awt.*;
@@ -13,34 +12,23 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 /**
- * A class to represent the map and facilitates interactions
- * between the actual data store and the rest of the program
+ * A class to represent the map and facilitates interactions between the actual data store and the rest of the program.
  */
-public class WorldMap implements Iterable<Tile>, Serializable {
+public class WorldMap<T extends Tile> implements Iterable<Tile>, Serializable {
 
-	/* An unmodifiable, empty set of tiles. */
-	private static final Set<Tile> EMPTY_SET = Collections.unmodifiableSet(new HashSet<>(0));
-
-	private Grid<VisualTile> map;
+	/** Backing instance of Grid. */
+	private Grid<T> baseGrid;
 
 	/* List of tiles owned by each player, sorted by the MULE installed on them */
 	private Map<Player, EnumMap<MuleType, Set<Point>>> productionTiles;
 
-	public WorldMap(Grid<VisualTile> g, MapType mType) {
-		this.map = g;
+	public WorldMap(Grid<T> g, MapType mType) {
+		this.baseGrid = g;
 
 		productionTiles = new HashMap<>();
-
-		for (int i = 0; i < mType.getMap().length; i++) {
-			for (int j = 0; j < mType.getMap()[0].length; j++) {
-				if (mType.getMap()[i][j] != null) {
-					map.add(new VisualTile(mType.getMap()[i][j]), j, i);
-				}
-			}
-		}
 	}
 
-	public WorldMap(Grid<VisualTile> g, MapType mType, List<Player> playerList) {
+	public WorldMap(Grid<T> g, MapType mType, List<Player> playerList) {
 		this(g, mType);
 
 		productionTiles = new HashMap<>();
@@ -73,13 +61,13 @@ public class WorldMap implements Iterable<Tile>, Serializable {
 	 */
 	public Set<Tile> landOwnedBy(Player player) {
 		if (!productionTiles.containsKey(player)) {
-			return EMPTY_SET;
+			return Collections.emptySet();
 		}
 
 		// Construct a flat Set of all the Tiles a given player owns
 		return productionTiles.get(player).values().stream()
 				.flatMap(Set::stream)
-				.map((a) -> map.get(a.x, a.y))
+				.map((a) -> baseGrid.get(a.x, a.y))
 				.collect(Collectors.toSet());
 	}
 
@@ -104,10 +92,10 @@ public class WorldMap implements Iterable<Tile>, Serializable {
 	 */
 	public Set<Tile> tilesWithMule(Player player, MuleType mule) {
 		if (!productionTiles.containsKey(player)) {
-			return EMPTY_SET;
+			return Collections.emptySet();
 		}
 		return Collections.unmodifiableSet(productionTiles.get(player).get(mule)).stream()
-				.map(map::get).collect(Collectors.toSet());
+				.map(baseGrid::get).collect(Collectors.toSet());
 	}
 
 	/**
@@ -116,7 +104,7 @@ public class WorldMap implements Iterable<Tile>, Serializable {
 	 * @param tile tile to sell
 	 * @return whether the tile was actually sold
 	 */
-	public boolean sellTile(Player player, VisualTile tile) {
+	public boolean sellTile(Player player, Tile tile) {
 		if (tile.hasOwner()) {
 			return false;
 		}
@@ -134,35 +122,35 @@ public class WorldMap implements Iterable<Tile>, Serializable {
 
 		tile.setOwner(player);
 
-		productionTiles.get(player).get(MuleType.EMPTY).add(map.get(tile));
+		productionTiles.get(player).get(MuleType.EMPTY).add(baseGrid.get((T)tile));
 		return true;
 	}
 
 	public void refreshTiles() {
-		map.refresh();
+		baseGrid.refresh();
 	}
 
 	/**
-	 * Calls World Map to display a custom message on screen
-	 * @param msg
+	 * Calls the backing {@code Grid} to display a custom message on screen.
+	 * @param msg message to display
 	 */
 	public void showCustomText(String msg) {
-		map.printText(msg);
+		baseGrid.printText(msg);
 	}
 
 	/**
-	 * Calls World Map to display a message on screen
-	 * @param msg
+	 * Calls the backing {@code Grid} to display a message on screen.
+	 * @param msg message to display
 	 */
 	public void showText(MessageType msg) {
-		map.printText(msg.getMsg());
+		baseGrid.printText(msg.getMsg());
 	}
 
 	/**
-	 * Calls World Map to clear display text
+	 * Calls the backing {@code Grid} to clear the displayed text.
 	 */
 	public void clearText() {
-		map.clearText();
+		baseGrid.clearText();
 	}
 
 	/**
@@ -172,7 +160,7 @@ public class WorldMap implements Iterable<Tile>, Serializable {
 	 * @param tile tile to set mule
 	 * @return whether the mule was placed
 	 */
-	public boolean placeMule(Player player, VisualTile tile) {
+	public boolean placeMule(Player player, Tile tile) {
 		if (tile.getOwner() != player || !player.hasMule() || player.getMule() == MuleType.EMPTY) {
 			return false;
 		}
@@ -189,29 +177,29 @@ public class WorldMap implements Iterable<Tile>, Serializable {
 		// Take tile out of its old set into its new one, based on MULE installed
 		Map<MuleType, Set<Point>> playerProductionTiles = productionTiles.get(player);
 		playerProductionTiles.get(previousMule).remove(tile);
-		playerProductionTiles.get(newMule).add(map.get(tile));
+		playerProductionTiles.get(newMule).add(baseGrid.get((T)tile));
 		return true;
 	}
 
 	@Override
 	public Iterator<Tile> iterator() {
-		return map.iterator();
+		return baseGrid.iterator();
 	}
 
 	/**
-	 * Gets the number of columns in this map
-	 * @return cols the number of columns in this map
+	 * Gets the number of columns in this baseGrid
+	 * @return cols the number of columns in this baseGrid
 	 */
 	public int getColumns() {
-		return map.getCols();
+		return baseGrid.getCols();
 	}
 
 	/**
-	 * Gets the number of rows in this map
-	 * @return rows the number of rows in this map
+	 * Gets the number of rows in this baseGrid
+	 * @return rows the number of rows in this baseGrid
 	 */
 	public int getRows() {
-		return map.getRows();
+		return baseGrid.getRows();
 	}
 
 	// ----------------------------Graphical methods-----------------------------
@@ -222,10 +210,10 @@ public class WorldMap implements Iterable<Tile>, Serializable {
 	 * @deprecated This is bad style.
 	 */
 	@SuppressWarnings("deprecated")
-	public VisualTile cursorTile() {
-		int x = map.getCursorX();
-		int y = map.getCursorY();
-		return map.get(x, y);
+	public Tile cursorTile() {
+		int x = baseGrid.getCursorX();
+		int y = baseGrid.getCursorY();
+		return baseGrid.get(x, y);
 	}
 
 	/**
@@ -234,7 +222,7 @@ public class WorldMap implements Iterable<Tile>, Serializable {
 	 * @return whether the tile was actually sold
 	 */
 	public boolean sellTile(Player player) {
-		VisualTile tile = cursorTile();
+		Tile tile = cursorTile();
 		return sellTile(player, tile);
 	}
 
@@ -246,32 +234,32 @@ public class WorldMap implements Iterable<Tile>, Serializable {
 	 * @return whether the mule was placed
 	 */
 	public boolean placeMule(Player player) {
-		VisualTile tile = cursorTile();
+		Tile tile = cursorTile();
 		return placeMule(player, tile);
 	}
 
 	public boolean select(int x, int y) {
-		if (x < 0 || y < 0 || x >= map.getCols() || y >= map.getRows()) {
-			System.out.println("Cannot select off map");
+		if (x < 0 || y < 0 || x >= baseGrid.getCols() || y >= baseGrid.getRows()) {
+			System.out.println("Cannot select off baseGrid");
 			return false;
 		}
-		map.select(x, y);
+		baseGrid.select(x, y);
 		return true;
 	}
 
 	public boolean selectRel(int xmove, int ymove) {
-		int newposx = map.getCursorX() + xmove;
-		int newposy = map.getCursorY() + ymove;
+		int newposx = baseGrid.getCursorX() + xmove;
+		int newposy = baseGrid.getCursorY() + ymove;
 		if (newposx < 0) {
-			newposx = map.getCols() - 1;
+			newposx = baseGrid.getCols() - 1;
 		} else if (newposy < 0) {
-			newposy = map.getRows() - 1;
-		} else if (newposx >= map.getCols()) {
+			newposy = baseGrid.getRows() - 1;
+		} else if (newposx >= baseGrid.getCols()) {
 			newposx = 0;
-		} else if (newposy >= map.getRows()) {
+		} else if (newposy >= baseGrid.getRows()) {
 			newposy = 0;
 		}
-		map.select(newposx, newposy);
+		baseGrid.select(newposx, newposy);
 		return true;
 	}
 
@@ -288,19 +276,19 @@ public class WorldMap implements Iterable<Tile>, Serializable {
 	}
 
 	public boolean selectLeftWrap() {
-		int newposx = map.getCursorX() - 1;
-		int newposy = map.getCursorY() - 1;
+		int newposx = baseGrid.getCursorX() - 1;
+		int newposy = baseGrid.getCursorY() - 1;
 		if (newposx < 0 && newposy < 0) {
-			return select(map.getCols() - 1, newposy);
+			return select(baseGrid.getCols() - 1, newposy);
 		}
 		return selectRel(1, 0);
 	}
 
 	public boolean selectRightWrap() {
-		int newposx = map.getCursorX() + 1;
-		int newposy = map.getCursorY() + 1;
-		if (newposx >= map.getCols()) {
-			return select(0, newposy % map.getRows());
+		int newposx = baseGrid.getCursorX() + 1;
+		int newposy = baseGrid.getCursorY() + 1;
+		if (newposx >= baseGrid.getCols()) {
+			return select(0, newposy % baseGrid.getRows());
 		}
 		return selectRel(1, 0);
 	}
@@ -314,15 +302,15 @@ public class WorldMap implements Iterable<Tile>, Serializable {
 	}
 
 	public boolean isInside(Point2D toCheck, int column, int row) {
-		return map.isInside(toCheck, column, row);
+		return baseGrid.isInside(toCheck, column, row);
 	}
 
 	/**
 	 * @deprecated
 	 * @return
      */
-	public Grid<VisualTile> getGrid() {
-		return map;
+	public Grid<T> getGrid() {
+		return baseGrid;
 	}
 
 }
