@@ -39,8 +39,7 @@ public class GameManager {
 	private Timeline timerTimeline;
 	private Timeline messageTimeline;
 
-	private Label resourceLabel;
-	private Label turnLabel;
+	private LabelManager labelManager;
 
 	private boolean freeLand;
 	private boolean gambleFlag;
@@ -53,11 +52,10 @@ public class GameManager {
 	private int roundCount;
 	private int timeLeft;
 
-	public GameManager(WorldMap<? extends Tile> map, Label turnLabel, Label resourceLabel, SceneLoader sceneLoader) {
+	public GameManager(WorldMap map, LabelManager labelManager, SceneLoader sceneLoader) {
 		this.map = map;
-		this.resourceLabel = resourceLabel;
 		this.sceneLoader = sceneLoader;
-		this.turnLabel = turnLabel;
+		this.labelManager = labelManager;
 
 		config = Config.getInstance();
 		playerList = new ArrayList<>(Arrays.asList(config.playerList).subList(0, config.numOfPlayers));
@@ -220,14 +218,14 @@ public class GameManager {
 	 */
 	public void setLabels() {
 		Player currentPlayer = turnOrder.get(currentPlayerNum);
-		turnLabel.setText(turnOrder.get(currentPlayerNum).getName() + "'s Turn " + timeLeft);
+		labelManager.processTurnLabel(turnOrder.get(currentPlayerNum).getName() + "'s Turn " + timeLeft);
 		String s = String.format("%1$s's Money: %2$s F: %3$s E: %4$s S: %5$s C: %6$s",
 				currentPlayer.getName(), currentPlayer.getMoney(),
 				currentPlayer.stockOf(ResourceType.FOOD),
 				currentPlayer.stockOf(ResourceType.ENERGY),
 				currentPlayer.stockOf(ResourceType.SMITHORE),
 				currentPlayer.stockOf(ResourceType.CRYSTITE));
-		resourceLabel.setText(s);
+		labelManager.processResourceLabel(s);
 	}
 
 	/**
@@ -352,7 +350,7 @@ public class GameManager {
 				runSelector();
 			}
 		} else if (config.gameType == GameType.SIMULTANEOUS) {
-			turnLabel.setText("Land grab Phase");
+			labelManager.processTurnLabel("Land grab Phase");
 			runSelector();
 		}
 	}
@@ -565,5 +563,33 @@ public class GameManager {
 				}
 			}
 		}
+	}
+
+	public int getTimeLeft() {
+		return timeLeft;
+	}
+
+	public int getRoundCount() {
+		return roundCount;
+	}
+
+	public List<Player> getTurnOrder() {
+		return turnOrder;
+	}
+
+	public Config getConfig() {
+		return Config.getInstance();
+	}
+
+	public boolean isFreeLand() {
+		return freeLand;
+	}
+
+	public int getFoodRequired() {
+		return foodRequired;
+	}
+
+	public int getPhaseCount() {
+		return phaseCount;
 	}
 }
