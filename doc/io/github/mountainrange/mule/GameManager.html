@@ -17,7 +17,7 @@
     catch(err) {
     }
 //-->
-var methods = {"i0":10,"i1":10,"i2":10,"i3":10,"i4":10,"i5":10,"i6":10,"i7":10,"i8":10,"i9":10,"i10":10,"i11":10,"i12":10,"i13":10,"i14":10,"i15":10,"i16":10,"i17":10,"i18":10,"i19":10};
+var methods = {"i0":10,"i1":10,"i2":10,"i3":10,"i4":10,"i5":10,"i6":10,"i7":10,"i8":10,"i9":10,"i10":10,"i11":10,"i12":10,"i13":10,"i14":10,"i15":10,"i16":10,"i17":10,"i18":10,"i19":10,"i20":10,"i21":10,"i22":10,"i23":10,"i24":10,"i25":10,"i26":10};
 var tabs = {65535:["t0","All Methods"],2:["t2","Instance Methods"],8:["t4","Concrete Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
@@ -128,9 +128,8 @@ extends java.lang.Object</pre>
 <th class="colOne" scope="col">Constructor and Description</th>
 </tr>
 <tr class="altColor">
-<td class="colOne"><code><span class="memberNameLink"><a href="../../../../io/github/mountainrange/mule/GameManager.html#GameManager-io.github.mountainrange.mule.gameplay.WorldMap-javafx.scene.control.Label-javafx.scene.control.Label-io.github.mountainrange.mule.SceneLoader-">GameManager</a></span>(<a href="../../../../io/github/mountainrange/mule/gameplay/WorldMap.html" title="class in io.github.mountainrange.mule.gameplay">WorldMap</a>&lt;? extends <a href="../../../../io/github/mountainrange/mule/gameplay/Tile.html" title="interface in io.github.mountainrange.mule.gameplay">Tile</a>&gt;&nbsp;map,
-           javafx.scene.control.Label&nbsp;turnLabel,
-           javafx.scene.control.Label&nbsp;resourceLabel,
+<td class="colOne"><code><span class="memberNameLink"><a href="../../../../io/github/mountainrange/mule/GameManager.html#GameManager-io.github.mountainrange.mule.gameplay.WorldMap-io.github.mountainrange.mule.managers.LabelManager-io.github.mountainrange.mule.SceneLoader-">GameManager</a></span>(<a href="../../../../io/github/mountainrange/mule/gameplay/WorldMap.html" title="class in io.github.mountainrange.mule.gameplay">WorldMap</a>&nbsp;map,
+           <a href="../../../../io/github/mountainrange/mule/managers/LabelManager.html" title="class in io.github.mountainrange.mule.managers">LabelManager</a>&nbsp;labelManager,
            <a href="../../../../io/github/mountainrange/mule/SceneLoader.html" title="class in io.github.mountainrange.mule">SceneLoader</a>&nbsp;sceneLoader)</code>&nbsp;</td>
 </tr>
 </table>
@@ -179,78 +178,106 @@ extends java.lang.Object</pre>
 </td>
 </tr>
 <tr id="i5" class="rowColor">
+<td class="colFirst"><code><a href="../../../../io/github/mountainrange/mule/Config.html" title="class in io.github.mountainrange.mule">Config</a></code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../io/github/mountainrange/mule/GameManager.html#getConfig--">getConfig</a></span>()</code>&nbsp;</td>
+</tr>
+<tr id="i6" class="altColor">
 <td class="colFirst"><code><a href="../../../../io/github/mountainrange/mule/gameplay/Player.html" title="class in io.github.mountainrange.mule.gameplay">Player</a></code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../io/github/mountainrange/mule/GameManager.html#getCurrentPlayer--">getCurrentPlayer</a></span>()</code>&nbsp;</td>
 </tr>
-<tr id="i6" class="altColor">
+<tr id="i7" class="rowColor">
 <td class="colFirst"><code>int</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../io/github/mountainrange/mule/GameManager.html#getCurrentPlayerNum--">getCurrentPlayerNum</a></span>()</code>&nbsp;</td>
 </tr>
-<tr id="i7" class="rowColor">
+<tr id="i8" class="altColor">
+<td class="colFirst"><code>int</code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../io/github/mountainrange/mule/GameManager.html#getFoodRequired--">getFoodRequired</a></span>()</code>&nbsp;</td>
+</tr>
+<tr id="i9" class="rowColor">
+<td class="colFirst"><code>int</code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../io/github/mountainrange/mule/GameManager.html#getPhaseCount--">getPhaseCount</a></span>()</code>&nbsp;</td>
+</tr>
+<tr id="i10" class="altColor">
 <td class="colFirst"><code>java.util.List&lt;<a href="../../../../io/github/mountainrange/mule/gameplay/Player.html" title="class in io.github.mountainrange.mule.gameplay">Player</a>&gt;</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../io/github/mountainrange/mule/GameManager.html#getPlayerList--">getPlayerList</a></span>()</code>&nbsp;</td>
 </tr>
-<tr id="i8" class="altColor">
+<tr id="i11" class="rowColor">
+<td class="colFirst"><code>int</code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../io/github/mountainrange/mule/GameManager.html#getRoundCount--">getRoundCount</a></span>()</code>&nbsp;</td>
+</tr>
+<tr id="i12" class="altColor">
 <td class="colFirst"><code><a href="../../../../io/github/mountainrange/mule/gameplay/Shop.html" title="class in io.github.mountainrange.mule.gameplay">Shop</a></code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../io/github/mountainrange/mule/GameManager.html#getShop--">getShop</a></span>()</code>
 <div class="block">Returns the shop.</div>
 </td>
 </tr>
-<tr id="i9" class="rowColor">
+<tr id="i13" class="rowColor">
+<td class="colFirst"><code>int</code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../io/github/mountainrange/mule/GameManager.html#getTimeLeft--">getTimeLeft</a></span>()</code>&nbsp;</td>
+</tr>
+<tr id="i14" class="altColor">
+<td class="colFirst"><code>java.util.List&lt;<a href="../../../../io/github/mountainrange/mule/gameplay/Player.html" title="class in io.github.mountainrange.mule.gameplay">Player</a>&gt;</code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../io/github/mountainrange/mule/GameManager.html#getTurnOrder--">getTurnOrder</a></span>()</code>&nbsp;</td>
+</tr>
+<tr id="i15" class="rowColor">
 <td class="colFirst"><code>void</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../io/github/mountainrange/mule/GameManager.html#handleKey-javafx.scene.input.KeyEvent-">handleKey</a></span>(javafx.scene.input.KeyEvent&nbsp;e)</code>&nbsp;</td>
 </tr>
-<tr id="i10" class="altColor">
+<tr id="i16" class="altColor">
 <td class="colFirst"><code>void</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../io/github/mountainrange/mule/GameManager.html#handleMouse-javafx.scene.input.MouseEvent-">handleMouse</a></span>(javafx.scene.input.MouseEvent&nbsp;e)</code>&nbsp;</td>
 </tr>
-<tr id="i11" class="rowColor">
+<tr id="i17" class="rowColor">
 <td class="colFirst"><code>void</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../io/github/mountainrange/mule/GameManager.html#incrementTurn--">incrementTurn</a></span>()</code>
 <div class="block">Increments the turn.</div>
 </td>
 </tr>
-<tr id="i12" class="altColor">
+<tr id="i18" class="altColor">
+<td class="colFirst"><code>boolean</code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../io/github/mountainrange/mule/GameManager.html#isFreeLand--">isFreeLand</a></span>()</code>&nbsp;</td>
+</tr>
+<tr id="i19" class="rowColor">
 <td class="colFirst"><code>void</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../io/github/mountainrange/mule/GameManager.html#pass--">pass</a></span>()</code>
 <div class="block">Passes player turn during land-grab phase for HOTSEAT only.</div>
 </td>
 </tr>
-<tr id="i13" class="rowColor">
+<tr id="i20" class="altColor">
 <td class="colFirst"><code>java.util.Map&lt;<a href="../../../../io/github/mountainrange/mule/gameplay/Player.html" title="class in io.github.mountainrange.mule.gameplay">Player</a>,java.lang.Integer&gt;</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../io/github/mountainrange/mule/GameManager.html#scoreGame--">scoreGame</a></span>()</code>
 <div class="block">Compute the score of the given player.</div>
 </td>
 </tr>
-<tr id="i14" class="altColor">
+<tr id="i21" class="rowColor">
 <td class="colFirst"><code>void</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../io/github/mountainrange/mule/GameManager.html#setGambleFlag--">setGambleFlag</a></span>()</code>
 <div class="block">Sets a global variable indicating the player is going to gamble.</div>
 </td>
 </tr>
-<tr id="i15" class="rowColor">
+<tr id="i22" class="altColor">
 <td class="colFirst"><code>void</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../io/github/mountainrange/mule/GameManager.html#setInAuction-boolean-">setInAuction</a></span>(boolean&nbsp;inAuction)</code>&nbsp;</td>
 </tr>
-<tr id="i16" class="altColor">
+<tr id="i23" class="rowColor">
 <td class="colFirst"><code>void</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../io/github/mountainrange/mule/GameManager.html#setLabels--">setLabels</a></span>()</code>
 <div class="block">Update the HUD with the current player's statistics.</div>
 </td>
 </tr>
-<tr id="i17" class="rowColor">
+<tr id="i24" class="altColor">
 <td class="colFirst"><code>void</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../io/github/mountainrange/mule/GameManager.html#showCustomText-java.lang.String-">showCustomText</a></span>(java.lang.String&nbsp;msg)</code>
 <div class="block">Calls WorldMap to display a custom message.</div>
 </td>
 </tr>
-<tr id="i18" class="altColor">
+<tr id="i25" class="rowColor">
 <td class="colFirst"><code>void</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../io/github/mountainrange/mule/GameManager.html#showTempText-io.github.mountainrange.mule.enums.MessageType-">showTempText</a></span>(<a href="../../../../io/github/mountainrange/mule/enums/MessageType.html" title="enum in io.github.mountainrange.mule.enums">MessageType</a>&nbsp;msg)</code>
 <div class="block">Displays a temporary message.</div>
 </td>
 </tr>
-<tr id="i19" class="rowColor">
+<tr id="i26" class="altColor">
 <td class="colFirst"><code>void</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../io/github/mountainrange/mule/GameManager.html#showText-io.github.mountainrange.mule.enums.MessageType-">showText</a></span>(<a href="../../../../io/github/mountainrange/mule/enums/MessageType.html" title="enum in io.github.mountainrange.mule.enums">MessageType</a>&nbsp;msg)</code>
 <div class="block">Calls WorldMap to display a normal message.</div>
@@ -278,15 +305,14 @@ extends java.lang.Object</pre>
 <!--   -->
 </a>
 <h3>Constructor Detail</h3>
-<a name="GameManager-io.github.mountainrange.mule.gameplay.WorldMap-javafx.scene.control.Label-javafx.scene.control.Label-io.github.mountainrange.mule.SceneLoader-">
+<a name="GameManager-io.github.mountainrange.mule.gameplay.WorldMap-io.github.mountainrange.mule.managers.LabelManager-io.github.mountainrange.mule.SceneLoader-">
 <!--   -->
 </a>
 <ul class="blockListLast">
 <li class="blockList">
 <h4>GameManager</h4>
-<pre>public&nbsp;GameManager(<a href="../../../../io/github/mountainrange/mule/gameplay/WorldMap.html" title="class in io.github.mountainrange.mule.gameplay">WorldMap</a>&lt;? extends <a href="../../../../io/github/mountainrange/mule/gameplay/Tile.html" title="interface in io.github.mountainrange.mule.gameplay">Tile</a>&gt;&nbsp;map,
-                   javafx.scene.control.Label&nbsp;turnLabel,
-                   javafx.scene.control.Label&nbsp;resourceLabel,
+<pre>public&nbsp;GameManager(<a href="../../../../io/github/mountainrange/mule/gameplay/WorldMap.html" title="class in io.github.mountainrange.mule.gameplay">WorldMap</a>&nbsp;map,
+                   <a href="../../../../io/github/mountainrange/mule/managers/LabelManager.html" title="class in io.github.mountainrange.mule.managers">LabelManager</a>&nbsp;labelManager,
                    <a href="../../../../io/github/mountainrange/mule/SceneLoader.html" title="class in io.github.mountainrange.mule">SceneLoader</a>&nbsp;sceneLoader)</pre>
 </li>
 </ul>
@@ -518,10 +544,73 @@ extends java.lang.Object</pre>
 <a name="handleMouse-javafx.scene.input.MouseEvent-">
 <!--   -->
 </a>
-<ul class="blockListLast">
+<ul class="blockList">
 <li class="blockList">
 <h4>handleMouse</h4>
 <pre>public&nbsp;void&nbsp;handleMouse(javafx.scene.input.MouseEvent&nbsp;e)</pre>
+</li>
+</ul>
+<a name="getTimeLeft--">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getTimeLeft</h4>
+<pre>public&nbsp;int&nbsp;getTimeLeft()</pre>
+</li>
+</ul>
+<a name="getRoundCount--">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getRoundCount</h4>
+<pre>public&nbsp;int&nbsp;getRoundCount()</pre>
+</li>
+</ul>
+<a name="getTurnOrder--">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getTurnOrder</h4>
+<pre>public&nbsp;java.util.List&lt;<a href="../../../../io/github/mountainrange/mule/gameplay/Player.html" title="class in io.github.mountainrange.mule.gameplay">Player</a>&gt;&nbsp;getTurnOrder()</pre>
+</li>
+</ul>
+<a name="getConfig--">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getConfig</h4>
+<pre>public&nbsp;<a href="../../../../io/github/mountainrange/mule/Config.html" title="class in io.github.mountainrange.mule">Config</a>&nbsp;getConfig()</pre>
+</li>
+</ul>
+<a name="isFreeLand--">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>isFreeLand</h4>
+<pre>public&nbsp;boolean&nbsp;isFreeLand()</pre>
+</li>
+</ul>
+<a name="getFoodRequired--">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>getFoodRequired</h4>
+<pre>public&nbsp;int&nbsp;getFoodRequired()</pre>
+</li>
+</ul>
+<a name="getPhaseCount--">
+<!--   -->
+</a>
+<ul class="blockListLast">
+<li class="blockList">
+<h4>getPhaseCount</h4>
+<pre>public&nbsp;int&nbsp;getPhaseCount()</pre>
 </li>
 </ul>
 </li>
