@@ -121,6 +121,9 @@ public class GameManagerTest {
 	 */
 	@Test
 	public void testNextRound() {
+		assert(manager.getRoundCount() == -2);
+		manager.incrementTurn();
+		manager.incrementTurn();
 		assert(manager.getRoundCount() == -1);
 		manager.incrementTurn();
 		manager.incrementTurn();
