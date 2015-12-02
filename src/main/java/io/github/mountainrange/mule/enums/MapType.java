@@ -6,13 +6,14 @@ import java.util.Random;
  * List of map types (for the map generator).
  */
 public enum MapType {
-	CLASSIC, RANDOM_MED, EXPERIMENTAL, EMPTY;
+	CLASSIC, RANDOM_MED, EXPERIMENTAL, CUSTOM, EMPTY;
 
 	private TerrainType[][] map;
 	private static final Random RANDOM = new Random();
 
 	private static final TerrainType[][] EMPTY_MAP;
 	private static final TerrainType[][] DEFAULT_MAP;
+	private static final TerrainType[][] CUSTOM_MAP;
 
 	// Abbreviations
 	private static final TerrainType T99 = null;
@@ -22,6 +23,7 @@ public enum MapType {
 	private static final TerrainType T03 = TerrainType.MOUNTAIN2;
 	private static final TerrainType T04 = TerrainType.MOUNTAIN3;
 	private static final TerrainType T05 = TerrainType.TOWN;
+	private static final TerrainType T06 = TerrainType.LAKE;
 
 	static {
 		EMPTY_MAP = new TerrainType[][]{
@@ -37,6 +39,14 @@ public enum MapType {
 				{T00, T02, T00, T00, T01, T00, T00, T00, T04},
 				{T04, T00, T00, T00, T05, T00, T00, T00, T02},
 				{T00, T03, T00, T00, T01, T00, T03, T00, T00},
+				{T00, T00, T03, T00, T01, T00, T00, T00, T03}
+		};
+
+		CUSTOM_MAP = new TerrainType[][]{
+				{T00, T00, T02, T00, T01, T00, T04, T00, T00},
+				{T00, T02, T06, T00, T01, T00, T00, T00, T04},
+				{T04, T00, T00, T00, T05, T00, T00, T00, T02},
+				{T00, T03, T00, T00, T01, T00, T03, T06, T00},
 				{T00, T00, T03, T00, T01, T00, T00, T00, T03}
 		};
 	}
@@ -174,6 +184,8 @@ public enum MapType {
 				map =  EMPTY_MAP;
 			} else if (this.name().contains("random".toUpperCase())) {
 				map = MapType.randomMapGeneratorBeta(9, 5, null, null);
+			} else if (this.name().equalsIgnoreCase("custom")) {
+				map = CUSTOM_MAP;
 			} else {
 				map = DEFAULT_MAP;
 			}

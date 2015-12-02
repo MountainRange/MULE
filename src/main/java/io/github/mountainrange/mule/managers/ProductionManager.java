@@ -160,6 +160,12 @@ public final class ProductionManager {
 		mountain1Production.put(ResourceType.ENERGY, 1);
 		mountain1Production.put(ResourceType.CRYSTITE, 0);
 
+		EnumMap<ResourceType, Integer> lakeProduction = new EnumMap<>(ResourceType.class);
+		lakeProduction.put(ResourceType.FOOD, 6);
+		lakeProduction.put(ResourceType.ENERGY, 1);
+		lakeProduction.put(ResourceType.SMITHORE, 0);
+		lakeProduction.put(ResourceType.CRYSTITE, 0);
+
 		// All mountains have the same production except for smithore
 		EnumMap<ResourceType, Integer> mountain2Production = new EnumMap<>(mountain1Production);
 		EnumMap<ResourceType, Integer> mountain3Production = new EnumMap<>(mountain1Production);
@@ -173,6 +179,7 @@ public final class ProductionManager {
 		BASE_PRODUCTION.put(TerrainType.MOUNTAIN1, mountain1Production);
 		BASE_PRODUCTION.put(TerrainType.MOUNTAIN2, mountain2Production);
 		BASE_PRODUCTION.put(TerrainType.MOUNTAIN3, mountain3Production);
+		BASE_PRODUCTION.put(TerrainType.LAKE, lakeProduction);
 
 		MULE_PRODUCED_BY = new EnumMap<>(ResourceType.class);
 		MULE_PRODUCED_BY.put(ResourceType.FOOD, MuleType.FOOD_MULE);

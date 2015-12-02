@@ -14,6 +14,7 @@ public enum TerrainType {
 	MOUNTAIN1("pictures/", Config.DEFAULT_PACK, "/mountain1.png"),
 	MOUNTAIN2("pictures/", Config.DEFAULT_PACK, "/mountain2.png"),
 	MOUNTAIN3("pictures/", Config.DEFAULT_PACK, "/mountain3.png"),
+	LAKE("pictures/", Config.DEFAULT_PACK, "/lake.png"),
 	TOWN("pictures/", Config.DEFAULT_PACK, "/town.png"),
 	NULL(null, null, null);
 
@@ -67,6 +68,7 @@ public enum TerrainType {
 		MOUNTAIN1.pack = pack;
 		MOUNTAIN2.pack = pack;
 		MOUNTAIN3.pack = pack;
+		LAKE.pack = pack;
 		TOWN.pack = pack;
 	}
 }

@@ -96,6 +96,7 @@ public class GameConfigController implements Initializable, SceneAgent {
 		mapTypeCombo.getItems().add("CLASSIC");
 		mapTypeCombo.getItems().add("RANDOM");
 		mapTypeCombo.getItems().add("EXPERIMENTAL");
+		mapTypeCombo.getItems().add("CUSTOM");
 	}
 
 	public void setSceneParent(SceneLoader sceneLoader, MULE mule){
