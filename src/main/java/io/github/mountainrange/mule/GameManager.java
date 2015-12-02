@@ -66,7 +66,7 @@ public class GameManager {
 		currentPlayerNum = 0;
 		passCounter = 0;
 		phaseCount = 0;
-		roundCount = -2;
+		roundCount = -3;
 		timeLeft = 0;
 
 		freeLand = true;
