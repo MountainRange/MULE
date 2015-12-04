@@ -36,7 +36,12 @@ public class VisualTile extends Group implements Tile {
 	public VisualTile(TerrainType terrain, MuleType mule, Player owner) {
 		// If we are not supposed to draw something, don't draw it.
 		if (terrain != TerrainType.NULL) {
-			ImageView image = new ImageView(terrain.getPath());
+			ImageView image;
+			try {
+				image = new ImageView(terrain.getPath() + ".png");
+			} catch(IllegalArgumentException e) {
+				image = new ImageView(terrain.getPath() + ".gif");
+			}
 			image.setFitWidth(1);
 			image.setFitHeight(1);
 			this.getChildren().add(image);
