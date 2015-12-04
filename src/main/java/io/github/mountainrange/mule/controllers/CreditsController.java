@@ -11,6 +11,11 @@ import java.util.ResourceBundle;
 
 /**
  * Controller for credits screen.
+ *
+ * This is a pretty simple Controller Class. It simply allows the user to exit the credits screen
+ * by pressing the back button.
+ *
+ * This class is a good one to start learning controllers from.
  */
 public class CreditsController implements Initializable, SceneAgent {
 
