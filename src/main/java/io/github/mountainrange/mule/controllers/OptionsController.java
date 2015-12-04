@@ -1,6 +1,7 @@
 package io.github.mountainrange.mule.controllers;
 
 import io.github.mountainrange.mule.Config;
+import io.github.mountainrange.mule.enums.TerrainType;
 import io.github.mountainrange.mule.MULE;
 import io.github.mountainrange.mule.SceneLoader;
 import javafx.collections.FXCollections;
@@ -82,6 +83,7 @@ public class OptionsController implements Initializable, SceneAgent {
 	@FXML
 	private void handleTextureAction(ActionEvent e) {
 		Config.getInstance().texturePack = textureCombo.getSelectionModel().getSelectedItem();
+		TerrainType.changePack(Config.getInstance().texturePack);
 	}
 
 }
