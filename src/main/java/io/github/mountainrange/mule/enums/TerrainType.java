@@ -62,7 +62,11 @@ public enum TerrainType {
 		return dir + pack + fn;
 	}
 
-
+	/**
+	 * Change the texture pack to the one given. There should exist a folder in pictures of this name with all the
+	 * images required for each tile in it.
+	 * @param pack name of the texture pack to change to
+     */
 	public static void changePack(String pack) {
 		RIVER.pack = pack;
 		PLAIN.pack = pack;

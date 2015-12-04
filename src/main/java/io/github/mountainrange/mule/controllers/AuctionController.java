@@ -17,6 +17,8 @@ import java.util.ResourceBundle;
 
 /**
  * Controller for auction screen.
+ *
+ * Not in extensive use now, but this handles all button presses that take place in the Auction Screen.
  */
 public class AuctionController implements Initializable, SceneAgent {
 

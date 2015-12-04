@@ -18,6 +18,9 @@ import java.util.ResourceBundle;
 
 /**
  * Controller for the store screen.
+ *
+ * Manages all button presses and the canvas for the store screen.
+ * All transition events start here as well when this scene is active.
  */
 public class StoreController implements Initializable, SceneAgent {
 

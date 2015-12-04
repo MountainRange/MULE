@@ -3,7 +3,7 @@ package io.github.mountainrange.mule.enums;
 import java.util.Random;
 
 /**
- * List of valid difficulties.
+ * List of messages related to player events.
  */
 public enum MessageType {
 	NONE(""),

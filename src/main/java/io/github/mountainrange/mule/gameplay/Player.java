@@ -82,43 +82,79 @@ public class Player {
 		stocks.put(resource, Math.max(0, stocks.get(resource) + delta));
 	}
 
+	/**
+	 * Get the id of this player (mainly used to generate a hashcode).
+	 * @return id of this player
+     */
 	public int getId() {
 		return id;
 	}
 
+	/**
+	 * Get the name of this player, as given in the game config screen.
+	 * @return name of this player
+	 */
 	public String getName() {
 		return name;
 	}
 
+	/**
+	 * Set the name of this player to something else.
+	 */
 	public void setName(String name) {
 		this.name = name;
 	}
 
+	/**
+	 * Get the amount of money this player has
+	 * @return money owned by this player
+	 */
 	public int getMoney() {
 		return money;
 	}
 
+	/**
+	 * Set the amount of money the player owns to the given amount.
+	 */
 	public void setMoney(int money) {
 		this.money = money;
 	}
 
+	/**
+	 * Change the amount of money this player has by the given quantity (can be negative).
+	 * @param money quantity to change by
+     */
 	public void changeMoney(int money) {
 		this.money += money;
 	}
 
+	/**
+	 * Get the race of this player.
+	 * @return race of this player
+     */
 	public Race getRace() {
 		return race;
 	}
 
+	/**
+	 * Set the race of this player to the given race.
+	 */
 	public void setRace(Race race) {
 		this.race = race;
 		money = race.getStartingMoney();
 	}
 
+	/**
+	 * Get the color assigned to this player.
+	 * @return color associated with this player
+	 */
 	public Color getColor() {
 		return color;
 	}
 
+	/**
+	 * Set the color assigned to this player.
+	 */
 	public void setColor(Color color) {
 		this.color = color;
 	}
