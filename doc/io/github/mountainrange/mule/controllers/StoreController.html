@@ -114,7 +114,10 @@ var activeTableTab = "activeTableTab";
 <pre>public class <span class="typeNameLabel">StoreController</span>
 extends java.lang.Object
 implements javafx.fxml.Initializable, <a href="../../../../../io/github/mountainrange/mule/controllers/SceneAgent.html" title="interface in io.github.mountainrange.mule.controllers">SceneAgent</a></pre>
-<div class="block">Controller for the store screen.</div>
+<div class="block">Controller for the store screen.
+
+ Manages all button presses and the canvas for the store screen.
+ All transition events start here as well when this scene is active.</div>
 </li>
 </ul>
 </div>
@@ -157,12 +160,17 @@ implements javafx.fxml.Initializable, <a href="../../../../../io/github/mountain
 </tr>
 <tr id="i1" class="rowColor">
 <td class="colFirst"><code>void</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../io/github/mountainrange/mule/controllers/StoreController.html#onSetScene--">onSetScene</a></span>()</code>&nbsp;</td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../../../io/github/mountainrange/mule/controllers/StoreController.html#onSetScene--">onSetScene</a></span>()</code>
+<div class="block">A method that will be called on this scene whenever the current view switches to it.</div>
+</td>
 </tr>
 <tr id="i2" class="altColor">
 <td class="colFirst"><code>void</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../io/github/mountainrange/mule/controllers/StoreController.html#setSceneParent-io.github.mountainrange.mule.SceneLoader-io.github.mountainrange.mule.MULE-">setSceneParent</a></span>(<a href="../../../../../io/github/mountainrange/mule/SceneLoader.html" title="class in io.github.mountainrange.mule">SceneLoader</a>&nbsp;sceneLoader,
-              <a href="../../../../../io/github/mountainrange/mule/MULE.html" title="class in io.github.mountainrange.mule">MULE</a>&nbsp;mule)</code>&nbsp;</td>
+              <a href="../../../../../io/github/mountainrange/mule/MULE.html" title="class in io.github.mountainrange.mule">MULE</a>&nbsp;mule)</code>
+<div class="block">Sets the scene parent for this class, allows this class to talk with classes that are
+ higher in the heiarchy than it.</div>
+</td>
 </tr>
 </table>
 <ul class="blockList">
@@ -225,9 +233,15 @@ implements javafx.fxml.Initializable, <a href="../../../../../io/github/mountain
 <h4>setSceneParent</h4>
 <pre>public&nbsp;void&nbsp;setSceneParent(<a href="../../../../../io/github/mountainrange/mule/SceneLoader.html" title="class in io.github.mountainrange.mule">SceneLoader</a>&nbsp;sceneLoader,
                            <a href="../../../../../io/github/mountainrange/mule/MULE.html" title="class in io.github.mountainrange.mule">MULE</a>&nbsp;mule)</pre>
+<div class="block"><span class="descfrmTypeLabel">Description copied from interface:&nbsp;<code><a href="../../../../../io/github/mountainrange/mule/controllers/SceneAgent.html#setSceneParent-io.github.mountainrange.mule.SceneLoader-io.github.mountainrange.mule.MULE-">SceneAgent</a></code></span></div>
+<div class="block">Sets the scene parent for this class, allows this class to talk with classes that are
+ higher in the heiarchy than it.</div>
 <dl>
 <dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
 <dd><code><a href="../../../../../io/github/mountainrange/mule/controllers/SceneAgent.html#setSceneParent-io.github.mountainrange.mule.SceneLoader-io.github.mountainrange.mule.MULE-">setSceneParent</a></code>&nbsp;in interface&nbsp;<code><a href="../../../../../io/github/mountainrange/mule/controllers/SceneAgent.html" title="interface in io.github.mountainrange.mule.controllers">SceneAgent</a></code></dd>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>sceneLoader</code> - The sceneloader to set for this SceneAgent. Used when this scene requests a scene transision.</dd>
+<dd><code>mule</code> - The MULE object to set for this SceneAgent. Used when this class wants to talk to other high level classes occasionally</dd>
 </dl>
 </li>
 </ul>
@@ -238,6 +252,10 @@ implements javafx.fxml.Initializable, <a href="../../../../../io/github/mountain
 <li class="blockList">
 <h4>onSetScene</h4>
 <pre>public&nbsp;void&nbsp;onSetScene()</pre>
+<div class="block"><span class="descfrmTypeLabel">Description copied from interface:&nbsp;<code><a href="../../../../../io/github/mountainrange/mule/controllers/SceneAgent.html#onSetScene--">SceneAgent</a></code></span></div>
+<div class="block">A method that will be called on this scene whenever the current view switches to it.
+
+ This is uesful for scenes that start a process when switched to.</div>
 <dl>
 <dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
 <dd><code><a href="../../../../../io/github/mountainrange/mule/controllers/SceneAgent.html#onSetScene--">onSetScene</a></code>&nbsp;in interface&nbsp;<code><a href="../../../../../io/github/mountainrange/mule/controllers/SceneAgent.html" title="interface in io.github.mountainrange.mule.controllers">SceneAgent</a></code></dd>
