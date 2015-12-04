@@ -25,6 +25,8 @@ public class Config {
 	public MapSize mapSize;
 	/** Current type of the map. */
 	public MapType mapType;
+	/** Selected texture pack for the map. */
+	public String texturePack;
 	/** List of all players (including extra players who aren't playing). */
 	public Player[] playerList;
 	public int currentPlayer;
@@ -66,6 +68,7 @@ public class Config {
 	public static Config getInstance() {
 		if (instance == null) {
 			instance = new Config();
+			instance.texturePack = DEFAULT_PACK;
 		}
 		return instance;
 	}
