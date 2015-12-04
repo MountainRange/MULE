@@ -182,6 +182,8 @@ public abstract class Grid<T extends Tile> implements Iterable<Tile> {
 			.collect(Collectors.toList());
 
 		Collections.shuffle(mapping);
+		mapping.remove(new Integer((rows/2) + (rows * (cols / 2))));
+		mapping.add(rows / 2 + rows * (cols / 2), rows / 2 + rows * (cols / 2));
 
 		// System.out.println(mapping);
 		for (int i : mapping) {
