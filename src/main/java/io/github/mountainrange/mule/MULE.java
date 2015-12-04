@@ -1,5 +1,6 @@
 package io.github.mountainrange.mule;
 
+import io.github.mountainrange.mule.Config;
 import io.github.jgkamat.JayLayer.JayLayer;
 import javafx.application.Application;
 import javafx.application.Platform;
@@ -116,6 +117,7 @@ public class MULE extends Application {
 	}
 
 	public void close() {
+		Config.getInstance().soundManager.stopAllPlaylists();
 		primaryStage.close();
 	}
 
