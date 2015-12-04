@@ -20,6 +20,8 @@ import java.util.*;
 
 /**
  * Holds key information about the state of the game, and drives turns.
+ *
+ * This is the main controller class for this project, it facilitates most communication between classes in this program.
  */
 public class GameManager {
 
@@ -52,6 +54,13 @@ public class GameManager {
 	private int roundCount;
 	private int timeLeft;
 
+	/**
+	 * Creates a GameManager object
+	 *
+	 * @param map The map to use for this game instance
+	 * @labelManager the label manager to use for this instance
+	 * @sceneLoader The class to use when switching scenes during gameplay
+	 */
 	public GameManager(WorldMap map, LabelManager labelManager, SceneLoader sceneLoader) {
 		this.map = map;
 		this.sceneLoader = sceneLoader;
@@ -104,6 +113,8 @@ public class GameManager {
 
 	/**
 	 * Passes player turn during land-grab phase for HOTSEAT only.
+	 *
+	 * This method is not used in other game modes.
 	 */
 	public void pass() {
 		if (!freeLand) {
@@ -119,6 +130,8 @@ public class GameManager {
 
 	/**
 	 * Increments the turn.
+	 *
+	 * This method is used in most gamemodes
 	 */
 	public void incrementTurn() {
 		passCounter++;
@@ -180,6 +193,11 @@ public class GameManager {
 		}
 	}
 
+	/**
+	 * This method is used mainly for buying tiles
+	 *
+	 * This allows for a player to choose which tile to buy before actually attempting the transaction.
+	 */
 	private void delayedBuy() {
 		if (buyers.size() > 0) {
 			Player player = buyers.get(0);
@@ -201,8 +219,8 @@ public class GameManager {
 	}
 
 	/**
-	 * Test if all players have bought land this round.
-	 * @return whether all players bought land
+	 * Determine if all players have bought land this round.
+	 * @return whether all players have bought land
 	 */
 	private boolean allBoughtLand() {
 		for (Player p : playerList) {
@@ -215,6 +233,8 @@ public class GameManager {
 
 	/**
 	 * Update the HUD with the current player's statistics.
+	 *
+	 * This is shown in the lower status bar in gameplay.
 	 */
 	public void setLabels() {
 		Player currentPlayer = turnOrder.get(currentPlayerNum);
@@ -259,6 +279,7 @@ public class GameManager {
 
 	/**
 	 * End the current player's turn, begin the next player's turn, and perform any other associated actions.
+	 *
 	 */
 	public void endTurn() {
 		if (!sceneLoader.getCurrentScene().equals(MULE.PLAY_SCENE)) {
@@ -342,6 +363,11 @@ public class GameManager {
 		}
 	}
 
+	/**
+	 * A method that handles the land grab phase
+	 *
+	 * This method is called to handle taking land for free
+	 */
 	private void landGrabPhase() {
 		showTempText(MessageType.LANDGRAB);
 		map.select(0, 0);
@@ -355,6 +381,9 @@ public class GameManager {
 		}
 	}
 
+	/**
+	 * A method to handle a normal phase starting
+	 */
 	private void normalPhase() {
 		if (roundCount == 1) {
 			randManager.runRandomEvent(new GameState(this, map), currentPlayerNum == 0);
@@ -393,6 +422,9 @@ public class GameManager {
 		sceneLoader.setScene(MULE.AUCTION_SCENE);
 	}
 
+	/**
+	 * Sets the auction object this gamemanager will use.
+	 */
 	public void setInAuction(boolean inAuction) {
 		this.inAuction = inAuction;
 	}
@@ -514,15 +546,30 @@ public class GameManager {
 		gambleFlag = true;
 	}
 
+	/**
+	 * Passes keys through to the KeyManager Object
+	 *
+	 * See the KeyManager object to see how key events are handled
+	 */
 	public void handleKey(KeyEvent e) {
 		this.keyManager.handleKey(new GameView(config.gameType, sceneLoader.getCurrentScene(), phaseCount),
 				e.getCode(), new GameState(this, map));
 	}
 
+	/**
+	 * Gets the list of players for this session
+	 *
+	 * @return the list of players in this GameManager's session
+	 */
 	public List<Player> getPlayerList() {
 		return playerList;
 	}
 
+	/**
+	 * Gets the number of current players
+	 *
+	 * @return the number of players currently in the game
+	 */
 	public int getCurrentPlayerNum() {
 		return currentPlayerNum;
 	}
@@ -546,6 +593,11 @@ public class GameManager {
 		buyTile(turnOrder.get(currentPlayerNum));
 	}
 
+	/**
+	 * Passes mouse events through to the mouse handler.
+	 *
+	 * See the mousehandler for more informaiton on how mouseevents are handled.
+	 */
 	public void handleMouse(MouseEvent e) {
 		this.mouseHandler.handleEvent(e);
 	}
@@ -565,30 +617,65 @@ public class GameManager {
 		}
 	}
 
+	/**
+	 * Gets the time left for this round
+	 * @return The time left for this round.
+	 */
 	public int getTimeLeft() {
 		return timeLeft;
 	}
 
+	/**
+	 * Gets the number of rounds taken by this GameManager
+	 *
+	 * @return the number of rounds this gameManager has taken so far
+	 */
 	public int getRoundCount() {
 		return roundCount;
 	}
 
+	/**
+	 * Gets a list of players in their turn order
+	 *
+	 * @return A List of players in their turn order
+	 */
 	public List<Player> getTurnOrder() {
 		return turnOrder;
 	}
 
+	/**
+	 * Gets a config.
+	 * Equivilant to Config.getInstance();
+	 */
 	public Config getConfig() {
 		return Config.getInstance();
 	}
 
+	/**
+	 * Returns if there is free land available
+	 *
+	 * @return if free land is availiable
+	 */
 	public boolean isFreeLand() {
 		return freeLand;
 	}
 
+	/**
+	 * Returns if food is required this round
+	 *
+	 * @return if food is required or not
+	 */
 	public int getFoodRequired() {
 		return foodRequired;
 	}
 
+	/**
+	 * Gets the phasecount for this gamemanger
+	 *
+	 * Essentially just whether we are in the land selection phase or in a normal phase
+	 *
+	 * @return the phase that we are in currently
+	 */
 	public int getPhaseCount() {
 		return phaseCount;
 	}

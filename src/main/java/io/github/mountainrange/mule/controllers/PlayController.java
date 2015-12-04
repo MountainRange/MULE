@@ -23,6 +23,7 @@ import java.util.ResourceBundle;
 
 /**
  * A class to manage the main Playing Map Screen
+ * All interactions with the playing JavaFX Canvas are managed through here.
  */
 public class PlayController implements Initializable, SceneAgent {
 

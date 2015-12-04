@@ -18,13 +18,19 @@ public class PlainTile implements Tile {
 	private MuleType mule;
 
 	/**
-	 * Construct a tile with the given terrain with no mule installed and no owner.
+	 * Construct a tile with the given terrain with no MULE installed and no owner.
 	 * @param terrain type of terrain on the tile
 	 */
 	public PlainTile(TerrainType terrain) {
 		this(Objects.requireNonNull(terrain), MuleType.EMPTY, null);
 	}
 
+	/**
+	 * Construct a tile with the given terrain, MULE, and owner
+	 * @param terrain type of terrain on the tile
+	 * @param mule type of MULE on the tile
+	 * @param owner player that owns this tile
+	 */
 	public PlainTile(TerrainType terrain, MuleType mule, Player owner) {
 		this.terrain = terrain;
 		this.mule = mule;
