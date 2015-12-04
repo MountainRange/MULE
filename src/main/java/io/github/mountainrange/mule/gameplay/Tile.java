@@ -37,10 +37,34 @@ public interface Tile {
 	 */
 	void setOwner(Player owner);
 
+	/**
+	 * Set the type of MULE on this Tile, and also draw the MULE if this is a visual tile.
+	 * @param mule type of MULE to set
+     */
 	void setMuleDraw(MuleType mule);
+
+	/**
+	 * Get the type of terrain on this tile.
+	 * @return type of terrain on this tile
+     */
 	TerrainType getTerrain();
+
+	/**
+	 * Set the terrain associated with this tile.
+	 * @param terrain type of terrain to set
+     */
 	void setTerrain(TerrainType terrain);
+
+	/**
+	 * Get the type of MULE on the current tile.
+	 * @return MULE on this tile
+	 */
 	MuleType getMule();
+
+	/**
+	 * Set the type of MULE on this tile (without necessarily drawing it).
+	 * @param mule type of MULE to set
+     */
 	void setMule(MuleType mule);
 
 	/**
