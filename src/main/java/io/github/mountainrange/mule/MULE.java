@@ -117,8 +117,8 @@ public class MULE extends Application {
 	}
 
 	public void close() {
-		Config.getInstance().soundManager.stopAllPlaylists();
-		primaryStage.close();
+		Platform.exit();
+		System.exit(0);
 	}
 
 	public static void main(String[] args) {
