@@ -9,13 +9,13 @@ import javafx.scene.shape.Rectangle;
  * Describes the kind of terrain found on a given tile. Terrain types affect resource production.
  */
 public enum TerrainType {
-	RIVER("pictures/", Config.DEFAULT_PACK, "/river.png"),
-	PLAIN("pictures/", Config.DEFAULT_PACK, "/plain.png"),
-	MOUNTAIN1("pictures/", Config.DEFAULT_PACK, "/mountain1.png"),
-	MOUNTAIN2("pictures/", Config.DEFAULT_PACK, "/mountain2.png"),
-	MOUNTAIN3("pictures/", Config.DEFAULT_PACK, "/mountain3.png"),
-	LAKE("pictures/", Config.DEFAULT_PACK, "/lake.png"),
-	TOWN("pictures/", Config.DEFAULT_PACK, "/town.png"),
+	RIVER("pictures/", Config.getInstance().texturePack, "/river.png"),
+	PLAIN("pictures/", Config.getInstance().texturePack, "/plain.png"),
+	MOUNTAIN1("pictures/", Config.getInstance().texturePack, "/mountain1.png"),
+	MOUNTAIN2("pictures/", Config.getInstance().texturePack, "/mountain2.png"),
+	MOUNTAIN3("pictures/", Config.getInstance().texturePack, "/mountain3.png"),
+	LAKE("pictures/", Config.getInstance().texturePack, "/lake.png"),
+	TOWN("pictures/", Config.getInstance().texturePack, "/town.png"),
 	NULL(null, null, null);
 
 	private static final int TILE_SIZE = 40;
