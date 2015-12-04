@@ -33,6 +33,12 @@ public class VisualTile extends Group implements Tile {
 		this(Objects.requireNonNull(terrain), MuleType.EMPTY, null);
 	}
 
+	/**
+	 * Construct a tile with the given terrain, MULE, and owner
+	 * @param terrain type of terrain on the tile
+	 * @param mule type of MULE on the tile
+	 * @param owner player that owns this tile
+	 */
 	public VisualTile(TerrainType terrain, MuleType mule, Player owner) {
 		// If we are not supposed to draw something, don't draw it.
 		if (terrain != TerrainType.NULL) {
