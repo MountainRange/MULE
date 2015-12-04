@@ -47,7 +47,7 @@ public class OptionsController implements Initializable, SceneAgent {
 		fadeCombo.setItems(FXCollections.observableArrayList());
 		fadeCombo.getItems().add("TRUE");
 		fadeCombo.getItems().add("FALSE");
-		textureCombo.getItems().addAll("fancy", "mspaint", "plain");
+		textureCombo.getItems().addAll("fancy", "mspaint", "plain", "dankmemes");
 
 		volumeSlider.valueProperty().addListener((observableValue, number, t1) -> {
 			float volume = (float) (volumeSlider.getValue() / volumeSlider.getMax());
