@@ -138,6 +138,14 @@ public class WorldMap<T extends Tile> implements Iterable<Tile> {
 	}
 
 	/**
+	 * Calls the backing {@code Grid} to display a message on screen.
+	 * @param msg message to display
+	 */
+	public void showHeadline(MessageType msg) {
+		baseGrid.printHeadline(msg.getMsg());
+	}
+
+	/**
 	 * Calls the backing {@code Grid} to clear the displayed text.
 	 */
 	public void clearText() {
@@ -282,6 +290,10 @@ public class WorldMap<T extends Tile> implements Iterable<Tile> {
 			return select(0, newposy % baseGrid.getRows());
 		}
 		return selectRel(1, 0);
+	}
+
+	public void randomize() {
+		baseGrid.randomize();
 	}
 
 	public boolean selectLeft() {

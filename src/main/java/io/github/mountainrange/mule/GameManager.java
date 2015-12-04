@@ -38,6 +38,7 @@ public class GameManager {
 	private Timeline selectorTimeline;
 	private Timeline timerTimeline;
 	private Timeline messageTimeline;
+	private Timeline headlineTimeline;
 
 	private LabelManager labelManager;
 
@@ -98,6 +99,14 @@ public class GameManager {
 				)
 		);
 		messageTimeline.setCycleCount(1);
+
+		headlineTimeline = new Timeline(
+				new KeyFrame(
+						Duration.seconds(Config.MESSAGE_DURATION),
+						this::headlineAction
+				)
+		);
+		headlineTimeline.setCycleCount(1);
 
 		nextRound();
 	}
@@ -272,8 +281,8 @@ public class GameManager {
 		// Display message announcing the start of the new player's turn
 		//showCustomText(MessageType.TURN.getPlayerTurnMessage(currentPlayerNum));
 		// Get Random Event that occurred
-		randManager.runRandomEvent(new GameState(this, map), currentPlayerNum == 0);
 
+		randManager.runRandomEvent(new GameState(this, map), currentPlayerNum == 0);
 
 		turnTimer();
 		setLabels();
@@ -309,6 +318,15 @@ public class GameManager {
 	}
 
 	/**
+	 * Displays a temporary message.
+	 * @param msg message to display
+	 */
+	public void showTempHeadline(MessageType msg) {
+		map.showHeadline(msg);
+		headlineTimeline.playFromStart();
+	}
+
+	/**
 	 * Clear the display after a messageTimeline expires.
 	 * @param e event to react to
 	 */
@@ -317,28 +335,118 @@ public class GameManager {
 	}
 
 	/**
-	 * Apply a food-related event to the current player.
+	 * Clear the display after a messageTimeline expires.
+	 * @param e event to react to
+	 */
+	private void headlineAction(ActionEvent e) {
+		map.showHeadline(MessageType.NONE);
+	}
+
+	/**
+	 * Apply a food-related event to the current player or every player.
 	 * @param msg message to apply
 	 */
 	public void changeFood(MessageType msg) {
 		if (msg == MessageType.LOSEFOOD) {
-			Player player = playerList.get(currentPlayerNum);
+			Player player = turnOrder.get(currentPlayerNum);
 			player.changeStockOf(ResourceType.FOOD, -1);
 		} else if (msg == MessageType.LOSESOMEFOOD) {
-			Player player = playerList.get(currentPlayerNum);
+			Player player = turnOrder.get(currentPlayerNum);
 			player.changeStockOf(ResourceType.FOOD, -(player.stockOf(ResourceType.FOOD) / 4));
 		} else if (msg == MessageType.LOSEHALFFOOD) {
-			Player player = playerList.get(currentPlayerNum);
+			Player player = turnOrder.get(currentPlayerNum);
 			player.changeStockOf(ResourceType.FOOD, -(player.stockOf(ResourceType.FOOD) / 2));
 		} else if (msg == MessageType.GAINFOOD) {
-			Player player = playerList.get(currentPlayerNum);
+			Player player = turnOrder.get(currentPlayerNum);
 			player.changeStockOf(ResourceType.FOOD, 1);
 		} else if (msg == MessageType.GAINSOMEFOOD) {
-			Player player = playerList.get(currentPlayerNum);
-			player.changeStockOf(ResourceType.FOOD, (player.stockOf(ResourceType.FOOD) / 2));
+			Player player = turnOrder.get(currentPlayerNum);
+			player.changeStockOf(ResourceType.FOOD, (player.stockOf(ResourceType.FOOD) / 2) + 2);
 		} else if (msg == MessageType.GAINDOUBLEFOOD) {
-			Player player = playerList.get(currentPlayerNum);
-			player.changeStockOf(ResourceType.FOOD, player.stockOf(ResourceType.FOOD));
+			Player player = turnOrder.get(currentPlayerNum);
+			player.changeStockOf(ResourceType.FOOD, player.stockOf(ResourceType.FOOD) + 3);
+		} else if (msg == MessageType.ROUNDGAINFOOD) {
+			for (Player p : turnOrder) {
+				p.changeStockOf(ResourceType.FOOD, 10);
+			}
+		} else if (msg == MessageType.ROUNDLOSEFOOD) {
+			for (Player p : turnOrder) {
+				p.changeStockOf(ResourceType.FOOD, -3);
+			}
+		} else if (msg == MessageType.SHUFFLE) {
+			map.randomize();
+		}
+	}
+
+	/**
+	 * Apply a energy-related event to the current player or every player.
+	 * @param msg message to apply
+	 */
+	public void changeEnergy(MessageType msg) {
+		if (msg == MessageType.LOSEENERGY) {
+			Player player = turnOrder.get(currentPlayerNum);
+			player.changeStockOf(ResourceType.ENERGY, -1);
+		} else if (msg == MessageType.LOSESOMEENERGY) {
+			Player player = turnOrder.get(currentPlayerNum);
+			player.changeStockOf(ResourceType.ENERGY, -(player.stockOf(ResourceType.ENERGY) / 4));
+		} else if (msg == MessageType.LOSEHALFENERGY) {
+			Player player = turnOrder.get(currentPlayerNum);
+			player.changeStockOf(ResourceType.ENERGY, -(player.stockOf(ResourceType.ENERGY) / 2));
+		} else if (msg == MessageType.GAINENERGY) {
+			Player player = turnOrder.get(currentPlayerNum);
+			player.changeStockOf(ResourceType.ENERGY, 1);
+		} else if (msg == MessageType.GAINSOMEENERGY) {
+			Player player = turnOrder.get(currentPlayerNum);
+			player.changeStockOf(ResourceType.ENERGY, (player.stockOf(ResourceType.ENERGY) / 2) + 2);
+		} else if (msg == MessageType.GAINDOUBLEENERGY) {
+			Player player = turnOrder.get(currentPlayerNum);
+			player.changeStockOf(ResourceType.ENERGY, player.stockOf(ResourceType.ENERGY) + 3);
+		} else if (msg == MessageType.ROUNDGAINENERGY) {
+			for (Player p : turnOrder) {
+				p.changeStockOf(ResourceType.ENERGY, 10);
+			}
+		} else if (msg == MessageType.ROUNDLOSEENERGY) {
+			for (Player p : turnOrder) {
+				p.changeStockOf(ResourceType.ENERGY, -3);
+			}
+		} else if (msg == MessageType.SHUFFLE) {
+			map.randomize();
+		}
+	}
+
+	/**
+	 * Apply a smithore-related event to the current player or every player.
+	 * @param msg message to apply
+	 */
+	public void changeSmithore(MessageType msg) {
+		if (msg == MessageType.LOSESMITHORE) {
+			Player player = turnOrder.get(currentPlayerNum);
+			player.changeStockOf(ResourceType.SMITHORE, -1);
+		} else if (msg == MessageType.LOSESOMESMITHORE) {
+			Player player = turnOrder.get(currentPlayerNum);
+			player.changeStockOf(ResourceType.SMITHORE, -(player.stockOf(ResourceType.SMITHORE) / 4));
+		} else if (msg == MessageType.LOSEHALFSMITHORE) {
+			Player player = turnOrder.get(currentPlayerNum);
+			player.changeStockOf(ResourceType.SMITHORE, -(player.stockOf(ResourceType.SMITHORE) / 2));
+		} else if (msg == MessageType.GAINSMITHORE) {
+			Player player = turnOrder.get(currentPlayerNum);
+			player.changeStockOf(ResourceType.SMITHORE, 1);
+		} else if (msg == MessageType.GAINSOMESMITHORE) {
+			Player player = turnOrder.get(currentPlayerNum);
+			player.changeStockOf(ResourceType.SMITHORE, (player.stockOf(ResourceType.SMITHORE) / 2) + 2);
+		} else if (msg == MessageType.GAINDOUBLESMITHORE) {
+			Player player = turnOrder.get(currentPlayerNum);
+			player.changeStockOf(ResourceType.SMITHORE, player.stockOf(ResourceType.SMITHORE) + 3);
+		} else if (msg == MessageType.ROUNDGAINSMITHORE) {
+			for (Player p : turnOrder) {
+				p.changeStockOf(ResourceType.SMITHORE, 10);
+			}
+		} else if (msg == MessageType.ROUNDLOSESMITHORE) {
+			for (Player p : turnOrder) {
+				p.changeStockOf(ResourceType.SMITHORE, -3);
+			}
+		} else if (msg == MessageType.SHUFFLE) {
+			map.randomize();
 		}
 	}
 
@@ -360,6 +468,7 @@ public class GameManager {
 			randManager.runRandomEvent(new GameState(this, map), currentPlayerNum == 0);
 		}
 		if (roundCount > 1) {
+			randManager.runRoundEvent(new GameState(this, map));
 			calculateProduction();
 		}
 		map.select(4, 2);
