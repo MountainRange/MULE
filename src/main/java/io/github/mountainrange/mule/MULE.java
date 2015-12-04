@@ -1,5 +1,6 @@
 package io.github.mountainrange.mule;
 
+import io.github.mountainrange.mule.Config;
 import io.github.jgkamat.JayLayer.JayLayer;
 import javafx.application.Application;
 import javafx.application.Platform;
@@ -116,7 +117,8 @@ public class MULE extends Application {
 	}
 
 	public void close() {
-		primaryStage.close();
+		Platform.exit();
+		System.exit(0);
 	}
 
 	public static void main(String[] args) {
