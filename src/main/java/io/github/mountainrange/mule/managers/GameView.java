@@ -6,9 +6,9 @@ import io.github.mountainrange.mule.enums.GameType;
  * Represents a state of the game where key bindings may be different.
  */
 public class GameView {
-	private GameType gameType;
-	private String sceneName;
-	private int phaseCount;
+	private final GameType gameType;
+	private final String sceneName;
+	private final int phaseCount;
 
 	public GameView(GameType gt, String sn, int phaseCount) {
 		this.gameType = gt;
@@ -24,7 +24,7 @@ public class GameView {
 
 	@Override
 	public boolean equals(Object other) {
-		if (other == null || !(other instanceof GameView)) {
+		if (!(other instanceof GameView)) {
 			return false;
 		} else if (other == this) {
 			return true;

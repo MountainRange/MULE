@@ -13,7 +13,7 @@ import java.util.*;
 /**
  * Responsible for computing production, spoilage, etc.
  */
-public class ProductionManager {
+public final class ProductionManager {
 
 	/** Base production of each resource on each terrain type. */
 	private static final EnumMap<TerrainType, EnumMap<ResourceType, Integer>> BASE_PRODUCTION;
@@ -23,14 +23,16 @@ public class ProductionManager {
 	private static final EnumMap<MuleType, ResourceType> PRODUCES_RESOURCE;
 
 	/**
-	 * Calculate production for the given players on the given map on the given round number.
+	 * Calculate production for the given players on the given map on the given round number. For each player, it
+	 * returns a mapping from each of their resources to a {@code ProductionResult}, which describes changes in quantity
+	 * due to requirement, spoilage, and production.
 	 * @param map map to calculate production on
 	 * @param playerList list of players to calculate production for
 	 * @param round round number (affects food requirement)
 	 * @return map from players to production results for each resource
 	 */
-	public static Map<Player, EnumMap<ResourceType, ProductionResult>> calculateProduction(WorldMap map, List<Player>
-			playerList, int round) {
+	public static <T extends Tile> Map<Player, EnumMap<ResourceType, ProductionResult>> calculateProduction(
+			WorldMap<T> map, List<Player> playerList, int round) {
 		if (round < 0) {
 			String msg = String.format("Can't calculate production for round %d: negative round", round);
 			throw new IllegalArgumentException(msg);
@@ -46,8 +48,10 @@ public class ProductionManager {
 				int spoilage = spoilageOf(resource, player.stockOf(resource), requirement);
 
 				int production = 0;
-				Set<Tile> producingTiles = map.tilesWithMule(player, muleProducedBy(resource));
+				Set<Tile> producingTiles = map.tilesWithMule(player, resource.muleProducedBy());
 				for (Tile tile : producingTiles) {
+					// Loop through all the tiles with the MULE that produces this resource installed, and calculate
+					// production based on the terrain of each tile
 					production += baseProductionOf(tile.getTerrain(), resource);
 				}
 
@@ -118,37 +122,21 @@ public class ProductionManager {
 	}
 
 	/**
-	 * Get the corresponding type of mule that produces this resource.
+	 * Get the corresponding type of mule that produces this resource. Equivalent to {@link ResourceType#muleProducedBy()}.
 	 * @param resource resource to get MuleType for
-	 * @return MuleType for the given resource
+	 * @return MULE that produces the given resource
 	 */
 	public static MuleType muleProducedBy(ResourceType resource) {
 		return MULE_PRODUCED_BY.get(resource);
 	}
 
 	/**
-	 * Get the corresponding type of resource that this type of MULE produces.
+	 * Get the corresponding type of resource that this type of MULE produces.Equivalent to {@link MuleType#produces()}.
 	 * @param mule MuleType to get type of resource for
-	 * @return ResourceType for the given MULE
+	 * @return resource that this MULE produces
 	 */
-	public static ResourceType producesResource(MuleType mule) {
+	public static ResourceType resourceProduced(MuleType mule) {
 		return PRODUCES_RESOURCE.get(mule);
-	}
-
-	/**
-	 * Bound the given quantity by the given min and max. If quantity is less than min, return min instead. If quantity
-	 * is greater than max, return max instead. Otherwise, return quantity.
-	 * @param quantity quantity to bound
-	 * @param min lower bound
-	 * @param max upper bound
-	 * @return quantity bounded by min and max
-	 */
-	protected static int bound(int quantity, int min, int max) {
-		if (min > max) {
-			String msg = String.format("Can't bound %d by %d and %d: min > max", quantity, min, max);
-			throw new IllegalArgumentException(msg);
-		}
-		return Math.min(min, Math.max(quantity, max));
 	}
 
 	static {
@@ -172,6 +160,13 @@ public class ProductionManager {
 		mountain1Production.put(ResourceType.ENERGY, 1);
 		mountain1Production.put(ResourceType.CRYSTITE, 0);
 
+		EnumMap<ResourceType, Integer> lakeProduction = new EnumMap<>(ResourceType.class);
+		lakeProduction.put(ResourceType.FOOD, 6);
+		lakeProduction.put(ResourceType.ENERGY, 1);
+		lakeProduction.put(ResourceType.SMITHORE, 0);
+		lakeProduction.put(ResourceType.CRYSTITE, 0);
+
+		// All mountains have the same production except for smithore
 		EnumMap<ResourceType, Integer> mountain2Production = new EnumMap<>(mountain1Production);
 		EnumMap<ResourceType, Integer> mountain3Production = new EnumMap<>(mountain1Production);
 
@@ -184,6 +179,7 @@ public class ProductionManager {
 		BASE_PRODUCTION.put(TerrainType.MOUNTAIN1, mountain1Production);
 		BASE_PRODUCTION.put(TerrainType.MOUNTAIN2, mountain2Production);
 		BASE_PRODUCTION.put(TerrainType.MOUNTAIN3, mountain3Production);
+		BASE_PRODUCTION.put(TerrainType.LAKE, lakeProduction);
 
 		MULE_PRODUCED_BY = new EnumMap<>(ResourceType.class);
 		MULE_PRODUCED_BY.put(ResourceType.FOOD, MuleType.FOOD_MULE);
@@ -197,5 +193,8 @@ public class ProductionManager {
 		PRODUCES_RESOURCE.put(MuleType.SMITHORE_MULE, ResourceType.SMITHORE);
 		PRODUCES_RESOURCE.put(MuleType.CRYSTITE_MULE, ResourceType.CRYSTITE);
 	}
+
+	// This is a utility class; disallow instantiation
+	private ProductionManager() {}
 
 }

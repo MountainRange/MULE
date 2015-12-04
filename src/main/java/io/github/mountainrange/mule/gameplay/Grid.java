@@ -1,7 +1,5 @@
 package io.github.mountainrange.mule.gameplay;
 
-import io.github.mountainrange.mule.enums.MapSize;
-import io.github.mountainrange.mule.enums.MapType;
 import io.github.mountainrange.mule.gameplay.javafx.VisualTile;
 import javafx.geometry.Point2D;
 
@@ -9,17 +7,18 @@ import java.awt.*;
 import java.lang.reflect.Array;
 import java.util.Arrays;
 import java.util.Iterator;
-import java.util.Queue;
 import java.util.List;
 import java.util.Collections;
 import java.util.stream.Stream;
 import java.util.stream.Collectors;
-import java.util.Random;
 
 /**
  * A class to represent location of things on the board.
  *
  * Visualization classes can extend this to actually show things!
+ *
+ * Implementations of this class are responsible for filling {@code grid} with their chosen implementation of {@code
+ * Tile}.
  */
 @SuppressWarnings("unchecked")
 public abstract class Grid<T extends Tile> implements Iterable<Tile> {
@@ -30,22 +29,13 @@ public abstract class Grid<T extends Tile> implements Iterable<Tile> {
 
 	protected Point2D playerPosition = null;
 
-	public static final Random r = new Random();
-
-	public Grid (int columns, int rows, MapType m, MapSize s) {
+	public Grid(int columns, int rows) {
 		this.rows = rows;
 		this.cols = columns;
 
 		if (this.rows < 2 || this.cols < 2) {
 			throw new IllegalArgumentException("Grid can only be constructed with more than 2 rows and columns");
 		}
-
-		grid = (T[][]) Array.newInstance(VisualTile.class, this.cols, this.rows);
-
-		if (m.getMap().length <= 0 || grid.length != m.getMap()[0].length || grid[0].length != m.getMap().length) {
-			throw new IllegalArgumentException("Mismatch detected betwen grid size and m.map size!");
-		}
-
 	}
 
 	/**
@@ -71,7 +61,6 @@ public abstract class Grid<T extends Tile> implements Iterable<Tile> {
 	 *
 	 * @param column column to get
 	 * @param row row to get
-	 * @deprecated
 	 */
 	public T get(int column, int row) {
 		if (column < 0 || row < 0 || column >= grid.length || row >= grid[0].length) {
@@ -99,6 +88,7 @@ public abstract class Grid<T extends Tile> implements Iterable<Tile> {
 
 	/**
 	 * Adds a node to this grid.
+	 *
 	 * Will overwrite any existing element in the grid.
 	 */
 	public abstract void addToTile(Object toAdd, int column, int row);
@@ -157,7 +147,7 @@ public abstract class Grid<T extends Tile> implements Iterable<Tile> {
 	}
 
 	/**
-	 * A more precise version of move
+	 * A more precise version of move.
 	 */
 	protected void move(int columnFrom, int rowFrom, int columnTo, int rowTo, T[][] sourceGrid, T[][] targetGrid) {
 		if (columnFrom < 0 || rowFrom < 0 || columnFrom >= sourceGrid.length || rowFrom >= sourceGrid[0].length) {
@@ -187,12 +177,13 @@ public abstract class Grid<T extends Tile> implements Iterable<Tile> {
 
 		int count2 = 0;
 
-
 		List<Integer> mapping = Stream.iterate(0, i -> ++i)
 			.limit(rows * cols)
 			.collect(Collectors.toList());
 
 		Collections.shuffle(mapping);
+		mapping.remove(new Integer((rows/2) + (rows * (cols / 2))));
+		mapping.add(rows / 2 + rows * (cols / 2), rows / 2 + rows * (cols / 2));
 
 		// System.out.println(mapping);
 		for (int i : mapping) {
@@ -236,14 +227,14 @@ public abstract class Grid<T extends Tile> implements Iterable<Tile> {
 	}
 
 	/**
-	 * Clears this grid completely
+	 * Clears this grid completely.
 	 */
 	public void clear() {
 		grid = (T[][]) Array.newInstance(VisualTile.class, this.cols, this.rows);
 	}
 
 	/**
-	 * Prints the supplied text to the screen
+	 * Prints the supplied text to the screen.
 	 * @param toPrint the text to print
 	 */
 	public abstract void printText(String toPrint);
@@ -254,7 +245,7 @@ public abstract class Grid<T extends Tile> implements Iterable<Tile> {
 	public abstract void clearText();
 
 	/**
-	 * Prints the supplied text to the headline area
+	 * Prints the supplied text to the headline area.
 	 * @param toPrint the text to print
 	 */
 	public abstract void printHeadline(String toPrint);

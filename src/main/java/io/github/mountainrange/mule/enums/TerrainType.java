@@ -1,7 +1,6 @@
 package io.github.mountainrange.mule.enums;
 
 import io.github.mountainrange.mule.Config;
-import io.github.mountainrange.mule.MULE;
 
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
@@ -10,30 +9,29 @@ import javafx.scene.shape.Rectangle;
  * Describes the kind of terrain found on a given tile. Terrain types affect resource production.
  */
 public enum TerrainType {
-	RIVER("pictures/", Config.DEFAULT_PACK, "/river.png"),
-	PLAIN("pictures/", Config.DEFAULT_PACK, "/plain.png"),
-	MOUNTAIN1("pictures/", Config.DEFAULT_PACK, "/mountain1.png"),
-	MOUNTAIN2("pictures/", Config.DEFAULT_PACK, "/mountain2.png"),
-	MOUNTAIN3("pictures/", Config.DEFAULT_PACK, "/mountain3.png"),
-	TOWN("pictures/", Config.DEFAULT_PACK, "/town.png"),
+	RIVER("pictures/", Config.getInstance().texturePack, "/river.png"),
+	PLAIN("pictures/", Config.getInstance().texturePack, "/plain.png"),
+	MOUNTAIN1("pictures/", Config.getInstance().texturePack, "/mountain1.png"),
+	MOUNTAIN2("pictures/", Config.getInstance().texturePack, "/mountain2.png"),
+	MOUNTAIN3("pictures/", Config.getInstance().texturePack, "/mountain3.png"),
+	LAKE("pictures/", Config.getInstance().texturePack, "/lake.png"),
+	TOWN("pictures/", Config.getInstance().texturePack, "/town.png"),
 	NULL(null, null, null);
 
-	private final int tileSize = 40;
+	private static final int TILE_SIZE = 40;
 
 	private final Rectangle rect;
-	private String dir;
+	private final String dir;
+	private final String fn;
+
 	private String pack;
-	private String fn;
 
 	TerrainType(Color c) {
 		this.dir = "pictures/";
 		this.pack = "";
 		this.fn = "ViPaint.png";
 
-		double vSize = MULE.VSIZE;
-		double hSize = MULE.HSIZE;
-
-		rect = new Rectangle(tileSize, tileSize);
+		rect = new Rectangle(TILE_SIZE, TILE_SIZE);
 		rect.setFill(c);
 
 		rect.setX(0);
@@ -49,10 +47,7 @@ public enum TerrainType {
 		this.pack = pack;
 		this.fn = fn;
 
-		double vSize = MULE.VSIZE;
-		double hSize = MULE.HSIZE;
-
-		rect = new Rectangle(tileSize, tileSize);
+		rect = new Rectangle(TILE_SIZE, TILE_SIZE);
 		//rect.setFill(c);
 
 		rect.setX(0);
@@ -73,6 +68,7 @@ public enum TerrainType {
 		MOUNTAIN1.pack = pack;
 		MOUNTAIN2.pack = pack;
 		MOUNTAIN3.pack = pack;
+		LAKE.pack = pack;
 		TOWN.pack = pack;
 	}
 }

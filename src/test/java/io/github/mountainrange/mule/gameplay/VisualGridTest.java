@@ -1,48 +1,56 @@
 package io.github.mountainrange.mule.gameplay;
 
-// Junit Imports
-import io.github.mountainrange.mule.gameplay.javafx.VisualTile;
+import io.github.mountainrange.mule.TestPane;
 import io.github.mountainrange.mule.gameplay.javafx.VisualTile;
 import io.github.mountainrange.mule.gameplay.javafx.VisualGrid;
-import org.junit.*;
-import static org.junit.Assert.*;
-import org.junit.rules.Timeout;
 
 import io.github.mountainrange.mule.enums.MapSize;
 import io.github.mountainrange.mule.enums.MapType;
 import io.github.mountainrange.mule.enums.TerrainType;
 
-import javafx.scene.layout.Pane;
-import javafx.scene.Node;
-import javafx.beans.property.SimpleListProperty;
-import javafx.collections.ObservableList;
-import com.sun.javafx.collections.TrackableObservableList;
-import com.sun.javafx.collections.VetoableListDecorator;
-import javafx.collections.ListChangeListener.Change;
+// Junit Imports
+import org.junit.*;
+import static org.junit.Assert.*;
 
-import java.util.List;
+import org.junit.rules.Timeout;
 
 /**
- * A class to test the visual Grid
+ * A class to test VisualGrid.
  */
 public class VisualGridTest {
 
 	@Rule
-	public Timeout timeout = new Timeout(10000);
+	public Timeout timeout = Timeout.seconds(10);
 
-	private VisualGrid<VisualTile> grid;
-	private Pane upperPane;
+	private VisualGrid grid;
 
 	@Before
 	public void setup() {
-		// Run for every test.
-		this.upperPane = new TestPane();
-		this.grid = new VisualGrid<>(9, 5, MapType.EMPTY, MapSize.ALPS, upperPane);
+		// Set up a dummy TestPane for every test
+		this.grid = new VisualGrid(9, 5, MapType.EMPTY, MapSize.ALPS, new TestPane());
 	}
 
 	@Test @SuppressWarnings("deprecated") // We need this for tests
 	public void basicAddTest() {
 		VisualTile input = new VisualTile(TerrainType.NULL);
+		grid.add(input, 2, 3);
+		VisualTile output = grid.get(2, 3);
+		VisualTile empty = grid.get(2, 4);
+		assertEquals(input, output);
+		assertNull(empty);
+	}
+
+	@Test(expected=IllegalArgumentException.class)
+	public void testOutOfBounds() {
+        VisualTile input = new VisualTile(TerrainType.NULL);
+        grid.add(input, 0, -1);
+	}
+
+	@Test @SuppressWarnings("deprecated") // We need this for tests
+	public void overwriteAddTest() {
+		VisualTile input = new VisualTile(TerrainType.NULL);
+		VisualTile input2 = new VisualTile(TerrainType.NULL);
+		grid.add(input2, 2, 3);
 		grid.add(input, 2, 3);
 		VisualTile output = grid.get(2, 3);
 		VisualTile empty = grid.get(2, 4);
@@ -104,34 +112,5 @@ public class VisualGridTest {
 		assertEquals(input, output);
 		assertNull(empty);
 		assertNull(empty2);
-	}
-
-	// A pane that isn't a real pane and won't open a window
-	private class TestPane extends Pane {
-
-		private final ObservableList<Node> children = new VetoableListDecorator<Node>(new TrackableObservableList<Node>() {
-				protected void onChanged(Change<Node> c) {
-					// Do Nothing
-					// TODO add a test?
-				}
-			}) {
-				@Override
-				protected void onProposedChange(final List<Node> newNodes, int[] toBeRemoved) {
-					// Do nothing
-					// TODO add a test?
-				}
-
-				private String constructExceptionMessage(
-					String cause, Node offendingNode) {
-
-					return "This error was part of the VisualGridTest junit and should be fixed";
-				}
-			};
-
-		private ObservableList<Node> testList = new SimpleListProperty<>();
-
-		public ObservableList<Node> getChildren() {
-			return children;
-		}
 	}
 }

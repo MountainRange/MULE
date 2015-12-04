@@ -59,7 +59,7 @@ public enum MessageType {
 	}
 
 	public String getPlayerTurnMessage(int num) {
-		this.msg = "Player " + (num+1) + "'s turn has now begun.";
+		this.msg = String.format("Player %d's turn has now begun.", (num + 1));
 		return getMsg();
 	}
 }

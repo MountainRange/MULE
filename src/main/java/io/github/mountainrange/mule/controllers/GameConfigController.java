@@ -50,10 +50,9 @@ public class GameConfigController implements Initializable, SceneAgent {
 		diffSlider.setLabelFormatter(new StringConverter<Double>() {
 			@Override
 			public String toString(Double n) {
-				if (n == 0) return "Hill";
-				if (n == 1) return "Mesa";
-				if (n == 2) return "Plateau";
-
+				if (n == 0) { return "Hill"; }
+				if (n == 1) { return "Mesa"; }
+				if (n == 2) { return "Plateau"; }
 				return "Mountain";
 			}
 
@@ -72,9 +71,8 @@ public class GameConfigController implements Initializable, SceneAgent {
 		mapSlider.setLabelFormatter(new StringConverter<Double>() {
 			@Override
 			public String toString(Double n) {
-				if (n == 0) return "Pyrenees";
-				if (n == 1) return "Alps";
-
+				if (n == 0) { return "Pyrenees"; }
+				if (n == 1) { return "Alps"; }
 				return "Himalayas";
 			}
 
@@ -98,6 +96,7 @@ public class GameConfigController implements Initializable, SceneAgent {
 		mapTypeCombo.getItems().add("CLASSIC");
 		mapTypeCombo.getItems().add("RANDOM");
 		mapTypeCombo.getItems().add("EXPERIMENTAL");
+		mapTypeCombo.getItems().add("CUSTOM");
 	}
 
 	public void setSceneParent(SceneLoader sceneLoader, MULE mule){

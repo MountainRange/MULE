@@ -43,9 +43,7 @@ public class KeyBindManager {
 	 * This one in particular takes in a Collection of phaseCounts
 	 */
 	public void add(GameType gt, String sn, Iterable<Integer> phaseCount, KeyCode toAdd, KeyFunction lambda) {
-		phaseCount.forEach((input) -> {
-				this.add(gt, sn, input, toAdd, lambda);
-			});
+		phaseCount.forEach((input) -> this.add(gt, sn, input, toAdd, lambda));
 	}
 
 	/**
@@ -53,9 +51,7 @@ public class KeyBindManager {
 	 * This particular one takes in a Collection of GameTypes, all set to this keyCode/function
 	 */
 	public void add(Iterable<GameType> gt, String sn, int phaseCount, KeyCode toAdd, KeyFunction lambda) {
-		gt.forEach((input) -> {
-				this.add(input, sn, phaseCount, toAdd, lambda);
-			});
+		gt.forEach((input) -> this.add(input, sn, phaseCount, toAdd, lambda));
 	}
 
 	/**
@@ -63,9 +59,7 @@ public class KeyBindManager {
 	 * This particular one takes in a Collection of GameTypes and phaseCounts.
 	 */
 	public void add(Iterable<GameType> gt, String sn, Iterable<Integer> phaseCount, KeyCode toAdd, KeyFunction lambda) {
-		gt.forEach((input) -> {
-				this.add(input, sn, phaseCount, toAdd, lambda);
-			});
+		gt.forEach((input) -> this.add(input, sn, phaseCount, toAdd, lambda));
 	}
 
 	/**
@@ -114,7 +108,7 @@ public class KeyBindManager {
 	/**
 	 * A method to initialize the defaults.
 	 */
-	public static void addDefaultBindings(KeyBindManager toBind) {
+	private static void addDefaultBindings(KeyBindManager toBind) {
 
 		// ----------------------------TURN INCREMENTERS-------------------------------
 		// Player 1 Next Turn
@@ -242,6 +236,7 @@ public class KeyBindManager {
 				(a) -> {
 					a.map.selectRight();
 					return "Moved Right"; });
+
 	}
 
 }

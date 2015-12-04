@@ -2,13 +2,11 @@ package io.github.mountainrange.mule.gameplay.javafx;
 
 import io.github.mountainrange.mule.enums.MapSize;
 import io.github.mountainrange.mule.enums.MapType;
-
 import io.github.mountainrange.mule.gameplay.Grid;
-import io.github.mountainrange.mule.gameplay.Tile;
+
 import javafx.animation.Interpolator;
 import javafx.animation.PathTransition;
 import javafx.geometry.Point2D;
-import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
@@ -23,6 +21,8 @@ import javafx.scene.text.FontPosture;
 import javafx.scene.text.FontWeight;
 import javafx.util.Duration;
 
+import java.lang.reflect.Array;
+
 /**
  * A class to represent a scalable Grid in javafx.
  * Needs a pane to draw the grid to.
@@ -31,7 +31,7 @@ import javafx.util.Duration;
  * @version 1.0
  *
  */
-public class VisualGrid<T extends Group & Tile> extends Grid<T> {
+public class VisualGrid extends Grid<VisualTile> {
 	private Pane upperPane;
 	private Rectangle selectionRect;
 
@@ -63,11 +63,22 @@ public class VisualGrid<T extends Group & Tile> extends Grid<T> {
 	}
 
 	public VisualGrid(int cols, int rows, MapType mapType, MapSize mapSize, Pane upperPane) {
-		super(cols, rows, mapType, mapSize);
+		super(cols, rows);
 		this.upperPane = upperPane;
+
+		grid = (VisualTile[][]) Array.newInstance(VisualTile.class, this.cols, this.rows);
 
 		// Loads existing grid in, and other stuff.
 		resetGrid();
+
+		// Copy data terrain information for the current MapType into this grid
+		for (int i = 0; i < mapType.getMap().length; i++) {
+			for (int j = 0; j < mapType.getMap()[0].length; j++) {
+				if (mapType.getMap()[i][j] != null) {
+					add(new VisualTile(mapType.getMap()[i][j]), j, i);
+				}
+			}
+		}
 	}
 
 	/**
@@ -127,11 +138,7 @@ public class VisualGrid<T extends Group & Tile> extends Grid<T> {
 	 *
 	 * Will overwrite any existing element in the grid.
 	 */
-	public void add(T toAdd, int column, int row) {
-		if (!(toAdd instanceof VisualTile)) {
-			throw new IllegalArgumentException("You cannot use non-visual tiles with VisualGrid!");
-		}
-
+	public void add(VisualTile toAdd, int column, int row) {
 		super.add(toAdd, column, row);
 
 		toAdd.maxHeight(1);
@@ -144,8 +151,8 @@ public class VisualGrid<T extends Group & Tile> extends Grid<T> {
 	/**
 	 * Removes a node from a selected row/column
 	 */
-	public T remove(int column, int row) {
-		T toReturn = super.remove(column, row);
+	public VisualTile remove(int column, int row) {
+		VisualTile toReturn = super.remove(column, row);
 		if (toReturn != null) {
 			upperPane.getChildren().remove(toReturn);
 		}
@@ -165,11 +172,11 @@ public class VisualGrid<T extends Group & Tile> extends Grid<T> {
 
 	@Override
 	public void addToTile(Object toAdd, int column, int row) {
-		if (!(toAdd instanceof Node && toAdd instanceof Tile)) {
+		if (!(toAdd instanceof VisualTile)) {
 			throw new IllegalArgumentException("You cannot add non-visual elements to a VisualGrid Tile");
 		}
 
-		((T)grid[column][row]).getChildren().add((T) toAdd);
+		grid[column][row].getChildren().add((VisualTile) toAdd);
 	}
 
 	/**
@@ -194,9 +201,9 @@ public class VisualGrid<T extends Group & Tile> extends Grid<T> {
 	}
 
 	@Override
-	public void move(int columnFrom, int rowFrom, int columnTo, int rowTo, T[][] fromGrid, T[][] toGrid) {
+	public void move(int columnFrom, int rowFrom, int columnTo, int rowTo, VisualTile[][] fromGrid, VisualTile[][] toGrid) {
 		// Find the node to animate (not moved yet)
-		T toAnimate = grid[columnFrom][rowFrom];
+		VisualTile toAnimate = grid[columnFrom][rowFrom];
 
 		super.move(columnFrom, rowFrom, columnTo, rowTo, fromGrid, toGrid);
 
@@ -237,7 +244,7 @@ public class VisualGrid<T extends Group & Tile> extends Grid<T> {
 
 	@Override
 	public boolean isInside(Point2D toCheck, int column, int row) {
-		T tile = grid[column][row];
+		VisualTile tile = grid[column][row];
 		Rectangle r = new Rectangle(tile.getLayoutX() - tile.getScaleX() / 2,
 				tile.getLayoutY() - tile.getScaleY() / 2,
 				tile.getScaleX(), tile.getScaleY());

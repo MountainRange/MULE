@@ -76,7 +76,8 @@ public class PlayerConfigController implements Initializable, SceneAgent {
 	}
 
 	public void onSetScene() {
-
+		Config.getInstance().soundManager
+				.changePlaylist(Config.getInstance().titlePlaylist);
 	}
 
 	public void setSceneParent(SceneLoader sceneLoader, MULE mule){

@@ -30,7 +30,7 @@ public class GameManager {
 	private Config config;
 	private SceneLoader sceneLoader;
 	private Shop shop;
-	private WorldMap map;
+	private WorldMap<? extends Tile> map;
 
 	private KeyBindManager keyManager;
 	private MouseHandler mouseHandler;
@@ -39,8 +39,7 @@ public class GameManager {
 	private Timeline timerTimeline;
 	private Timeline messageTimeline;
 
-	private Label resourceLabel;
-	private Label turnLabel;
+	private LabelManager labelManager;
 
 	private boolean freeLand;
 	private boolean gambleFlag;
@@ -53,11 +52,10 @@ public class GameManager {
 	private int roundCount;
 	private int timeLeft;
 
-	public GameManager(WorldMap map, Label turnLabel, Label resourceLabel, SceneLoader sceneLoader) {
+	public GameManager(WorldMap map, LabelManager labelManager, SceneLoader sceneLoader) {
 		this.map = map;
-		this.resourceLabel = resourceLabel;
 		this.sceneLoader = sceneLoader;
-		this.turnLabel = turnLabel;
+		this.labelManager = labelManager;
 
 		config = Config.getInstance();
 		playerList = new ArrayList<>(Arrays.asList(config.playerList).subList(0, config.numOfPlayers));
@@ -65,11 +63,10 @@ public class GameManager {
 		turnOrder = new ArrayList<>(playerList);
 		shop = new Shop(config.difficulty);
 
-
 		currentPlayerNum = 0;
 		passCounter = 0;
 		phaseCount = 0;
-		roundCount = -2;
+		roundCount = -3;
 		timeLeft = 0;
 
 		freeLand = true;
@@ -105,8 +102,8 @@ public class GameManager {
 		nextRound();
 	}
 
-	/*
-	 * Passes player turn during land-grab phase for HOTSEAT only
+	/**
+	 * Passes player turn during land-grab phase for HOTSEAT only.
 	 */
 	public void pass() {
 		if (!freeLand) {
@@ -121,9 +118,7 @@ public class GameManager {
 	}
 
 	/**
-	 * Increments the turn
-	 *
-	 * Matthew don't copy paste code...
+	 * Increments the turn.
 	 */
 	public void incrementTurn() {
 		passCounter++;
@@ -165,7 +160,7 @@ public class GameManager {
 							if (config.numOfPlayers == passCounter) {
 								nextRound();
 							}
-						} else if (freeLand) {
+						} else {
 							if (currentPlayerNum == 0) {
 								passCounter = 0;
 								nextRound();
@@ -223,14 +218,14 @@ public class GameManager {
 	 */
 	public void setLabels() {
 		Player currentPlayer = turnOrder.get(currentPlayerNum);
-		turnLabel.setText(turnOrder.get(currentPlayerNum).getName() + "'s Turn " + timeLeft);
+		labelManager.processTurnLabel(turnOrder.get(currentPlayerNum).getName() + "'s Turn " + timeLeft);
 		String s = String.format("%1$s's Money: %2$s F: %3$s E: %4$s S: %5$s C: %6$s",
 				currentPlayer.getName(), currentPlayer.getMoney(),
 				currentPlayer.stockOf(ResourceType.FOOD),
 				currentPlayer.stockOf(ResourceType.ENERGY),
 				currentPlayer.stockOf(ResourceType.SMITHORE),
 				currentPlayer.stockOf(ResourceType.CRYSTITE));
-		resourceLabel.setText(s);
+		labelManager.processResourceLabel(s);
 	}
 
 	/**
@@ -238,7 +233,6 @@ public class GameManager {
 	 * production, increment the round counter, and reorder players by increasing score.
 	 */
 	private void nextRound() {
-
 		// Reorder players based on score
 		calculateTurnOrder();
 		// Increment roundCount to the next round
@@ -290,29 +284,43 @@ public class GameManager {
 	}
 
 	/**
-	 * Calls WorldMap to display a normal, custom, or temporary message
-	 * @param msg
+	 * Calls WorldMap to display a normal message.
+	 * @param msg message to display
 	 */
 	public void showText(MessageType msg) {
 		map.showText(msg);
 	}
+
+	/**
+	 * Calls WorldMap to display a custom message.
+	 * @param msg message to display
+	 */
 	public void showCustomText(String msg) {
 		map.showCustomText(msg);
 	}
+
+	/**
+	 * Displays a temporary message.
+	 * @param msg message to display
+	 */
 	public void showTempText(MessageType msg) {
 		showText(msg);
 		messageTimeline.playFromStart();
 	}
 
 	/**
-	 * Method called at the end of messageTimeline, clears display
-	 * @param e
+	 * Clear the display after a messageTimeline expires.
+	 * @param e event to react to
 	 */
 	private void messageAction(ActionEvent e) {
 		showText(MessageType.NONE);
 	}
 
-	public void decreaseFood(MessageType msg) {
+	/**
+	 * Apply a food-related event to the current player.
+	 * @param msg message to apply
+	 */
+	public void changeFood(MessageType msg) {
 		if (msg == MessageType.LOSEFOOD) {
 			Player player = playerList.get(currentPlayerNum);
 			player.changeStockOf(ResourceType.FOOD, -1);
@@ -342,7 +350,7 @@ public class GameManager {
 				runSelector();
 			}
 		} else if (config.gameType == GameType.SIMULTANEOUS) {
-			turnLabel.setText("Land grab Phase");
+			labelManager.processTurnLabel("Land grab Phase");
 			runSelector();
 		}
 	}
@@ -447,7 +455,7 @@ public class GameManager {
 		setLabels();
 		if (gambleFlag) {
 			gambleFlag = false;
-			turnOrder.get(currentPlayerNum).addMoney(Shop.gamblingProfit(roundCount, timeLeft));
+			turnOrder.get(currentPlayerNum).changeMoney(Shop.gamblingProfit(roundCount, timeLeft));
 			endTurn();
 		}
 		if (timeLeft <= 0) {
@@ -555,5 +563,33 @@ public class GameManager {
 				}
 			}
 		}
+	}
+
+	public int getTimeLeft() {
+		return timeLeft;
+	}
+
+	public int getRoundCount() {
+		return roundCount;
+	}
+
+	public List<Player> getTurnOrder() {
+		return turnOrder;
+	}
+
+	public Config getConfig() {
+		return Config.getInstance();
+	}
+
+	public boolean isFreeLand() {
+		return freeLand;
+	}
+
+	public int getFoodRequired() {
+		return foodRequired;
+	}
+
+	public int getPhaseCount() {
+		return phaseCount;
 	}
 }
