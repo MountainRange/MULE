@@ -14,6 +14,13 @@ public class ProductionResult {
 	/** The number of units of a resource that are theoretically required on the next round. */
 	public final int requirement;
 
+	/**
+	 * Create a new {@code ProductionResult} with the given fields.
+	 * @param usage usage field to set
+	 * @param spoilage spoilage field to set
+	 * @param production production field to set
+	 * @param requirement requirement field to set
+     */
 	public ProductionResult(int usage, int spoilage, int production, int requirement) {
 		this.usage = usage;
 		this.spoilage = spoilage;

@@ -9,13 +9,13 @@ import javafx.scene.shape.Rectangle;
  * Describes the kind of terrain found on a given tile. Terrain types affect resource production.
  */
 public enum TerrainType {
-	RIVER("pictures/", Config.getInstance().texturePack, "/river.png"),
-	PLAIN("pictures/", Config.getInstance().texturePack, "/plain.png"),
-	MOUNTAIN1("pictures/", Config.getInstance().texturePack, "/mountain1.png"),
-	MOUNTAIN2("pictures/", Config.getInstance().texturePack, "/mountain2.png"),
-	MOUNTAIN3("pictures/", Config.getInstance().texturePack, "/mountain3.png"),
-	LAKE("pictures/", Config.getInstance().texturePack, "/lake.png"),
-	TOWN("pictures/", Config.getInstance().texturePack, "/town.png"),
+	RIVER("pictures/", Config.getInstance().texturePack, "/river"),
+	PLAIN("pictures/", Config.getInstance().texturePack, "/plain"),
+	MOUNTAIN1("pictures/", Config.getInstance().texturePack, "/mountain1"),
+	MOUNTAIN2("pictures/", Config.getInstance().texturePack, "/mountain2"),
+	MOUNTAIN3("pictures/", Config.getInstance().texturePack, "/mountain3"),
+	LAKE("pictures/", Config.getInstance().texturePack, "/lake"),
+	TOWN("pictures/", Config.getInstance().texturePack, "/town"),
 	NULL(null, null, null);
 
 	private static final int TILE_SIZE = 40;
@@ -29,7 +29,7 @@ public enum TerrainType {
 	TerrainType(Color c) {
 		this.dir = "pictures/";
 		this.pack = "";
-		this.fn = "ViPaint.png";
+		this.fn = "ViPaint";
 
 		rect = new Rectangle(TILE_SIZE, TILE_SIZE);
 		rect.setFill(c);
@@ -62,6 +62,11 @@ public enum TerrainType {
 		return dir + pack + fn;
 	}
 
+	/**
+	 * Change the texture pack to the one given. There should exist a folder in pictures of this name with all the
+	 * images required for each tile in it.
+	 * @param pack name of the texture pack to change to
+     */
 	public static void changePack(String pack) {
 		RIVER.pack = pack;
 		PLAIN.pack = pack;
