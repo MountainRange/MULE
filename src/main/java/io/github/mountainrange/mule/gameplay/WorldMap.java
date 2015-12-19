@@ -198,6 +198,7 @@ public class WorldMap<T extends Tile> implements Iterable<Tile> {
 	 * @return town The town tile
 	 */
 	public Tile getTown() {
+		//todo
 		return null;
 	}
 

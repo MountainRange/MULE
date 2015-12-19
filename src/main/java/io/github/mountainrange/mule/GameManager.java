@@ -1,9 +1,6 @@
 package io.github.mountainrange.mule;
 
-import io.github.mountainrange.mule.enums.GameType;
-import io.github.mountainrange.mule.enums.MessageType;
-import io.github.mountainrange.mule.enums.MuleType;
-import io.github.mountainrange.mule.enums.ResourceType;
+import io.github.mountainrange.mule.enums.*;
 import io.github.mountainrange.mule.gameplay.*;
 import io.github.mountainrange.mule.managers.*;
 
@@ -11,7 +8,6 @@ import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
 import javafx.geometry.Point2D;
-import javafx.scene.control.Label;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.util.Duration;
@@ -146,11 +142,16 @@ public class GameManager {
 	}
 
 	/**
-	 * Attempt to buy the currently selected tile for the given player, or place a MULE.
-	 * @param player player to buy tile for
+	 * If the selected tile is the town, enter the town menu. Otherwise, attempt to buy the currently selected tile for
+	 * the given player, or place a MULE.
+	 * @param player Player to perform the action for
 	 */
-	public void buyTile(Player player) {
-		if (player.hasMule()) {
+	public void tileOperation(Player player) {
+		if (map.cursorTile().getTerrain().equals(TerrainType.TOWN)) {
+			if (phaseCount == 1) {
+				sceneLoader.setScene(MULE.TOWN_SCENE);
+			}
+		} else if (player.hasMule()) {
 			map.placeMule(player);
 		} else {
 			if (map.getOwner() == null) {
@@ -587,10 +588,10 @@ public class GameManager {
 	}
 
 	/**
-	 * Attempt to buy the currently selected tile for the current player.
+	 * Attempt to operate on the currently selected tile for the current player.
 	 */
-	public void buyTile() {
-		buyTile(turnOrder.get(currentPlayerNum));
+	public void tileOperation() {
+		tileOperation(turnOrder.get(currentPlayerNum));
 	}
 
 	/**

@@ -48,12 +48,12 @@ public class GameManagerTest {
 	}
 
 	/**
-	 * Checks correct branching of buyTile
+	 * Checks correct branching of tileOperation
 	 */
 	@Test
 	public void testBuyTile() {
 		Player p = new Player(0, "Test", Race.FOLD, Color.BEIGE);
-		//manager.buyTile(p);
+		//manager.tileOperation(p);
 		assert(true);
 	}
 
