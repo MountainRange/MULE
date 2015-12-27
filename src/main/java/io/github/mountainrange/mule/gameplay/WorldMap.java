@@ -3,6 +3,7 @@ package io.github.mountainrange.mule.gameplay;
 import io.github.mountainrange.mule.enums.MapType;
 import io.github.mountainrange.mule.enums.MessageType;
 import io.github.mountainrange.mule.enums.MuleType;
+import io.github.mountainrange.mule.enums.TerrainType;
 import javafx.geometry.Point2D;
 
 import java.util.*;
@@ -198,7 +199,11 @@ public class WorldMap<T extends Tile> implements Iterable<Tile> {
 	 * @return town The town tile
 	 */
 	public Tile getTown() {
-		//todo
+		for (Tile t : baseGrid) {
+			if (t.getTerrain().equals(TerrainType.TOWN)) {
+				return t;
+			}
+		}
 		return null;
 	}
 
