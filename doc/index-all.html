@@ -169,14 +169,6 @@
 </dd>
 <dt><span class="memberNameLink"><a href="io/github/mountainrange/mule/Config.html#buyers">buyers</a></span> - Variable in class io.github.mountainrange.mule.<a href="io/github/mountainrange/mule/Config.html" title="class in io.github.mountainrange.mule">Config</a></dt>
 <dd>&nbsp;</dd>
-<dt><span class="memberNameLink"><a href="io/github/mountainrange/mule/GameManager.html#buyTile-io.github.mountainrange.mule.gameplay.Player-">buyTile(Player)</a></span> - Method in class io.github.mountainrange.mule.<a href="io/github/mountainrange/mule/GameManager.html" title="class in io.github.mountainrange.mule">GameManager</a></dt>
-<dd>
-<div class="block">Attempt to buy the currently selected tile for the given player, or place a MULE.</div>
-</dd>
-<dt><span class="memberNameLink"><a href="io/github/mountainrange/mule/GameManager.html#buyTile--">buyTile()</a></span> - Method in class io.github.mountainrange.mule.<a href="io/github/mountainrange/mule/GameManager.html" title="class in io.github.mountainrange.mule">GameManager</a></dt>
-<dd>
-<div class="block">Attempt to buy the currently selected tile for the current player.</div>
-</dd>
 </dl>
 <a name="I:C">
 <!--   -->
@@ -529,6 +521,10 @@
 <dt><span class="memberNameLink"><a href="io/github/mountainrange/mule/GameManager.html#getTimeLeft--">getTimeLeft()</a></span> - Method in class io.github.mountainrange.mule.<a href="io/github/mountainrange/mule/GameManager.html" title="class in io.github.mountainrange.mule">GameManager</a></dt>
 <dd>
 <div class="block">Gets the time left for this round</div>
+</dd>
+<dt><span class="memberNameLink"><a href="io/github/mountainrange/mule/gameplay/WorldMap.html#getTown--">getTown()</a></span> - Method in class io.github.mountainrange.mule.gameplay.<a href="io/github/mountainrange/mule/gameplay/WorldMap.html" title="class in io.github.mountainrange.mule.gameplay">WorldMap</a></dt>
+<dd>
+<div class="block">Returns the tile with the town in it.</div>
 </dd>
 <dt><span class="memberNameLink"><a href="io/github/mountainrange/mule/GameManager.html#getTurnOrder--">getTurnOrder()</a></span> - Method in class io.github.mountainrange.mule.<a href="io/github/mountainrange/mule/GameManager.html" title="class in io.github.mountainrange.mule">GameManager</a></dt>
 <dd>
@@ -1326,6 +1322,14 @@
 <dt><a href="io/github/mountainrange/mule/gameplay/Tile.html" title="interface in io.github.mountainrange.mule.gameplay"><span class="typeNameLink">Tile</span></a> - Interface in <a href="io/github/mountainrange/mule/gameplay/package-summary.html">io.github.mountainrange.mule.gameplay</a></dt>
 <dd>
 <div class="block">An interface which all tiles will implement.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="io/github/mountainrange/mule/GameManager.html#tileOperation-io.github.mountainrange.mule.gameplay.Player-">tileOperation(Player)</a></span> - Method in class io.github.mountainrange.mule.<a href="io/github/mountainrange/mule/GameManager.html" title="class in io.github.mountainrange.mule">GameManager</a></dt>
+<dd>
+<div class="block">If the selected tile is the town, enter the town menu.</div>
+</dd>
+<dt><span class="memberNameLink"><a href="io/github/mountainrange/mule/GameManager.html#tileOperation--">tileOperation()</a></span> - Method in class io.github.mountainrange.mule.<a href="io/github/mountainrange/mule/GameManager.html" title="class in io.github.mountainrange.mule">GameManager</a></dt>
+<dd>
+<div class="block">Attempt to operate on the currently selected tile for the current player.</div>
 </dd>
 <dt><span class="memberNameLink"><a href="io/github/mountainrange/mule/gameplay/WorldMap.html#tilesWithMule-io.github.mountainrange.mule.gameplay.Player-io.github.mountainrange.mule.enums.MuleType-">tilesWithMule(Player, MuleType)</a></span> - Method in class io.github.mountainrange.mule.gameplay.<a href="io/github/mountainrange/mule/gameplay/WorldMap.html" title="class in io.github.mountainrange.mule.gameplay">WorldMap</a></dt>
 <dd>
