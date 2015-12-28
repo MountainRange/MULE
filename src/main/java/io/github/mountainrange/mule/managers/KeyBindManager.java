@@ -146,7 +146,7 @@ public class KeyBindManager {
 		toBind.add(new GameView(GameType.SIMULTANEOUS, MULE.PLAY_SCENE, 0), KeyCode.SPACE,
 				(a) -> {
 					if (Config.getInstance().numOfPlayers > 0) {
-						a.manager.buyTile(a.manager.getPlayerList().get(0));
+						a.manager.tileOperation(a.manager.getPlayerList().get(0));
 					}
 					return "Bought land for Player 1"; });
 
@@ -154,7 +154,7 @@ public class KeyBindManager {
 		toBind.add(new GameView(GameType.SIMULTANEOUS, MULE.PLAY_SCENE, 0), KeyCode.P,
 				(a) -> {
 					if (Config.getInstance().numOfPlayers > 1) {
-						a.manager.buyTile(a.manager.getPlayerList().get(1));
+						a.manager.tileOperation(a.manager.getPlayerList().get(1));
 					}
 					return "Bought land for Player 2"; });
 
@@ -162,7 +162,7 @@ public class KeyBindManager {
 		toBind.add(new GameView(GameType.SIMULTANEOUS, MULE.PLAY_SCENE, 0), KeyCode.Q,
 				(a) -> {
 					if (Config.getInstance().numOfPlayers > 2) {
-						a.manager.buyTile(a.manager.getPlayerList().get(2));
+						a.manager.tileOperation(a.manager.getPlayerList().get(2));
 					}
 					return "Bought land for Player 3"; });
 
@@ -170,7 +170,7 @@ public class KeyBindManager {
 		toBind.add(new GameView(GameType.SIMULTANEOUS, MULE.PLAY_SCENE, 0), KeyCode.PERIOD,
 				(a) -> {
 					if (Config.getInstance().numOfPlayers > 3) {
-						a.manager.buyTile(a.manager.getPlayerList().get(3));
+						a.manager.tileOperation(a.manager.getPlayerList().get(3));
 					}
 					return "Bought land for Player 4"; });
 
@@ -184,12 +184,12 @@ public class KeyBindManager {
 
 
 
-		// ----------------------------Buying Tiles-------------------------------
+		// ---------------------Performing Actions on Tiles------------------------
 
 		toBind.add(Arrays.asList(GameType.SIMULTANEOUS, GameType.HOTSEAT), MULE.PLAY_SCENE, Arrays.asList(0, 1), KeyCode.SPACE,
 				(a) -> {
-					a.manager.buyTile();
-					return "Bought Tile"; });
+					a.manager.tileOperation();
+					return "Operated on Tile"; });
 
 
 		// ----------------------------Movement Keys-------------------------------
