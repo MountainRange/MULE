@@ -69,6 +69,7 @@ public class MULE extends Application {
 		sceneLoader.loadScene(TOWN_SCENE, TOWN_SCENE_FXML);
 		sceneLoader.loadScene(PLAY_SCENE, PLAY_SCENE_FXML);
 		sceneLoader.loadScene(OPTIONS_SCENE, OPTIONS_SCENE_FXML);
+		sceneLoader.loadScene(CONTROLS_SCENE, CONTROLS_SCENE_FXML);
 		sceneLoader.loadScene(CREDITS_SCENE, CREDITS_SCENE_FXML);
 		sceneLoader.loadScene(GAME_CONFIG_SCENE, GAME_CONFIG_SCENE_FXML);
 		sceneLoader.loadScene(PLAYER_CONFIG_SCENE, PLAYER_CONFIG_SCENE_FXML);
