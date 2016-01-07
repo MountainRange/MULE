@@ -44,6 +44,11 @@ public class MainController implements Initializable, SceneAgent {
 	}
 
 	@FXML
+	private void handleControlsAction(ActionEvent e) {
+		sceneLoader.setScene(MULE.CONTROLS_SCENE);
+	}
+
+	@FXML
 	private void handleCreditsAction(ActionEvent e) {
 		sceneLoader.setScene(MULE.CREDITS_SCENE);
 	}

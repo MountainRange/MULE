@@ -31,6 +31,8 @@ public class MULE extends Application {
 	public static final String PLAY_SCENE_FXML = "/fxml/play.fxml";
 	public static final String OPTIONS_SCENE = "options";
 	public static final String OPTIONS_SCENE_FXML = "/fxml/options.fxml";
+	public static final String CONTROLS_SCENE = "controls";
+	public static final String CONTROLS_SCENE_FXML = "/fxml/controls.fxml";
 	public static final String CREDITS_SCENE = "credits";
 	public static final String CREDITS_SCENE_FXML = "/fxml/credits.fxml";
 	public static final String GAME_CONFIG_SCENE = "gameConfiguration";
