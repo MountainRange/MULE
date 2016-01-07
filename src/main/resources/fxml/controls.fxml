@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.40" xmlns:fx="http://javafx.com/fxml/1" fx:controller="io.github.mountainrange.mule.controllers.CreditsController">
+   <center>
+      <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" spacing="5.0" BorderPane.alignment="CENTER">
+         <children>
+            <Label text="Controls" />
+            <HBox alignment="TOP_CENTER" prefHeight="52.0" prefWidth="600.0" spacing="20.0">
+               <children>
+                  <VBox alignment="TOP_RIGHT" HBox.hgrow="ALWAYS">
+                     <children>
+                        <Label contentDisplay="RIGHT" text="Move cursor" />
+                        <Label contentDisplay="RIGHT" layoutX="211.0" layoutY="10.0" text="Pass turn (buy phase)" />
+                        <Label contentDisplay="RIGHT" layoutX="183.0" layoutY="26.0" text="Buy tile" />
+                        <Label contentDisplay="RIGHT" layoutX="270.0" layoutY="42.0" text="Place MULE" />
+                        <Label contentDisplay="RIGHT" layoutX="270.0" layoutY="58.0" text="Enter town" />
+                     </children>
+                  </VBox>
+                  <VBox prefHeight="200.0" prefWidth="100.0" HBox.hgrow="ALWAYS">
+                     <children>
+                        <Label text="Arrow Keys" />
+                        <Label text="X" />
+                        <Label layoutX="10.0" layoutY="10.0" text="Space" />
+                        <Label layoutX="10.0" layoutY="42.0" text="Space" />
+                        <Label layoutX="10.0" layoutY="26.0" text="Space" />
+                     </children>
+                  </VBox>
+               </children>
+            </HBox>
+            <Button fx:id="backButton" mnemonicParsing="false" onAction="#handleBackAction" prefWidth="200.0" text="Back" />
+         </children>
+      </VBox>
+   </center>
+</BorderPane>
