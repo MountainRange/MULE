@@ -2,13 +2,21 @@ package io.github.mountainrange.mule;
 
 import io.github.mountainrange.mule.Config;
 import io.github.jgkamat.JayLayer.JayLayer;
+import javafx.animation.PauseTransition;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.event.EventHandler;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.StackPane;
 import javafx.scene.Scene;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
+import javafx.util.Duration;
+import java.io.File;
+import java.util.concurrent.TimeUnit;
 
 public class MULE extends Application {
 
@@ -60,22 +68,20 @@ public class MULE extends Application {
 
 		primaryStage = pStage;
 
-		sceneLoader = new SceneLoader(this);
-		sceneLoader.loadScene(MAIN_SCENE, MAIN_SCENE_FXML);
-		sceneLoader.setScene(MAIN_SCENE);
-
-		menuBar = new SceneLoader(this);
-		menuBar.loadScene(MENU_BAR_SCENE, MENU_BAR_SCENE_FXML);
-		menuBar.setScene(MENU_BAR_SCENE);
-
-		BorderPane overlay = new BorderPane();
-		overlay.setCenter(sceneLoader);
-		overlay.setTop(menuBar);
-
-		Scene mainScene = new Scene(overlay, 640, 360);
+		File file = new File(System.getProperty("user.dir") + "/src/main/resources/pictures/MountainRange.png");
+		if (!file.exists()) {
+			System.out.println(System.getProperty("user.dir") + "/src/main/resources/pictures/MountainRange.png");
+		}
+		Image loadingImage = new Image(file.toURI().toString());
+		StackPane root = new StackPane();
+		ImageView view = new ImageView(loadingImage);
+		view.setFitHeight(600);
+		view.setFitWidth(600);
+		root.getChildren().add(view);
+		Scene loadingScene = new Scene(root, 600, 600);
 
 		primaryStage.setTitle("MULE");
-		primaryStage.setScene(mainScene);
+		primaryStage.setScene(loadingScene);
 		primaryStage.setMinHeight(600);
 		primaryStage.setMinWidth(600);
 
@@ -84,8 +90,12 @@ public class MULE extends Application {
             System.exit(0);
         });
 		primaryStage.show();
+		long startTime = System.currentTimeMillis();
 
-		// we load all these scenes after
+		// we load all these scenes after displaying the loading screen
+		sceneLoader = new SceneLoader(this);
+		sceneLoader.loadScene(MAIN_SCENE, MAIN_SCENE_FXML);
+		sceneLoader.setScene(MAIN_SCENE);
 		sceneLoader.loadScene(STORE_SCENE, STORE_SCENE_FXML);
 		sceneLoader.loadScene(PUB_SCENE, PUB_SCENE_FXML);
 		sceneLoader.loadScene(LAND_OFFICE_SCENE, LAND_OFFICE_SCENE_FXML);
@@ -99,6 +109,21 @@ public class MULE extends Application {
 		sceneLoader.loadScene(PLAYER_CONFIG_SCENE, PLAYER_CONFIG_SCENE_FXML);
 		sceneLoader.loadScene(ABOUT_SCENE, ABOUT_SCENE_FXML);
 		sceneLoader.loadScene(AUCTION_SCENE, AUCTION_SCENE_FXML);
+
+		menuBar = new SceneLoader(this);
+		menuBar.loadScene(MENU_BAR_SCENE, MENU_BAR_SCENE_FXML);
+		menuBar.setScene(MENU_BAR_SCENE);
+
+		BorderPane overlay = new BorderPane();
+		overlay.setCenter(sceneLoader);
+		overlay.setTop(menuBar);
+
+		Scene mainScene = new Scene(overlay, 640, 360);
+		System.out.println("NOOOOOOO");
+//		TimeUnit.SECONDS.sleep(5);
+		PauseTransition delay = new PauseTransition(Duration.seconds(3));
+		delay.setOnFinished(event -> primaryStage.setScene(mainScene));
+		delay.play();
 	}
 
 	public GameManager getGameManager() {
