@@ -62,19 +62,6 @@ public class MULE extends Application {
 
 		sceneLoader = new SceneLoader(this);
 		sceneLoader.loadScene(MAIN_SCENE, MAIN_SCENE_FXML);
-		sceneLoader.loadScene(STORE_SCENE, STORE_SCENE_FXML);
-		sceneLoader.loadScene(PUB_SCENE, PUB_SCENE_FXML);
-		sceneLoader.loadScene(LAND_OFFICE_SCENE, LAND_OFFICE_SCENE_FXML);
-		sceneLoader.loadScene(ASSAY_OFFICE_SCENE, ASSAY_OFFICE_SCENE_FXML);
-		sceneLoader.loadScene(TOWN_SCENE, TOWN_SCENE_FXML);
-		sceneLoader.loadScene(PLAY_SCENE, PLAY_SCENE_FXML);
-		sceneLoader.loadScene(OPTIONS_SCENE, OPTIONS_SCENE_FXML);
-		sceneLoader.loadScene(CONTROLS_SCENE, CONTROLS_SCENE_FXML);
-		sceneLoader.loadScene(CREDITS_SCENE, CREDITS_SCENE_FXML);
-		sceneLoader.loadScene(GAME_CONFIG_SCENE, GAME_CONFIG_SCENE_FXML);
-		sceneLoader.loadScene(PLAYER_CONFIG_SCENE, PLAYER_CONFIG_SCENE_FXML);
-		sceneLoader.loadScene(ABOUT_SCENE, ABOUT_SCENE_FXML);
-		sceneLoader.loadScene(AUCTION_SCENE, AUCTION_SCENE_FXML);
 		sceneLoader.setScene(MAIN_SCENE);
 
 		menuBar = new SceneLoader(this);
@@ -97,6 +84,21 @@ public class MULE extends Application {
             System.exit(0);
         });
 		primaryStage.show();
+
+		// we load all these scenes after
+		sceneLoader.loadScene(STORE_SCENE, STORE_SCENE_FXML);
+		sceneLoader.loadScene(PUB_SCENE, PUB_SCENE_FXML);
+		sceneLoader.loadScene(LAND_OFFICE_SCENE, LAND_OFFICE_SCENE_FXML);
+		sceneLoader.loadScene(ASSAY_OFFICE_SCENE, ASSAY_OFFICE_SCENE_FXML);
+		sceneLoader.loadScene(TOWN_SCENE, TOWN_SCENE_FXML);
+		sceneLoader.loadScene(PLAY_SCENE, PLAY_SCENE_FXML);
+		sceneLoader.loadScene(OPTIONS_SCENE, OPTIONS_SCENE_FXML);
+		sceneLoader.loadScene(CONTROLS_SCENE, CONTROLS_SCENE_FXML);
+		sceneLoader.loadScene(CREDITS_SCENE, CREDITS_SCENE_FXML);
+		sceneLoader.loadScene(GAME_CONFIG_SCENE, GAME_CONFIG_SCENE_FXML);
+		sceneLoader.loadScene(PLAYER_CONFIG_SCENE, PLAYER_CONFIG_SCENE_FXML);
+		sceneLoader.loadScene(ABOUT_SCENE, ABOUT_SCENE_FXML);
+		sceneLoader.loadScene(AUCTION_SCENE, AUCTION_SCENE_FXML);
 	}
 
 	public GameManager getGameManager() {
