@@ -119,8 +119,6 @@ public class MULE extends Application {
 		overlay.setTop(menuBar);
 
 		Scene mainScene = new Scene(overlay, 640, 360);
-		System.out.println("NOOOOOOO");
-//		TimeUnit.SECONDS.sleep(5);
 		PauseTransition delay = new PauseTransition(Duration.seconds(3));
 		delay.setOnFinished(event -> primaryStage.setScene(mainScene));
 		delay.play();
